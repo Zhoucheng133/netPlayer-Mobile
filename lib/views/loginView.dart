@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:netplayer_mobile/functions/requests.dart';
 import 'package:netplayer_mobile/para/para.dart';
 
 class loginView extends StatefulWidget {
@@ -40,9 +41,25 @@ class _loginViewState extends State<loginView> {
     );
   }
 
-  void loginController(context){
+  Future<void> loginController(context) async {
     if(urlInput.text==""){
       _showDialog(context, "登录失败", "没有输入URL地址");
+      return;
+    }else if(usernameInput.text==""){
+      _showDialog(context, "登录失败", "没有输入用户名");
+      return;
+    }else if(passwordInput.text==""){
+      _showDialog(context, "登录失败", "没有输入密码");
+      return;
+    }
+    Map resp=await loginRequest(urlInput.text, usernameInput.text, passwordInput.text);
+    if(resp["status"]=="failed"){
+      _showDialog(context, "登录失败", "密码错误");
+    }else if(resp["status"]=="URL Err"){
+      _showDialog(context, "登录失败", "URL请求错误");
+    }else{
+      c.updateLogin(true);
+      print(resp);
     }
   }
   
@@ -206,8 +223,8 @@ class _loginViewState extends State<loginView> {
               children: [
                 Expanded(child: Container()),
                 GestureDetector(
-                  onTap: (){
-                    _showDialog(context, "测试", "测试内容");
+                  onTap: ()async{
+                    loginController(context);
                   },
                   onTapUp: (details){
                     setState(() {
