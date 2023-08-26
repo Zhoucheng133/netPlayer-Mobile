@@ -42,6 +42,10 @@ class _MainAppState extends State<MainApp> {
   }
   @override
   Widget build(BuildContext context) {
-    return c.isLogin==true ? mainView() : loginView();
+    return MaterialApp(
+      home: Scaffold(
+        body: c.isLogin==true ? mainView() : loginView(),
+      ),
+    );
   }
 }

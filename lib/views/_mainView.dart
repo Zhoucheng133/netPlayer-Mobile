@@ -16,12 +16,8 @@ class _mainViewState extends State<mainView> {
   
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text("主界面"),
-        )
-      ),
+    return Center(
+      child: Text("hello world!"),
     );
   }
 }
