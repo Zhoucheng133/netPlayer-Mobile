@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/para/para.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class mainView extends StatefulWidget {
   const mainView({super.key});
@@ -17,7 +18,15 @@ class _mainViewState extends State<mainView> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text("hello world!"),
+      child: TextButton(
+        child: Text("退出登录"),
+        onPressed: () async {
+          final SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.clear();
+          c.updatePlayInfo({});
+          c.updateLogin(false);
+        },
+      ),
     );
   }
 }

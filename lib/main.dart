@@ -26,7 +26,7 @@ class _MainAppState extends State<MainApp> {
 
   Future<void> checkLogin() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? userData = prefs.getString('userData');
+    final String? userData = prefs.getString('userInfo');
     if(userData!=null){
       c.updateLogin(true);
       Map<String,dynamic> decodeUserData = json.decode(userData);
@@ -44,7 +44,9 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: c.isLogin==true ? mainView() : loginView(),
+        body: Obx(() => 
+          c.isLogin==true ? mainView() : loginView()
+        ),
       ),
     );
   }

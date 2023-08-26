@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/functions/requests.dart';
 import 'package:netplayer_mobile/para/para.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'dart:convert';
 
 class loginView extends StatefulWidget {
   const loginView({super.key});
@@ -58,8 +61,17 @@ class _loginViewState extends State<loginView> {
     }else if(resp["status"]=="URL Err"){
       _showDialog(context, "登录失败", "URL请求错误");
     }else{
+      Map userInfo={
+        "url": resp["url"].toString(),
+        "username": resp["username"].toString(),
+        "salt": resp["salt"].toString(),
+        "token": resp["token"].toString(),
+      };
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      String info=json.encode(userInfo);
+      await prefs.setString('userInfo', info);
+      c.updatePlayInfo(userInfo);
       c.updateLogin(true);
-      print(resp);
     }
   }
   
