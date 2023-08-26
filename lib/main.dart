@@ -4,11 +4,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:netplayer_mobile/para/para.dart';
 import 'package:netplayer_mobile/views/_mainView.dart';
 import 'package:netplayer_mobile/views/loginView.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'para/para.dart';
 
 void main() {
   runApp(MainApp());

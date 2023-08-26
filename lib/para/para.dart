@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Controller extends GetxController{
@@ -15,6 +16,11 @@ class Controller extends GetxController{
   var artists=[].obs;
   // 所有专辑信息
   var albums=[].obs;
+
+  // 主题色
+  var mainColor=const Color.fromARGB(255, 24, 144, 255);
+  // 强调色
+  var mainColorStrang=const Color.fromARGB(255, 0, 100, 194);
 
   void updateLogin(data) => isLogin.value=data;
   void updateUserInfo(data) => userInfo.value=data;
