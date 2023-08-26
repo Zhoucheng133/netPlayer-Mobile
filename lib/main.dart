@@ -1,8 +1,12 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unrelated_type_equality_checks
+
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/views/_mainView.dart';
+import 'package:netplayer_mobile/views/loginView.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'para/para.dart';
 
@@ -19,14 +23,25 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   final Controller c = Get.put(Controller());
+
+  Future<void> checkLogin() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? userData = prefs.getString('userData');
+    if(userData!=null){
+      c.updateLogin(true);
+      Map<String,dynamic> decodeUserData = json.decode(userData);
+      c.updatePlayInfo(decodeUserData);
+    }
+  }
   
   @override
   void initState() {
     super.initState();
     // 检查登录
+    checkLogin();
   }
   @override
   Widget build(BuildContext context) {
-    return mainView();
+    return c.isLogin==true ? mainView() : loginView();
   }
 }

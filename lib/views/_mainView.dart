@@ -19,7 +19,7 @@ class _mainViewState extends State<mainView> {
     return MaterialApp(
       home: Scaffold(
         body: Center(
-          child: Text("Hello world!"),
+          child: Text("主界面"),
         )
       ),
     );
