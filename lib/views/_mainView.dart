@@ -6,7 +6,7 @@ import 'package:netplayer_mobile/para/para.dart';
 import 'package:netplayer_mobile/views/allSongsView.dart';
 import 'package:netplayer_mobile/views/artistsView.dart';
 import 'package:netplayer_mobile/views/lovedSongsView.dart';
-import 'package:netplayer_mobile/views/settingsView.dart';
+import 'package:netplayer_mobile/views/aboutView.dart';
 import 'package:netplayer_mobile/views/songListsView.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 
@@ -25,7 +25,7 @@ class _mainViewState extends State<mainView> {
     lovedSongsView(),
     songListsView(),
     artistsView(),
-    settingsView(),
+    aboutView(),
   ];
 
   @override
@@ -34,6 +34,8 @@ class _mainViewState extends State<mainView> {
       appBar: AppBar(
         elevation: 0,
         title: Obx(() => Text(c.pageAsyc[c.pageIndex]!)),
+        backgroundColor: Colors.white,
+        foregroundColor: c.mainColor,
       ),
       bottomNavigationBar: Obx(() => 
         BottomNavigationBar(
@@ -61,8 +63,8 @@ class _mainViewState extends State<mainView> {
               label: "艺人"
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: "设置"
+              icon: Icon(Icons.info),
+              label: "关于"
             )
           ],
         ),
