@@ -21,4 +21,9 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
   Future<void> skipToNext()async {
     
   }
+
+  @override
+  Future<void> skipToPrevious()async{
+
+  }
 }
