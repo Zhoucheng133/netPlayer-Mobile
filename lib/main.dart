@@ -32,7 +32,7 @@ class _MainAppState extends State<MainApp> {
     if(userData!=null){
       c.updateLogin(true);
       Map<String,dynamic> decodeUserData = json.decode(userData);
-      c.updatePlayInfo(decodeUserData);
+      c.updateUserInfo(decodeUserData);
     }
     setState(() {
       isLoaded=true;
