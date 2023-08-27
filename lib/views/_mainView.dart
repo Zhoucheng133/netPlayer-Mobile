@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:netplayer_mobile/para/para.dart';
 import 'package:netplayer_mobile/views/allSongsView.dart';
 import 'package:netplayer_mobile/views/artistsView.dart';
+import 'package:netplayer_mobile/views/components/playingBar.dart';
 import 'package:netplayer_mobile/views/lovedSongsView.dart';
 import 'package:netplayer_mobile/views/aboutView.dart';
 import 'package:netplayer_mobile/views/songListsView.dart';
@@ -69,7 +70,24 @@ class _mainViewState extends State<mainView> {
           ],
         ),
       ),
-      body: Obx(() => allView[c.pageIndex.value])
+      body: Stack(
+        children: [
+          Obx(() => allView[c.pageIndex.value]),
+          Obx(() => 
+            c.pageIndex.value<4 ?
+            Positioned(
+              bottom: 0,
+              height: 70,
+              child: Container(
+                height: 70,
+                width: MediaQuery.of(context).size.width,
+                color: Colors.white,
+                child: playingBar(),
+              )
+            ) : SizedBox(width: 0, height: 0,),
+          )
+        ],
+      )
     );
   }
 }
