@@ -24,6 +24,8 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> {
   final Controller c = Get.put(Controller());
 
+  var isLoaded=false;
+
   Future<void> checkLogin() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? userData = prefs.getString('userInfo');
@@ -32,6 +34,9 @@ class _MainAppState extends State<MainApp> {
       Map<String,dynamic> decodeUserData = json.decode(userData);
       c.updatePlayInfo(decodeUserData);
     }
+    setState(() {
+      isLoaded=true;
+    });
   }
   
   @override
@@ -48,9 +53,9 @@ class _MainAppState extends State<MainApp> {
         splashColor: Colors.transparent,
       ),
       home: Scaffold(
-        body: Obx(() => 
+        body: isLoaded ? Obx(() => 
           c.isLogin==true ? mainView() : loginView()
-        ),
+        ) : Container()
       ),
     );
   }
