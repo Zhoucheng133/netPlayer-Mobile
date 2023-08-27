@@ -3,8 +3,10 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:crypto/crypto.dart';
+import 'package:netplayer_mobile/para/para.dart';
 
 Future<Map<String, dynamic>> httpRequest(String url, {int timeoutInSeconds = 3}) async {
   try {
@@ -62,5 +64,23 @@ Future<Map> loginRequest(String url, String username, String password) async {
   response["username"]=username;
   response["salt"]=salt;
   response["token"]=token;
+  return response;
+}
+
+Future<Map> allSongsRequest() async {
+  final Controller c = Get.put(Controller());
+  String url="${c.userInfo["url"]}/rest/getRandomSongs?v=1.12.0&c=netPlayer&f=json&u=${c.userInfo["username"]}&t=${c.userInfo["token"]}&s=${c.userInfo["salt"]}&size=500";
+  Map response=await httpRequest(url);
+  if(response.isEmpty){
+    return {"status": "URL Err"};
+  }
+  try{
+    response=response["subsonic-response"];
+  }catch(e){
+    return {"status": "URL Err"};
+  }
+  if(response["status"]!="ok"){
+    return {"status": "Pass Err"};
+  }
   return response;
 }
