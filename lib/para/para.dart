@@ -25,12 +25,12 @@ class Controller extends GetxController{
   var mainColorStrang=const Color.fromARGB(255, 0, 100, 194);
   // 页面索引关系
   var pageAsyc={
-    1: "allSongs",
-    2: "lovedSongs",
-    3: "songLists",
-    4: "artists",
-    5: "settings",
-    6: "playing",
+    0: "所有音乐",
+    1: "我喜欢的",
+    2: "歌单",
+    3: "艺人",
+    4: "设置",
+    5: "播放器",
   };
 
   void updateLogin(data) => isLogin.value=data;

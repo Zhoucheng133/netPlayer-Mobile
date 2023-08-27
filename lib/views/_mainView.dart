@@ -31,6 +31,10 @@ class _mainViewState extends State<mainView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        title: Obx(() => Text(c.pageAsyc[c.pageIndex]!)),
+      ),
       bottomNavigationBar: Obx(() => 
         BottomNavigationBar(
           selectedItemColor: c.mainColor,
