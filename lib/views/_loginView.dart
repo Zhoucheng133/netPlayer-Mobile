@@ -74,6 +74,18 @@ class _loginViewState extends State<loginView> {
       c.updateLogin(true);
     }
   }
+
+  Future<void> clearPrefs() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+    c.updateUserInfo({});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    clearPrefs();
+  }
   
   @override
   Widget build(BuildContext context) {
