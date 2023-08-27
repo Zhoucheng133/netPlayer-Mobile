@@ -43,6 +43,10 @@ class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        highlightColor: Colors.transparent,
+        splashColor: Colors.transparent,
+      ),
       home: Scaffold(
         body: Obx(() => 
           c.isLogin==true ? mainView() : loginView()

@@ -16,11 +16,22 @@ class Controller extends GetxController{
   var artists=[].obs;
   // 所有专辑信息
   var albums=[].obs;
+  // 当前页面
+  var pageIndex=0.obs;
 
   // 主题色
   var mainColor=const Color.fromARGB(255, 24, 144, 255);
   // 强调色
   var mainColorStrang=const Color.fromARGB(255, 0, 100, 194);
+  // 页面索引关系
+  var pageAsyc={
+    1: "allSongs",
+    2: "lovedSongs",
+    3: "songLists",
+    4: "artists",
+    5: "settings",
+    6: "playing",
+  };
 
   void updateLogin(data) => isLogin.value=data;
   void updateUserInfo(data) => userInfo.value=data;
@@ -29,4 +40,5 @@ class Controller extends GetxController{
   void updateAllSongs(data) => allSongs.value=data;
   void updateArtists(data) => artists.value=data;
   void upateAlbums(data) => albums.value=data;
+  void updatePageIndex(data) => pageIndex.value=data;
 }
