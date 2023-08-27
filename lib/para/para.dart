@@ -32,6 +32,8 @@ class Controller extends GetxController{
     4: "关于",
     5: "播放器",
   };
+  // 版本号
+  var version="1.0.0".obs;
 
   void updateLogin(data) => isLogin.value=data;
   void updateUserInfo(data) => userInfo.value=data;
