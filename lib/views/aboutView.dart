@@ -17,10 +17,25 @@ class _aboutViewState extends State<aboutView> {
   
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        
-      ],
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(
+            "assets/icon.png",
+            height: 100,
+            width: 100,
+          ),
+          SizedBox(height: 10,),
+          Text(
+            "netPlayer Mobile",
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold
+            ),
+          )
+        ],
+      ),
     );
   }
 }
