@@ -29,7 +29,7 @@ class Controller extends GetxController{
     1: "我喜欢的",
     2: "歌单",
     3: "艺人",
-    4: "设置",
+    4: "关于",
     5: "播放器",
   };
 
