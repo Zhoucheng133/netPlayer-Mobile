@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/para/para.dart';
 import 'package:netplayer_mobile/views/_mainView.dart';
-import 'package:netplayer_mobile/views/loginView.dart';
+import 'package:netplayer_mobile/views/_loginView.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 

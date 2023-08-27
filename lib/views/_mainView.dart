@@ -3,6 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/para/para.dart';
+import 'package:netplayer_mobile/views/allSongsView.dart';
+import 'package:netplayer_mobile/views/artistsView.dart';
+import 'package:netplayer_mobile/views/lovedSongsView.dart';
+import 'package:netplayer_mobile/views/settingsView.dart';
+import 'package:netplayer_mobile/views/songListsView.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 
 class mainView extends StatefulWidget {
@@ -14,6 +19,14 @@ class mainView extends StatefulWidget {
 
 class _mainViewState extends State<mainView> {
   final Controller c = Get.put(Controller());
+
+  List<Widget> allView=[
+    allSongsView(),
+    lovedSongsView(),
+    songListsView(),
+    artistsView(),
+    settingsView(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -50,12 +63,7 @@ class _mainViewState extends State<mainView> {
           ],
         ),
       ),
-      body: Column(
-        children: const [
-          SizedBox(height: 40,),
-          Text("helloworld!")
-        ],
-      )
+      body: Obx(() => allView[c.pageIndex.value])
     );
   }
 }
