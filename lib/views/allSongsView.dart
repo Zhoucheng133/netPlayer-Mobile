@@ -1,5 +1,6 @@
-// ignore_for_file: prefer_const_constructors, camel_case_types, file_names, invalid_use_of_protected_member, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, camel_case_types, file_names, invalid_use_of_protected_member, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, use_build_context_synchronously
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/functions/requests.dart';
@@ -45,6 +46,38 @@ class _allSongsViewState extends State<allSongsView> {
     getList();
   }
 
+  void reloadList(BuildContext context){
+    showCupertinoDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: Text("确定要刷新所有歌曲列表吗?"),
+          content: Text("注意这会打乱原有的歌曲顺序!"),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              child: Text('取消'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            CupertinoDialogAction(
+              child: Text('确定'),
+              onPressed: () async {
+                var tmp=await allSongsRequest();
+                setState(() {
+                  songList=tmp["randomSongs"]["song"];
+                });
+                c.updateAllSongs(songList);
+
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
+
   var isTap=0;
 
   @override
@@ -55,7 +88,27 @@ class _allSongsViewState extends State<allSongsView> {
           width: MediaQuery.of(context).size.width,
           height: 30,
           color: Colors.white,
-          child: Center(child: Text("合计${songList.length}首歌", style: TextStyle(color: c.mainColor),)),
+          child: Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "合计${songList.length}首歌", 
+                  style: TextStyle(color: c.mainColor),
+                ),
+                SizedBox(width: 8,),
+                GestureDetector(
+                  onTap: (){
+                    reloadList(context);
+                  },
+                  child: Icon(
+                    Icons.refresh,
+                    color: c.mainColor,
+                  ),
+                )
+              ],
+            )
+          ),
         ),
         Expanded(
           child: ListView.builder(
@@ -91,11 +144,24 @@ class _allSongsViewState extends State<allSongsView> {
                           SizedBox(
                             width: 40,
                             child: Center(
-                              child: Text(
-                                (index+1).toString(),
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Obx(() => 
+                                    c.playInfo.isNotEmpty && c.playInfo["name"]=="allSongs" && c.playInfo["index"]==index ? 
+                                    Icon(
+                                      Icons.play_arrow,
+                                      color: c.mainColor,
+                                    ) : 
+                                    Text(
+                                      (index+1).toString(),
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                    )
+                                  ),
+                                  SizedBox(width: 5,)
+                                ],
                               ),
                             ),
                           ),
@@ -104,20 +170,43 @@ class _allSongsViewState extends State<allSongsView> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
-                                  songList[index]["title"],
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16
-                                  ),
+                                Obx(() =>
+                                  c.playInfo.isNotEmpty && c.playInfo["name"]=="allSongs" && c.playInfo["index"]==index ? 
+                                  Text(
+                                    songList[index]["title"],
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                      color: c.mainColor
+                                    ),
+                                  ) : 
+                                  Text(
+                                    songList[index]["title"],
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16
+                                    ),
+                                  )
                                 ),
-                                Text(
-                                  songList[index]["artist"],
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.grey
+                                Obx(() => 
+                                  c.playInfo.isNotEmpty && c.playInfo["name"]=="allSongs" && c.playInfo["index"]==index ? 
+                                  Text(
+                                    songList[index]["artist"],
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: c.mainColor
+                                    )
+                                  ) : 
+                                  Text(
+                                    songList[index]["artist"],
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.grey
+                                    )
                                   )
                                 )
                               ],
@@ -130,13 +219,22 @@ class _allSongsViewState extends State<allSongsView> {
                                 isTap=0;
                               });
                             },
-                            child: SizedBox(
+                            child: Container(
                               width: 30,
+                              height: double.infinity,
                               child: Center(
-                                child: Icon(
-                                  Icons.more_vert,
-                                  size: 20,
-                                ),
+                                child: Obx(() => 
+                                  c.playInfo.isNotEmpty && c.playInfo["name"]=="allSongs" && c.playInfo["index"]==index ? 
+                                  Icon(
+                                    Icons.more_vert,
+                                    size: 20,
+                                    color: c.mainColor,
+                                  ) : 
+                                  Icon(
+                                    Icons.more_vert,
+                                    size: 20,
+                                  )
+                                )
                               ),
                             ),
                           )

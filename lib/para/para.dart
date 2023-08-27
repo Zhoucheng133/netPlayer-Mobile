@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -35,6 +37,14 @@ class Controller extends GetxController{
   // 版本号
   var version="1.0.0".obs;
 
+  // 当前播放歌曲信息规则
+  var playInfo_example={
+    "name": "allSongs",     // 其它参数: lovedSongs, songList, album
+    "id": "abc123",         // 当listName为songList或者album的时候需要此参数
+    "index": 1,             // 播放到哪个了
+  };
+
+  // 更新数据
   void updateLogin(data) => isLogin.value=data;
   void updateUserInfo(data) => userInfo.value=data;
   void updateIsPlay(data) => isPlay.value=data;
