@@ -62,6 +62,9 @@ class _allSongsViewState extends State<allSongsView> {
             itemCount: songList.length,
             itemBuilder: (BuildContext context, int index){
               return GestureDetector(
+                onTap: (){
+                  print("点击播放!");
+                },
                 onTapUp: (detail){
                   setState(() {
                     isTap=0;
@@ -73,7 +76,7 @@ class _allSongsViewState extends State<allSongsView> {
                   });
                 },
                 child: AnimatedContainer(
-                  duration: Duration(milliseconds: 300),
+                  duration: Duration(milliseconds: 150),
                   decoration: BoxDecoration(
                     color: isTap==index+1 ? Colors.grey[200] : Colors.white,
                   ),
@@ -97,10 +100,45 @@ class _allSongsViewState extends State<allSongsView> {
                             ),
                           ),
                           Expanded(
-                            child: Text(
-                              songList[index]["title"],
-                              overflow: TextOverflow.ellipsis,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  songList[index]["title"],
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16
+                                  ),
+                                ),
+                                Text(
+                                  songList[index]["artist"],
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.grey
+                                  )
+                                )
+                              ],
                             )
+                          ),
+                          GestureDetector(
+                            onTap: (){
+                              print("更多...");
+                              setState(() {
+                                isTap=0;
+                              });
+                            },
+                            child: SizedBox(
+                              width: 30,
+                              child: Center(
+                                child: Icon(
+                                  Icons.more_vert,
+                                  size: 20,
+                                ),
+                              ),
+                            ),
                           )
                         ],
                       ),
