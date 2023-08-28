@@ -20,9 +20,20 @@ class _playingBarState extends State<playingBar> {
       children: [
         SizedBox(width: 10,),
         Container(
-          color: Colors.red,
+          color: Colors.white,
           width: 50,
           height: 50,
+          child: Obx(() => 
+            c.playInfo["id"]==null ?
+            Image.asset(
+              "assets/blank.jpg",
+              fit: BoxFit.contain,
+            ) : 
+            Image.network(
+              "${c.userInfo["url"]}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${c.userInfo["username"]}&t=${c.userInfo["token"]}&s=${c.userInfo["salt"]}&id=${c.playInfo["id"]}",
+              fit: BoxFit.contain,
+            )
+          ),
         ),
         SizedBox(width: 10,),
         Container(
@@ -35,9 +46,7 @@ class _playingBarState extends State<playingBar> {
             children: [
               Obx(() => 
                 Text(
-                  c.playInfo.isEmpty ? 
-                  "没有播放" : 
-                  c.playInfo["title"] ?? "没有播放",
+                  c.playInfo["title"]==null ? "没有播放" : c.playInfo["title"].toString(),
                   style: TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.bold,
@@ -47,9 +56,7 @@ class _playingBarState extends State<playingBar> {
               ),
               Obx(() => 
                 Text(
-                  c.playInfo.isEmpty ? 
-                  "/" : 
-                  c.playInfo["artist"] ?? "/",
+                  c.playInfo["title"]==null ? "/" : c.playInfo["artist"].toString(),
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.grey,
