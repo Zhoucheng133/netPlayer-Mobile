@@ -13,6 +13,17 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
 
   MediaItem item=MediaItem(id: "", title: "");
 
+  MyAudioHandler(){
+    playbackState.add(playbackState.value.copyWith(
+      controls: [
+        MediaControl.skipToPrevious,
+        MediaControl.pause,
+        MediaControl.skipToNext,
+      ],
+      processingState: AudioProcessingState.loading,
+    ));
+  }
+
   void setInfo(){
     item=MediaItem(
       id: c.playInfo["id"],
@@ -25,17 +36,6 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
     mediaItem.add(item);
   }
 
-  void mediaControl(bool state){
-    playbackState.add(playbackState.value.copyWith(
-      playing: state,
-      controls: [
-        MediaControl.skipToPrevious,
-        MediaControl.play,
-        MediaControl.skipToNext,
-      ],
-    ));
-  }
-  
   @override
   Future<void> play() async {
     if(c.playInfo["id"]==null){
@@ -43,37 +43,49 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
     }
     var url="${c.userInfo["url"]}/rest/stream?v=1.12.0&c=netPlayer&f=json&u=${c.userInfo["username"]}&t=${c.userInfo["token"]}&s=${c.userInfo["salt"]}&id=${c.playInfo["id"]}";
     playInfo=c.playInfo;
-    player.play(UrlSource(url));
+    await player.play(UrlSource(url));
     player.onPlayerComplete.listen((event) {
       skipToNext();
     });
+    playbackState.add(playbackState.value.copyWith(
+      playing: true,
+      controls: [
+        MediaControl.skipToPrevious,
+        MediaControl.pause,
+        MediaControl.skipToNext,
+      ],
+    ));
     c.updateIsPlay(true);
     setInfo();
-    mediaControl(true);
   }
 
   @override
   Future<void> pause() async {
-    player.pause();
+    await player.pause();
     c.updateIsPlay(false);
+    playbackState.add(playbackState.value.copyWith(
+      playing: false,
+      controls: [
+        MediaControl.skipToPrevious,
+        MediaControl.play,
+        MediaControl.skipToNext,
+      ],
+    ));
     setInfo();
-    mediaControl(false);
   }
 
   @override
   Future<void> skipToNext()async {
     swtichNext();
-    play();
+    await play();
     setInfo();
-    mediaControl(true);
   }
 
   @override
   Future<void> skipToPrevious()async{
     switchbackward();
-    play();
+    await play();
     setInfo();
-    mediaControl(true);
   }
 
   void switchbackward(){
