@@ -81,7 +81,18 @@ class _mainViewState extends State<mainView> {
               child: Container(
                 height: 70,
                 width: MediaQuery.of(context).size.width,
-                color: Colors.white,
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 250, 250, 250),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.2),
+                      spreadRadius: 3,
+                      blurRadius: 7,
+                      offset: Offset(0, -3), // 在顶部添加阴影偏移
+                    ),
+                  ],
+                ),
+                // color: Colors.white,
                 child: playingBar(),
               )
             ) : SizedBox(width: 0, height: 0,),
