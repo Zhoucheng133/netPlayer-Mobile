@@ -70,7 +70,7 @@ class _loginViewState extends State<loginView> {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       String info=json.encode(userInfo);
       await prefs.setString('userInfo', info);
-      c.updatePlayInfo(userInfo);
+      c.updateUserInfo(userInfo);
       c.updateLogin(true);
     }
   }
