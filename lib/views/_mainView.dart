@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:netplayer_mobile/para/para.dart';
 import 'package:netplayer_mobile/views/allSongsView.dart';
 import 'package:netplayer_mobile/views/artistsView.dart';
-import 'package:netplayer_mobile/views/components/playingBar.dart';
+import 'package:netplayer_mobile/components/playingBar.dart';
 import 'package:netplayer_mobile/views/lovedSongsView.dart';
 import 'package:netplayer_mobile/views/aboutView.dart';
 import 'package:netplayer_mobile/views/songListsView.dart';
