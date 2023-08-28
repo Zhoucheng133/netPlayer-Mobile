@@ -32,14 +32,15 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
   }
 
   void swtich(){
+    var index=(playInfo["list"].length+playInfo["index"]+1)%(playInfo["index"]+1);
     var tmp={
       "name": playInfo["name"],
-      "id": playInfo["list"][playInfo["index"]+1]["id"],
-      "title": playInfo["list"][playInfo["index"]+1]["title"],
-      "artist": playInfo["list"][playInfo["index"]+1]["artist"],
-      "duration": playInfo["list"][playInfo["index"]+1]["duration"],
+      "id": playInfo["list"][index]["id"],
+      "title": playInfo["list"][index]["title"],
+      "artist": playInfo["list"][index]["artist"],
+      "duration": playInfo["list"][index]["duration"],
       "ListId": playInfo["ListId"] ?? "",
-      "index": playInfo["index"]+1,
+      "index": index,
       "list": playInfo["list"],
     };
     c.updatePlayInfo(tmp);
