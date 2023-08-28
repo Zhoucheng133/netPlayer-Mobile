@@ -40,7 +40,11 @@ class Controller extends GetxController{
   // 当前播放歌曲信息规则
   var playInfo_example={
     "name": "allSongs",     // 其它参数: lovedSongs, songList, album
-    "id": "abc123",         // 当listName为songList或者album的时候需要此参数
+    "id": "songID",         // 歌曲id号
+    "title": "songTitle",   // 歌曲标题
+    "artist": "ryan",       // 艺人
+    "duration": 1234,       // 歌曲长度(秒)
+    "ListId": "abc123",     // 当listName为songList或者album的时候需要此参数
     "index": 1,             // 播放到哪个了
     "list": [],             // 播放列表
   };
@@ -49,7 +53,7 @@ class Controller extends GetxController{
   void updateLogin(data) => isLogin.value=data;
   void updateUserInfo(data) => userInfo.value=data;
   void updateIsPlay(data) => isPlay.value=data;
-  void updatePlayInfo(data) => playInfo.value=data;
+  void updatePlayInfo(Map data) => playInfo.value=data;
   void updateAllSongs(data) => allSongs.value=data;
   void updateArtists(data) => artists.value=data;
   void upateAlbums(data) => albums.value=data;

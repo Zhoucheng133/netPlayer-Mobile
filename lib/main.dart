@@ -1,16 +1,26 @@
-// ignore_for_file: prefer_const_constructors, unrelated_type_equality_checks
+// ignore_for_file: prefer_const_constructors, unrelated_type_equality_checks, prefer_typing_uninitialized_variables, unused_element
 
 import 'dart:convert';
 
+import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:netplayer_mobile/functions/player.dart';
 import 'package:netplayer_mobile/para/para.dart';
 import 'package:netplayer_mobile/views/_mainView.dart';
 import 'package:netplayer_mobile/views/_loginView.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+var _audioHandler;
 
-void main() {
+Future<void> main() async {
+  _audioHandler = await AudioService.init(
+    builder: () => MyAudioHandler(),
+    config: AudioServiceConfig(
+      androidNotificationChannelId: 'com.mycompany.myapp.channel.audio',
+      androidNotificationChannelName: 'Music playback',
+    ),
+  );
   runApp(MainApp());
 }
 
@@ -54,7 +64,7 @@ class _MainAppState extends State<MainApp> {
       ),
       home: Scaffold(
         body: isLoaded ? Obx(() => 
-          c.isLogin==true ? mainView() : loginView()
+          c.isLogin==true ? mainView(audioHandler: _audioHandler,) : loginView()
         ) : Container()
       ),
     );

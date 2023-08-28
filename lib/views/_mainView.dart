@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, file_names, prefer_const_constructors, unrelated_type_equality_checks, prefer_const_literals_to_create_immutables
+// ignore_for_file: camel_case_types, file_names, prefer_const_constructors, unrelated_type_equality_checks, prefer_const_literals_to_create_immutables, unused_field, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,7 +12,8 @@ import 'package:netplayer_mobile/views/songListsView.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 
 class mainView extends StatefulWidget {
-  const mainView({super.key});
+  const mainView({super.key, required this.audioHandler});
+  final dynamic audioHandler;
 
   @override
   State<mainView> createState() => _mainViewState();
@@ -21,13 +22,19 @@ class mainView extends StatefulWidget {
 class _mainViewState extends State<mainView> {
   final Controller c = Get.put(Controller());
 
-  List<Widget> allView=[
-    allSongsView(),
-    lovedSongsView(),
-    songListsView(),
-    artistsView(),
-    aboutView(),
-  ];
+  List<Widget> allView=[];
+
+  @override
+  void initState() {
+    allView=[
+      allSongsView(audioHandler: widget.audioHandler,),
+      lovedSongsView(),
+      songListsView(),
+      artistsView(),
+      aboutView(),
+    ];
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +100,7 @@ class _mainViewState extends State<mainView> {
                   ],
                 ),
                 // color: Colors.white,
-                child: playingBar(),
+                child: playingBar(audioHandler: widget.audioHandler,),
               )
             ) : SizedBox(width: 0, height: 0,),
           )

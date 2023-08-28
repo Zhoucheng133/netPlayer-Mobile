@@ -5,7 +5,8 @@ import 'package:get/get.dart';
 import 'package:netplayer_mobile/para/para.dart';
 
 class playingBar extends StatefulWidget {
-  const playingBar({super.key});
+  const playingBar({super.key, required this.audioHandler});
+  final dynamic audioHandler;
 
   @override
   State<playingBar> createState() => _playingBarState();
@@ -13,7 +14,26 @@ class playingBar extends StatefulWidget {
 
 class _playingBarState extends State<playingBar> {
   final Controller c = Get.put(Controller());
-  
+
+  void playController(){
+    if(c.playInfo["id"]==null){
+      return;
+    }
+    if(c.isPlay.value==true){
+      widget.audioHandler.pause();
+    }else{
+      widget.audioHandler.play();
+    }
+  }
+
+  void skipController(){
+    if(c.playInfo["id"]==null){
+      return;
+    }
+    
+    widget.audioHandler.skipToNext();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -70,6 +90,9 @@ class _playingBarState extends State<playingBar> {
         Expanded(child: Container()),
         SizedBox(width: 20,),
         GestureDetector(
+          onTap: (){
+            playController();
+          },
           child: Obx(() => 
             c.isPlay.value==false ? 
             Icon(
@@ -84,6 +107,9 @@ class _playingBarState extends State<playingBar> {
         ),
         SizedBox(width: 10,),
         GestureDetector(
+          onTap: (){
+            skipController();
+          },
           child: Icon(
             Icons.skip_next_rounded,
             size: 35,

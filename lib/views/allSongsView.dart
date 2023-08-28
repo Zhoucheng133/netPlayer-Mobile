@@ -7,7 +7,8 @@ import 'package:netplayer_mobile/functions/requests.dart';
 import 'package:netplayer_mobile/para/para.dart';
 
 class allSongsView extends StatefulWidget {
-  const allSongsView({super.key});
+  const allSongsView({super.key, required this.audioHandler});
+  final dynamic audioHandler;
 
   @override
   State<allSongsView> createState() => _allSongsViewState();
@@ -17,6 +18,20 @@ class _allSongsViewState extends State<allSongsView> {
   final Controller c = Get.put(Controller());
 
   List songList=[];
+
+  void playSong(Map item, int index){
+    var newInfo={
+        "name": "allSongs", 
+        "title": item["title"],
+        "artist": item["artist"],
+        "duration": item["duration"],
+        "id": item["id"],
+        "index": index,
+        "list": c.allSongs.value,
+      };
+      c.updatePlayInfo(newInfo);
+      widget.audioHandler.play();
+  }
 
   Future<void> getList() async {
     
@@ -29,7 +44,7 @@ class _allSongsViewState extends State<allSongsView> {
           songList=tmp["randomSongs"]["song"];
         });
         c.updateAllSongs(songList);
-        print("请求+1");
+        // print("请求+1");
       }
     }else{
       setState(() {
@@ -116,7 +131,7 @@ class _allSongsViewState extends State<allSongsView> {
             itemBuilder: (BuildContext context, int index){
               return GestureDetector(
                 onTap: (){
-                  print("点击播放!");
+                  playSong(songList[index], index);
                 },
                 onTapUp: (detail){
                   setState(() {
@@ -214,7 +229,7 @@ class _allSongsViewState extends State<allSongsView> {
                           ),
                           GestureDetector(
                             onTap: (){
-                              print("更多...");
+                              // TODO 更多操作
                               setState(() {
                                 isTap=0;
                               });
