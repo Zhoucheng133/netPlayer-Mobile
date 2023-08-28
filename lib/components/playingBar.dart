@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/para/para.dart';
+import 'package:netplayer_mobile/views/_playingView.dart';
 
 class playingBar extends StatefulWidget {
   const playingBar({super.key, required this.audioHandler});
@@ -39,41 +40,47 @@ class _playingBarState extends State<playingBar> {
     return GestureDetector(
       onVerticalDragUpdate: (details){
         if(details.delta.dy<-10){
-          c.updatePageIndex(5);
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => playingView()),
+          );
         }
       },
       onTap: (){
-        c.updatePrePageIndex(c.pageIndex.value);
-        c.updatePageIndex(5);
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => playingView()),
+        );
       },
       child: Container(
         color: Color.fromARGB(255, 250, 250, 250),
         child: Row(
           children: [
             SizedBox(width: 10,),
-            Container(
-              color: Colors.white,
-              width: 50,
-              height: 50,
-              child: Obx(() => 
-                c.playInfo["id"]==null ?
-                Hero(
-                  tag: "cover",
-                  child: Image.asset(
+            Hero(
+              tag: "cover",
+              child: Container(
+                color: Colors.white,
+                width: 50,
+                height: 50,
+                child: Obx(() => 
+                  c.playInfo["id"]==null ?
+                  Image.asset(
                     "assets/blank.jpg",
                     fit: BoxFit.contain,
+                  )
+                  : 
+                  Image.network(
+                    "${c.userInfo["url"]}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${c.userInfo["username"]}&t=${c.userInfo["token"]}&s=${c.userInfo["salt"]}&id=${c.playInfo["id"]}",
+                    fit: BoxFit.contain,
+                    errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                      return Image.asset(
+                        "assets/blank.jpg",
+                        fit: BoxFit.contain,
+                      );
+                    },
                   ),
-                ) : 
-                Image.network(
-                  "${c.userInfo["url"]}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${c.userInfo["username"]}&t=${c.userInfo["token"]}&s=${c.userInfo["salt"]}&id=${c.playInfo["id"]}",
-                  fit: BoxFit.contain,
-                  errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                    return Image.asset(
-                      "assets/blank.jpg",
-                      fit: BoxFit.contain,
-                    );
-                  },
-                )
+                ),
               ),
             ),
             SizedBox(width: 10,),
