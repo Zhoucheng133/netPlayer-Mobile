@@ -132,12 +132,14 @@ class _allSongsViewState extends State<allSongsView> {
               itemBuilder: (BuildContext context, int index){
                 return GestureDetector(
                   onTap: (){
+                    print("播放操作");
                     playSong(songList[index], index);
                   },
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10,0,10,0),
-                    child: SizedBox(
+                    child: Container(
                       height: 60,
+                      color: Colors.white,
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
