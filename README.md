@@ -14,3 +14,16 @@
 关于桌面版的netPlayer，你可以在这里查看：[Gitee](https://gitee.com/Ryan-zhou/net-player) / [Github](https://github.com/Zhoucheng133/net-player)
 
 关于移动Lite的netPlayer，你可以在这里查看：[Gitee](https://gitee.com/Ryan-zhou/net-player_-lite) / [Github](https://github.com/Zhoucheng133/neyPlayer_Lite)
+
+# 开发进度
+- [x] 登录功能
+- [x] 页面切换
+- [x] 关于页面
+- [x] 所有歌曲显示
+- [x] 歌曲播放组件
+- [x] 播放栏
+- [ ] 音乐播放控制
+- [ ] 播放页面
+- [ ] 我喜欢的歌曲页面
+- [ ] 歌单列表
+- [ ] 艺人列表
