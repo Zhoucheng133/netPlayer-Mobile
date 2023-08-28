@@ -94,7 +94,6 @@ class _allSongsViewState extends State<allSongsView> {
     );
   }
 
-  var isTap=0;
 
   @override
   Widget build(BuildContext context) {
@@ -135,127 +134,103 @@ class _allSongsViewState extends State<allSongsView> {
                   onTap: (){
                     playSong(songList[index], index);
                   },
-                  onTapUp: (detail){
-                    setState(() {
-                      isTap=0;
-                    });
-                  },
-                  onTapDown: (detail){
-                    setState(() {
-                      isTap=index+1;
-                    });
-                  },
-                  child: AnimatedContainer(
-                    duration: Duration(milliseconds: 150),
-                    decoration: BoxDecoration(
-                      color: isTap==index+1 ? Colors.grey[200] : Colors.white,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(10,0,10,0),
-                      child: SizedBox(
-                        height: 60,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              width: 40,
-                              child: Center(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Obx(() => 
-                                      c.playInfo.isNotEmpty && c.playInfo["name"]=="allSongs" && c.playInfo["index"]==index ? 
-                                      Icon(
-                                        Icons.play_arrow,
-                                        color: c.mainColor,
-                                      ) : 
-                                      Text(
-                                        (index+1).toString(),
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                        ),
-                                      )
-                                    ),
-                                    SizedBox(width: 5,)
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(10,0,10,0),
+                    child: SizedBox(
+                      height: 60,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 40,
+                            child: Center(
+                              child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Obx(() =>
+                                  Obx(() => 
                                     c.playInfo.isNotEmpty && c.playInfo["name"]=="allSongs" && c.playInfo["index"]==index ? 
-                                    Text(
-                                      songList[index]["title"],
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16,
-                                        color: c.mainColor
-                                      ),
+                                    Icon(
+                                      Icons.play_arrow,
+                                      color: c.mainColor,
                                     ) : 
                                     Text(
-                                      songList[index]["title"],
-                                      overflow: TextOverflow.ellipsis,
+                                      (index+1).toString(),
                                       style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16
+                                        color: Colors.grey,
                                       ),
                                     )
                                   ),
-                                  Obx(() => 
-                                    c.playInfo.isNotEmpty && c.playInfo["name"]=="allSongs" && c.playInfo["index"]==index ? 
-                                    Text(
-                                      songList[index]["artist"],
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: c.mainColor
-                                      )
-                                    ) : 
-                                    Text(
-                                      songList[index]["artist"],
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.grey
-                                      )
-                                    )
-                                  )
+                                  SizedBox(width: 5,)
                                 ],
-                              )
+                              ),
                             ),
-                            GestureDetector(
-                              onTap: (){
-                                // TODO 更多操作
-                                setState(() {
-                                  isTap=0;
-                                });
-                              },
-                              child: Container(
-                                width: 30,
-                                height: double.infinity,
-                                child: Center(
-                                  child: Obx(() => 
-                                    c.playInfo.isNotEmpty && c.playInfo["name"]=="allSongs" && c.playInfo["index"]==index ? 
-                                    Icon(
-                                      Icons.more_vert,
-                                      size: 20,
-                                      color: c.mainColor,
-                                    ) : 
-                                    Icon(
-                                      Icons.more_vert,
-                                      size: 20,
-                                    )
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Obx(() =>
+                                  c.playInfo.isNotEmpty && c.playInfo["name"]=="allSongs" && c.playInfo["index"]==index ? 
+                                  Text(
+                                    songList[index]["title"],
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                      color: c.mainColor
+                                    ),
+                                  ) : 
+                                  Text(
+                                    songList[index]["title"],
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16
+                                    ),
                                   )
                                 ),
-                              ),
+                                Obx(() => 
+                                  c.playInfo.isNotEmpty && c.playInfo["name"]=="allSongs" && c.playInfo["index"]==index ? 
+                                  Text(
+                                    songList[index]["artist"],
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: c.mainColor
+                                    )
+                                  ) : 
+                                  Text(
+                                    songList[index]["artist"],
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.grey
+                                    )
+                                  )
+                                )
+                              ],
                             )
-                          ],
-                        ),
+                          ),
+                          Container(
+                            width: 30,
+                            height: double.infinity,
+                            child: Center(
+                              child: Obx(() => 
+                                c.playInfo.isNotEmpty && c.playInfo["name"]=="allSongs" && c.playInfo["index"]==index ? 
+                                Icon(
+                                  Icons.more_vert,
+                                  size: 20,
+                                  color: c.mainColor,
+                                ) : 
+                                Icon(
+                                  Icons.more_vert,
+                                  size: 20,
+                                )
+                              )
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
