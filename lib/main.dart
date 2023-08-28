@@ -9,6 +9,7 @@ import 'package:netplayer_mobile/functions/player.dart';
 import 'package:netplayer_mobile/para/para.dart';
 import 'package:netplayer_mobile/views/_mainView.dart';
 import 'package:netplayer_mobile/views/_loginView.dart';
+import 'package:netplayer_mobile/views/_playingView.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 var _audioHandler;
@@ -63,9 +64,12 @@ class _MainAppState extends State<MainApp> {
         splashColor: Colors.transparent,
       ),
       home: Scaffold(
-        body: isLoaded ? Obx(() => 
-          c.isLogin==true ? mainView(audioHandler: _audioHandler,) : loginView()
-        ) : Container()
+        body:  isLoaded ? Obx(
+          () => AnimatedSwitcher(
+            duration: Duration(milliseconds: 200),
+            child: c.isLogin==true ? c.pageIndex==5 ? playingView() : mainView(audioHandler: _audioHandler,) : loginView(),
+          )
+        ) : Container(),
       ),
     );
   }
