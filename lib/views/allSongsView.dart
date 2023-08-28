@@ -28,6 +28,7 @@ class _allSongsViewState extends State<allSongsView> {
         "id": item["id"],
         "index": index,
         "list": c.allSongs.value,
+        "album": item["album"],
       };
       c.updatePlayInfo(newInfo);
       widget.audioHandler.play();

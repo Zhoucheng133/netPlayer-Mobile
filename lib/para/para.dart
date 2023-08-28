@@ -47,6 +47,7 @@ class Controller extends GetxController{
     "ListId": "abc123",     // 当listName为songList或者album的时候需要此参数
     "index": 1,             // 播放到哪个了
     "list": [],             // 播放列表
+    "album": "albumName"    // 专辑名称
   };
 
   // 更新数据

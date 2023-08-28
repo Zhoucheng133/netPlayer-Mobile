@@ -30,7 +30,7 @@ class _playingBarState extends State<playingBar> {
     if(c.playInfo["id"]==null){
       return;
     }
-    
+
     widget.audioHandler.skipToNext();
   }
 
@@ -52,6 +52,12 @@ class _playingBarState extends State<playingBar> {
             Image.network(
               "${c.userInfo["url"]}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${c.userInfo["username"]}&t=${c.userInfo["token"]}&s=${c.userInfo["salt"]}&id=${c.playInfo["id"]}",
               fit: BoxFit.contain,
+              errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                return Image.asset(
+                  "assets/blank.jpg",
+                  fit: BoxFit.contain,
+                );
+              },
             )
           ),
         ),
