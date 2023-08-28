@@ -20,12 +20,12 @@ class _playingViewState extends State<playingView> {
       child: GestureDetector(
         onVerticalDragUpdate: (details){
           if(details.delta.dy>10){
-            Navigator.pop(context);
-        }
+              Navigator.pop(context);
+          }
         },
         child: Container(
           width: MediaQuery.of(context).size.width,
-          color: Colors.white,
+          color: Color.fromARGB(255, 250, 250, 250),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -43,20 +43,11 @@ class _playingViewState extends State<playingView> {
               SizedBox(height: 40,),
               Hero(
                 tag: "cover",
-                child: Container(
-                  width: 200,
-                  height: 200,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: Offset.zero,
-                      )
-                    ]
-                  ),
+                child: AnimatedContainer(
+                  width: MediaQuery.of(context).size.width-120,
+                  height: MediaQuery.of(context).size.width-120,
+                  color: Colors.white,
+                  duration: Duration(milliseconds: 200),
                   child: Obx(() => 
                     c.playInfo["id"]==null ?
                     Image.asset(
