@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, camel_case_types, file_names, invalid_use_of_protected_member, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, use_build_context_synchronously
+// ignore_for_file: prefer_const_constructors, camel_case_types, file_names, invalid_use_of_protected_member, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, use_build_context_synchronously, unused_element
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +18,25 @@ class _allSongsViewState extends State<allSongsView> {
   final Controller c = Get.put(Controller());
 
   List songList=[];
+  void _showDialog(BuildContext context, String title, String content) {
+    showCupertinoDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: Text(title),
+          content: Text(content),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
 
   void playSong(Map item, int index){
     var newInfo={
@@ -214,22 +233,28 @@ class _allSongsViewState extends State<allSongsView> {
                               ],
                             )
                           ),
-                          Container(
-                            width: 30,
-                            height: double.infinity,
-                            child: Center(
-                              child: Obx(() => 
-                                c.playInfo.isNotEmpty && c.playInfo["name"]=="allSongs" && c.playInfo["index"]==index ? 
-                                Icon(
-                                  Icons.more_vert,
-                                  size: 20,
-                                  color: c.mainColor,
-                                ) : 
-                                Icon(
-                                  Icons.more_vert,
-                                  size: 20,
+                          GestureDetector(
+                            onTap: (){
+                              // TODO 更多操作
+                              _showDialog(context, "更多操作", "正在开发中");
+                            },
+                            child: Container(
+                              width: 40,
+                              height: double.infinity,
+                              child: Center(
+                                child: Obx(() => 
+                                  c.playInfo.isNotEmpty && c.playInfo["name"]=="allSongs" && c.playInfo["index"]==index ? 
+                                  Icon(
+                                    Icons.more_vert,
+                                    size: 20,
+                                    color: c.mainColor,
+                                  ) : 
+                                  Icon(
+                                    Icons.more_vert,
+                                    size: 20,
+                                  )
                                 )
-                              )
+                              ),
                             ),
                           ),
                         ],
