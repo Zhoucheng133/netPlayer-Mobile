@@ -151,7 +151,6 @@ class _allSongsViewState extends State<allSongsView> {
               itemBuilder: (BuildContext context, int index){
                 return GestureDetector(
                   onTap: (){
-                    print("播放操作");
                     playSong(songList[index], index);
                   },
                   child: Padding(
