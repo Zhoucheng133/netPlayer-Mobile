@@ -24,6 +24,9 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
       ],
       processingState: AudioProcessingState.loading,
     ));
+    player.onPlayerComplete.listen((event) {
+      skipToNext();
+    });
   }
 
   void setInfo(){
@@ -46,9 +49,6 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
     var url="${c.userInfo["url"]}/rest/stream?v=1.12.0&c=netPlayer&f=json&u=${c.userInfo["username"]}&t=${c.userInfo["token"]}&s=${c.userInfo["salt"]}&id=${c.playInfo["id"]}";
     playInfo=c.playInfo;
     await player.play(UrlSource(url));
-    player.onPlayerComplete.listen((event) {
-      skipToNext();
-    });
     playbackState.add(playbackState.value.copyWith(
       playing: true,
       controls: [
