@@ -238,20 +238,27 @@ class _allSongsViewState extends State<allSongsView> {
                               _showDialog(context, "更多操作", "正在开发中");
                             },
                             child: Container(
-                              width: 40,
+                              color: Colors.white,
+                              width: 50,
                               height: double.infinity,
                               child: Center(
-                                child: Obx(() => 
-                                  c.playInfo.isNotEmpty && c.playInfo["name"]=="allSongs" && c.playInfo["index"]==index ? 
-                                  Icon(
-                                    Icons.more_vert,
-                                    size: 20,
-                                    color: c.mainColor,
-                                  ) : 
-                                  Icon(
-                                    Icons.more_vert,
-                                    size: 20,
-                                  )
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(width: 10,),
+                                    Obx(() => 
+                                      c.playInfo.isNotEmpty && c.playInfo["name"]=="allSongs" && c.playInfo["index"]==index ? 
+                                      Icon(
+                                        Icons.more_vert,
+                                        size: 20,
+                                        color: c.mainColor,
+                                      ) : 
+                                      Icon(
+                                        Icons.more_vert,
+                                        size: 20,
+                                      )
+                                    ),
+                                  ],
                                 )
                               ),
                             ),
