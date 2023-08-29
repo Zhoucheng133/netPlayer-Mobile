@@ -9,6 +9,8 @@
 ![shared_preferences](https://img.shields.io/badge/shared_preferences-2.2.0-lightgreen)
 ![crypto](https://img.shields.io/badge/crypto-3.0.3-lightblue)
 
+![License](https://img.shields.io/badge/License-MIT-dark_green)
+
 # ⚠️未完成的项目
 
 关于桌面版的netPlayer，你可以在这里查看：[Gitee](https://gitee.com/Ryan-zhou/net-player) / [Github](https://github.com/Zhoucheng133/net-player)
