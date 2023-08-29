@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/functions/requests.dart';
 import 'package:netplayer_mobile/para/para.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class allSongsView extends StatefulWidget {
   const allSongsView({super.key, required this.audioHandler});
@@ -59,7 +60,6 @@ class _allSongsViewState extends State<allSongsView> {
       var tmp=await allSongsRequest();
       if(tmp["status"]!="ok"){
         c.updateLogin(false);
-        Navigator.of(context).pop();
       }else{
         setState(() {
           songList=tmp["randomSongs"]["song"];
