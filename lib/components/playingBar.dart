@@ -84,38 +84,36 @@ class _playingBarState extends State<playingBar> {
               ),
             ),
             SizedBox(width: 10,),
-            Container(
-              constraints: BoxConstraints(
-                maxWidth: 160
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Obx(() => 
-                    Text(
-                      c.playInfo["title"]==null ? "没有播放" : c.playInfo["title"].toString(),
-                      style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold,
-                        overflow: TextOverflow.ellipsis
+            Expanded(
+              child: Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Obx(() => 
+                      Text(
+                        c.playInfo["title"]==null ? "没有播放" : c.playInfo["title"].toString(),
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                          overflow: TextOverflow.ellipsis
+                        ),
                       ),
                     ),
-                  ),
-                  Obx(() => 
-                    Text(
-                      c.playInfo["title"]==null ? "/" : c.playInfo["artist"].toString(),
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey,
-                        overflow: TextOverflow.ellipsis
-                      ),
-                    )
-                  ),
-                ],
+                    Obx(() => 
+                      Text(
+                        c.playInfo["title"]==null ? "/" : c.playInfo["artist"].toString(),
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey,
+                          overflow: TextOverflow.ellipsis
+                        ),
+                      )
+                    ),
+                  ],
+                ),
               ),
             ),
-            Expanded(child: Container()),
             SizedBox(width: 20,),
             GestureDetector(
               onTap: (){
