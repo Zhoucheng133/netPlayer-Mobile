@@ -82,6 +82,7 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
 
   @override
   Future<void> skipToNext()async {
+    await player.stop();
     swtichNext();
     await play();
     setInfo();
@@ -89,6 +90,7 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
 
   @override
   Future<void> skipToPrevious()async{
+    await player.stop();
     switchbackward();
     await play();
     setInfo();
