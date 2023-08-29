@@ -86,29 +86,37 @@ class _playingViewState extends State<playingView> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(30, 40, 30, 0),
-                  child: Obx(() => 
-                    Text(
-                      c.playInfo["title"]==null ? "没有播放" : c.playInfo["title"].toString(),
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold
+                Container(
+                  height: 140,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(30, 40, 30, 0),
+                        child: Obx(() => 
+                          Text(
+                            c.playInfo["title"]==null ? "没有播放" : c.playInfo["title"].toString(),
+                            style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          )
+                        ),
                       ),
-                      overflow: TextOverflow.ellipsis,
-                    )
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(30, 10, 30, 20),
-                  child: Obx(() => 
-                    Text(
-                      c.playInfo["title"]==null ? "/" : c.playInfo["artist"].toString(),
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.grey,
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(30, 10, 30, 20),
+                        child: Obx(() => 
+                          Text(
+                            c.playInfo["title"]==null ? "/" : c.playInfo["artist"].toString(),
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.grey,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          )
+                        ),
                       ),
-                    )
+                    ],
                   ),
                 ),
                 Row(
