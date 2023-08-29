@@ -58,7 +58,8 @@ class _allSongsViewState extends State<allSongsView> {
     if(c.allSongs.value.isEmpty){
       var tmp=await allSongsRequest();
       if(tmp["status"]!="ok"){
-        // TODO 登录错误，返回登录页面
+        c.updateLogin(false);
+        Navigator.of(context).pop();
       }else{
         setState(() {
           songList=tmp["randomSongs"]["song"];
