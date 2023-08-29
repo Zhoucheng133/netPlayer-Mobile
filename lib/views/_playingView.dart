@@ -5,7 +5,9 @@ import 'package:get/get.dart';
 import 'package:netplayer_mobile/para/para.dart';
 
 class playingView extends StatefulWidget {
-  const playingView({super.key});
+  const playingView({super.key, required this.audioHandler});
+
+  final dynamic audioHandler;
 
   @override
   State<playingView> createState() => _playingViewState();
@@ -13,6 +15,14 @@ class playingView extends StatefulWidget {
 
 class _playingViewState extends State<playingView> {
   final Controller c = Get.put(Controller());
+
+  void playController(){
+    if(c.isPlay.value==true){
+      widget.audioHandler.pause();
+    }else{
+      widget.audioHandler.play();
+    }
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -105,6 +115,9 @@ class _playingViewState extends State<playingView> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
+                      onTap: (){
+                        widget.audioHandler.skipToPrevious();
+                      },
                       child: Icon(
                         Icons.skip_previous_rounded,
                         size: 65,
@@ -112,6 +125,9 @@ class _playingViewState extends State<playingView> {
                     ),
                     SizedBox(width: 10,),
                     GestureDetector(
+                      onTap: (){
+                        playController();
+                      },
                       child: Obx(() => 
                         c.isPlay==true ? 
                         Icon(
@@ -126,6 +142,9 @@ class _playingViewState extends State<playingView> {
                     ),
                     SizedBox(width: 10,),
                     GestureDetector(
+                      onTap: (){
+                        widget.audioHandler.skipToNext();
+                      },
                       child: Icon(
                         Icons.skip_next_rounded,
                         size: 65,

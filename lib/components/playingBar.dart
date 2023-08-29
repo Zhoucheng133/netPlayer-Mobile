@@ -42,14 +42,14 @@ class _playingBarState extends State<playingBar> {
         if(details.delta.dy<-10){
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => playingView()),
+            MaterialPageRoute(builder: (context) => playingView(audioHandler: widget.audioHandler,)),
           );
         }
       },
       onTap: (){
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => playingView()),
+          MaterialPageRoute(builder: (context) => playingView(audioHandler: widget.audioHandler,)),
         );
       },
       child: Container(
