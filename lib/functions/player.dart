@@ -13,6 +13,8 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
 
   MediaItem item=MediaItem(id: "", title: "");
 
+  bool fromPause=false;
+
   MyAudioHandler(){
     playbackState.add(playbackState.value.copyWith(
       controls: [
@@ -56,7 +58,11 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
       ],
     ));
     c.updateIsPlay(true);
-    setInfo();
+    if(fromPause){
+      fromPause=false;
+    }else{
+      setInfo();
+    }
   }
 
   @override
@@ -64,14 +70,14 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
     await player.pause();
     c.updateIsPlay(false);
     playbackState.add(playbackState.value.copyWith(
-      playing: false,
+      playing: true,
       controls: [
         MediaControl.skipToPrevious,
         MediaControl.play,
         MediaControl.skipToNext,
       ],
     ));
-    setInfo();
+    fromPause=true;
   }
 
   @override
