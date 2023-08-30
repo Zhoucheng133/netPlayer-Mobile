@@ -98,12 +98,14 @@ Future<void> songLoveController(Map item, BuildContext context) async {
 }
 
 class moreOperations extends StatefulWidget {
-  const moreOperations({super.key, required this.item, required this.index, required this.pageName, required this.audioHandler, this.listIndex});
+  const moreOperations({super.key, required this.item, required this.index, required this.pageName, required this.audioHandler, this.listIndex, required this.reloadLoved});
   final Map item;
   final int index;
   final String pageName;
   final dynamic audioHandler;
   final dynamic listIndex;
+
+  final VoidCallback reloadLoved;
 
   @override
   State<moreOperations> createState() => _moreOperationsState();
@@ -231,6 +233,8 @@ class _moreOperationsState extends State<moreOperations> {
             GestureDetector(
               onTap: (){
                 songLoveController(widget.item, context);
+                widget.reloadLoved();
+                // print("ok");
                 Navigator.pop(context);
               },
               child: Container(

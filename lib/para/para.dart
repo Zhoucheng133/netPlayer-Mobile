@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, invalid_use_of_protected_member
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -62,4 +62,18 @@ class Controller extends GetxController{
   void upateAlbums(data) => albums.value=data;
   void updatePageIndex(data) => pageIndex.value=data;
   void updateLovedSongs(data) => lovedSongs.value=data;
+
+  // 是否标记为喜爱?
+  bool fav(String targetId){
+    if(lovedSongs.value.isEmpty){
+      return false;
+    }else{
+      for (var map in lovedSongs.value) {
+        if (map['id'] == targetId) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
 }

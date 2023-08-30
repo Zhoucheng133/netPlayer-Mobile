@@ -20,6 +20,19 @@ class _allSongsViewState extends State<allSongsView> {
 
   List songList=[];
 
+  Future<void> getLovedSongs() async {
+    if(c.lovedSongs.isEmpty){
+      var tmp=await lovedSongRequest();
+      c.updateLovedSongs(tmp);
+    }
+  }
+
+  reloadLoved() async {
+    var tmp=await lovedSongRequest();
+    c.updateLovedSongs(tmp);
+  }
+
+
   Future<void> getList() async {
     
     if(c.allSongs.value.isEmpty){
@@ -52,6 +65,7 @@ class _allSongsViewState extends State<allSongsView> {
     super.initState();
 
     getList();
+    getLovedSongs();
   }
 
   void reloadList(BuildContext context){
@@ -193,17 +207,19 @@ class _allSongsViewState extends State<allSongsView> {
                                 ),
                                 Row(
                                   children: [
-                                    songList[index]["starred"]==null ? 
-                                    Container() : 
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons.favorite,
-                                          size: 15,
-                                          color: Colors.red,
-                                        ),
-                                        SizedBox(width: 5,)
-                                      ],
+                                    Obx(() => 
+                                      c.fav(songList[index]["id"])==false ? 
+                                      Container() : 
+                                      Row(
+                                        children: [
+                                          Icon(
+                                            Icons.favorite,
+                                            size: 15,
+                                            color: Colors.red,
+                                          ),
+                                          SizedBox(width: 5,)
+                                        ],
+                                      ),
                                     ),
                                     Expanded(
                                       child: Obx(() => 
@@ -242,6 +258,7 @@ class _allSongsViewState extends State<allSongsView> {
                                     index: index, 
                                     pageName: "allSongs", 
                                     audioHandler: widget.audioHandler,
+                                    reloadLoved: reloadLoved,
                                   );
                                 },
                               );

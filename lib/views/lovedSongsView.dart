@@ -22,6 +22,8 @@ class _lovedSongsViewState extends State<lovedSongsView> {
 
   List songList=[];
 
+  void reloadLoved(){}
+
   Future<void> getLovedSongs() async {
     if(c.lovedSongs.isNotEmpty){
       setState(() {
@@ -223,7 +225,8 @@ class _lovedSongsViewState extends State<lovedSongsView> {
                                     item: songList[index], 
                                     index: index, 
                                     pageName: "allSongs", 
-                                    audioHandler: widget.audioHandler,
+                                    audioHandler: widget.audioHandler, 
+                                    reloadLoved: reloadLoved,
                                   );
                                 },
                               );
