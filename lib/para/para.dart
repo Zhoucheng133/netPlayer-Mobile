@@ -20,6 +20,8 @@ class Controller extends GetxController{
   var albums=[].obs;
   // 当前页面
   var pageIndex=0.obs;
+  // 喜欢的歌曲信息
+  var lovedSongs=[].obs;
 
   // 主题色
   var mainColor=const Color.fromARGB(255, 24, 144, 255);
@@ -59,4 +61,5 @@ class Controller extends GetxController{
   void updateArtists(data) => artists.value=data;
   void upateAlbums(data) => albums.value=data;
   void updatePageIndex(data) => pageIndex.value=data;
+  void updateLovedSongs(data) => lovedSongs.value=data;
 }

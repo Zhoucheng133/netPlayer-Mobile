@@ -18,25 +18,6 @@ class _allSongsViewState extends State<allSongsView> {
   final Controller c = Get.put(Controller());
 
   List songList=[];
-  void _showDialog(BuildContext context, String title, String content) {
-    showCupertinoDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return CupertinoAlertDialog(
-          title: Text(title),
-          content: Text(content),
-          actions: <Widget>[
-            CupertinoDialogAction(
-              child: Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            )
-          ],
-        );
-      },
-    );
-  }
 
   void playSong(Map item, int index){
     var newInfo={
@@ -74,10 +55,15 @@ class _allSongsViewState extends State<allSongsView> {
     // print(songList.length);
   }
 
+  Future<void> updateLovedSongs() async {
+    await lovedSongRequest();
+  }
+
   @override
   void initState() {
     super.initState();
 
+    updateLovedSongs();
     getList();
   }
 
@@ -98,6 +84,7 @@ class _allSongsViewState extends State<allSongsView> {
             CupertinoDialogAction(
               child: Text('确定'),
               onPressed: () async {
+                updateLovedSongs();
                 var tmp=await allSongsRequest();
                 setState(() {
                   songList=tmp["randomSongs"]["song"];
@@ -111,6 +98,10 @@ class _allSongsViewState extends State<allSongsView> {
         );
       },
     );
+  }
+
+  void operateSong(){
+
   }
 
 
@@ -234,8 +225,7 @@ class _allSongsViewState extends State<allSongsView> {
                           ),
                           GestureDetector(
                             onTap: (){
-                              // TODO 更多操作
-                              _showDialog(context, "更多操作", "正在开发中");
+                              operateSong();
                             },
                             child: Container(
                               color: Colors.white,
