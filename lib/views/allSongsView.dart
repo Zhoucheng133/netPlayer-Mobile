@@ -118,7 +118,7 @@ class _allSongsViewState extends State<allSongsView> {
               itemBuilder: (BuildContext context, int index){
                 return GestureDetector(
                   onTap: (){
-                    playSong(songList[index], index, widget.audioHandler);
+                    playSong(songList[index], index, "allSongs", widget.audioHandler);
                   },
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10,0,10,0),
@@ -219,7 +219,7 @@ class _allSongsViewState extends State<allSongsView> {
                           ),
                           GestureDetector(
                             onTap: (){
-                              moreOperations(context, songList[index], index, widget.audioHandler);
+                              moreOperations(context, songList[index], index, "allSongs", widget.audioHandler);
                             },
                             child: Container(
                               color: Colors.white,

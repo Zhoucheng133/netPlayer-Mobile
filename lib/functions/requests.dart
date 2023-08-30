@@ -86,23 +86,25 @@ Future<Map> allSongsRequest() async {
   return response;
 }
 
-Future<void> lovedSongRequest()async {
+Future<List> lovedSongRequest()async {
   final Controller c = Get.put(Controller());
   String url="${c.userInfo["url"]}/rest/getStarred?v=1.12.0&c=netPlayer&f=json&u=${c.userInfo["username"]}&t=${c.userInfo["token"]}&s=${c.userInfo["salt"]}";
   Map response=await httpRequest(url);
   if(response.isEmpty){
-    return;
+    return [];
   }
   try{
     response=response["subsonic-response"];
   }catch(e){
-    return;
+    return [];
   }
   if(response["status"]!="ok"){
-    return;
+    return [];
   }
   if(response["starred"]["song"]!=null){
-    c.updateLovedSongs(response["starred"]["song"]);
+    return response["starred"]["song"];
+  }else{
+    return [];
   }
 }
 

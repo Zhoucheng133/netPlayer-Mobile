@@ -6,15 +6,33 @@ import 'package:netplayer_mobile/para/para.dart';
 
 final Controller c = Get.put(Controller());
 
-void playSong(Map item, int index, dynamic audioHandler){
+List pageNameMap(String name, {List? playlist}){
+  switch (name) {
+    case "allSongs":
+      return c.allSongs.value;
+    case "lovedSongs":
+      return c.lovedSongs.value;
+    case "songList" || "album": 
+      if(playlist!=null){
+        return playlist;
+      }else{
+        return [];
+      }
+    default: 
+      return [];
+  }
+}
+
+void playSong(Map item, int index, String pageName, dynamic audioHandler, {String? listID, List? playlist}){
   var newInfo={
-    "name": "allSongs", 
+    "name": pageName, 
     "title": item["title"],
     "artist": item["artist"],
     "duration": item["duration"],
     "id": item["id"],
     "index": index,
-    "list": c.allSongs.value,
+    "list": pageNameMap(pageName, playlist: playlist),
+    "ListId": listID ?? "",
     "album": item["album"],
   };
   c.updatePlayInfo(newInfo);
@@ -42,7 +60,7 @@ void songLoveController(Map item){
   
 }
 
-void moreOperations(BuildContext context, Map item, int index, dynamic audioHandler, {String? listIndex}){
+void moreOperations(BuildContext context, Map item, int index, String pageName, dynamic audioHandler, {String? listIndex}){
   showModalBottomSheet<void>(
     context: context,
     backgroundColor: Colors.transparent,
@@ -112,7 +130,7 @@ void moreOperations(BuildContext context, Map item, int index, dynamic audioHand
               SizedBox(height: 10,),
               GestureDetector(
                 onTap: (){
-                  playSong(item, index, audioHandler);
+                  playSong(item, index, pageName, audioHandler);
                   Navigator.pop(context);
                 },
                 child: Container(
