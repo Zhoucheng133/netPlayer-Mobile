@@ -30,6 +30,9 @@ class _allSongsViewState extends State<allSongsView> {
   reloadLoved() async {
     var tmp=await lovedSongRequest();
     c.updateLovedSongs(tmp);
+    if(c.playInfo["name"]=="lovedSongs"){
+      widget.audioHandler.stop();
+    }
   }
 
 
