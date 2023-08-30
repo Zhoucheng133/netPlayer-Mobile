@@ -53,8 +53,44 @@ void songAddListController(){
   // TODO 添加到某个歌单
 }
 
-void songDeloveController(){
-  // TODO 从我喜欢中删除
+Future<void> songDeloveController(Map item, BuildContext context) async {
+  if(await setDelove(item["id"])){
+    showCupertinoDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: Text("操作成功!"),
+          content: Text("已经从喜欢的歌曲中删除"),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }else{
+    showCupertinoDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: Text("操作失败!"),
+          content: Text("可以尝试稍后重试"),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
 
 Future<void> songLoveController(Map item, BuildContext context) async {
@@ -206,7 +242,9 @@ class _moreOperationsState extends State<moreOperations> {
             widget.item.containsKey("starred") ? 
             GestureDetector(
               onTap: (){
-                songDeloveController();
+                songDeloveController(widget.item, context);
+                widget.reloadLoved();
+                Navigator.pop(context);
               },
               child: Container(
                 height: 50,

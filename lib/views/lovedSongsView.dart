@@ -22,7 +22,16 @@ class _lovedSongsViewState extends State<lovedSongsView> {
 
   List songList=[];
 
-  void reloadLoved(){}
+  reloadLoved() async {
+    var tmp=await lovedSongRequest();
+    c.updateLovedSongs(tmp);
+    setState(() {
+      songList=tmp;
+    });
+    if(c.playInfo["name"]=="lovedSongs"){
+      widget.audioHandler.stop();
+    }
+  }
 
   Future<void> getLovedSongs() async {
     if(c.lovedSongs.isNotEmpty){
