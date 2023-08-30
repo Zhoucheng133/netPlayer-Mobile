@@ -27,6 +27,7 @@ void moreOperations(BuildContext context, Map item, int index, dynamic audioHand
     backgroundColor: Colors.transparent,
     builder: (BuildContext context) {
       return Container(
+        height: 400,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
