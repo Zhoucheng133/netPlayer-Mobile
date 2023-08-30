@@ -56,15 +56,10 @@ class _allSongsViewState extends State<allSongsView> {
     // print(songList.length);
   }
 
-  Future<void> updateLovedSongs() async {
-    await lovedSongRequest();
-  }
-
   @override
   void initState() {
     super.initState();
 
-    updateLovedSongs();
     getList();
   }
 
@@ -85,7 +80,6 @@ class _allSongsViewState extends State<allSongsView> {
             CupertinoDialogAction(
               child: Text('确定'),
               onPressed: () async {
-                updateLovedSongs();
                 var tmp=await allSongsRequest();
                 setState(() {
                   songList=tmp["randomSongs"]["song"];
