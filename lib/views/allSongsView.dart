@@ -22,17 +22,17 @@ class _allSongsViewState extends State<allSongsView> {
 
   void playSong(Map item, int index){
     var newInfo={
-        "name": "allSongs", 
-        "title": item["title"],
-        "artist": item["artist"],
-        "duration": item["duration"],
-        "id": item["id"],
-        "index": index,
-        "list": c.allSongs.value,
-        "album": item["album"],
-      };
-      c.updatePlayInfo(newInfo);
-      widget.audioHandler.play();
+      "name": "allSongs", 
+      "title": item["title"],
+      "artist": item["artist"],
+      "duration": item["duration"],
+      "id": item["id"],
+      "index": index,
+      "list": c.allSongs.value,
+      "album": item["album"],
+    };
+    c.updatePlayInfo(newInfo);
+    widget.audioHandler.play();
   }
 
   Future<void> getList() async {
@@ -216,7 +216,7 @@ class _allSongsViewState extends State<allSongsView> {
                           ),
                           GestureDetector(
                             onTap: (){
-                              moreOperations(context, songList[index]);
+                              moreOperations(context, songList[index], index, widget.audioHandler);
                             },
                             child: Container(
                               color: Colors.white,
