@@ -96,6 +96,17 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
     setInfo();
   }
 
+  @override
+  Future<void> stop()async {
+    playbackState.add(playbackState.value.copyWith(
+      playing: false,
+      controls: [],
+    ));
+    await player.stop();
+    c.updatePlayInfo({});
+    c.updateIsPlay(false);
+  }
+
   void switchbackward(){
     var index=playInfo["index"];
     if(index!=0){
