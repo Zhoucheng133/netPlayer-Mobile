@@ -1,8 +1,9 @@
-// ignore_for_file: prefer_const_constructors, camel_case_types, file_names, invalid_use_of_protected_member, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, use_build_context_synchronously, unused_element
+// ignore_for_file: prefer_const_constructors, camel_case_types, file_names, invalid_use_of_protected_member, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, use_build_context_synchronously, unused_element, avoid_unnecessary_containers
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:netplayer_mobile/components/operation.dart';
 import 'package:netplayer_mobile/functions/requests.dart';
 import 'package:netplayer_mobile/para/para.dart';
 
@@ -98,10 +99,6 @@ class _allSongsViewState extends State<allSongsView> {
         );
       },
     );
-  }
-
-  void operateSong(){
-
   }
 
 
@@ -225,7 +222,7 @@ class _allSongsViewState extends State<allSongsView> {
                           ),
                           GestureDetector(
                             onTap: (){
-                              operateSong();
+                              moreOperations(context, songList[index]);
                             },
                             child: Container(
                               color: Colors.white,
