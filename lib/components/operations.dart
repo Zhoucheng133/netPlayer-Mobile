@@ -21,15 +21,28 @@ void playSong(Map item, int index, dynamic audioHandler){
   audioHandler.play();
 }
 
-void songRemoveListController(){}
+void songRemoveListController(String? index){
+  if(index==null){
+    return;
+  }else{
+    // TODO 从歌单中删除
+  }
+}
 
-void songAddListController(){}
+void songAddListController(){
+  // TODO 添加到某个歌单
+}
 
-void songDeloveController(){}
+void songDeloveController(){
+  // TODO 从我喜欢中删除
+}
 
-void songLoveController(){}
+void songLoveController(Map item){
+  // TODO 添加到我喜欢的
+  
+}
 
-void moreOperations(BuildContext context, Map item, int index, dynamic audioHandler, {int? listIndex}){
+void moreOperations(BuildContext context, Map item, int index, dynamic audioHandler, {String? listIndex}){
   showModalBottomSheet<void>(
     context: context,
     backgroundColor: Colors.transparent,
@@ -126,7 +139,7 @@ void moreOperations(BuildContext context, Map item, int index, dynamic audioHand
               item.containsKey("starred") ? 
               GestureDetector(
                 onTap: (){
-                  // TODO 从我喜欢中删除
+                  songDeloveController();
                 },
                 child: Container(
                   height: 50,
@@ -152,7 +165,7 @@ void moreOperations(BuildContext context, Map item, int index, dynamic audioHand
               ) :
               GestureDetector(
                 onTap: (){
-                  // TODO 添加到喜欢
+                  songLoveController(item);
                 },
                 child: Container(
                   height: 50,
@@ -177,6 +190,9 @@ void moreOperations(BuildContext context, Map item, int index, dynamic audioHand
                 ),
               ),
               GestureDetector(
+                onTap: (){
+                  songAddListController();
+                },
                 child: Container(
                   height: 50,
                   color: Colors.white,
@@ -200,6 +216,9 @@ void moreOperations(BuildContext context, Map item, int index, dynamic audioHand
                 ),
               ),
               GestureDetector(
+                onTap: (){
+                  songRemoveListController(listIndex);
+                },
                 child: Container(
                   height: 50,
                   color: Colors.white,

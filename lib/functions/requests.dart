@@ -105,3 +105,7 @@ Future<void> lovedSongRequest()async {
     c.updateLovedSongs(response["starred"]["song"]);
   }
 }
+
+Future<void> setLove()async {
+
+}
