@@ -1,7 +1,9 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, unrelated_type_equality_checks, invalid_use_of_protected_member
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, unrelated_type_equality_checks, invalid_use_of_protected_member, use_build_context_synchronously
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:netplayer_mobile/functions/requests.dart';
 import 'package:netplayer_mobile/para/para.dart';
 
 final Controller c = Get.put(Controller());
@@ -55,9 +57,44 @@ void songDeloveController(){
   // TODO 从我喜欢中删除
 }
 
-void songLoveController(Map item){
-  // TODO 添加到我喜欢的
-  
+Future<void> songLoveController(Map item, BuildContext context) async {
+  if(await setLove(item["id"])){
+    showCupertinoDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: Text("操作成功!"),
+          content: Text("已经添加到喜欢的歌曲"),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }else{
+    showCupertinoDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: Text("操作失败!"),
+          content: Text("可以尝试稍后重试"),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
 
 void moreOperations(BuildContext context, Map item, int index, String pageName, dynamic audioHandler, {String? listIndex}){
@@ -183,7 +220,8 @@ void moreOperations(BuildContext context, Map item, int index, String pageName, 
               ) :
               GestureDetector(
                 onTap: (){
-                  songLoveController(item);
+                  songLoveController(item, context);
+                  Navigator.pop(context);
                 },
                 child: Container(
                   height: 50,

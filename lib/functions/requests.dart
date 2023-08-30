@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:crypto/crypto.dart';
 import 'package:netplayer_mobile/para/para.dart';
 
+// 请求函数
 Future<Map<String, dynamic>> httpRequest(String url, {int timeoutInSeconds = 3}) async {
   try {
     final response = await http.get(Uri.parse(url)).timeout(Duration(seconds: timeoutInSeconds));
@@ -31,6 +32,7 @@ Future<Map<String, dynamic>> httpRequest(String url, {int timeoutInSeconds = 3})
   }
 }
 
+// 获取随机数
 String generateRandomString(int length) {
   const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   Random random = Random();
@@ -44,6 +46,7 @@ String generateRandomString(int length) {
   return result;
 }
 
+// 登录请求
 Future<Map> loginRequest(String url, String username, String password) async {
   if(url.endsWith("/")){
     url=url.substring(0, url.length - 1);
@@ -67,6 +70,7 @@ Future<Map> loginRequest(String url, String username, String password) async {
   return response;
 }
 
+// 获取所有（随机的）歌曲
 Future<Map> allSongsRequest() async {
   final Controller c = Get.put(Controller());
 
@@ -86,6 +90,7 @@ Future<Map> allSongsRequest() async {
   return response;
 }
 
+// 获取喜欢的歌曲
 Future<List> lovedSongRequest()async {
   final Controller c = Get.put(Controller());
   String url="${c.userInfo["url"]}/rest/getStarred?v=1.12.0&c=netPlayer&f=json&u=${c.userInfo["username"]}&t=${c.userInfo["token"]}&s=${c.userInfo["salt"]}";
@@ -108,6 +113,21 @@ Future<List> lovedSongRequest()async {
   }
 }
 
-Future<void> setLove()async {
-
+// 将某一首歌设置为喜欢
+Future<bool> setLove(String id)async {
+  final Controller c = Get.put(Controller());
+  String url="${c.userInfo["url"]}/rest/star?v=1.12.0&c=netPlayer&f=json&u=${c.userInfo["username"]}&t=${c.userInfo["token"]}&s=${c.userInfo["salt"]}&id=${id}";
+  Map response=await httpRequest(url);
+  if(response.isEmpty){
+    return false;
+  }
+  try{
+    response=response["subsonic-response"];
+  }catch(e){
+    return false;
+  }
+  if(response["status"]!="ok"){
+    return false;
+  }
+  return true;
 }

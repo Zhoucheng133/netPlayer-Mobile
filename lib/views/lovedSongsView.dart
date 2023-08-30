@@ -42,7 +42,7 @@ class _lovedSongsViewState extends State<lovedSongsView> {
       builder: (BuildContext context) {
         return CupertinoAlertDialog(
           title: Text("确定要刷新列表吗?"),
-          content: Text(""),
+          content: Text("这可能会停止当前播放的歌曲"),
           actions: <Widget>[
             CupertinoDialogAction(
               child: Text('取消'),
