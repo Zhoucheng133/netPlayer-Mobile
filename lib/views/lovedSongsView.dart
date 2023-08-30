@@ -215,7 +215,18 @@ class _lovedSongsViewState extends State<lovedSongsView> {
                           ),
                           GestureDetector(
                             onTap: (){
-                              moreOperations(context, songList[index], index, "lovedSongs", widget.audioHandler);
+                              showModalBottomSheet<void>(
+                                context: context,
+                                backgroundColor: Colors.transparent,
+                                builder: (BuildContext context) {
+                                  return moreOperations(
+                                    item: songList[index], 
+                                    index: index, 
+                                    pageName: "allSongs", 
+                                    audioHandler: widget.audioHandler,
+                                  );
+                                },
+                              );
                             },
                             child: Container(
                               color: Colors.white,

@@ -233,7 +233,18 @@ class _allSongsViewState extends State<allSongsView> {
                           ),
                           GestureDetector(
                             onTap: (){
-                              moreOperations(context, songList[index], index, "allSongs", widget.audioHandler);
+                              showModalBottomSheet<void>(
+                                context: context,
+                                backgroundColor: Colors.transparent,
+                                builder: (BuildContext context) {
+                                  return moreOperations(
+                                    item: songList[index], 
+                                    index: index, 
+                                    pageName: "allSongs", 
+                                    audioHandler: widget.audioHandler,
+                                  );
+                                },
+                              );
                             },
                             child: Container(
                               color: Colors.white,
