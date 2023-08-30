@@ -3,7 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:netplayer_mobile/components/operation.dart';
+import 'package:netplayer_mobile/components/operations.dart';
 import 'package:netplayer_mobile/functions/requests.dart';
 import 'package:netplayer_mobile/para/para.dart';
 
