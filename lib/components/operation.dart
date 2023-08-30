@@ -21,7 +21,15 @@ void playSong(Map item, int index, dynamic audioHandler){
   audioHandler.play();
 }
 
-void moreOperations(BuildContext context, Map item, int index, dynamic audioHandler){
+void songRemoveListController(){}
+
+void songAddListController(){}
+
+void songDeloveController(){}
+
+void songLoveController(){}
+
+void moreOperations(BuildContext context, Map item, int index, dynamic audioHandler, {int? listIndex}){
   showModalBottomSheet<void>(
     context: context,
     backgroundColor: Colors.transparent,
