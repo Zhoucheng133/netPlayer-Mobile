@@ -177,24 +177,42 @@ class _allSongsViewState extends State<allSongsView> {
                                     ),
                                   )
                                 ),
-                                Obx(() => 
-                                  c.playInfo.isNotEmpty && c.playInfo["name"]=="allSongs" && c.playInfo["index"]==index ? 
-                                  Text(
-                                    songList[index]["artist"],
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: c.mainColor
-                                    )
-                                  ) : 
-                                  Text(
-                                    songList[index]["artist"],
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.grey
-                                    )
-                                  )
+                                Row(
+                                  children: [
+                                    songList[index]["starred"]==null ? 
+                                    Container() : 
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.favorite,
+                                          size: 15,
+                                          color: Colors.red,
+                                        ),
+                                        SizedBox(width: 5,)
+                                      ],
+                                    ),
+                                    Expanded(
+                                      child: Obx(() => 
+                                        c.playInfo.isNotEmpty && c.playInfo["name"]=="allSongs" && c.playInfo["index"]==index ? 
+                                        Text(
+                                          songList[index]["artist"],
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: c.mainColor
+                                          )
+                                        ) : 
+                                        Text(
+                                          songList[index]["artist"],
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.grey
+                                          )
+                                        )
+                                      ),
+                                    ),
+                                  ],
                                 )
                               ],
                             )
