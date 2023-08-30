@@ -58,7 +58,9 @@ class _lovedSongsViewState extends State<lovedSongsView> {
                   songList=tmp;
                 });
                 c.updateLovedSongs(tmp);
-                widget.audioHandler.stop();
+                if(c.playInfo["name"]=="lovedSongs"){
+                  widget.audioHandler.stop();
+                }
                 Navigator.of(context).pop();
               },
             )

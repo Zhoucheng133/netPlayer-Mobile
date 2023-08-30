@@ -70,7 +70,9 @@ class _allSongsViewState extends State<allSongsView> {
                   songList=tmp["randomSongs"]["song"];
                 });
                 c.updateAllSongs(songList);
-                widget.audioHandler.stop();
+                if(c.playInfo["name"]=="allSongs"){
+                  widget.audioHandler.stop();
+                }
                 Navigator.of(context).pop();
               },
             )
