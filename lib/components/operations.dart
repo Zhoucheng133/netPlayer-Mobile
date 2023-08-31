@@ -56,23 +56,6 @@ void songAddListController(){
 Future<void> songDeloveController(Map item, BuildContext context, dynamic widget) async {
   Navigator.pop(context);
   if(await setDelove(item["id"])){
-    showCupertinoDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return CupertinoAlertDialog(
-          title: Text("操作成功!"),
-          content: Text("已经从喜欢的歌曲中删除"),
-          actions: <Widget>[
-            CupertinoDialogAction(
-              child: Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
     widget.reloadLoved();
   }else{
     showCupertinoDialog(
@@ -98,23 +81,6 @@ Future<void> songDeloveController(Map item, BuildContext context, dynamic widget
 Future<void> songLoveController(Map item, BuildContext context, dynamic widget) async {
   Navigator.pop(context);
   if(await setLove(item["id"])){
-    showCupertinoDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return CupertinoAlertDialog(
-          title: Text("操作成功!"),
-          content: Text("已经添加到喜欢的歌曲"),
-          actions: <Widget>[
-            CupertinoDialogAction(
-              child: Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
     widget.reloadLoved();
   }else{
     showCupertinoDialog(

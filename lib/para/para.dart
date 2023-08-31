@@ -22,6 +22,8 @@ class Controller extends GetxController{
   var pageIndex=0.obs;
   // 喜欢的歌曲信息
   var lovedSongs=[].obs;
+  // 播放顺序
+  var randomPlay=false.obs;
 
   // 主题色
   var mainColor=const Color.fromARGB(255, 24, 144, 255);
