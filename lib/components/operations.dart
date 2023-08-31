@@ -53,7 +53,8 @@ void songAddListController(){
   // TODO 添加到某个歌单
 }
 
-Future<void> songDeloveController(Map item, BuildContext context) async {
+Future<void> songDeloveController(Map item, BuildContext context, dynamic widget) async {
+  Navigator.pop(context);
   if(await setDelove(item["id"])){
     showCupertinoDialog(
       context: context,
@@ -72,6 +73,7 @@ Future<void> songDeloveController(Map item, BuildContext context) async {
         );
       },
     );
+    widget.reloadLoved();
   }else{
     showCupertinoDialog(
       context: context,
@@ -93,7 +95,8 @@ Future<void> songDeloveController(Map item, BuildContext context) async {
   }
 }
 
-Future<void> songLoveController(Map item, BuildContext context) async {
+Future<void> songLoveController(Map item, BuildContext context, dynamic widget) async {
+  Navigator.pop(context);
   if(await setLove(item["id"])){
     showCupertinoDialog(
       context: context,
@@ -112,6 +115,7 @@ Future<void> songLoveController(Map item, BuildContext context) async {
         );
       },
     );
+    widget.reloadLoved();
   }else{
     showCupertinoDialog(
       context: context,
@@ -239,12 +243,10 @@ class _moreOperationsState extends State<moreOperations> {
                 ),
               ),
             ),
-            widget.item.containsKey("starred") ? 
+            c.fav(widget.item["id"])==true ? 
             GestureDetector(
-              onTap: (){
-                songDeloveController(widget.item, context);
-                widget.reloadLoved();
-                Navigator.pop(context);
+              onTap: () async {
+                await songDeloveController(widget.item, context, widget);
               },
               child: Container(
                 height: 50,
@@ -269,11 +271,8 @@ class _moreOperationsState extends State<moreOperations> {
               ),
             ) :
             GestureDetector(
-              onTap: (){
-                songLoveController(widget.item, context);
-                widget.reloadLoved();
-                // print("ok");
-                Navigator.pop(context);
+              onTap: () async {
+                await songLoveController(widget.item, context, widget);
               },
               child: Container(
                 height: 50,
