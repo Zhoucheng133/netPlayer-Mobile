@@ -22,7 +22,7 @@ class Controller extends GetxController{
   var pageIndex=0.obs;
   // 喜欢的歌曲信息
   var lovedSongs=[].obs;
-  // 播放顺序
+  // 是否随机播放
   var randomPlay=false.obs;
 
   // 主题色
@@ -64,6 +64,7 @@ class Controller extends GetxController{
   void upateAlbums(data) => albums.value=data;
   void updatePageIndex(data) => pageIndex.value=data;
   void updateLovedSongs(data) => lovedSongs.value=data;
+  void updateRandomPlay(data) => randomPlay.value=data;
 
   // 是否标记为喜爱?
   bool fav(String targetId){

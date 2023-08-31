@@ -119,6 +119,40 @@ class _playingViewState extends State<playingView> {
                     ],
                   ),
                 ),
+                Obx(() => 
+                  c.randomPlay.value==true ? 
+                  GestureDetector(
+                    onTap: (){
+                      c.updateRandomPlay(false);
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.shuffle
+                        ),
+                        SizedBox(width: 5,),
+                        Text("随机播放")
+                      ],
+                    ),
+                  ) :
+                  GestureDetector(
+                    onTap: (){
+                      c.updateRandomPlay(true);
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.all_inclusive
+                        ),
+                        SizedBox(width: 5,),
+                        Text("顺序播放")
+                      ],
+                    ),
+                  )
+                ),
+                SizedBox(height: 15,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
