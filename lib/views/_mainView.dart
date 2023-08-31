@@ -36,12 +36,16 @@ class _mainViewState extends State<mainView> {
     super.initState();
   }
 
+  String appBarText(int index){
+    return c.pageAsyc[c.pageIndex]!;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Obx(() => Text(c.pageAsyc[c.pageIndex]!)),
+        title: Obx(() => Text(appBarText(c.pageIndex.value))),
         backgroundColor: Colors.white,
         foregroundColor: c.mainColor,
       ),
