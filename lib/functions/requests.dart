@@ -116,7 +116,7 @@ Future<List> lovedSongRequest()async {
 // 获取所有歌单
 Future<List> allListsRequest()async {
   final Controller c = Get.put(Controller());
-  print("请求所有歌单");
+  // print("请求所有歌单");
   String url="${c.userInfo["url"]}/rest/getPlaylists?v=1.12.0&c=netPlayer&f=json&u=${c.userInfo["username"]}&t=${c.userInfo["token"]}&s=${c.userInfo["salt"]}";
   Map response=await httpRequest(url);
   if(response.isEmpty){

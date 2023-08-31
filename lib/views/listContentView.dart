@@ -6,8 +6,9 @@ import 'package:netplayer_mobile/components/playingBar.dart';
 import 'package:netplayer_mobile/para/para.dart';
 
 class listContentView extends StatefulWidget {
-  const listContentView({super.key, required this.audioHandler});
+  const listContentView({super.key, required this.audioHandler, required this.item});
 
+  final Map item;
   final dynamic audioHandler;
 
   @override
@@ -22,7 +23,7 @@ class _listContentViewState extends State<listContentView> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Text("歌单信息"),
+        title: Text(widget.item["name"]),
         backgroundColor: Colors.white,
         foregroundColor: c.mainColor,
       ),
