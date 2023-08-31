@@ -6,7 +6,9 @@ import 'package:netplayer_mobile/para/para.dart';
 import 'package:netplayer_mobile/views/listContentView.dart';
 
 class songListsView extends StatefulWidget {
-  const songListsView({super.key});
+  const songListsView({super.key, required this.audioHandler});
+
+  final dynamic audioHandler;
 
   @override
   State<songListsView> createState() => _songListsViewState();
@@ -22,7 +24,7 @@ class _songListsViewState extends State<songListsView> {
         onPressed: (){
           Navigator.push(
             context, 
-            MaterialPageRoute(builder: (context) => listContentView())
+            MaterialPageRoute(builder: (context) => listContentView(audioHandler: widget.audioHandler,))
           );
         }, 
         child: Text("测试按钮"),

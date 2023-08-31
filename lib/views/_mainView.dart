@@ -29,7 +29,7 @@ class _mainViewState extends State<mainView> {
     allView=[
       allSongsView(audioHandler: widget.audioHandler,),
       lovedSongsView(audioHandler: widget.audioHandler,),
-      songListsView(),
+      songListsView(audioHandler: widget.audioHandler,),
       artistsView(),
       aboutView(),
     ];
