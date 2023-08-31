@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, camel_case_types, file_names, invalid_use_of_protected_member, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, camel_case_types, file_names, invalid_use_of_protected_member, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, use_build_context_synchronously
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +22,34 @@ class _songListsViewState extends State<songListsView> {
   var list=[];
 
   void reloadList(BuildContext context){
-    // TODO 刷新歌单
+    showCupertinoDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: Text("确定要刷新歌单列表吗?"),
+          content: Text("这不会影响当前播放"),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              child: Text('取消'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            CupertinoDialogAction(
+              child: Text('确定'),
+              onPressed: () async {
+                var tmp=await allListsRequest();
+                setState(() {
+                  list=tmp;
+                });
+                c.updatePlayLists(list);
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      },
+    );
   }
 
   Future<void> getList() async {
@@ -83,7 +110,6 @@ class _songListsViewState extends State<songListsView> {
               itemBuilder: (BuildContext context, int index){
                 return GestureDetector(
                   onTap: (){
-                    // TODO打开歌单
                     Navigator.push(
                       context, 
                       MaterialPageRoute(builder: (context) => listContentView(audioHandler: widget.audioHandler, item: list[index],))
