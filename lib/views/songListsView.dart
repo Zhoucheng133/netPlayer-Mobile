@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:netplayer_mobile/functions/requests.dart';
 import 'package:netplayer_mobile/para/para.dart';
 import 'package:netplayer_mobile/views/listContentView.dart';
 
@@ -16,6 +17,30 @@ class songListsView extends StatefulWidget {
 
 class _songListsViewState extends State<songListsView> {
   final Controller c = Get.put(Controller());
+
+  var list=[];
+
+  Future<void> getList() async {
+    if(c.playLists.value.isEmpty){
+      var tmp=await allListsRequest();
+      setState(() {
+        list=tmp;
+      });
+      c.updateAllSongs(list);
+    }else{
+      setState(() {
+        list=c.playLists.value;
+      });
+    }
+    print(list);
+  }
+
+  @override
+  void initState() {
+    getList();
+
+    super.initState();
+  }
   
   @override
   Widget build(BuildContext context) {

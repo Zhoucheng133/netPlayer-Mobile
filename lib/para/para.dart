@@ -24,6 +24,8 @@ class Controller extends GetxController{
   var lovedSongs=[].obs;
   // 是否随机播放
   var randomPlay=false.obs;
+  // 所有歌单
+  var playLists=[].obs;
 
   // 主题色
   var mainColor=const Color.fromARGB(255, 24, 144, 255);
@@ -65,6 +67,7 @@ class Controller extends GetxController{
   void updatePageIndex(data) => pageIndex.value=data;
   void updateLovedSongs(data) => lovedSongs.value=data;
   void updateRandomPlay(data) => randomPlay.value=data;
+  void updatePlayLists(data) => playLists.value=data;
 
   // 是否标记为喜爱?
   bool fav(String targetId){

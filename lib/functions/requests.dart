@@ -113,6 +113,30 @@ Future<List> lovedSongRequest()async {
   }
 }
 
+// 获取所有歌单
+Future<List> allListsRequest()async {
+  final Controller c = Get.put(Controller());
+  print("请求所有歌单");
+  String url="${c.userInfo["url"]}/rest/getPlaylists?v=1.12.0&c=netPlayer&f=json&u=${c.userInfo["username"]}&t=${c.userInfo["token"]}&s=${c.userInfo["salt"]}";
+  Map response=await httpRequest(url);
+  if(response.isEmpty){
+    return [];
+  }
+  try{
+    response=response["subsonic-response"];
+  }catch(e){
+    return [];
+  }
+  if(response["status"]!="ok"){
+    return [];
+  }
+  if(response["playlists"]["playlist"]!=null){
+    return response["playlists"]["playlist"];
+  }else{
+    return [];
+  }
+}
+
 // 将某一首歌设置为喜欢
 Future<bool> setLove(String id)async {
   final Controller c = Get.put(Controller());
