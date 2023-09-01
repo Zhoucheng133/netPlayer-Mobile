@@ -36,6 +36,14 @@ class _listContentViewState extends State<listContentView> {
     }
   }
 
+  reloadLoved() async {
+    var tmp=await lovedSongRequest();
+    c.updateLovedSongs(tmp);
+    if(c.playInfo["name"]=="lovedSongs"){
+      widget.audioHandler.stop();
+    }
+  }
+
   Future<void> getLovedSongs() async {
     if(c.lovedSongs.isEmpty){
       var tmp=await lovedSongRequest();
@@ -198,7 +206,20 @@ class _listContentViewState extends State<listContentView> {
                                 ),
                                 GestureDetector(
                                   onTap: (){
-                                    // TODO 更多操作
+                                    showModalBottomSheet<void>(
+                                      context: context,
+                                      backgroundColor: Colors.transparent,
+                                      builder: (BuildContext context) {
+                                        return moreOperations(
+                                          item: songList[index], 
+                                          index: index, 
+                                          pageName: "songList", 
+                                          audioHandler: widget.audioHandler,
+                                          reloadLoved: reloadLoved,
+                                          playSong: ()=>playSong(songList[index], index, "songList", widget.audioHandler, listID: widget.item["id"], playlist: songList),
+                                        );
+                                      },
+                                    );
                                   },
                                   child: Container(
                                     color: Colors.white,

@@ -261,7 +261,8 @@ class _allSongsViewState extends State<allSongsView> {
                                     index: index, 
                                     pageName: "allSongs", 
                                     audioHandler: widget.audioHandler,
-                                    reloadLoved: reloadLoved,
+                                    reloadLoved: reloadLoved, 
+                                    playSong: ()=>playSong(songList[index], index, "allSongs", widget.audioHandler),
                                   );
                                 },
                               );

@@ -236,6 +236,7 @@ class _lovedSongsViewState extends State<lovedSongsView> {
                                     pageName: "allSongs", 
                                     audioHandler: widget.audioHandler, 
                                     reloadLoved: reloadLoved,
+                                    playSong: ()=>playSong(songList[index], index, "lovedSongs", widget.audioHandler)
                                   );
                                 },
                               );
