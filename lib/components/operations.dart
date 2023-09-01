@@ -263,12 +263,62 @@ Future<void> songLoveController(Map item, BuildContext context, dynamic widget) 
 
 // 歌单操作
 class listOperation extends StatefulWidget {
-  const listOperation({super.key, required this.item});
+  const listOperation({super.key, required this.item, required this.reloadList});
 
   final Map item;
+  final VoidCallback reloadList;
 
   @override
   State<listOperation> createState() => _listOperationState();
+}
+
+// 删除歌单操作
+void delList(String id, dynamic widget, BuildContext context){
+  Navigator.of(context).pop();
+  showCupertinoDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return CupertinoAlertDialog(
+        title: Text("确定要刷新歌单列表吗?"),
+        content: Text("这不会影响当前播放"),
+        actions: <Widget>[
+          CupertinoDialogAction(
+            child: Text('取消'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          CupertinoDialogAction(
+            child: Text('确定'),
+            onPressed: () async {
+              if(await delListRequest(id)){
+                widget.reloadList();
+                Navigator.of(context).pop();
+              }else{
+                showCupertinoDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return CupertinoAlertDialog(
+                      title: Text("操作失败!"),
+                      content: Text("可以尝试稍后重试"),
+                      actions: <Widget>[
+                        CupertinoDialogAction(
+                          child: Text('OK'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              }
+            },
+          )
+        ],
+      );
+    },
+  );
 }
 
 class _listOperationState extends State<listOperation> {
@@ -358,8 +408,7 @@ class _listOperationState extends State<listOperation> {
             ),
             GestureDetector(
               onTap: (){
-                // TODO 删除歌单
-                Navigator.pop(context);
+                delList(widget.item["id"], widget, context);
               },
               child: Container(
                 height: 50,

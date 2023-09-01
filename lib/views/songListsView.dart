@@ -73,6 +73,14 @@ class _songListsViewState extends State<songListsView> {
 
     super.initState();
   }
+
+  Future<void> forceReload() async {
+    var tmp=await allListsRequest();
+    setState(() {
+      list=tmp;
+    });
+    c.updatePlayLists(list);
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -162,7 +170,9 @@ class _songListsViewState extends State<songListsView> {
                                 backgroundColor: Colors.transparent,
                                 builder: (BuildContext context) {
                                   return listOperation(
-                                    item: list[index],
+                                    item: list[index], 
+                                    reloadList: forceReload,
+
                                   );
                                 },
                               );
