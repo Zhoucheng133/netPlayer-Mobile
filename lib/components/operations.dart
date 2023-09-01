@@ -8,6 +8,7 @@ import 'package:netplayer_mobile/para/para.dart';
 
 final Controller c = Get.put(Controller());
 
+// 播放页面映射
 List pageNameMap(String name, {List? playlist}){
   switch (name) {
     case "allSongs":
@@ -25,6 +26,7 @@ List pageNameMap(String name, {List? playlist}){
   }
 }
 
+// 播放音乐
 void playSong(Map item, int index, String pageName, dynamic audioHandler, {String? listID, List? playlist}){
   var newInfo={
     "name": pageName, 
@@ -41,9 +43,8 @@ void playSong(Map item, int index, String pageName, dynamic audioHandler, {Strin
   audioHandler.play();
 }
 
+// 将歌曲添加到歌单操作
 Future<void> listAddController(String listId, String songId, BuildContext context) async {
-  // print(listId);
-  // print(songId);
   Navigator.pop(context);
   if(await addToList(listId,songId)){
     showCupertinoDialog(
@@ -84,6 +85,7 @@ Future<void> listAddController(String listId, String songId, BuildContext contex
   }
 }
 
+// 将歌曲从当前歌单中删除
 void songRemoveListController(String? index){
   if(index==null){
     return;
@@ -92,6 +94,7 @@ void songRemoveListController(String? index){
   }
 }
 
+// 歌曲添加到歌单抽屉
 class listAddContent extends StatefulWidget {
   const listAddContent({super.key, required this.id});
 
@@ -192,6 +195,7 @@ class _listAddContentState extends State<listAddContent> {
   }
 }
 
+// 歌曲添加到歌单中转
 void songAddListController(String id, BuildContext context){
   Navigator.of(context).pop();
   showModalBottomSheet<void>(
@@ -205,6 +209,7 @@ void songAddListController(String id, BuildContext context){
   );
 }
 
+// 将歌曲从我喜欢中移除
 Future<void> songDeloveController(Map item, BuildContext context, dynamic widget) async {
   Navigator.pop(context);
   if(await setDelove(item["id"])){
@@ -230,6 +235,7 @@ Future<void> songDeloveController(Map item, BuildContext context, dynamic widget
   }
 }
 
+// 将歌曲添加到我喜欢
 Future<void> songLoveController(Map item, BuildContext context, dynamic widget) async {
   Navigator.pop(context);
   if(await setLove(item["id"])){
@@ -255,6 +261,7 @@ Future<void> songLoveController(Map item, BuildContext context, dynamic widget) 
   }
 }
 
+// 歌单操作
 class listOperation extends StatefulWidget {
   const listOperation({super.key, required this.item});
 
