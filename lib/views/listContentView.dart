@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:netplayer_mobile/components/operations.dart';
 import 'package:netplayer_mobile/components/playingBar.dart';
 import 'package:netplayer_mobile/functions/requests.dart';
 import 'package:netplayer_mobile/para/para.dart';
@@ -35,10 +36,18 @@ class _listContentViewState extends State<listContentView> {
     }
   }
 
+  Future<void> getLovedSongs() async {
+    if(c.lovedSongs.isEmpty){
+      var tmp=await lovedSongRequest();
+      c.updateLovedSongs(tmp);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     getList();
+    getLovedSongs();
   }
   
   @override
@@ -88,6 +97,7 @@ class _listContentViewState extends State<listContentView> {
                       return GestureDetector(
                         onTap: (){
                           // TODO 播放歌曲
+                          playSong(songList[index], index, "songList", widget.audioHandler, listID: widget.item["id"], playlist: songList);
                         },
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(10,0,10,0),
@@ -104,7 +114,7 @@ class _listContentViewState extends State<listContentView> {
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Obx(() => 
-                                          c.playInfo.isNotEmpty && c.playInfo["name"]=="lovedSongs" && c.playInfo["index"]==index ? 
+                                          c.playInfo.isNotEmpty && c.playInfo["name"]=="songList" && c.playInfo["index"]==index && c.playInfo["ListId"]==widget.item["id"] ? 
                                           Icon(
                                             Icons.play_arrow,
                                             color: c.mainColor,
@@ -127,7 +137,7 @@ class _listContentViewState extends State<listContentView> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Obx(() =>
-                                        c.playInfo.isNotEmpty && c.playInfo["name"]=="lovedSongs" && c.playInfo["index"]==index ? 
+                                        c.playInfo.isNotEmpty && c.playInfo["name"]=="songList" && c.playInfo["index"]==index && c.playInfo["ListId"]==widget.item["id"] ? 
                                         Text(
                                           songList[index]["title"],
                                           overflow: TextOverflow.ellipsis,
@@ -162,7 +172,7 @@ class _listContentViewState extends State<listContentView> {
                                           ),
                                           Expanded(
                                             child: Obx(() => 
-                                              c.playInfo.isNotEmpty && c.playInfo["name"]=="lovedSongs" && c.playInfo["index"]==index ? 
+                                              c.playInfo.isNotEmpty && c.playInfo["name"]=="songList" && c.playInfo["index"]==index && c.playInfo["ListId"]==widget.item["id"] ? 
                                               Text(
                                                 songList[index]["artist"],
                                                 overflow: TextOverflow.ellipsis,
@@ -200,7 +210,7 @@ class _listContentViewState extends State<listContentView> {
                                         children: [
                                           SizedBox(width: 10,),
                                           Obx(() => 
-                                            c.playInfo.isNotEmpty && c.playInfo["name"]=="lovedSongs" && c.playInfo["index"]==index ? 
+                                            c.playInfo.isNotEmpty && c.playInfo["name"]=="songList" && c.playInfo["index"]==index && c.playInfo["ListId"]==widget.item["id"] ? 
                                             Icon(
                                               Icons.more_vert,
                                               size: 20,
