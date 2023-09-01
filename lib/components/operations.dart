@@ -41,6 +41,49 @@ void playSong(Map item, int index, String pageName, dynamic audioHandler, {Strin
   audioHandler.play();
 }
 
+Future<void> listAddController(String listId, String songId, BuildContext context) async {
+  // print(listId);
+  // print(songId);
+  Navigator.pop(context);
+  if(await addToList(listId,songId)){
+    showCupertinoDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: Text("添加成功"),
+          content: Text("你可以去我的歌单中查看"),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }else{
+    showCupertinoDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: Text("操作失败!"),
+          content: Text("可以尝试稍后重试"),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
+
 void songRemoveListController(String? index){
   if(index==null){
     return;
@@ -114,8 +157,7 @@ class _listAddContentState extends State<listAddContent> {
                     itemBuilder: (BuildContext context, int index){
                     return GestureDetector(
                       onTap: (){
-                        // TODO 添加到歌单...
-                        Navigator.pop(context);
+                        listAddController(list[index]["id"], widget.id, context);
                       },
                       child: Container(
                         height: 50,
@@ -151,7 +193,6 @@ class _listAddContentState extends State<listAddContent> {
 }
 
 void songAddListController(String id, BuildContext context){
-  // TODO 添加到某个歌单
   Navigator.of(context).pop();
   showModalBottomSheet<void>(
     context: context,
