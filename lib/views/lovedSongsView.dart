@@ -186,8 +186,6 @@ class _lovedSongsViewState extends State<lovedSongsView> {
                                 ),
                                 Row(
                                   children: [
-                                    songList[index]["starred"]==null ? 
-                                    Container() : 
                                     Row(
                                       children: [
                                         Icon(
