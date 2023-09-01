@@ -1,8 +1,10 @@
-// ignore_for_file: file_names, camel_case_types, prefer_const_constructors
+// ignore_for_file: file_names, camel_case_types, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/components/playingBar.dart';
+import 'package:netplayer_mobile/functions/requests.dart';
 import 'package:netplayer_mobile/para/para.dart';
 
 class listContentView extends StatefulWidget {
@@ -17,6 +19,27 @@ class listContentView extends StatefulWidget {
 
 class _listContentViewState extends State<listContentView> {
   final Controller c = Get.put(Controller());
+
+  Future<void> reloadList(BuildContext context)async {
+    // TODO 重新载入歌单歌曲
+  }
+
+  var songList=[];
+
+  Future<void> getList() async {
+    List tmp=await getListContent(widget.item["id"]);
+    if(tmp.isNotEmpty){
+      setState(() {
+        songList=tmp;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getList();
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -29,7 +52,182 @@ class _listContentViewState extends State<listContentView> {
       ),
       body: Stack(
         children: [
-          Center(child: TextButton(onPressed: (){Navigator.pop(context);}, child: Text("内容页，测试按钮"))),
+          Column(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: 30,
+                color: Colors.white,
+                child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "合计${songList.length}首歌", 
+                        style: TextStyle(color: c.mainColor),
+                      ),
+                      SizedBox(width: 8,),
+                      GestureDetector(
+                        onTap: (){
+                          reloadList(context);
+                        },
+                        child: Icon(
+                          Icons.refresh,
+                          color: c.mainColor,
+                        ),
+                      )
+                    ],
+                  )
+                ),
+              ),
+              Expanded(
+                child: CupertinoScrollbar(
+                  child: ListView.builder(
+                    itemCount: songList.length,
+                    itemBuilder: (BuildContext context, int index){
+                      return GestureDetector(
+                        onTap: (){
+                          // TODO 播放歌曲
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(10,0,10,0),
+                          child: Container(
+                            height: 60,
+                            color: Colors.white,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: 40,
+                                  child: Center(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Obx(() => 
+                                          c.playInfo.isNotEmpty && c.playInfo["name"]=="lovedSongs" && c.playInfo["index"]==index ? 
+                                          Icon(
+                                            Icons.play_arrow,
+                                            color: c.mainColor,
+                                          ) : 
+                                          Text(
+                                            (index+1).toString(),
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                            ),
+                                          )
+                                        ),
+                                        SizedBox(width: 5,)
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Obx(() =>
+                                        c.playInfo.isNotEmpty && c.playInfo["name"]=="lovedSongs" && c.playInfo["index"]==index ? 
+                                        Text(
+                                          songList[index]["title"],
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                            color: c.mainColor
+                                          ),
+                                        ) : 
+                                        Text(
+                                          songList[index]["title"],
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16
+                                          ),
+                                        )
+                                      ),
+                                      Row(
+                                        children: [
+                                          songList[index]["starred"]==null ? 
+                                          Container() : 
+                                          Row(
+                                            children: [
+                                              Icon(
+                                                Icons.favorite,
+                                                size: 15,
+                                                color: Colors.red,
+                                              ),
+                                              SizedBox(width: 5,)
+                                            ],
+                                          ),
+                                          Expanded(
+                                            child: Obx(() => 
+                                              c.playInfo.isNotEmpty && c.playInfo["name"]=="lovedSongs" && c.playInfo["index"]==index ? 
+                                              Text(
+                                                songList[index]["artist"],
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: c.mainColor
+                                                )
+                                              ) : 
+                                              Text(
+                                                songList[index]["artist"],
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.grey
+                                                )
+                                              )
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  )
+                                ),
+                                GestureDetector(
+                                  onTap: (){
+                                    // TODO 更多操作
+                                  },
+                                  child: Container(
+                                    color: Colors.white,
+                                    width: 50,
+                                    height: double.infinity,
+                                    child: Center(
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          SizedBox(width: 10,),
+                                          Obx(() => 
+                                            c.playInfo.isNotEmpty && c.playInfo["name"]=="lovedSongs" && c.playInfo["index"]==index ? 
+                                            Icon(
+                                              Icons.more_vert,
+                                              size: 20,
+                                              color: c.mainColor,
+                                            ) : 
+                                            Icon(
+                                              Icons.more_vert,
+                                              size: 20,
+                                            )
+                                          ),
+                                        ],
+                                      )
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                  ),
+                ),
+              ), 
+              SizedBox(height: 70,)
+            ],
+          ),
           Positioned(
             bottom: 0,
             height: 110,
