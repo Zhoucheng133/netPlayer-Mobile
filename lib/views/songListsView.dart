@@ -161,7 +161,9 @@ class _songListsViewState extends State<songListsView> {
                                 context: context,
                                 backgroundColor: Colors.transparent,
                                 builder: (BuildContext context) {
-                                  return listOperation();
+                                  return listOperation(
+                                    item: list[index],
+                                  );
                                 },
                               );
                             },

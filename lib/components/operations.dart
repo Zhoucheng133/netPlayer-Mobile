@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, unrelated_type_equality_checks, invalid_use_of_protected_member, use_build_context_synchronously, camel_case_types
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, unrelated_type_equality_checks, invalid_use_of_protected_member, use_build_context_synchronously, camel_case_types, unnecessary_brace_in_string_interps
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -104,16 +104,77 @@ Future<void> songLoveController(Map item, BuildContext context, dynamic widget) 
 }
 
 class listOperation extends StatefulWidget {
-  const listOperation({super.key});
+  const listOperation({super.key, required this.item});
+
+  final Map item;
 
   @override
   State<listOperation> createState() => _listOperationState();
 }
 
 class _listOperationState extends State<listOperation> {
+  String timeFormat(int time){
+    if(time~/60>0){
+      int sec=time~/60;
+      time=time%60;
+      if(time~/60>0){
+        int hour=time%60;
+        time=time%60;
+        return "${hour}时${sec}分${time}秒";
+      }else{
+        return "${sec}分${time}秒";
+      }
+    }else{
+      return "${time}秒";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Container(
+      height: 400,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20)
+        ),
+        color: Colors.white
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  child: Text(
+                    widget.item["name"],
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                SizedBox(height: 5,),
+                Container(
+                  child: Text(
+                    "歌曲数量: ${widget.item["songCount"]}, 总时长: ${timeFormat(widget.item["duration"])}",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey
+                    ),
+                  ),
+                )
+              ],
+            ),
+            SizedBox(height: 10,),
+          ],
+        ),
+      ),
+    );
   }
 }
 
