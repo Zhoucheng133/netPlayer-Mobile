@@ -103,6 +103,21 @@ Future<void> songLoveController(Map item, BuildContext context, dynamic widget) 
   }
 }
 
+class listOperation extends StatefulWidget {
+  const listOperation({super.key});
+
+  @override
+  State<listOperation> createState() => _listOperationState();
+}
+
+class _listOperationState extends State<listOperation> {
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
+
+// 歌曲的更多操作
 class moreOperations extends StatefulWidget {
   const moreOperations({super.key, required this.item, required this.index, required this.pageName, required this.audioHandler, this.listIndex, required this.reloadLoved, required this.playSong});
   final Map item;

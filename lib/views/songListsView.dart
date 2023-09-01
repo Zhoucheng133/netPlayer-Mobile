@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:netplayer_mobile/components/operations.dart';
 import 'package:netplayer_mobile/functions/requests.dart';
 import 'package:netplayer_mobile/para/para.dart';
 import 'package:netplayer_mobile/views/listContentView.dart';
@@ -156,7 +157,13 @@ class _songListsViewState extends State<songListsView> {
                           ),
                           GestureDetector(
                             onTap: (){
-                              // TODO 按下更多操作
+                              showModalBottomSheet<void>(
+                                context: context,
+                                backgroundColor: Colors.transparent,
+                                builder: (BuildContext context) {
+                                  return listOperation();
+                                },
+                              );
                             },
                             child: Container(
                               color: Colors.white,
