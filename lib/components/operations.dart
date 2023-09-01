@@ -132,7 +132,7 @@ class _listOperationState extends State<listOperation> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 400,
+      height: 250,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
@@ -171,6 +171,58 @@ class _listOperationState extends State<listOperation> {
               ],
             ),
             SizedBox(height: 10,),
+            GestureDetector(
+              onTap: (){
+                // TODO 重命名歌单
+                Navigator.pop(context);
+              },
+              child: Container(
+                height: 50,
+                color: Colors.white,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Icons.drive_file_rename_outline,
+                      size: 30,
+                    ),
+                    SizedBox(width: 17,),
+                    Text(
+                      "重命名歌单",
+                      style: TextStyle(
+                        fontSize: 17
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: (){
+                // TODO 删除歌单
+                Navigator.pop(context);
+              },
+              child: Container(
+                height: 50,
+                color: Colors.white,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Icons.delete,
+                      size: 30,
+                    ),
+                    SizedBox(width: 17,),
+                    Text(
+                      "删除歌单",
+                      style: TextStyle(
+                        fontSize: 17
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
