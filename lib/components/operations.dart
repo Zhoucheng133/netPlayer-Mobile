@@ -49,8 +49,119 @@ void songRemoveListController(String? index){
   }
 }
 
-void songAddListController(){
+class listAddContent extends StatefulWidget {
+  const listAddContent({super.key, required this.id});
+
+  final String id;
+  @override
+  State<listAddContent> createState() => _listAddContentState();
+}
+
+class _listAddContentState extends State<listAddContent> {
+
+  List list=[];
+
+  Future<void> getList() async {
+    if(c.playLists.value.isEmpty){
+      var tmp=await allListsRequest();
+      setState(() {
+        list=tmp;
+      });
+      c.updatePlayLists(list);
+    }else{
+      setState(() {
+        list=c.playLists.value;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    getList();
+    super.initState();
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 360,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20)
+        ),
+        color: Colors.white,
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "添加到歌单...",
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 10,),
+            Expanded(
+              child: Container(
+                // color: Colors.red,
+                child: CupertinoScrollbar(
+                  child: ListView.builder(
+                    itemCount: list.length,
+                    itemBuilder: (BuildContext context, int index){
+                    return GestureDetector(
+                      onTap: (){
+                        // TODO 添加到歌单...
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        height: 50,
+                        color: Colors.white,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.playlist_play_rounded,
+                              size: 30,
+                            ),
+                            SizedBox(width: 17,),
+                            Text(
+                              list[index]["name"],
+                              style: TextStyle(
+                                fontSize: 17
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
+                ),
+              )
+            ),
+            SizedBox(height: 5,)
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+void songAddListController(String id, BuildContext context){
   // TODO 添加到某个歌单
+  Navigator.of(context).pop();
+  showModalBottomSheet<void>(
+    context: context,
+    backgroundColor: Colors.transparent,
+    builder: (BuildContext context) {
+      return listAddContent(
+        id: id
+      );
+    },
+  );
 }
 
 Future<void> songDeloveController(Map item, BuildContext context, dynamic widget) async {
@@ -393,7 +504,7 @@ class _moreOperationsState extends State<moreOperations> {
             ),
             GestureDetector(
               onTap: (){
-                songAddListController();
+                songAddListController(widget.item["id"], context);
               },
               child: Container(
                 height: 50,
