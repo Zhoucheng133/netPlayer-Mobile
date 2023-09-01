@@ -39,6 +39,7 @@ class _listContentViewState extends State<listContentView> {
   reloadLoved() async {
     var tmp=await lovedSongRequest();
     c.updateLovedSongs(tmp);
+
     if(c.playInfo["name"]=="lovedSongs"){
       widget.audioHandler.stop();
     }
@@ -166,17 +167,19 @@ class _listContentViewState extends State<listContentView> {
                                       ),
                                       Row(
                                         children: [
-                                          songList[index]["starred"]==null ? 
-                                          Container() : 
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                Icons.favorite,
-                                                size: 15,
-                                                color: Colors.red,
-                                              ),
-                                              SizedBox(width: 5,)
-                                            ],
+                                          Obx(() => 
+                                            c.fav(songList[index]["id"])==false ? 
+                                            Container() : 
+                                            Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.favorite,
+                                                  size: 15,
+                                                  color: Colors.red,
+                                                ),
+                                                SizedBox(width: 5,)
+                                              ],
+                                            ),
                                           ),
                                           Expanded(
                                             child: Obx(() => 
