@@ -389,9 +389,10 @@ void delList(String id, dynamic widget, BuildContext context){
 }
 
 class reNameView extends StatefulWidget {
-  const reNameView({super.key, required this.listId});
+  const reNameView({super.key, required this.listId, required this.reload});
 
   final String listId;
+  final dynamic reload;
 
   @override
   State<reNameView> createState() => _reNameViewState();
@@ -401,7 +402,7 @@ class _reNameViewState extends State<reNameView> {
 
   var newName=TextEditingController();
 
-  void renameController(BuildContext context){
+  Future<void> renameController(BuildContext context) async {
     if(newName.text==""){
       showCupertinoDialog(
         context: context,
@@ -421,8 +422,27 @@ class _reNameViewState extends State<reNameView> {
         },
       );
     }else{
-      print(widget.listId);
-      // reNameList()
+      if(await reNameList(widget.listId, newName.text)){
+        widget.reload();
+      }else{
+        showCupertinoDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CupertinoAlertDialog(
+              title: Text("重命名失败!"),
+              content: Text("可以尝试稍后重试"),
+              actions: <Widget>[
+                CupertinoDialogAction(
+                  child: Text('OK'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
     }
   }
 
@@ -479,7 +499,7 @@ class _reNameViewState extends State<reNameView> {
                 Expanded(child: Container()),
                 GestureDetector(
                   onTap: (){
-                    // TODO 修改名字
+                    Navigator.pop(context);
                     renameController(context);
                   },
                   child: Container(
@@ -576,6 +596,7 @@ class _listOperationState extends State<listOperation> {
                   builder: (BuildContext context) {
                     return reNameView(
                       listId: widget.item["id"],
+                      reload: widget.reloadList,
                     );
                   },
                 );
