@@ -85,12 +85,80 @@ Future<void> listAddController(String listId, String songId, BuildContext contex
   }
 }
 
+Future<void> delFromList(int songIndx, String listId, BuildContext context, dynamic widget) async {
+  if(await delFromListRequest(listId, songIndx)){
+    widget.reloadList();
+    showCupertinoDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: Text("删除成功"),
+          content: Text("已经成功从该歌单中删除"),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }else{
+    showCupertinoDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: Text("删除失败"),
+          content: Text("可以尝试稍后重试"),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      }
+    );
+  }
+}
+
 // 将歌曲从当前歌单中删除
-void songRemoveListController(String? index){
-  if(index==null){
+void songRemoveListController(int? songIndex, String listId, BuildContext context, dynamic wiget){
+  print(songIndex);
+  print(listId);
+  if(songIndex==null){
     return;
   }else{
     // TODO 从歌单中删除
+    Navigator.of(context).pop();
+    showCupertinoDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: Text("确定要从该歌单中删除吗?"),
+          content: Text("这可能影响当前播放"),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              child: Text('取消'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            CupertinoDialogAction(
+              child: Text('确定'),
+              onPressed: () async {
+                Navigator.of(context).pop();
+                delFromList(songIndex, listId, context, wiget);
+              },
+            )
+          ],
+        );
+      },
+    );
   }
 }
 
@@ -440,15 +508,16 @@ class _listOperationState extends State<listOperation> {
 
 // 歌曲的更多操作
 class moreOperations extends StatefulWidget {
-  const moreOperations({super.key, required this.item, required this.index, required this.pageName, required this.audioHandler, this.listIndex, required this.reloadLoved, required this.playSong});
+  const moreOperations({super.key, required this.item, required this.index, required this.pageName, required this.audioHandler, this.listId, required this.reloadLoved, required this.playSong, this.reloadList});
   final Map item;
   final int index;
   final String pageName;
   final dynamic audioHandler;
-  final dynamic listIndex;
+  final dynamic listId;
 
   final VoidCallback reloadLoved;
   final VoidCallback playSong;
+  final dynamic reloadList;
 
   @override
   State<moreOperations> createState() => _moreOperationsState();
@@ -627,7 +696,11 @@ class _moreOperationsState extends State<moreOperations> {
             ),
             GestureDetector(
               onTap: (){
-                songRemoveListController(widget.listIndex);
+                if(widget.listId==null){
+                  return;
+                }else{
+                  songRemoveListController(widget.index, widget.listId, context, widget);
+                }
               },
               child: Container(
                 height: 50,

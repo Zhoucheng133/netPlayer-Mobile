@@ -21,6 +21,18 @@ class listContentView extends StatefulWidget {
 class _listContentViewState extends State<listContentView> {
   final Controller c = Get.put(Controller());
 
+  Future<void> forceReload() async {
+    List tmp=await getListContent(widget.item["id"]);
+    if(tmp.isNotEmpty){
+      setState(() {
+        songList=tmp;
+      });
+    }
+    if(c.playInfo["name"]=="songList" && c.playInfo["ListId"]==widget.item["id"]){
+      widget.audioHandler.stop();
+    }
+  }
+
   Future<void> reloadList(BuildContext context)async {
     showCupertinoDialog(
       context: context,
@@ -249,6 +261,8 @@ class _listContentViewState extends State<listContentView> {
                                           pageName: "songList", 
                                           audioHandler: widget.audioHandler,
                                           reloadLoved: reloadLoved,
+                                          listId: widget.item["id"],
+                                          reloadList: forceReload,
                                           playSong: ()=>playSong(songList[index], index, "songList", widget.audioHandler, listID: widget.item["id"], playlist: songList),
                                         );
                                       },
