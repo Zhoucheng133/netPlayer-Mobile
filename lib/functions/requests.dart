@@ -218,6 +218,7 @@ Future<bool> addToList(String listId, String songId) async {
   return true;
 }
 
+// 删除歌单
 Future<bool> delListRequest(String listId) async {
   final Controller c = Get.put(Controller());
   String url="${c.userInfo["url"]}/rest/deletePlaylist?v=1.12.0&c=netPlayer&f=json&u=${c.userInfo["username"]}&t=${c.userInfo["token"]}&s=${c.userInfo["salt"]}&id=${listId}";
@@ -236,9 +237,29 @@ Future<bool> delListRequest(String listId) async {
   return true;
 }
 
+// 将某首歌从歌单中删除
 Future<bool> delFromListRequest(String listId, int songIndex) async {
   final Controller c = Get.put(Controller());
   String url="${c.userInfo["url"]}/rest/updatePlaylist?v=1.12.0&c=netPlayer&f=json&u=${c.userInfo["username"]}&t=${c.userInfo["token"]}&s=${c.userInfo["salt"]}&playlistId=${listId}&songIndexToRemove=${songIndex}";
+  Map response=await httpRequest(url);
+  if(response.isEmpty){
+    return false;
+  }
+  try{
+    response=response["subsonic-response"];
+  }catch(e){
+    return false;
+  }
+  if(response["status"]!="ok"){
+    return false;
+  }
+  return true;
+}
+
+// 重命名歌单
+Future<bool> reNameList(String listId, String name) async {
+  final Controller c = Get.put(Controller());
+  String url="${c.userInfo["url"]}/rest/updatePlaylist?v=1.12.0&c=netPlayer&f=json&u=${c.userInfo["username"]}&t=${c.userInfo["token"]}&s=${c.userInfo["salt"]}&playlistId=${listId}&name=${name}";
   Map response=await httpRequest(url);
   if(response.isEmpty){
     return false;

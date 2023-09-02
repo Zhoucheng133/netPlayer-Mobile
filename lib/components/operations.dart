@@ -388,6 +388,126 @@ void delList(String id, dynamic widget, BuildContext context){
   );
 }
 
+class reNameView extends StatefulWidget {
+  const reNameView({super.key, required this.listId});
+
+  final String listId;
+
+  @override
+  State<reNameView> createState() => _reNameViewState();
+}
+
+class _reNameViewState extends State<reNameView> {
+
+  var newName=TextEditingController();
+
+  void renameController(BuildContext context){
+    if(newName.text==""){
+      showCupertinoDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: Text("重命名失败!"),
+            content: Text("歌单名称不能为空"),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }else{
+      print(widget.listId);
+      // reNameList()
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 300,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20)
+        ),
+        color: Colors.white
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "重命名歌单",
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold
+              ),
+            ),
+            SizedBox(height: 15,),
+            Container(
+              height: 50,
+              decoration: BoxDecoration(
+                color: Colors.grey[50],
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.1),
+                    spreadRadius: 1,
+                    blurRadius: 5,
+                  ),
+                ]
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: TextField(
+                  controller: newName,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 10,),
+            Row(
+              children: [
+                Expanded(child: Container()),
+                GestureDetector(
+                  onTap: (){
+                    // TODO 修改名字
+                    renameController(context);
+                  },
+                  child: Container(
+                    width: 60,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: c.mainColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "修改",
+                        style: TextStyle(
+                          color:  Colors.white
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            )
+          ],
+        ),
+      )
+    );
+  }
+}
+
 class _listOperationState extends State<listOperation> {
   String timeFormat(int time){
     if(time~/60>0){
@@ -449,8 +569,16 @@ class _listOperationState extends State<listOperation> {
             SizedBox(height: 10,),
             GestureDetector(
               onTap: (){
-                // TODO 重命名歌单
                 Navigator.pop(context);
+                showModalBottomSheet<void>(
+                  context: context,
+                  backgroundColor: Colors.transparent,
+                  builder: (BuildContext context) {
+                    return reNameView(
+                      listId: widget.item["id"],
+                    );
+                  },
+                );
               },
               child: Container(
                 height: 50,
