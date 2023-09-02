@@ -128,12 +128,11 @@ Future<void> delFromList(int songIndx, String listId, BuildContext context, dyna
 
 // 将歌曲从当前歌单中删除
 void songRemoveListController(int? songIndex, String listId, BuildContext context, dynamic wiget){
-  print(songIndex);
-  print(listId);
+  // print(songIndex);
+  // print(listId);
   if(songIndex==null){
     return;
   }else{
-    // TODO 从歌单中删除
     Navigator.of(context).pop();
     showCupertinoDialog(
       context: context,
