@@ -490,6 +490,8 @@ class _reNameViewState extends State<reNameView> {
                   decoration: InputDecoration(
                     border: InputBorder.none,
                   ),
+                  autocorrect: false,
+                  enableSuggestions: false,
                 ),
               ),
             ),

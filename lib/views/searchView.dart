@@ -79,6 +79,8 @@ class _searchViewState extends State<searchView> {
                             style: TextStyle(
                               fontSize: 14
                             ),
+                            autocorrect: false,
+                            enableSuggestions: false,
                           ),
                         ),
                       ),

@@ -145,6 +145,8 @@ class _loginViewState extends State<loginView> {
                           decoration: InputDecoration(
                             border: InputBorder.none,
                           ),
+                          autocorrect: false,
+                          enableSuggestions: false,
                         )
                       )
                     ],
@@ -188,6 +190,8 @@ class _loginViewState extends State<loginView> {
                           decoration: InputDecoration(
                             border: InputBorder.none,
                           ),
+                          autocorrect: false,
+                          enableSuggestions: false,
                         )
                       )
                     ],
@@ -232,6 +236,8 @@ class _loginViewState extends State<loginView> {
                           decoration: InputDecoration(
                             border: InputBorder.none,
                           ),
+                          autocorrect: false,
+                          enableSuggestions: false,
                         )
                       )
                     ],
