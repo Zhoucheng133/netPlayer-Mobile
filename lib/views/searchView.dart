@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, camel_case_types, file_names, prefer_const_literals_to_create_immutables, sized_box_for_whitespace
+// ignore_for_file: prefer_const_constructors, camel_case_types, file_names, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, use_build_context_synchronously
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -35,14 +35,32 @@ class _searchViewState extends State<searchView> {
     }
   }
 
-  Future<void> searchController() async {
+  Future<void> searchController(BuildContext context) async {
     List tmp=await searchRequest(key.text);
-    if(tmp!=[]){
+    if(tmp.isNotEmpty){
       setState(() {
         list=tmp;
       });
       c.updateSearchKey(key.text);
       c.updatesearchRlt(tmp);
+    }else{
+      showCupertinoDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: Text("没有搜索到任何内容"),
+            content: Text("换一个关键词搜索吧"),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        }
+      );
     }
   }
 
@@ -94,7 +112,9 @@ class _searchViewState extends State<searchView> {
                             ),
                             autocorrect: false,
                             enableSuggestions: false,
-                            onEditingComplete: searchController,
+                            onEditingComplete: (){
+                              searchController(context);
+                            },
                           ),
                         ),
                       ),
@@ -104,7 +124,7 @@ class _searchViewState extends State<searchView> {
               ),
               GestureDetector(
                 onTap: (){
-                  searchController();
+                  searchController(context);
                 },
                 child: Container(
                   width: 50,
