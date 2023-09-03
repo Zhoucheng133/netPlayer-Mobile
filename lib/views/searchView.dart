@@ -64,6 +64,10 @@ class _searchViewState extends State<searchView> {
     }
   }
 
+  void _clearText(){
+    key.clear();
+  }
+
   Future<void> reloadLoved() async {
     var tmp=await lovedSongRequest();
     c.updateLovedSongs(tmp);
@@ -106,6 +110,18 @@ class _searchViewState extends State<searchView> {
                                 borderSide: BorderSide(color: Colors.transparent), // 设置获取焦点时的边框颜色
                               ),
                               contentPadding: EdgeInsets.all(10),
+                              suffixIcon: GestureDetector(
+                                onTap: (){
+                                  _clearText();
+                                },
+                                child: Container(
+                                  color: Colors.grey[100],
+                                  child: Icon(
+                                    Icons.clear,
+                                    color: Colors.grey[400],
+                                  ),
+                                ),
+                              )
                             ),
                             style: TextStyle(
                               fontSize: 14
