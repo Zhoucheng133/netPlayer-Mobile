@@ -30,7 +30,7 @@ class _mainViewState extends State<mainView> {
       allSongsView(audioHandler: widget.audioHandler,),
       lovedSongsView(audioHandler: widget.audioHandler,),
       songListsView(audioHandler: widget.audioHandler,),
-      searchView(),
+      searchView(audioHandler: widget.audioHandler,),
       aboutView(),
     ];
     super.initState();

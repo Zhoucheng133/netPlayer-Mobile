@@ -16,8 +16,6 @@ class Controller extends GetxController{
   var allSongs=[].obs;
   // 搜索结果信息
   var searchRlt=[].obs;
-  // 所有专辑信息
-  var albums=[].obs;
   // 当前页面
   var pageIndex=0.obs;
   // 喜欢的歌曲信息
@@ -52,7 +50,7 @@ class Controller extends GetxController{
     "title": "songTitle",   // 歌曲标题
     "artist": "ryan",       // 艺人
     "duration": 1234,       // 歌曲长度(秒)
-    "ListId": "abc123",     // 当listName为songList或者album的时候需要此参数
+    "ListId": "abc123",     // 当listName为songList或者search的时候需要此参数, 如果是search的时候，id为搜索内容
     "index": 1,             // 播放到哪个了
     "list": [],             // 播放列表
     "album": "albumName"    // 专辑名称
@@ -65,7 +63,6 @@ class Controller extends GetxController{
   void updatePlayInfo(Map data) => playInfo.value=data;
   void updateAllSongs(data) => allSongs.value=data;
   void updatesearchRlt(data) => searchRlt.value=data;
-  void upateAlbums(data) => albums.value=data;
   void updatePageIndex(data) => pageIndex.value=data;
   void updateLovedSongs(data) => lovedSongs.value=data;
   void updateRandomPlay(data) => randomPlay.value=data;

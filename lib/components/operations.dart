@@ -15,7 +15,7 @@ List pageNameMap(String name, {List? playlist}){
       return c.allSongs.value;
     case "lovedSongs":
       return c.lovedSongs.value;
-    case "songList" || "album": 
+    case "songList" || "search": 
       if(playlist!=null){
         return playlist;
       }else{
