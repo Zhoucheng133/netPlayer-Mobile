@@ -130,6 +130,7 @@ class _searchViewState extends State<searchView> {
                             enableSuggestions: false,
                             onEditingComplete: (){
                               searchController(context);
+                              FocusScope.of(context).unfocus();
                             },
                           ),
                         ),
