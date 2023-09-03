@@ -291,5 +291,9 @@ Future<List> searchRequest(String key) async {
   if(response["status"]!="ok"){
     return [];
   }
-  return response["searchResult2"]["song"];
+  if(response["searchResult2"]["song"]!=null){
+    return response["searchResult2"]["song"];
+  }else{
+    return [];
+  }
 }

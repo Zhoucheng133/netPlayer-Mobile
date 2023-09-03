@@ -94,6 +94,7 @@ class _searchViewState extends State<searchView> {
                             ),
                             autocorrect: false,
                             enableSuggestions: false,
+                            onEditingComplete: searchController,
                           ),
                         ),
                       ),
@@ -126,7 +127,7 @@ class _searchViewState extends State<searchView> {
               itemBuilder: (BuildContext context, int index){
                 return GestureDetector(
                   onTap: (){
-                    playSong(list[index], index, "search", widget.audioHandler);
+                    playSong(list[index], index, "search", widget.audioHandler, listID: key.text, playlist: list);
                   },
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10,0,10,0),
@@ -143,7 +144,7 @@ class _searchViewState extends State<searchView> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Obx(() => 
-                                    c.playInfo.isNotEmpty && c.playInfo["name"]=="search" && c.playInfo["index"]==index ? 
+                                    c.playInfo.isNotEmpty && c.playInfo["name"]=="search" && c.playInfo["index"]==index && c.playInfo["ListId"]==key.text ? 
                                     Icon(
                                       Icons.play_arrow,
                                       color: c.mainColor,
@@ -166,7 +167,7 @@ class _searchViewState extends State<searchView> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Obx(() =>
-                                  c.playInfo.isNotEmpty && c.playInfo["name"]=="search" && c.playInfo["index"]==index ? 
+                                  c.playInfo.isNotEmpty && c.playInfo["name"]=="search" && c.playInfo["index"]==index && c.playInfo["ListId"]==key.text ? 
                                   Text(
                                     list[index]["title"],
                                     overflow: TextOverflow.ellipsis,
@@ -203,7 +204,7 @@ class _searchViewState extends State<searchView> {
                                     ),
                                     Expanded(
                                       child: Obx(() => 
-                                        c.playInfo.isNotEmpty && c.playInfo["name"]=="search" && c.playInfo["index"]==index ? 
+                                        c.playInfo.isNotEmpty && c.playInfo["name"]=="search" && c.playInfo["index"]==index && c.playInfo["ListId"]==key.text ? 
                                         Text(
                                           list[index]["artist"],
                                           overflow: TextOverflow.ellipsis,
@@ -239,7 +240,7 @@ class _searchViewState extends State<searchView> {
                                     pageName: "search", 
                                     audioHandler: widget.audioHandler,
                                     reloadLoved: reloadLoved, 
-                                    playSong: ()=>playSong(list[index], index, "search", widget.audioHandler),
+                                    playSong: ()=>playSong(list[index], index, "search", widget.audioHandler, listID: key.text, playlist: list),
                                   );
                                 },
                               );
@@ -254,7 +255,7 @@ class _searchViewState extends State<searchView> {
                                   children: [
                                     SizedBox(width: 10,),
                                     Obx(() => 
-                                      c.playInfo.isNotEmpty && c.playInfo["name"]=="search" && c.playInfo["index"]==index ? 
+                                      c.playInfo.isNotEmpty && c.playInfo["name"]=="search" && c.playInfo["index"]==index && c.playInfo["ListId"]==key.text ? 
                                       Icon(
                                         Icons.more_vert,
                                         size: 20,
