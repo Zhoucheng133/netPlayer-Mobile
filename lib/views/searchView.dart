@@ -28,8 +28,21 @@ class _searchViewState extends State<searchView> {
     super.initState();
 
     if(c.searchRlt.isNotEmpty && c.searchKey.isNotEmpty){
-      key.text=c.searchKey.value;
-      list=c.searchRlt;
+      setState(() {
+        list=c.searchRlt;
+        key.text=c.searchKey.value;
+      });
+    }
+  }
+
+  Future<void> searchController() async {
+    List tmp=await searchRequest(key.text);
+    if(tmp!=[]){
+      setState(() {
+        list=tmp;
+      });
+      c.updateSearchKey(key.text);
+      c.updatesearchRlt(tmp);
     }
   }
 
@@ -90,8 +103,7 @@ class _searchViewState extends State<searchView> {
               ),
               GestureDetector(
                 onTap: (){
-                  // TODO 搜索操作
-                  print(key.text);
+                  searchController();
                 },
                 child: Container(
                   width: 50,
@@ -266,6 +278,9 @@ class _searchViewState extends State<searchView> {
               }
             ),
           ),
+        ),
+        SizedBox(
+          height: 70,
         )
       ],
     );

@@ -274,3 +274,22 @@ Future<bool> reNameList(String listId, String name) async {
   }
   return true;
 }
+
+// 搜索
+Future<List> searchRequest(String key) async {
+  final Controller c = Get.put(Controller());
+  String url="${c.userInfo["url"]}/rest/search2?v=1.12.0&c=netPlayer&f=json&u=${c.userInfo["username"]}&t=${c.userInfo["token"]}&s=${c.userInfo["salt"]}&query=${key}";
+  Map response=await httpRequest(url);
+  if(response.isEmpty){
+    return [];
+  }
+  try{
+    response=response["subsonic-response"];
+  }catch(e){
+    return [];
+  }
+  if(response["status"]!="ok"){
+    return [];
+  }
+  return response["searchResult2"]["song"];
+}
