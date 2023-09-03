@@ -14,8 +14,8 @@ class Controller extends GetxController{
   var playInfo={}.obs;
   // 所有歌曲信息
   var allSongs=[].obs;
-  // 所有歌手信息
-  var artists=[].obs;
+  // 搜索结果信息
+  var searchRlt=[].obs;
   // 所有专辑信息
   var albums=[].obs;
   // 当前页面
@@ -26,6 +26,8 @@ class Controller extends GetxController{
   var randomPlay=false.obs;
   // 所有歌单
   var playLists=[].obs;
+  // 搜索关键词
+  var searchKey="".obs;
 
   // 主题色
   var mainColor=const Color.fromARGB(255, 24, 144, 255);
@@ -36,7 +38,7 @@ class Controller extends GetxController{
     0: "所有音乐",
     1: "我喜欢的",
     2: "歌单",
-    3: "艺人",
+    3: "搜索",
     4: "关于",
     5: "播放器",
   };
@@ -62,12 +64,13 @@ class Controller extends GetxController{
   void updateIsPlay(data) => isPlay.value=data;
   void updatePlayInfo(Map data) => playInfo.value=data;
   void updateAllSongs(data) => allSongs.value=data;
-  void updateArtists(data) => artists.value=data;
+  void updatesearchRlt(data) => searchRlt.value=data;
   void upateAlbums(data) => albums.value=data;
   void updatePageIndex(data) => pageIndex.value=data;
   void updateLovedSongs(data) => lovedSongs.value=data;
   void updateRandomPlay(data) => randomPlay.value=data;
   void updatePlayLists(data) => playLists.value=data;
+  void updateSearchKey(data) => searchKey.value=data;
 
   // 是否标记为喜爱?
   bool fav(String targetId){

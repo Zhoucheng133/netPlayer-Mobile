@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/para/para.dart';
 import 'package:netplayer_mobile/views/allSongsView.dart';
-import 'package:netplayer_mobile/views/artistsView.dart';
+import 'package:netplayer_mobile/views/searchView.dart';
 import 'package:netplayer_mobile/components/playingBar.dart';
 import 'package:netplayer_mobile/views/lovedSongsView.dart';
 import 'package:netplayer_mobile/views/aboutView.dart';
@@ -30,7 +30,7 @@ class _mainViewState extends State<mainView> {
       allSongsView(audioHandler: widget.audioHandler,),
       lovedSongsView(audioHandler: widget.audioHandler,),
       songListsView(audioHandler: widget.audioHandler,),
-      artistsView(),
+      searchView(),
       aboutView(),
     ];
     super.initState();
@@ -71,8 +71,8 @@ class _mainViewState extends State<mainView> {
               label: "我的歌单"
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.mic),
-              label: "艺人"
+              icon: Icon(Icons.search),
+              label: "搜索"
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.info),
