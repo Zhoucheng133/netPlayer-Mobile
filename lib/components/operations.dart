@@ -596,9 +596,14 @@ class _listOperationState extends State<listOperation> {
                   context: context,
                   backgroundColor: Colors.transparent,
                   builder: (BuildContext context) {
-                    return reNameView(
-                      listId: widget.item["id"],
-                      reload: widget.reloadList,
+                    return SingleChildScrollView(
+                      padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom
+                      ),
+                      child: reNameView(
+                        listId: widget.item["id"],
+                        reload: widget.reloadList,
+                      ),
                     );
                   },
                 );
