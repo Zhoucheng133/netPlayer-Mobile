@@ -53,6 +53,8 @@ class _mainViewState extends State<mainView> {
         BottomNavigationBar(
           selectedItemColor: c.mainColor,
           unselectedItemColor: Colors.grey,
+          selectedFontSize: 14.0,
+          unselectedFontSize: 14.0,
           onTap: (index){
             c.updatePageIndex(index);
           },
