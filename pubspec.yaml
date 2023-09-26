@@ -7,7 +7,7 @@ environment:
   sdk: '>=3.1.0 <4.0.0'
 
 dependencies:
-  audio_service: ^0.18.10
+  audio_service: ^0.18.12
   audioplayers: ^5.1.0
   crypto: ^3.0.3
   flutter:
