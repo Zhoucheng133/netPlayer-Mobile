@@ -183,7 +183,7 @@ class _searchViewState extends State<searchView> {
                                   Obx(() => 
                                     c.playInfo.isNotEmpty && c.playInfo["name"]=="search" && c.playInfo["index"]==index && c.playInfo["ListId"]==key.text ? 
                                     Icon(
-                                      Icons.play_arrow,
+                                      Icons.play_arrow_rounded,
                                       color: c.mainColor,
                                     ) : 
                                     Text(

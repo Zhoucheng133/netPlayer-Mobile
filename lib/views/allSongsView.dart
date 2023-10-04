@@ -168,7 +168,7 @@ class _allSongsViewState extends State<allSongsView> {
                                   Obx(() => 
                                     c.playInfo.isNotEmpty && c.playInfo["name"]=="allSongs" && c.playInfo["index"]==index ? 
                                     Icon(
-                                      Icons.play_arrow,
+                                      Icons.play_arrow_rounded,
                                       color: c.mainColor,
                                     ) : 
                                     Text(

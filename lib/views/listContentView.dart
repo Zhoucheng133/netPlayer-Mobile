@@ -167,7 +167,7 @@ class _listContentViewState extends State<listContentView> {
                                         Obx(() => 
                                           c.playInfo.isNotEmpty && c.playInfo["name"]=="songList" && c.playInfo["index"]==index && c.playInfo["ListId"]==widget.item["id"] ? 
                                           Icon(
-                                            Icons.play_arrow,
+                                            Icons.play_arrow_rounded,
                                             color: c.mainColor,
                                           ) : 
                                           Text(
