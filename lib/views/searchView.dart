@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, camel_case_types, file_names, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, use_build_context_synchronously
 
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -44,23 +46,43 @@ class _searchViewState extends State<searchView> {
       c.updateSearchKey(key.text);
       c.updatesearchRlt(tmp);
     }else{
-      showCupertinoDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return CupertinoAlertDialog(
-            title: Text("没有搜索到任何内容"),
-            content: Text("换一个关键词搜索吧"),
-            actions: <Widget>[
-              CupertinoDialogAction(
-                child: Text('OK'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        }
-      );
+      if(Platform.isIOS){
+        showCupertinoDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CupertinoAlertDialog(
+              title: Text("没有搜索到任何内容"),
+              content: Text("换一个关键词搜索吧"),
+              actions: <Widget>[
+                CupertinoDialogAction(
+                  child: Text('OK'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          }
+        );
+      }else{
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("没有搜索到任何内容"),
+              content: Text("换一个关键词搜索吧"),
+              actions: <Widget>[
+                TextButton(
+                  child: Text('OK'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          }
+        );
+      }
     }
   }
 

@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, unrelated_type_equality_checks, invalid_use_of_protected_member, use_build_context_synchronously, camel_case_types, unnecessary_brace_in_string_interps
 
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -47,82 +49,162 @@ void playSong(Map item, int index, String pageName, dynamic audioHandler, {Strin
 Future<void> listAddController(String listId, String songId, BuildContext context) async {
   Navigator.pop(context);
   if(await addToList(listId,songId)){
-    showCupertinoDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return CupertinoAlertDialog(
-          title: Text("添加成功"),
-          content: Text("你可以去我的歌单中查看"),
-          actions: <Widget>[
-            CupertinoDialogAction(
-              child: Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
+    if(Platform.isIOS){
+      showCupertinoDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: Text("添加成功"),
+            content: Text("你可以去我的歌单中查看"),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }else{
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("添加成功"),
+            content: Text("你可以去我的歌单中查看"),
+            actions: <Widget>[
+              TextButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }else{
-    showCupertinoDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return CupertinoAlertDialog(
-          title: Text("操作失败!"),
-          content: Text("可以尝试稍后重试"),
-          actions: <Widget>[
-            CupertinoDialogAction(
-              child: Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
+    if(Platform.isIOS){
+      showCupertinoDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: Text("操作失败!"),
+            content: Text("可以尝试稍后重试"),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }else{
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("操作失败!"),
+            content: Text("可以尝试稍后重试"),
+            actions: <Widget>[
+              TextButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 }
 
 Future<void> delFromList(int songIndx, String listId, BuildContext context, dynamic widget) async {
   if(await delFromListRequest(listId, songIndx)){
     widget.reloadList();
-    showCupertinoDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return CupertinoAlertDialog(
-          title: Text("删除成功"),
-          content: Text("已经成功从该歌单中删除"),
-          actions: <Widget>[
-            CupertinoDialogAction(
-              child: Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
+    if(Platform.isIOS){
+      showCupertinoDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: Text("删除成功"),
+            content: Text("已经成功从该歌单中删除"),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }else{
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("删除成功"),
+            content: Text("已经成功从该歌单中删除"),
+            actions: <Widget>[
+              TextButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }else{
-    showCupertinoDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return CupertinoAlertDialog(
-          title: Text("删除失败"),
-          content: Text("可以尝试稍后重试"),
-          actions: <Widget>[
-            CupertinoDialogAction(
-              child: Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      }
-    );
+    if(Platform.isIOS){
+      showCupertinoDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: Text("删除失败"),
+            content: Text("可以尝试稍后重试"),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        }
+      );
+    }else{
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("删除失败"),
+            content: Text("可以尝试稍后重试"),
+            actions: <Widget>[
+              TextButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        }
+      );
+    }
   }
 }
 
@@ -134,30 +216,57 @@ void songRemoveListController(int? songIndex, String listId, BuildContext contex
     return;
   }else{
     Navigator.of(context).pop();
-    showCupertinoDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return CupertinoAlertDialog(
-          title: Text("确定要从该歌单中删除吗?"),
-          content: Text("这可能影响当前播放"),
-          actions: <Widget>[
-            CupertinoDialogAction(
-              child: Text('取消'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            CupertinoDialogAction(
-              child: Text('确定'),
-              onPressed: () async {
-                Navigator.of(context).pop();
-                delFromList(songIndex, listId, context, wiget);
-              },
-            )
-          ],
-        );
-      },
-    );
+    if(Platform.isIOS){
+      showCupertinoDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: Text("确定要从该歌单中删除吗?"),
+            content: Text("这可能影响当前播放"),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                child: Text('取消'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              CupertinoDialogAction(
+                child: Text('确定'),
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                  delFromList(songIndex, listId, context, wiget);
+                },
+              )
+            ],
+          );
+        },
+      );
+    }else{
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("确定要从该歌单中删除吗?"),
+            content: Text("这可能影响当前播放"),
+            actions: <Widget>[
+              TextButton(
+                child: Text('取消'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: Text('确定'),
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                  delFromList(songIndex, listId, context, wiget);
+                },
+              )
+            ],
+          );
+        },
+      );
+    }
   }
 }
 
@@ -282,23 +391,43 @@ Future<void> songDeloveController(Map item, BuildContext context, dynamic widget
   if(await setDelove(item["id"])){
     widget.reloadLoved();
   }else{
-    showCupertinoDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return CupertinoAlertDialog(
-          title: Text("操作失败!"),
-          content: Text("可以尝试稍后重试"),
-          actions: <Widget>[
-            CupertinoDialogAction(
-              child: Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
+    if(Platform.isIOS){
+      showCupertinoDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: Text("操作失败!"),
+            content: Text("可以尝试稍后重试"),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }else{
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("操作失败!"),
+            content: Text("可以尝试稍后重试"),
+            actions: <Widget>[
+              TextButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 }
 
@@ -308,23 +437,43 @@ Future<void> songLoveController(Map item, BuildContext context, dynamic widget) 
   if(await setLove(item["id"])){
     widget.reloadLoved();
   }else{
-    showCupertinoDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return CupertinoAlertDialog(
-          title: Text("操作失败!"),
-          content: Text("可以尝试稍后重试"),
-          actions: <Widget>[
-            CupertinoDialogAction(
-              child: Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
+    if(Platform.isIOS){
+      showCupertinoDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: Text("操作失败!"),
+            content: Text("可以尝试稍后重试"),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }else{
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("操作失败!"),
+            content: Text("可以尝试稍后重试"),
+            actions: <Widget>[
+              TextButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 }
 
@@ -342,50 +491,97 @@ class listOperation extends StatefulWidget {
 // 删除歌单操作
 void delList(String id, dynamic widget, BuildContext context){
   Navigator.of(context).pop();
-  showCupertinoDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return CupertinoAlertDialog(
-        title: Text("确定要刷新歌单列表吗?"),
-        content: Text("这不会影响当前播放"),
-        actions: <Widget>[
-          CupertinoDialogAction(
-            child: Text('取消'),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-          CupertinoDialogAction(
-            child: Text('确定'),
-            onPressed: () async {
-              if(await delListRequest(id)){
-                widget.reloadList();
+  if(Platform.isIOS){
+    showCupertinoDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: Text("确定要删除歌单列表吗?"),
+          content: Text("这不会影响当前播放"),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              child: Text('取消'),
+              onPressed: () {
                 Navigator.of(context).pop();
-              }else{
-                showCupertinoDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return CupertinoAlertDialog(
-                      title: Text("操作失败!"),
-                      content: Text("可以尝试稍后重试"),
-                      actions: <Widget>[
-                        CupertinoDialogAction(
-                          child: Text('OK'),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ],
-                    );
-                  },
-                );
-              }
-            },
-          )
-        ],
-      );
-    },
-  );
+              },
+            ),
+            CupertinoDialogAction(
+              child: Text('确定'),
+              onPressed: () async {
+                if(await delListRequest(id)){
+                  widget.reloadList();
+                  Navigator.of(context).pop();
+                }else{
+                  showCupertinoDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return CupertinoAlertDialog(
+                        title: Text("操作失败!"),
+                        content: Text("可以尝试稍后重试"),
+                        actions: <Widget>[
+                          CupertinoDialogAction(
+                            child: Text('OK'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                }
+              },
+            )
+          ],
+        );
+      },
+    );
+  }else{
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("确定要删除歌单列表吗?"),
+          content: Text("这不会影响当前播放"),
+          actions: <Widget>[
+            TextButton(
+              child: Text('取消'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('确定'),
+              onPressed: () async {
+                if(await delListRequest(id)){
+                  widget.reloadList();
+                  Navigator.of(context).pop();
+                }else{
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text("操作失败!"),
+                        content: Text("可以尝试稍后重试"),
+                        actions: <Widget>[
+                          TextButton(
+                            child: Text('OK'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                }
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
 }
 
 class reNameView extends StatefulWidget {
@@ -404,33 +600,13 @@ class _reNameViewState extends State<reNameView> {
 
   Future<void> renameController(BuildContext context) async {
     if(newName.text==""){
-      showCupertinoDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return CupertinoAlertDialog(
-            title: Text("重命名失败!"),
-            content: Text("歌单名称不能为空"),
-            actions: <Widget>[
-              CupertinoDialogAction(
-                child: Text('OK'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
-    }else{
-      if(await reNameList(widget.listId, newName.text)){
-        widget.reload();
-      }else{
+      if(Platform.isIOS){
         showCupertinoDialog(
           context: context,
           builder: (BuildContext context) {
             return CupertinoAlertDialog(
               title: Text("重命名失败!"),
-              content: Text("可以尝试稍后重试"),
+              content: Text("歌单名称不能为空"),
               actions: <Widget>[
                 CupertinoDialogAction(
                   child: Text('OK'),
@@ -442,6 +618,66 @@ class _reNameViewState extends State<reNameView> {
             );
           },
         );
+      }else{
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("重命名失败!"),
+              content: Text("歌单名称不能为空"),
+              actions: <Widget>[
+                TextButton(
+                  child: Text('OK'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
+    }else{
+      if(await reNameList(widget.listId, newName.text)){
+        widget.reload();
+      }else{
+        if(Platform.isIOS){
+          showCupertinoDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return CupertinoAlertDialog(
+                title: Text("重命名失败!"),
+                content: Text("可以尝试稍后重试"),
+                actions: <Widget>[
+                  CupertinoDialogAction(
+                    child: Text('OK'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+        }else{
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text("重命名失败!"),
+                content: Text("可以尝试稍后重试"),
+                actions: <Widget>[
+                  TextButton(
+                    child: Text('OK'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+        }
       }
     }
   }

@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, camel_case_types, file_names, invalid_use_of_protected_member, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, use_build_context_synchronously
 
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,34 +25,65 @@ class _songListsViewState extends State<songListsView> {
   var list=[];
 
   void reloadList(BuildContext context){
-    showCupertinoDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return CupertinoAlertDialog(
-          title: Text("确定要刷新歌单列表吗?"),
-          content: Text("这不会影响当前播放"),
-          actions: <Widget>[
-            CupertinoDialogAction(
-              child: Text('取消'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            CupertinoDialogAction(
-              child: Text('确定'),
-              onPressed: () async {
-                var tmp=await allListsRequest();
-                setState(() {
-                  list=tmp;
-                });
-                c.updatePlayLists(list);
-                Navigator.of(context).pop();
-              },
-            )
-          ],
-        );
-      },
-    );
+    if(Platform.isIOS){
+      showCupertinoDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: Text("确定要刷新歌单列表吗?"),
+            content: Text("这不会影响当前播放"),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                child: Text('取消'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              CupertinoDialogAction(
+                child: Text('确定'),
+                onPressed: () async {
+                  var tmp=await allListsRequest();
+                  setState(() {
+                    list=tmp;
+                  });
+                  c.updatePlayLists(list);
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        },
+      );
+    }else{
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("确定要刷新歌单列表吗?"),
+            content: Text("这不会影响当前播放"),
+            actions: <Widget>[
+              TextButton(
+                child: Text('取消'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: Text('确定'),
+                onPressed: () async {
+                  var tmp=await allListsRequest();
+                  setState(() {
+                    list=tmp;
+                  });
+                  c.updatePlayLists(list);
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        },
+      );
+    }
   }
 
   Future<void> getList() async {

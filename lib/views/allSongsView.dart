@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, camel_case_types, file_names, invalid_use_of_protected_member, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, use_build_context_synchronously, unused_element, avoid_unnecessary_containers
 
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -72,43 +74,83 @@ class _allSongsViewState extends State<allSongsView> {
   }
 
   void reloadList(BuildContext context){
-    showCupertinoDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return CupertinoAlertDialog(
-          title: Text("确定要刷新所有歌曲列表吗?"),
-          content: Text("这可能会停止当前播放"),
-          actions: <Widget>[
-            CupertinoDialogAction(
-              child: Text('取消'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            CupertinoDialogAction(
-              child: Text('确定'),
-              onPressed: () async {
-                var tmp=await allSongsRequest();
-                var tmpList=tmp["randomSongs"]["song"];
-                tmpList.sort((a, b) {
-                  DateTime dateTimeA = DateTime.parse(a['created']);
-                  DateTime dateTimeB = DateTime.parse(b['created']);
-                  return dateTimeB.compareTo(dateTimeA);
-                });
-                setState(() {
-                  songList=tmpList;
-                });
-                c.updateAllSongs(songList);
-                if(c.playInfo["name"]=="allSongs"){
-                  widget.audioHandler.stop();
-                }
-                Navigator.of(context).pop();
-              },
-            )
-          ],
-        );
-      },
-    );
+    if(Platform.isIOS){
+      showCupertinoDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: Text("确定要刷新所有歌曲列表吗?"),
+            content: Text("这可能会停止当前播放"),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                child: Text('取消'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              CupertinoDialogAction(
+                child: Text('确定'),
+                onPressed: () async {
+                  var tmp=await allSongsRequest();
+                  var tmpList=tmp["randomSongs"]["song"];
+                  tmpList.sort((a, b) {
+                    DateTime dateTimeA = DateTime.parse(a['created']);
+                    DateTime dateTimeB = DateTime.parse(b['created']);
+                    return dateTimeB.compareTo(dateTimeA);
+                  });
+                  setState(() {
+                    songList=tmpList;
+                  });
+                  c.updateAllSongs(songList);
+                  if(c.playInfo["name"]=="allSongs"){
+                    widget.audioHandler.stop();
+                  }
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        },
+      );
+    }else{
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("确定要刷新所有歌曲列表吗?"),
+            content: Text("这可能会停止当前播放"),
+            actions: <Widget>[
+              TextButton(
+                child: Text('取消'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: Text('确定'),
+                onPressed: () async {
+                  var tmp=await allSongsRequest();
+                  var tmpList=tmp["randomSongs"]["song"];
+                  tmpList.sort((a, b) {
+                    DateTime dateTimeA = DateTime.parse(a['created']);
+                    DateTime dateTimeB = DateTime.parse(b['created']);
+                    return dateTimeB.compareTo(dateTimeA);
+                  });
+                  setState(() {
+                    songList=tmpList;
+                  });
+                  c.updateAllSongs(songList);
+                  if(c.playInfo["name"]=="allSongs"){
+                    widget.audioHandler.stop();
+                  }
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        },
+      );
+    }
   }
 
 
