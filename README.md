@@ -14,7 +14,9 @@
 
 **基于Subsonic API的移动端播放器**
 
-**注意，暂时没有适配Android设备**
+**支持Android设备和iOS设备**
+
+（`apk`安装包见`Release`，iOS设备请自行下载源码安装）
 
 关于桌面版的netPlayer，你可以在这里查看：[Gitee](https://gitee.com/Ryan-zhou/net-player) / [Github](https://github.com/Zhoucheng133/net-player)  
 关于移动Lite的netPlayer，你可以在这里查看：[Gitee](https://gitee.com/Ryan-zhou/net-player_-lite) / [Github](https://github.com/Zhoucheng133/neyPlayer_Lite)
@@ -31,3 +33,7 @@
 
 ### v1.0.0
 - 第一个版本
+
+### v1.0.1
+- 添加对安卓版本的支持
+- 修复一些问题
