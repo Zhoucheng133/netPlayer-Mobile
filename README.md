@@ -44,7 +44,8 @@
 - 在Android设备上使用Material弹窗
 - 修复弹窗文本错误
 
-### v1.0.1 (PWA) (2023/10/12)
+### v1.0.2 (iOS & Android & PWA) (2023/10/12)
 - 取消了底部栏上层阴影
-- 解决了在PWA环境中标题栏的一些问题
 - 添加了对Web和PWA的支持
+- 解决了在PWA环境中标题栏的一些问题
+- 使用just audio库代替audio players
