@@ -36,8 +36,17 @@ class _mainViewState extends State<mainView> {
     super.initState();
   }
 
-  String appBarText(int index){
-    return c.pageAsyc[c.pageIndex]!;
+  var pageAsyc={
+    0: "所有音乐",
+    1: "我喜欢的",
+    2: "歌单",
+    3: "搜索",
+    4: "关于",
+    5: "播放器",
+  };
+
+  String appBarText(){
+    return pageAsyc[c.pageIndex.value]!;
   }
 
   @override
@@ -45,12 +54,14 @@ class _mainViewState extends State<mainView> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Obx(() => Text(appBarText(c.pageIndex.value))),
+        title: Obx(() => Text(appBarText())),
+        // title: Text("所有音乐"),
         backgroundColor: Colors.white,
         foregroundColor: c.mainColor,
       ),
       bottomNavigationBar: Obx(() => 
         BottomNavigationBar(
+          elevation: 0,
           selectedItemColor: c.mainColor,
           unselectedItemColor: Colors.grey,
           selectedFontSize: 14.0,
