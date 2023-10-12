@@ -8,12 +8,12 @@ environment:
 
 dependencies:
   audio_service: ^0.18.12
-  audioplayers: ^5.1.0
   crypto: ^3.0.3
   flutter:
     sdk: flutter
   get: ^4.6.5
   http: ^1.1.0
+  just_audio: ^0.9.35
   shared_preferences: ^2.2.0
 
 dev_dependencies:

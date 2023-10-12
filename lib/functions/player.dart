@@ -3,7 +3,8 @@
 import 'dart:math';
 
 import 'package:audio_service/audio_service.dart';
-import 'package:audioplayers/audioplayers.dart';
+// import 'package:audioplayers/audioplayers.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/para/para.dart';
 
@@ -12,6 +13,7 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
   final player = AudioPlayer();
 
   var playInfo={};
+  var playingURL="";
 
   MediaItem item=MediaItem(id: "", title: "");
 
@@ -26,8 +28,14 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
       ],
       processingState: AudioProcessingState.loading,
     ));
-    player.onPlayerComplete.listen((event) {
-      skipToNext();
+    // player.onPlayerComplete.listen((event) {
+    //   skipToNext();
+    // });
+    player.playerStateStream.listen((state) {
+      if(state.processingState == ProcessingState.completed) {
+        // print("complete");
+        skipToNext();
+      }
     });
   }
 
@@ -50,7 +58,12 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
     }
     var url="${c.userInfo["url"]}/rest/stream?v=1.12.0&c=netPlayer&f=json&u=${c.userInfo["username"]}&t=${c.userInfo["token"]}&s=${c.userInfo["salt"]}&id=${c.playInfo["id"]}";
     playInfo=c.playInfo;
-    await player.play(UrlSource(url));
+    // await player.play(UrlSource(url));
+    if(playingURL!=url){
+      await player.setUrl(url);
+    }
+    player.play();
+    playingURL=url;
     playbackState.add(playbackState.value.copyWith(
       playing: true,
       controls: [
@@ -69,7 +82,7 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
 
   @override
   Future<void> pause() async {
-    await player.pause();
+    player.pause();
     c.updateIsPlay(false);
     playbackState.add(playbackState.value.copyWith(
       playing: true,
@@ -84,9 +97,9 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
 
   @override
   Future<void> skipToNext()async {
-    await player.stop();
+    // await player.stop();
     swtichNext();
-    await play();
+    play();
     setInfo();
   }
 
@@ -94,7 +107,7 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
   Future<void> skipToPrevious()async{
     await player.stop();
     switchbackward();
-    await play();
+    play();
     setInfo();
   }
 
