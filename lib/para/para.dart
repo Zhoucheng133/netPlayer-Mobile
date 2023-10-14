@@ -41,7 +41,7 @@ class Controller extends GetxController{
     5: "播放器",
   };
   // 版本号
-  var version="1.0.2".obs;
+  var version="1.0.3".obs;
 
   // 当前播放歌曲信息规则
   var playInfo_example={

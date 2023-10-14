@@ -79,3 +79,6 @@
 - 添加了对Web和PWA的支持
 - 解决了在PWA环境中标题栏的一些问题
 - 使用just audio库代替audio players
+
+### v1.0.3 (iOS & Android & PWA) (2023/10/14)
+- 修复播放器bug
