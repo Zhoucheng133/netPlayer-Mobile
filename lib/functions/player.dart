@@ -85,7 +85,7 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
     player.pause();
     c.updateIsPlay(false);
     playbackState.add(playbackState.value.copyWith(
-      playing: false,
+      playing: true,
       controls: [
         MediaControl.skipToPrevious,
         MediaControl.play,
