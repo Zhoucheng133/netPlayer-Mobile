@@ -312,7 +312,12 @@ void addList(BuildContext context){
     context: context,
     backgroundColor: Colors.transparent,
     builder: (BuildContext context) {
-      return addListContent();
+      return SingleChildScrollView(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom
+        ),
+        child: addListContent()
+      );
     },
   );
 }
@@ -561,7 +566,7 @@ class _listAddContentState extends State<listAddContent> {
   }
 }
 
-// 歌曲添加到歌单中转
+// 歌曲添加到歌单
 void songAddListController(String id, BuildContext context){
   Navigator.of(context).pop();
   showModalBottomSheet<void>(
