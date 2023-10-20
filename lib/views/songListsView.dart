@@ -22,7 +22,7 @@ class songListsView extends StatefulWidget {
 class _songListsViewState extends State<songListsView> {
   final Controller c = Get.put(Controller());
 
-  var list=[];
+  // var list=[];
 
   void reloadList(BuildContext context){
     if(Platform.isIOS){
@@ -42,11 +42,13 @@ class _songListsViewState extends State<songListsView> {
               CupertinoDialogAction(
                 child: Text('确定'),
                 onPressed: () async {
+                  // var tmp=await allListsRequest();
+                  // setState(() {
+                  //   list=tmp;
+                  // });
+                  // c.updatePlayLists(list);
                   var tmp=await allListsRequest();
-                  setState(() {
-                    list=tmp;
-                  });
-                  c.updatePlayLists(list);
+                  c.updatePlayLists(tmp);
                   Navigator.of(context).pop();
                 },
               )
@@ -71,11 +73,13 @@ class _songListsViewState extends State<songListsView> {
               TextButton(
                 child: Text('确定'),
                 onPressed: () async {
+                  // var tmp=await allListsRequest();
+                  // setState(() {
+                  //   list=tmp;
+                  // });
+                  // c.updatePlayLists(list);
                   var tmp=await allListsRequest();
-                  setState(() {
-                    list=tmp;
-                  });
-                  c.updatePlayLists(list);
+                  c.updatePlayLists(tmp);
                   Navigator.of(context).pop();
                 },
               )
@@ -87,17 +91,19 @@ class _songListsViewState extends State<songListsView> {
   }
 
   Future<void> getList() async {
-    if(c.playLists.value.isEmpty){
-      var tmp=await allListsRequest();
-      setState(() {
-        list=tmp;
-      });
-      c.updatePlayLists(list);
-    }else{
-      setState(() {
-        list=c.playLists.value;
-      });
-    }
+    var tmp=await allListsRequest();
+    c.updatePlayLists(tmp);
+    // if(c.playLists.value.isEmpty){
+    //   var tmp=await allListsRequest();
+    //   setState(() {
+    //     list=tmp;
+    //   });
+    //   c.updatePlayLists(list);
+    // }else{
+    //   setState(() {
+    //     list=c.playLists.value;
+    //   });
+    // }
   }
 
   @override
@@ -109,10 +115,10 @@ class _songListsViewState extends State<songListsView> {
 
   Future<void> forceReload() async {
     var tmp=await allListsRequest();
-    setState(() {
-      list=tmp;
-    });
-    c.updatePlayLists(list);
+    // setState(() {
+    //   list=tmp;
+    // });
+    c.updatePlayLists(tmp);
   }
   
   @override
@@ -127,9 +133,11 @@ class _songListsViewState extends State<songListsView> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "合计${list.length}个歌单", 
-                  style: TextStyle(color: c.mainColor),
+                Obx(() => 
+                  Text(
+                    "合计${c.playLists.length}个歌单", 
+                    style: TextStyle(color: c.mainColor),
+                  ),
                 ),
                 SizedBox(width: 8,),
                 GestureDetector(
@@ -147,94 +155,96 @@ class _songListsViewState extends State<songListsView> {
         ),
         Expanded(
           child: CupertinoScrollbar(
-            child: ListView.builder(
-              itemCount: list.length,
-              itemBuilder: (BuildContext context, int index){
-                return GestureDetector(
-                  onTap: (){
-                    Navigator.push(
-                      context, 
-                      MaterialPageRoute(builder: (context) => listContentView(audioHandler: widget.audioHandler, item: list[index],))
-                    );
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(10,0,10,0),
-                    child: Container(
-                      height: 60,
-                      color: Colors.white,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            width: 40,
-                            child: Center(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    (index+1).toString(),
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                  SizedBox(width: 5,)
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  list[index]["name"],
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold
-                                  ),
-                                )
-                              ],
-                            )
-                          ),
-                          GestureDetector(
-                            onTap: (){
-                              showModalBottomSheet<void>(
-                                context: context,
-                                backgroundColor: Colors.transparent,
-                                builder: (BuildContext context) {
-                                  return listOperation(
-                                    item: list[index], 
-                                    reloadList: forceReload,
-
-                                  );
-                                },
-                              );
-                            },
-                            child: Container(
-                              color: Colors.white,
-                              width: 50,
-                              height: double.infinity,
+            child: Obx(() => 
+              ListView.builder(
+                itemCount: c.playLists.length,
+                itemBuilder: (BuildContext context, int index){
+                  return GestureDetector(
+                    onTap: (){
+                      Navigator.push(
+                        context, 
+                        MaterialPageRoute(builder: (context) => listContentView(audioHandler: widget.audioHandler, item: c.playLists[index],))
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(10,0,10,0),
+                      child: Container(
+                        height: 60,
+                        color: Colors.white,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 40,
                               child: Center(
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    SizedBox(width: 10,),
-                                    Icon(
-                                      Icons.more_vert,
-                                      size: 20,
-                                    )
+                                    Text(
+                                      (index+1).toString(),
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                    SizedBox(width: 5,)
                                   ],
-                                )
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    c.playLists[index]["name"],
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold
+                                    ),
+                                  )
+                                ],
+                              )
+                            ),
+                            GestureDetector(
+                              onTap: (){
+                                showModalBottomSheet<void>(
+                                  context: context,
+                                  backgroundColor: Colors.transparent,
+                                  builder: (BuildContext context) {
+                                    return listOperation(
+                                      item: c.playLists[index], 
+                                      reloadList: forceReload,
+
+                                    );
+                                  },
+                                );
+                              },
+                              child: Container(
+                                color: Colors.white,
+                                width: 50,
+                                height: double.infinity,
+                                child: Center(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(width: 10,),
+                                      Icon(
+                                        Icons.more_vert,
+                                        size: 20,
+                                      )
+                                    ],
+                                  )
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                );
-              }
-            ),
+                  );
+                }
+              ),
+            )
           ),
         ), 
         SizedBox(height: 70,)

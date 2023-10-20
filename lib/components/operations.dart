@@ -138,7 +138,7 @@ class _addListContentState extends State<addListContent> {
 
   var newListName=TextEditingController();
 
-  void newListController(BuildContext context){
+  Future<void> newListController(BuildContext context) async {
     if(newListName.text.isEmpty){
       if(Platform.isIOS){
         showCupertinoDialog(
@@ -178,7 +178,48 @@ class _addListContentState extends State<addListContent> {
         );
       }
     }else{
-      
+      if(await newList(newListName.text)){
+        var tmp=await allListsRequest();
+        c.updatePlayLists(tmp);
+      }else{
+        if(Platform.isIOS){
+          showCupertinoDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return CupertinoAlertDialog(
+                title: Text("创建失败!"),
+                content: Text("可以尝试稍后重试"),
+                actions: <Widget>[
+                  CupertinoDialogAction(
+                    child: Text('OK'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+        }else{
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text("创建失败!"),
+                content: Text("可以尝试稍后重试"),
+                actions: <Widget>[
+                  TextButton(
+                    child: Text('OK'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+        }
+      }
     }
   }
 
