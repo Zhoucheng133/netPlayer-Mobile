@@ -25,11 +25,9 @@ class _listContentViewState extends State<listContentView> {
 
   Future<void> forceReload() async {
     List tmp=await getListContent(widget.item["id"]);
-    if(tmp.isNotEmpty){
-      setState(() {
-        songList=tmp;
-      });
-    }
+    setState(() {
+      songList=tmp;
+    });
     if(c.playInfo["name"]=="songList" && c.playInfo["ListId"]==widget.item["id"]){
       widget.audioHandler.stop();
     }
