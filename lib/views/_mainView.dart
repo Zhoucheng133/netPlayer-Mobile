@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:netplayer_mobile/components/operations.dart';
 import 'package:netplayer_mobile/para/para.dart';
 import 'package:netplayer_mobile/views/allSongsView.dart';
 import 'package:netplayer_mobile/views/searchView.dart';
@@ -63,7 +64,7 @@ class _mainViewState extends State<mainView> {
             c.pageIndex==2 ?
             IconButton(
               onPressed: (){
-                
+                addList(context);
               }, 
               icon: Icon(
                 Icons.add_rounded,

@@ -127,6 +127,155 @@ Future<void> listAddController(String listId, String songId, BuildContext contex
   }
 }
 
+class addListContent extends StatefulWidget {
+  const addListContent({super.key});
+
+  @override
+  State<addListContent> createState() => _addListContentState();
+}
+
+class _addListContentState extends State<addListContent> {
+
+  var newListName=TextEditingController();
+
+  void newListController(BuildContext context){
+    if(newListName.text.isEmpty){
+      if(Platform.isIOS){
+        showCupertinoDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CupertinoAlertDialog(
+              title: Text("新建失败!"),
+              content: Text("歌单名称不能为空"),
+              actions: <Widget>[
+                CupertinoDialogAction(
+                  child: Text('OK'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }else{
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("新建失败!"),
+              content: Text("歌单名称不能为空"),
+              actions: <Widget>[
+                TextButton(
+                  child: Text('OK'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
+    }else{
+      
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 300,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20)
+        ),
+        color: Colors.white
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "新建歌单",
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold
+              ),
+            ),
+            SizedBox(height: 15,),
+            Container(
+              height: 50,
+              decoration: BoxDecoration(
+                color: Colors.grey[50],
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.1),
+                    spreadRadius: 1,
+                    blurRadius: 5,
+                  ),
+                ]
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: TextField(
+                  controller: newListName,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                  ),
+                  autocorrect: false,
+                  enableSuggestions: false,
+                ),
+              ),
+            ),
+            SizedBox(height: 10,),
+            Row(
+              children: [
+                Expanded(child: Container()),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.pop(context);
+                    newListController(context);
+                  },
+                  child: Container(
+                    width: 60,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: c.mainColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "新建",
+                        style: TextStyle(
+                          color:  Colors.white
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+void addList(BuildContext context){
+  showModalBottomSheet<void>(
+    context: context,
+    backgroundColor: Colors.transparent,
+    builder: (BuildContext context) {
+      return addListContent();
+    },
+  );
+}
+
 Future<void> delFromList(int songIndx, String listId, BuildContext context, dynamic widget) async {
   if(await delFromListRequest(listId, songIndx)){
     widget.reloadList();
