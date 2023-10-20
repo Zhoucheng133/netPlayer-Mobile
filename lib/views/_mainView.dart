@@ -58,6 +58,21 @@ class _mainViewState extends State<mainView> {
         // title: Text("所有音乐"),
         backgroundColor: Colors.white,
         foregroundColor: c.mainColor,
+        actions: [
+          Obx(() => 
+            c.pageIndex==2 ?
+            IconButton(
+              onPressed: (){
+                
+              }, 
+              icon: Icon(
+                Icons.add_rounded,
+                size: 30,
+              )
+            ) :
+            Container()
+          )
+        ],
       ),
       bottomNavigationBar: Obx(() => 
         BottomNavigationBar(
