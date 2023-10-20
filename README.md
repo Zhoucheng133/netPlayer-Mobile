@@ -25,7 +25,7 @@
 
 |                          | netPlayer                       | netPlayer Mobile                                             | netPlayer Lite                                               | netPlayer PWA         |
 | ------------------------ | ------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | --------------------- |
-| 兼容系统                 | Windows<br />macOS<br />Linux ⭕ | iOS<br />Android<br />Web (PWA) <sup>1</sup><br />Windows❗<br />macOS❗<br />Linux❗ | iOS<br />Android<br />Web (PWA)❓<br />Windows❗<br />macOS❗<br />Linux❗ | Web (PWA)<sup>1</sup> |
+| 兼容系统                 | Windows<br />macOS<br />Linux ⭕ | iOS<br />Android<br />Web (PWA) <sup>1</sup><br />Windows❗<br />macOS❗<br />Linux❗ | iOS<br />Android<br />Web (PWA) ⭕<br />Windows❗<br />macOS❗<br />Linux❗ | Web (PWA)<sup>1</sup> |
 | 基于                     | Vue & Electron                  | Flutter                                                      | Flutter                                                      | Vue                   |
 | 登录                     | ✅                               | ✅                                                            | ✳️                                                            | ✅                     |
 | 通过系统控制<sup>1</sup> | ✅                               | ✅                                                            | ✅                                                            | ✅                     |
@@ -39,9 +39,8 @@
 | 删除歌单                 | ✅                               | ✅                                                            | ❌                                                            | 放弃开发              |
 | 编辑歌单                 | ✅                               | ✅                                                            | ❌                                                            | ❌                     |
 
-⭕：支持，但是没有做测试  
-❗：理论上支持，但是不推荐在该平台上运行  
-❓：理论上支持，但是没有做测试
+⭕：理论上支持，但是没有做测试  
+❗：理论上支持，但是不推荐在该平台上运行
 
 ✅：支持  
 ❌：不支持  
