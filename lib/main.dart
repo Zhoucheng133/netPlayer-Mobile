@@ -65,6 +65,7 @@ class _MainAppState extends State<MainApp> {
         splashColor: Colors.transparent,
       ),
       home: Scaffold(
+        resizeToAvoidBottomInset: false,
         body:  isLoaded ? Obx(
           () => AnimatedSwitcher(
             duration: Duration(milliseconds: 200),

@@ -140,6 +140,7 @@ class _listContentViewState extends State<listContentView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         elevation: 0,
         title: Text(widget.item["name"]),

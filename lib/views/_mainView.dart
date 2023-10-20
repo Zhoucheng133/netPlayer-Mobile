@@ -53,6 +53,7 @@ class _mainViewState extends State<mainView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         elevation: 0,
         title: Obx(() => Text(appBarText())),

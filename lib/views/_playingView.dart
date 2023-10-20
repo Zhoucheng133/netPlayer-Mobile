@@ -27,6 +27,7 @@ class _playingViewState extends State<playingView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Center(
         child: GestureDetector(
           onVerticalDragUpdate: (details){
