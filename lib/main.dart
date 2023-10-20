@@ -15,6 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 var _audioHandler;
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   _audioHandler = await AudioService.init(
     builder: () => MyAudioHandler(),
     config: AudioServiceConfig(

@@ -6,6 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/para/para.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+
 
 class aboutView extends StatefulWidget {
   const aboutView({super.key});
@@ -70,6 +72,21 @@ class _aboutViewState extends State<aboutView> {
       );
     }
   }
+
+  Future<void> getVersion() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    setState(() {
+      version=packageInfo.version;
+    });
+  }
+  
+  String version="";
+  
+  @override
+  void initState() {
+    getVersion();
+    super.initState();
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -93,12 +110,13 @@ class _aboutViewState extends State<aboutView> {
                 ),
               ),
               SizedBox(height: 8,),
-              Obx(() => Text(
-                c.version.value,
+              Text(
+                // c.version.value,
+                version,
                 style: TextStyle(
                   color: Colors.grey,
                 ),
-              ))
+              )
             ],
           ),
         ),
