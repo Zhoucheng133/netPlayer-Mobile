@@ -42,7 +42,62 @@ class _allSongsViewState extends State<allSongsView> {
     
     if(c.allSongs.value.isEmpty){
       var tmp=await allSongsRequest();
-      if(tmp["status"]!="ok"){
+      if(tmp["status"]=="URL Err"){
+        // 请求超时/错误
+        if(Platform.isIOS){
+          showCupertinoDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return CupertinoAlertDialog(
+                title: Text("请求超时/错误，是否重试？"),
+                content: Text("请求时间超过3秒"),
+                actions: <Widget>[
+                  CupertinoDialogAction(
+                    child: Text('退出登录'),
+                    onPressed: () {
+                      c.updateLogin(false);
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  CupertinoDialogAction(
+                    child: Text('重试'),
+                    onPressed: () async {
+                      getList();
+                      Navigator.of(context).pop();
+                    },
+                  )
+                ],
+              );
+            },
+          );
+        }else{
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text("请求超时/错误，是否重试？"),
+                content: Text("请求时间超过3秒"),
+                actions: <Widget>[
+                  TextButton(
+                    child: Text('退出登录'),
+                    onPressed: () {
+                      c.updateLogin(false);
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  TextButton(
+                    child: Text('重试'),
+                    onPressed: () async {
+                      getList();
+                      Navigator.of(context).pop();
+                    },
+                  )
+                ],
+              );
+            },
+          );
+        }
+      }else if(tmp["status"]!="ok"){
         c.updateLogin(false);
       }else{
         var tmpList=tmp["randomSongs"]["song"];
@@ -68,9 +123,11 @@ class _allSongsViewState extends State<allSongsView> {
   @override
   void initState() {
     super.initState();
-
-    getList();
-    getLovedSongs();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // 这个回调会在Widget构建完毕后被触发
+      getList();
+      getLovedSongs();
+    });
   }
 
   void reloadList(BuildContext context){
