@@ -39,7 +39,7 @@ class _allSongsViewState extends State<allSongsView> {
 
 
   Future<void> getList() async {
-    
+    getLovedSongs();
     if(c.allSongs.value.isEmpty){
       var tmp=await allSongsRequest();
       if(tmp["status"]=="URL Err"){
@@ -126,7 +126,6 @@ class _allSongsViewState extends State<allSongsView> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // 这个回调会在Widget构建完毕后被触发
       getList();
-      getLovedSongs();
     });
   }
 
