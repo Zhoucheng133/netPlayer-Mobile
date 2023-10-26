@@ -113,7 +113,13 @@ class _mainViewState extends State<mainView> {
       ),
       body: Stack(
         children: [
-          Obx(() => allView[c.pageIndex.value]),
+          // Obx(() => allView[c.pageIndex.value]),
+          Obx(() => 
+            IndexedStack(
+              index: c.pageIndex.value,
+              children: allView,
+            )
+          ),
           Obx(() => 
             c.pageIndex.value<4 ?
             Positioned(
