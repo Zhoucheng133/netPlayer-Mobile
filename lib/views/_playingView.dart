@@ -88,21 +88,19 @@ class _playingViewState extends State<playingView> {
                   ),
                 ),
                 Container(
-                  height: 120,
+                  height: 130,
                   child: Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(30, 40, 30, 0),
-                        child: Obx(() => 
-                          Text(
-                            c.playInfo["title"]==null ? "没有播放" : c.playInfo["title"].toString(),
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                          )
-                        ),
+                      SizedBox(height: 30,),
+                      Obx(() => 
+                        Text(
+                          c.playInfo["title"]==null ? "没有播放" : c.playInfo["title"].toString(),
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        )
                       ),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
