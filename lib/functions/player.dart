@@ -76,6 +76,10 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
         MediaControl.pause,
         MediaControl.skipToNext,
       ],
+      systemActions: const {
+        MediaAction.seek,
+      },
+      updatePosition: Duration(seconds: c.nowDuration.value)
     ));
     c.updateIsPlay(true);
     if(fromPause){
@@ -96,14 +100,30 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
         MediaControl.play,
         MediaControl.skipToNext,
       ],
+      systemActions: const {
+        MediaAction.seek,
+      },
+      updatePosition: Duration(seconds: c.nowDuration.value)
     ));
     fromPause=true;
   }
 
   @override
   Future<void> seek(Duration position) async {
-    player.seek(position);
-    play();
+    await player.seek(position);
+    await play();
+    playbackState.add(playbackState.value.copyWith(
+      playing: true,
+      controls: [
+        MediaControl.skipToPrevious,
+        MediaControl.pause,
+        MediaControl.skipToNext,
+      ],
+      systemActions: const {
+        MediaAction.seek,
+      },
+      updatePosition: Duration(seconds: c.nowDuration.value)
+    ));
   }
 
   @override
