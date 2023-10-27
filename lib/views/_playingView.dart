@@ -186,7 +186,8 @@ class _playingViewState extends State<playingView> {
                           Expanded(child: Container()),
                           Obx(() => 
                             Text(
-                              // TODO 有错误
+                              c.playInfo.isEmpty ? 
+                              "0:00" :
                               timeConvert(c.playInfo["duration"]),
                             )
                           )
