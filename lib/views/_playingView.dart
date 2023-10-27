@@ -143,7 +143,7 @@ class _playingViewState extends State<playingView> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 60, right: 60),
+                  padding: const EdgeInsets.only(left: 30, right: 30),
                   child: Column(
                     children: [
                       SliderTheme(
@@ -154,9 +154,9 @@ class _playingViewState extends State<playingView> {
                           inactiveTrackColor: Colors.grey[200], 
                           trackHeight: 2,
                           thumbShape: RoundSliderThumbShape(
-                            enabledThumbRadius: 7.0, // 设置滑块的半径
-                            pressedElevation: 2,
-                            elevation: 0,
+                            enabledThumbRadius: 8, // 设置滑块的半径
+                            pressedElevation: 5,
+                            elevation: 1,
                           ),
                           thumbColor: Colors.black
                         ),
@@ -165,7 +165,6 @@ class _playingViewState extends State<playingView> {
                           Slider(
                             value: (c.nowDuration.value/c.playInfo["duration"]),
                             onChanged: (value) {
-                              // TODO 修改时间轴
                               _handleSliderChange(value);
                             },
                           ) : 
@@ -187,6 +186,7 @@ class _playingViewState extends State<playingView> {
                           Expanded(child: Container()),
                           Obx(() => 
                             Text(
+                              // TODO 有错误
                               timeConvert(c.playInfo["duration"]),
                             )
                           )
