@@ -1,5 +1,7 @@
 // ignore_for_file: camel_case_types, file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, unrelated_type_equality_checks
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/para/para.dart';
@@ -15,6 +17,21 @@ class playingView extends StatefulWidget {
 
 class _playingViewState extends State<playingView> {
   final Controller c = Get.put(Controller());
+
+  Timer? _debounce;
+
+  void _handleSliderChange(double value) {
+    c.updateNowDuration((value*c.playInfo["duration"]).round());
+    widget.audioHandler.pause();
+    if (_debounce?.isActive ?? false) {
+      _debounce?.cancel();
+    }
+
+    _debounce = Timer(const Duration(milliseconds: 500), () {
+      // print('用户完成滑动，执行你的代码，value: $value');
+      widget.audioHandler.seek(Duration(seconds: (value*c.playInfo["duration"]).round()));
+    });
+  }
 
   void playController(){
     if(c.isPlay.value==true){
@@ -149,6 +166,7 @@ class _playingViewState extends State<playingView> {
                             value: (c.nowDuration.value/c.playInfo["duration"]),
                             onChanged: (value) {
                               // TODO 修改时间轴
+                              _handleSliderChange(value);
                             },
                           ) : 
                           Slider(

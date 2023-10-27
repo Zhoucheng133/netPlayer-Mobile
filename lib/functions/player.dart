@@ -101,6 +101,12 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
   }
 
   @override
+  Future<void> seek(Duration position) async {
+    player.seek(position);
+    play();
+  }
+
+  @override
   Future<void> skipToNext()async {
     // await player.stop();
     swtichNext();
