@@ -26,7 +26,6 @@ class Controller extends GetxController{
   var playLists=[].obs;
   // 搜索关键词
   var searchKey="".obs;
-
   // 主题色
   var mainColor=const Color.fromARGB(255, 24, 144, 255);
   // 强调色
@@ -40,6 +39,9 @@ class Controller extends GetxController{
     4: "关于",
     5: "播放器",
   };
+  var nowDuration=0.obs;
+
+  // ————分割线(上面为所有的全局变量)—————
 
   // 当前播放歌曲信息规则
   var playInfo_example={
@@ -54,6 +56,8 @@ class Controller extends GetxController{
     "album": "albumName"    // 专辑名称
   };
 
+  // ————分割线(下面为更新变量函数)—————
+
   // 更新数据
   void updateLogin(data) => isLogin.value=data;
   void updateUserInfo(data) => userInfo.value=data;
@@ -66,6 +70,7 @@ class Controller extends GetxController{
   void updateRandomPlay(data) => randomPlay.value=data;
   void updatePlayLists(data) => playLists.value=data;
   void updateSearchKey(data) => searchKey.value=data;
+  void updateNowDuration(data) => nowDuration.value=data;
 
   // 是否标记为喜爱?
   bool fav(String targetId){

@@ -88,7 +88,7 @@ class _playingViewState extends State<playingView> {
                   ),
                 ),
                 Container(
-                  height: 140,
+                  height: 120,
                   child: Column(
                     children: [
                       Padding(
@@ -105,7 +105,7 @@ class _playingViewState extends State<playingView> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(30, 10, 30, 20),
+                        padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
                         child: Obx(() => 
                           Text(
                             c.playInfo["title"]==null ? "/" : c.playInfo["artist"].toString(),
@@ -120,6 +120,43 @@ class _playingViewState extends State<playingView> {
                     ],
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 30, right: 30),
+                  child: SliderTheme(
+                    data: SliderThemeData(
+                      overlayColor: Colors.transparent,
+                      overlayShape: RoundSliderOverlayShape(overlayRadius: 0.0), // 取消波纹效果
+                      activeTrackColor: Colors.black, // 设置已激活轨道的颜色
+                      inactiveTrackColor: Colors.grey[200], 
+                      trackHeight: 2,
+                      thumbShape: RoundSliderThumbShape(
+                        enabledThumbRadius: 8.0, // 设置滑块的半径
+                        pressedElevation: 2,
+                        elevation: 0,
+                      ),
+                      thumbColor: Colors.black
+                    ),
+                    child: Obx(() => 
+                      c.nowDuration!=0 ?
+                      Slider(
+                        value: (c.nowDuration.value/c.playInfo["duration"]),
+                        onChanged: (value) {
+                          // print(value);
+                          print("loaded!");
+                        },
+                      ) : 
+                      Slider(
+                        value: 0,
+                        onChanged: (value) {
+                          // print(value);
+                          print("notLoad!");
+                        },
+                      )
+                    )
+                  ),
+                ),
+                // Text("hello?"),
+                SizedBox(height: 20,),
                 Obx(() => 
                   c.randomPlay.value==true ? 
                   GestureDetector(

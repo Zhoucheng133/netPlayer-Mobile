@@ -20,6 +20,11 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
   bool fromPause=false;
 
   MyAudioHandler(){
+    player.positionStream.listen((position) {
+      c.updateNowDuration(position.inSeconds);
+      // print(c.nowDuration);
+    });
+
     playbackState.add(playbackState.value.copyWith(
       controls: [
         MediaControl.skipToPrevious,
