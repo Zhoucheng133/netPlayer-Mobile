@@ -137,7 +137,7 @@ class _playingViewState extends State<playingView> {
                           inactiveTrackColor: Colors.grey[200], 
                           trackHeight: 2,
                           thumbShape: RoundSliderThumbShape(
-                            enabledThumbRadius: 8.0, // 设置滑块的半径
+                            enabledThumbRadius: 7.0, // 设置滑块的半径
                             pressedElevation: 2,
                             elevation: 0,
                           ),
