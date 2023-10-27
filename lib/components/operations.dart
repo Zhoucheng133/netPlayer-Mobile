@@ -498,6 +498,8 @@ class _listAddContentState extends State<listAddContent> {
     super.initState();
   }
   
+  final myScrollController=ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -526,8 +528,10 @@ class _listAddContentState extends State<listAddContent> {
               child: Container(
                 // color: Colors.red,
                 child: CupertinoScrollbar(
+                  controller: myScrollController,
                   child: ListView.builder(
                     itemCount: list.length,
+                    controller: myScrollController,
                     itemBuilder: (BuildContext context, int index){
                     return GestureDetector(
                       onTap: (){

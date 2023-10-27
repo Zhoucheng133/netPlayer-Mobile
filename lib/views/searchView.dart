@@ -98,6 +98,8 @@ class _searchViewState extends State<searchView> {
     }
   }
 
+  final myScrollController=ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -181,7 +183,9 @@ class _searchViewState extends State<searchView> {
         ),
         Expanded(
           child: CupertinoScrollbar(
+            controller: myScrollController,
             child: ListView.builder(
+              controller: myScrollController,
               itemCount: list.length,
               itemBuilder: (BuildContext context, int index){
                 return GestureDetector(

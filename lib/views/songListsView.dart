@@ -106,6 +106,8 @@ class _songListsViewState extends State<songListsView> {
     // }
   }
 
+  final myScrollController=ScrollController();
+
   @override
   void initState() {
     getList();
@@ -155,8 +157,10 @@ class _songListsViewState extends State<songListsView> {
         ),
         Expanded(
           child: CupertinoScrollbar(
+            controller: myScrollController,
             child: Obx(() => 
               ListView.builder(
+                controller: myScrollController,
                 itemCount: c.playLists.length,
                 itemBuilder: (BuildContext context, int index){
                   return GestureDetector(

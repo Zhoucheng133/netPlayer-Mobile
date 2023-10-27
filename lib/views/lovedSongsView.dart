@@ -124,6 +124,8 @@ class _lovedSongsViewState extends State<lovedSongsView> {
     getLovedSongs();
   }
 
+  final myScrollController=ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -156,7 +158,9 @@ class _lovedSongsViewState extends State<lovedSongsView> {
         ),
         Expanded(
           child: CupertinoScrollbar(
+            controller: myScrollController,
             child: ListView.builder(
+              controller: myScrollController,
               itemCount: songList.length,
               itemBuilder: (BuildContext context, int index){
                 return GestureDetector(
