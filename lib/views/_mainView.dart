@@ -42,7 +42,7 @@ class _mainViewState extends State<mainView> {
     1: "我喜欢的",
     2: "歌单",
     3: "搜索",
-    4: "关于",
+    4: "设置",
     5: "播放器",
   };
 
@@ -105,8 +105,8 @@ class _mainViewState extends State<mainView> {
               label: "搜索"
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.info),
-              label: "关于"
+              icon: Icon(Icons.settings),
+              label: "设置"
             )
           ],
         ),
