@@ -152,6 +152,9 @@ class _listContentViewState extends State<listContentView> {
     super.initState();
     getList();
     getLovedSongs();
+    if(c.playInfo["name"]=="songList" && c.playInfo["ListId"]==widget.item["id"]){
+      reloadHandler();
+    }
   }
   
   final myScrollController=ScrollController();
