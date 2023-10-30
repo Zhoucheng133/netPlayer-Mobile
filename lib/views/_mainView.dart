@@ -8,7 +8,7 @@ import 'package:netplayer_mobile/views/allSongsView.dart';
 import 'package:netplayer_mobile/views/searchView.dart';
 import 'package:netplayer_mobile/components/playingBar.dart';
 import 'package:netplayer_mobile/views/lovedSongsView.dart';
-import 'package:netplayer_mobile/views/aboutView.dart';
+import 'package:netplayer_mobile/views/settingsView.dart';
 import 'package:netplayer_mobile/views/songListsView.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 
@@ -32,7 +32,7 @@ class _mainViewState extends State<mainView> {
       lovedSongsView(audioHandler: widget.audioHandler,),
       songListsView(audioHandler: widget.audioHandler,),
       searchView(audioHandler: widget.audioHandler,),
-      aboutView(),
+      settingsView(),
     ];
     super.initState();
   }

@@ -9,14 +9,14 @@ import 'package:netplayer_mobile/para/para.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 
-class aboutView extends StatefulWidget {
-  const aboutView({super.key});
+class settingsView extends StatefulWidget {
+  const settingsView({super.key});
 
   @override
-  State<aboutView> createState() => _aboutViewState();
+  State<settingsView> createState() => _settingsViewState();
 }
 
-class _aboutViewState extends State<aboutView> {
+class _settingsViewState extends State<settingsView> {
 
   final Controller c = Get.put(Controller());
   void logoutController(BuildContext context){
