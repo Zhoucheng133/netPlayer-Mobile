@@ -88,6 +88,9 @@ class _searchViewState extends State<searchView> {
 
   void _clearText(){
     key.clear();
+    setState(() {
+      list=[];
+    });
   }
 
   Future<void> reloadLoved() async {
