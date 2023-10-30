@@ -43,6 +43,10 @@ class Controller extends GetxController{
 
   // ————分割线(上面为所有的全局变量)—————
 
+  var savePlay=true.obs;
+
+  // ————分割线(上面为设置参数)—————
+
   // 当前播放歌曲信息规则
   var playInfo_example={
     "name": "allSongs",     // 其它参数: lovedSongs, songList, album

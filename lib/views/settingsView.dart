@@ -81,68 +81,61 @@ class _settingsViewState extends State<settingsView> {
   }
   
   String version="";
+  final myScrollController=ScrollController();
   
   @override
   void initState() {
     getVersion();
     super.initState();
   }
+
   
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                "assets/icon.png",
-                height: 100,
-                width: 100,
-              ),
-              SizedBox(height: 10,),
-              Text(
-                "netPlayer Mobile",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold
-                ),
-              ),
-              SizedBox(height: 8,),
-              Text(
-                // c.version.value,
-                version,
-                style: TextStyle(
-                  color: Colors.grey,
-                ),
+    return CupertinoScrollbar(
+      controller: myScrollController,
+      child: ListView(
+        controller: myScrollController,
+        children: [
+          ListTile(
+            title: Text("保存上次播放的歌曲"),
+            trailing: Obx(() => 
+              // 注意主题
+              Platform.isIOS ?
+              CupertinoSwitch(
+                value: c.savePlay.value, 
+                onChanged: (value){
+                  c.savePlay.value=value;
+                }
+              ):
+              Switch(
+                value: c.savePlay.value, 
+                onChanged: (value){
+                  c.savePlay.value=value;
+                }
               )
-            ],
+            )
           ),
-        ),
-        Positioned(
-          bottom: 30,
-          left: 0,
-          child: SizedBox(
-            // height: 40,
-            width: MediaQuery.of(context).size.width,
-            // color: Colors.red,
-            child: Center(
-              child: GestureDetector(
-                onTap: (){
-                  logoutController(context);
-                },
-                child: Text(
-                  "注销当前账户",
-                  style: TextStyle(
-                    color: Colors.red,
-                  ),
-                ),
-              )
-            ),
+          ListTile(
+            title: Text("清除缓存"),
+            onTap: (){
+              
+            },
           ),
-        )
-      ]
+          ListTile(
+            title: Text("退出登录"),
+            onTap: (){
+              // 关于界面
+            },
+          ),
+          ListTile(
+            title: Text("关于"),
+            onTap: (){
+              // 关于界面
+            },
+          )
+        ],
+      )
     );
   }
 }
