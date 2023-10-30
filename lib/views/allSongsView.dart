@@ -127,9 +127,40 @@ class _allSongsViewState extends State<allSongsView> {
       // 这个回调会在Widget构建完毕后被触发
       getList();
     });
+    if(c.playInfo["name"]=="allSongs"){
+      reloadHandler();
+    }
   }
 
-  void reloadList(BuildContext context){
+  Future<void> reloadHandler() async {
+    // print("重新载入所有歌曲");
+    var tmp=await allSongsRequest();
+    var tmpList=tmp["randomSongs"]["song"];
+    tmpList.sort((a, b) {
+      DateTime dateTimeA = DateTime.parse(a['created']);
+      DateTime dateTimeB = DateTime.parse(b['created']);
+      return dateTimeB.compareTo(dateTimeA);
+    });
+    setState(() {
+      songList=tmpList;
+    });
+    c.updateAllSongs(songList);
+
+    if(c.playInfo["name"]=="allSongs"){
+      int index = c.allSongs.indexWhere((element) => element["id"] == c.playInfo["id"]);
+      if(index==-1){
+        widget.audioHandler.stop();
+        c.updatePlayInfo({});
+        return;
+      }
+      var tmpPlayInfo=c.playInfo.value;
+      tmpPlayInfo["index"]=index;
+      tmpPlayInfo["list"]=c.allSongs.value;
+      c.updatePlayInfo(tmpPlayInfo);
+    }
+  }
+
+  Future<void> reloadList(BuildContext context) async {
     if(Platform.isIOS){
       showCupertinoDialog(
         context: context,
@@ -147,20 +178,7 @@ class _allSongsViewState extends State<allSongsView> {
               CupertinoDialogAction(
                 child: Text('确定'),
                 onPressed: () async {
-                  var tmp=await allSongsRequest();
-                  var tmpList=tmp["randomSongs"]["song"];
-                  tmpList.sort((a, b) {
-                    DateTime dateTimeA = DateTime.parse(a['created']);
-                    DateTime dateTimeB = DateTime.parse(b['created']);
-                    return dateTimeB.compareTo(dateTimeA);
-                  });
-                  setState(() {
-                    songList=tmpList;
-                  });
-                  c.updateAllSongs(songList);
-                  if(c.playInfo["name"]=="allSongs"){
-                    widget.audioHandler.stop();
-                  }
+                  reloadHandler();
                   Navigator.of(context).pop();
                 },
               )
@@ -184,21 +202,8 @@ class _allSongsViewState extends State<allSongsView> {
               ),
               TextButton(
                 child: Text('确定'),
-                onPressed: () async {
-                  var tmp=await allSongsRequest();
-                  var tmpList=tmp["randomSongs"]["song"];
-                  tmpList.sort((a, b) {
-                    DateTime dateTimeA = DateTime.parse(a['created']);
-                    DateTime dateTimeB = DateTime.parse(b['created']);
-                    return dateTimeB.compareTo(dateTimeA);
-                  });
-                  setState(() {
-                    songList=tmpList;
-                  });
-                  c.updateAllSongs(songList);
-                  if(c.playInfo["name"]=="allSongs"){
-                    widget.audioHandler.stop();
-                  }
+                onPressed: () {
+                  reloadHandler();
                   Navigator.of(context).pop();
                 },
               )
