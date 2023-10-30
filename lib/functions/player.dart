@@ -1,5 +1,6 @@
 // ignore_for_file: unused_local_variable, invalid_use_of_protected_member, prefer_const_constructors, prefer_typing_uninitialized_variables, unrelated_type_equality_checks
 
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:audio_service/audio_service.dart';
@@ -7,6 +8,7 @@ import 'package:audio_service/audio_service.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/para/para.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
   final Controller c = Get.put(Controller());
@@ -44,7 +46,7 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
     });
   }
 
-  void setInfo(){
+  Future<void> setInfo() async {
     item=MediaItem(
       id: c.playInfo["id"],
       album: c.playInfo["album"],
@@ -86,6 +88,11 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
       fromPause=false;
     }else{
       setInfo();
+    }
+    if(c.savePlay==true){
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      String info=json.encode(c.playInfo);
+      await prefs.setString("playInfo", info);
     }
   }
 

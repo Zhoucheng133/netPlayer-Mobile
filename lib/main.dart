@@ -41,7 +41,9 @@ class _MainAppState extends State<MainApp> {
   Future<void> checkLogin() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? userData = prefs.getString('userInfo');
+    final String? playInfo = prefs.getString('playInfo');
     final bool? autoLogin = prefs.getBool('autologin');
+    final bool? savePlay = prefs.getBool('savePlay');
 
     if(userData!=null && (autoLogin==true || autoLogin==null)){
       c.updateLogin(true);
@@ -51,6 +53,15 @@ class _MainAppState extends State<MainApp> {
 
     if(autoLogin==false){
       c.autoLogin.value=false;
+    }
+
+    if(savePlay!=false && playInfo!=null){
+      Map<String,dynamic> decodePlayInfo = json.decode(playInfo);
+      c.updatePlayInfo(decodePlayInfo);
+    }
+
+    if(savePlay==false){
+      c.savePlay.value=false;
     }
     
     setState(() {

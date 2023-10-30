@@ -88,9 +88,10 @@ class _settingsViewState extends State<settingsView> {
     }
   }
 
-  void savePlayHandler(bool value){
+  Future<void> savePlayHandler(bool value) async {
     c.savePlay.value=value;
-    // TODO 保存上次播放记录
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('savePlay', value);
   }
   void logoutController(BuildContext context){
     if(Platform.isIOS){
