@@ -29,11 +29,21 @@ class _allSongsViewState extends State<allSongsView> {
     }
   }
 
-  reloadLoved() async {
+  Future<void> reloadLoved() async {
     var tmp=await lovedSongRequest();
     c.updateLovedSongs(tmp);
+
     if(c.playInfo["name"]=="lovedSongs"){
-      widget.audioHandler.stop();
+      int index = c.lovedSongs.indexWhere((element) => element["id"] == c.playInfo["id"]);
+      if(index==-1){
+        widget.audioHandler.stop();
+        c.updatePlayInfo({});
+        return;
+      }
+      var tmpPlayInfo=c.playInfo.value;
+      tmpPlayInfo["index"]=index;
+      tmpPlayInfo["list"]=c.lovedSongs.value;
+      c.updatePlayInfo(tmpPlayInfo);
     }
   }
 
