@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:netplayer_mobile/para/para.dart';
 import 'package:netplayer_mobile/views/aboutView.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class settingsView extends StatefulWidget {
@@ -21,12 +22,75 @@ class _settingsViewState extends State<settingsView> {
 
   final Controller c = Get.put(Controller());
 
-  void autoLoginHandler(bool value){
-    c.autoLogin.value=value;
+  Future<void> noAutoLogin() async {
+    c.autoLogin.value=false;
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('autologin', false);
+  }
+
+  Future<void> autoLoginHandler(bool value) async {
+    if(value==false){
+      if(Platform.isIOS){
+        showCupertinoDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CupertinoAlertDialog(
+              title: Text("关闭自动登录?"),
+              content: Text("这需要每次打开应用手动登录"),
+              actions: <Widget>[
+                CupertinoDialogAction(
+                  child: Text('取消'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                CupertinoDialogAction(
+                  child: Text('确定'),
+                  onPressed: () {
+                    noAutoLogin();
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            );
+          },
+        );
+      }else{
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("关闭自动登录需要每次手动登录，是否继续?"),
+              content: Text("这需要每次打开应用手动登录"),
+              actions: <Widget>[
+                TextButton(
+                  child: Text('取消'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                TextButton(
+                  child: Text('确定'),
+                  onPressed: () {
+                    noAutoLogin();
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            );
+          },
+        );
+      }
+    }else{
+      c.autoLogin.value=value;
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('autologin', true);
+    }
   }
 
   void savePlayHandler(bool value){
     c.savePlay.value=value;
+    // TODO 保存上次播放记录
   }
   void logoutController(BuildContext context){
     if(Platform.isIOS){

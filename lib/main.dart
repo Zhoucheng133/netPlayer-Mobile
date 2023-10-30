@@ -41,11 +41,18 @@ class _MainAppState extends State<MainApp> {
   Future<void> checkLogin() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? userData = prefs.getString('userInfo');
-    if(userData!=null){
+    final bool? autoLogin = prefs.getBool('autologin');
+
+    if(userData!=null && (autoLogin==true || autoLogin==null)){
       c.updateLogin(true);
       Map<String,dynamic> decodeUserData = json.decode(userData);
       c.updateUserInfo(decodeUserData);
     }
+
+    if(autoLogin==false){
+      c.autoLogin.value=false;
+    }
+    
     setState(() {
       isLoaded=true;
     });

@@ -99,7 +99,7 @@ class _loginViewState extends State<loginView> {
 
   Future<void> clearPrefs() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.clear();
+    prefs.remove("userInfo");
     c.updateUserInfo({});
   }
 
