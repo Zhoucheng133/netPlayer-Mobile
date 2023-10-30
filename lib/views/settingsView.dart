@@ -208,7 +208,12 @@ class _settingsViewState extends State<settingsView> {
             )
           ),
           ListTile(
-            title: Text("退出登录"),
+            title: Text(
+              "退出登录",
+              style: TextStyle(
+                color: Colors.red,
+              ),
+            ),
             onTap: (){
               logoutController(context);
             },
