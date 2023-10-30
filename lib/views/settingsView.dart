@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/para/para.dart';
+import 'package:netplayer_mobile/views/aboutView.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 
@@ -119,19 +120,22 @@ class _settingsViewState extends State<settingsView> {
           ListTile(
             title: Text("清除缓存"),
             onTap: (){
-              
+              // TODO 清除缓存
             },
           ),
           ListTile(
             title: Text("退出登录"),
             onTap: (){
-              // 关于界面
+              logoutController(context);
             },
           ),
           ListTile(
             title: Text("关于"),
             onTap: (){
-              // 关于界面
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => aboutView()),
+              );
             },
           )
         ],
