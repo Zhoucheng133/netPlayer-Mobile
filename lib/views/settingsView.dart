@@ -101,7 +101,6 @@ class _settingsViewState extends State<settingsView> {
           ListTile(
             title: Text("保存上次播放的歌曲"),
             trailing: Obx(() => 
-              // 注意主题
               Platform.isIOS ?
               CupertinoSwitch(
                 value: c.savePlay.value, 
@@ -118,10 +117,22 @@ class _settingsViewState extends State<settingsView> {
             )
           ),
           ListTile(
-            title: Text("清除缓存"),
-            onTap: (){
-              // TODO 清除缓存
-            },
+            title: Text("自动登录"),
+            trailing: Obx(() => 
+              Platform.isIOS ?
+              CupertinoSwitch(
+                value: c.savePlay.value, 
+                onChanged: (value){
+                  c.savePlay.value=value;
+                }
+              ):
+              Switch(
+                value: c.savePlay.value, 
+                onChanged: (value){
+                  c.savePlay.value=value;
+                }
+              )
+            )
           ),
           ListTile(
             title: Text("退出登录"),
