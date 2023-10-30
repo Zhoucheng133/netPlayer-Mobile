@@ -223,7 +223,7 @@ class _playingViewState extends State<playingView> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.all_inclusive
+                          Icons.repeat_rounded
                         ),
                         SizedBox(width: 5,),
                         Text("顺序播放")
