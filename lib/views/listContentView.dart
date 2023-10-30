@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, camel_case_types, prefer_const_constructors, prefer_const_literals_to_create_immutables, use_build_context_synchronously
+// ignore_for_file: file_names, camel_case_types, prefer_const_constructors, prefer_const_literals_to_create_immutables, use_build_context_synchronously, invalid_use_of_protected_member
 
 import 'dart:io';
 
@@ -33,6 +33,29 @@ class _listContentViewState extends State<listContentView> {
     }
   }
 
+  Future<void> reloadHandler() async {
+    List tmp=await getListContent(widget.item["id"]);
+    if(tmp.isNotEmpty){
+      setState(() {
+        songList=tmp;
+      });
+    }
+    if(c.playInfo["name"]=="songList" && c.playInfo["ListId"]==widget.item["id"]){
+
+
+      int index = songList.indexWhere((element) => element["id"] == c.playInfo["id"]);
+      if(index==-1){
+        widget.audioHandler.stop();
+        c.updatePlayInfo({});
+        return;
+      }
+      var tmpPlayInfo=c.playInfo.value;
+      tmpPlayInfo["index"]=index;
+      tmpPlayInfo["list"]=songList;
+      c.updatePlayInfo(tmpPlayInfo);
+    }
+  }
+
   Future<void> reloadList(BuildContext context)async {
     if(Platform.isIOS){
       showCupertinoDialog(
@@ -50,16 +73,8 @@ class _listContentViewState extends State<listContentView> {
               ),
               CupertinoDialogAction(
                 child: Text('确定'),
-                onPressed: () async {
-                  List tmp=await getListContent(widget.item["id"]);
-                  if(tmp.isNotEmpty){
-                    setState(() {
-                      songList=tmp;
-                    });
-                  }
-                  if(c.playInfo["name"]=="songList" && c.playInfo["ListId"]==widget.item["id"]){
-                    widget.audioHandler.stop();
-                  }
+                onPressed: () {
+                  reloadHandler();
                   Navigator.of(context).pop();
                 },
               )
@@ -83,16 +98,8 @@ class _listContentViewState extends State<listContentView> {
               ),
               TextButton(
                 child: Text('确定'),
-                onPressed: () async {
-                  List tmp=await getListContent(widget.item["id"]);
-                  if(tmp.isNotEmpty){
-                    setState(() {
-                      songList=tmp;
-                    });
-                  }
-                  if(c.playInfo["name"]=="songList" && c.playInfo["ListId"]==widget.item["id"]){
-                    widget.audioHandler.stop();
-                  }
+                onPressed: () {
+                  reloadHandler();
                   Navigator.of(context).pop();
                 },
               )
@@ -114,14 +121,24 @@ class _listContentViewState extends State<listContentView> {
     }
   }
 
-  reloadLoved() async {
+  Future<void> reloadLoved() async {
     var tmp=await lovedSongRequest();
     c.updateLovedSongs(tmp);
 
     if(c.playInfo["name"]=="lovedSongs"){
-      widget.audioHandler.stop();
+      int index = c.lovedSongs.indexWhere((element) => element["id"] == c.playInfo["id"]);
+      if(index==-1){
+        widget.audioHandler.stop();
+        c.updatePlayInfo({});
+        return;
+      }
+      var tmpPlayInfo=c.playInfo;
+      tmpPlayInfo["index"]=index;
+      tmpPlayInfo["list"]=c.lovedSongs;
+      c.updatePlayInfo(tmpPlayInfo);
     }
   }
+
 
   Future<void> getLovedSongs() async {
     if(c.lovedSongs.isEmpty){
