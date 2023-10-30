@@ -20,6 +20,14 @@ class settingsView extends StatefulWidget {
 class _settingsViewState extends State<settingsView> {
 
   final Controller c = Get.put(Controller());
+
+  void autoLoginHandler(bool value){
+    c.autoLogin.value=value;
+  }
+
+  void savePlayHandler(bool value){
+    c.savePlay.value=value;
+  }
   void logoutController(BuildContext context){
     if(Platform.isIOS){
       showCupertinoDialog(
@@ -105,13 +113,13 @@ class _settingsViewState extends State<settingsView> {
               CupertinoSwitch(
                 value: c.savePlay.value, 
                 onChanged: (value){
-                  c.savePlay.value=value;
+                  savePlayHandler(value);
                 }
               ):
               Switch(
                 value: c.savePlay.value, 
                 onChanged: (value){
-                  c.savePlay.value=value;
+                  savePlayHandler(value);
                 }
               )
             )
@@ -121,15 +129,15 @@ class _settingsViewState extends State<settingsView> {
             trailing: Obx(() => 
               Platform.isIOS ?
               CupertinoSwitch(
-                value: c.savePlay.value, 
+                value: c.autoLogin.value, 
                 onChanged: (value){
-                  c.savePlay.value=value;
+                  autoLoginHandler(value);
                 }
               ):
               Switch(
-                value: c.savePlay.value, 
+                value: c.autoLogin.value, 
                 onChanged: (value){
-                  c.savePlay.value=value;
+                  autoLoginHandler(value);
                 }
               )
             )

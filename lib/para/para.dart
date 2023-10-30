@@ -39,11 +39,15 @@ class Controller extends GetxController{
     4: "设置",
     5: "播放器",
   };
+  // 现在的进度条位置
   var nowDuration=0.obs;
 
   // ————分割线(上面为所有的全局变量)—————
 
+  // 保存上次的播放
   var savePlay=true.obs;
+  // 自动登录
+  var autoLogin=true.obs;
 
   // ————分割线(上面为设置参数)—————
 
