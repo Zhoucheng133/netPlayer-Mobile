@@ -31,7 +31,6 @@ class _songListsViewState extends State<songListsView> {
         builder: (BuildContext context) {
           return CupertinoAlertDialog(
             title: Text("确定要刷新歌单列表吗?"),
-            content: Text("这不会影响当前播放"),
             actions: <Widget>[
               CupertinoDialogAction(
                 child: Text('取消'),
