@@ -167,7 +167,6 @@ class _allSongsViewState extends State<allSongsView> {
         builder: (BuildContext context) {
           return CupertinoAlertDialog(
             title: Text("确定要刷新所有歌曲列表吗?"),
-            content: Text("这可能会停止当前播放"),
             actions: <Widget>[
               CupertinoDialogAction(
                 child: Text('取消'),
