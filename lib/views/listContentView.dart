@@ -49,13 +49,12 @@ class _listContentViewState extends State<listContentView> {
         c.updatePlayInfo({});
         return;
       }
-
-      reloadLoved();
       var tmpPlayInfo=c.playInfo.value;
       tmpPlayInfo["index"]=index;
       tmpPlayInfo["list"]=songList;
       c.updatePlayInfo(tmpPlayInfo);
     }
+    reloadLoved();
   }
 
   Future<void> reloadList(BuildContext context)async {
@@ -122,6 +121,7 @@ class _listContentViewState extends State<listContentView> {
   }
 
   Future<void> reloadLoved() async {
+    // print("重新载入喜欢的歌曲");
     var tmp=await lovedSongRequest();
     c.updateLovedSongs(tmp);
 
