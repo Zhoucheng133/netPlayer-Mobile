@@ -20,7 +20,7 @@ class allSongsView extends StatefulWidget {
 class _allSongsViewState extends State<allSongsView> {
   final Controller c = Get.put(Controller());
 
-  List songList=[];
+  // List songList=[];
 
   Future<void> getLovedSongs() async {
     if(c.lovedSongs.isEmpty){
@@ -116,17 +116,18 @@ class _allSongsViewState extends State<allSongsView> {
           DateTime dateTimeB = DateTime.parse(b['created']);
           return dateTimeB.compareTo(dateTimeA);
         });
-        setState(() {
-          songList=tmpList;
-        });
-        c.updateAllSongs(songList);
+        // setState(() {
+        //   songList=tmpList;
+        // });
+        c.updateAllSongs(tmpList);
         // print("请求+1");
       }
-    }else{
-      setState(() {
-        songList=c.allSongs.value;
-      });
     }
+    // }else{
+    //   setState(() {
+    //     songList=c.allSongs.value;
+    //   });
+    // }
     // print(songList.length);
   }
 
@@ -151,10 +152,10 @@ class _allSongsViewState extends State<allSongsView> {
       DateTime dateTimeB = DateTime.parse(b['created']);
       return dateTimeB.compareTo(dateTimeA);
     });
-    setState(() {
-      songList=tmpList;
-    });
-    c.updateAllSongs(songList);
+    // setState(() {
+    //   songList=tmpList;
+    // });
+    c.updateAllSongs(tmpList);
 
     if(c.playInfo["name"]=="allSongs"){
       int index = c.allSongs.indexWhere((element) => element["id"] == c.playInfo["id"]);
@@ -237,9 +238,11 @@ class _allSongsViewState extends State<allSongsView> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "合计${songList.length}首歌", 
-                  style: TextStyle(color: c.mainColor),
+                Obx(() => 
+                  Text(
+                    "合计${c.allSongs.length}首歌", 
+                    style: TextStyle(color: c.mainColor),
+                  ),
                 ),
                 SizedBox(width: 8,),
                 GestureDetector(
@@ -258,164 +261,166 @@ class _allSongsViewState extends State<allSongsView> {
         Expanded(
           child: CupertinoScrollbar(
             controller: myScrollController,
-            child: ListView.builder(
-              controller: myScrollController,
-              itemCount: songList.length,
-              itemBuilder: (BuildContext context, int index){
-                return GestureDetector(
-                  onTap: (){
-                    playSong(songList[index], index, "allSongs", widget.audioHandler);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(10,0,10,0),
-                    child: Container(
-                      height: 60,
-                      color: Colors.white,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            width: 40,
-                            child: Center(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Obx(() => 
-                                    c.playInfo.isNotEmpty && c.playInfo["name"]=="allSongs" && c.playInfo["index"]==index ? 
-                                    Icon(
-                                      Icons.play_arrow_rounded,
-                                      color: c.mainColor,
-                                    ) : 
-                                    Text(
-                                      (index+1).toString(),
-                                      style: TextStyle(
-                                        color: Colors.grey,
-                                      ),
-                                    )
-                                  ),
-                                  SizedBox(width: 5,)
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Obx(() =>
-                                  c.playInfo.isNotEmpty && c.playInfo["name"]=="allSongs" && c.playInfo["index"]==index ? 
-                                  Text(
-                                    songList[index]["title"],
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                      color: c.mainColor
-                                    ),
-                                  ) : 
-                                  Text(
-                                    songList[index]["title"],
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16
-                                    ),
-                                  )
-                                ),
-                                Row(
-                                  children: [
-                                    Obx(() => 
-                                      c.fav(songList[index]["id"])==false ? 
-                                      Container() : 
-                                      Row(
-                                        children: [
-                                          Icon(
-                                            Icons.favorite,
-                                            size: 15,
-                                            color: Colors.red,
-                                          ),
-                                          SizedBox(width: 5,)
-                                        ],
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Obx(() => 
-                                        c.playInfo.isNotEmpty && c.playInfo["name"]=="allSongs" && c.playInfo["index"]==index ? 
-                                        Text(
-                                          songList[index]["artist"],
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            color: c.mainColor
-                                          )
-                                        ) : 
-                                        Text(
-                                          songList[index]["artist"],
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            color: Colors.grey
-                                          )
-                                        )
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            )
-                          ),
-                          GestureDetector(
-                            onTap: (){
-                              showModalBottomSheet<void>(
-                                context: context,
-                                backgroundColor: Colors.transparent,
-                                builder: (BuildContext context) {
-                                  return moreOperations(
-                                    item: songList[index], 
-                                    index: index, 
-                                    pageName: "allSongs", 
-                                    audioHandler: widget.audioHandler,
-                                    reloadLoved: reloadLoved, 
-                                    playSong: ()=>playSong(songList[index], index, "allSongs", widget.audioHandler),
-                                  );
-                                },
-                              );
-                            },
-                            child: Container(
-                              color: Colors.white,
-                              width: 50,
-                              height: double.infinity,
+            child: Obx(() => 
+              ListView.builder(
+                controller: myScrollController,
+                itemCount: c.allSongs.length,
+                itemBuilder: (BuildContext context, int index){
+                  return GestureDetector(
+                    onTap: (){
+                      playSong(c.allSongs[index], index, "allSongs", widget.audioHandler);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(10,0,10,0),
+                      child: Container(
+                        height: 60,
+                        color: Colors.white,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 40,
                               child: Center(
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    SizedBox(width: 10,),
                                     Obx(() => 
                                       c.playInfo.isNotEmpty && c.playInfo["name"]=="allSongs" && c.playInfo["index"]==index ? 
                                       Icon(
-                                        Icons.more_vert,
-                                        size: 20,
+                                        Icons.play_arrow_rounded,
                                         color: c.mainColor,
                                       ) : 
-                                      Icon(
-                                        Icons.more_vert,
-                                        size: 20,
+                                      Text(
+                                        (index+1).toString(),
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                        ),
                                       )
                                     ),
+                                    SizedBox(width: 5,)
                                   ],
-                                )
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Obx(() =>
+                                    c.playInfo.isNotEmpty && c.playInfo["name"]=="allSongs" && c.playInfo["index"]==index ? 
+                                    Text(
+                                      c.allSongs[index]["title"],
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                        color: c.mainColor
+                                      ),
+                                    ) : 
+                                    Text(
+                                      c.allSongs[index]["title"],
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16
+                                      ),
+                                    )
+                                  ),
+                                  Row(
+                                    children: [
+                                      Obx(() => 
+                                        c.fav(c.allSongs[index]["id"])==false ? 
+                                        Container() : 
+                                        Row(
+                                          children: [
+                                            Icon(
+                                              Icons.favorite,
+                                              size: 15,
+                                              color: Colors.red,
+                                            ),
+                                            SizedBox(width: 5,)
+                                          ],
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Obx(() => 
+                                          c.playInfo.isNotEmpty && c.playInfo["name"]=="allSongs" && c.playInfo["index"]==index ? 
+                                          Text(
+                                            c.allSongs[index]["artist"],
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: c.mainColor
+                                            )
+                                          ) : 
+                                          Text(
+                                            c.allSongs[index]["artist"],
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.grey
+                                            )
+                                          )
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              )
+                            ),
+                            GestureDetector(
+                              onTap: (){
+                                showModalBottomSheet<void>(
+                                  context: context,
+                                  backgroundColor: Colors.transparent,
+                                  builder: (BuildContext context) {
+                                    return moreOperations(
+                                      item: c.allSongs[index], 
+                                      index: index, 
+                                      pageName: "allSongs", 
+                                      audioHandler: widget.audioHandler,
+                                      reloadLoved: reloadLoved, 
+                                      playSong: ()=>playSong(c.allSongs[index], index, "allSongs", widget.audioHandler),
+                                    );
+                                  },
+                                );
+                              },
+                              child: Container(
+                                color: Colors.white,
+                                width: 50,
+                                height: double.infinity,
+                                child: Center(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(width: 10,),
+                                      Obx(() => 
+                                        c.playInfo.isNotEmpty && c.playInfo["name"]=="allSongs" && c.playInfo["index"]==index ? 
+                                        Icon(
+                                          Icons.more_vert,
+                                          size: 20,
+                                          color: c.mainColor,
+                                        ) : 
+                                        Icon(
+                                          Icons.more_vert,
+                                          size: 20,
+                                        )
+                                      ),
+                                    ],
+                                  )
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                );
-              }
+                  );
+                }
+              ),
             ),
-          ),
+          )
         ), 
         SizedBox(height: 70,)
       ],
