@@ -152,10 +152,8 @@ class _allSongsViewState extends State<allSongsView> {
       DateTime dateTimeB = DateTime.parse(b['created']);
       return dateTimeB.compareTo(dateTimeA);
     });
-    // setState(() {
-    //   songList=tmpList;
-    // });
     c.updateAllSongs(tmpList);
+    reloadLoved();
 
     if(c.playInfo["name"]=="allSongs"){
       int index = c.allSongs.indexWhere((element) => element["id"] == c.playInfo["id"]);
