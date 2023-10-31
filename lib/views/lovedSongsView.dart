@@ -135,9 +135,11 @@ class _lovedSongsViewState extends State<lovedSongsView> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "合计${c.lovedSongs.value.length}首歌", 
-                  style: TextStyle(color: c.mainColor),
+                Obx(() => 
+                  Text(
+                    "合计${c.lovedSongs.value.length}首歌", 
+                    style: TextStyle(color: c.mainColor),
+                  ),
                 ),
                 SizedBox(width: 8,),
                 GestureDetector(
