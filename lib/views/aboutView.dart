@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/para/para.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class aboutView extends StatefulWidget {
   const aboutView({super.key});
@@ -28,6 +29,10 @@ class _aboutViewState extends State<aboutView> {
   void initState() {
     getVersion();
     super.initState();
+  }
+
+  Future<void> openURL(String url) async {
+    await launchUrl(Uri.parse(url));
   }
 
   @override
@@ -72,7 +77,7 @@ class _aboutViewState extends State<aboutView> {
               children: [
                 GestureDetector(
                   onTap: (){
-
+                    openURL("https://github.com/Zhoucheng133/netPlayer-Mobile");
                   },
                   child: Text(
                     "Github",
@@ -84,7 +89,7 @@ class _aboutViewState extends State<aboutView> {
                 SizedBox(width: 20,),
                 GestureDetector(
                   onTap: (){
-                    
+                    openURL("https://gitee.com/Ryan-zhou/net-player-mobile");
                   },
                   child: Text(
                     "Gitee",
