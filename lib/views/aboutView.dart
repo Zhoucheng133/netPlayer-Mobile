@@ -59,10 +59,41 @@ class _aboutViewState extends State<aboutView> {
             SizedBox(height: 8,),
             Text(
               // c.version.value,
-              version,
+              "v.$version",
               style: TextStyle(
                 color: Colors.grey,
               ),
+            ),
+            SizedBox(height: 10,),
+            Text("Developed by zhouc"),
+            SizedBox(height: 10,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: (){
+
+                  },
+                  child: Text(
+                    "Github",
+                    style: TextStyle(
+                      color: Colors.grey
+                    ),
+                  ),
+                ),
+                SizedBox(width: 20,),
+                GestureDetector(
+                  onTap: (){
+                    
+                  },
+                  child: Text(
+                    "Gitee",
+                    style: TextStyle(
+                      color: Colors.grey
+                    ),
+                  ),
+                )
+              ],
             )
           ],
         ),
