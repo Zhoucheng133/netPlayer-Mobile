@@ -23,15 +23,15 @@ class listContentView extends StatefulWidget {
 class _listContentViewState extends State<listContentView> {
   final Controller c = Get.put(Controller());
 
-  Future<void> forceReload() async {
-    List tmp=await getListContent(widget.item["id"]);
-    setState(() {
-      songList=tmp;
-    });
-    if(c.playInfo["name"]=="songList" && c.playInfo["ListId"]==widget.item["id"]){
-      widget.audioHandler.stop();
-    }
-  }
+  // Future<void> forceReload() async {
+  //   List tmp=await getListContent(widget.item["id"]);
+  //   setState(() {
+  //     songList=tmp;
+  //   });
+  //   if(c.playInfo["name"]=="songList" && c.playInfo["ListId"]==widget.item["id"]){
+  //     widget.audioHandler.stop();
+  //   }
+  // }
 
   Future<void> reloadHandler() async {
     List tmp=await getListContent(widget.item["id"]);
@@ -49,6 +49,8 @@ class _listContentViewState extends State<listContentView> {
         c.updatePlayInfo({});
         return;
       }
+
+      reloadLoved();
       var tmpPlayInfo=c.playInfo.value;
       tmpPlayInfo["index"]=index;
       tmpPlayInfo["list"]=songList;
@@ -322,7 +324,7 @@ class _listContentViewState extends State<listContentView> {
                                           audioHandler: widget.audioHandler,
                                           reloadLoved: reloadLoved,
                                           listId: widget.item["id"],
-                                          reloadList: forceReload,
+                                          reloadList: reloadHandler,
                                           playSong: ()=>playSong(songList[index], index, "songList", widget.audioHandler, listID: widget.item["id"], playlist: songList),
                                         );
                                       },
