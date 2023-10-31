@@ -65,7 +65,6 @@ class _listContentViewState extends State<listContentView> {
         builder: (BuildContext context) {
           return CupertinoAlertDialog(
             title: Text("确定要刷新歌曲列表吗?"),
-            content: Text("这可能会停止当前播放"),
             actions: <Widget>[
               CupertinoDialogAction(
                 child: Text('取消'),
@@ -90,7 +89,6 @@ class _listContentViewState extends State<listContentView> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text("确定要刷新歌曲列表吗?"),
-            content: Text("这可能会停止当前播放"),
             actions: <Widget>[
               TextButton(
                 child: Text('取消'),
