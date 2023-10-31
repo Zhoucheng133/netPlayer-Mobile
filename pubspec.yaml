@@ -16,6 +16,7 @@ dependencies:
   just_audio: ^0.9.35
   package_info_plus: ^4.2.0
   shared_preferences: ^2.2.0
+  url_launcher: ^6.2.1
 
 dev_dependencies:
   flutter_test:
