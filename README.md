@@ -16,6 +16,8 @@
 
 **支持Android设备和iOS设备**
 
+经过测试的平台：iPhone13 & 小米5X
+
 （`apk`安装包见`Release`，iOS设备请自行下载源码安装）
 
 关于桌面版的netPlayer，你可以在这里查看：[Gitee](https://gitee.com/Ryan-zhou/net-player) / [Github](https://github.com/Zhoucheng133/net-player)  
@@ -51,6 +53,9 @@
 **相对于Mobile版本，PWA版本在iOS平台以PWA方式安装的时候如果放在前台可以自动切换下一首**
 
 ## 截图
+
+以下截图运行在iPhone13上，不同设备上运行效果可能略有不同
+
 <img src="./_assets/截图1.PNG" alt="netPlayer_Lite_截图.jpg" width="200px" />
 <img src="./_assets/截图2.PNG" alt="netPlayer_Lite_截图.jpg" width="200px" />
 <img src="./_assets/截图3.PNG" alt="netPlayer_Lite_截图.jpg" width="200px" />
