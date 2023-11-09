@@ -71,6 +71,16 @@ class _mainViewState extends State<mainView> {
                 Icons.add_rounded,
                 size: 30,
               )
+            ) : 
+            c.pageIndex==0 ? 
+            IconButton(
+              onPressed: (){
+                // TODO 完全随机播放
+              }, 
+              icon: Icon(
+                Icons.shuffle,
+                size: 30
+              )
             ) :
             Container()
           )
