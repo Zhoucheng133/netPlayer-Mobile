@@ -208,10 +208,16 @@ class _playingViewState extends State<playingView> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.shuffle
+                          Icons.shuffle,
+                          color: c.fullRandom==true ? Colors.grey[400] : Colors.black,
                         ),
                         SizedBox(width: 5,),
-                        Text("随机播放")
+                        Text(
+                          "随机播放",
+                          style: TextStyle(
+                            color: c.fullRandom==true ? Colors.grey[400] : Colors.black,
+                          ),
+                        )
                       ],
                     ),
                   ) :

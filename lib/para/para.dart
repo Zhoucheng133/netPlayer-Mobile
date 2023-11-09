@@ -22,6 +22,8 @@ class Controller extends GetxController{
   var lovedSongs=[].obs;
   // 是否随机播放
   var randomPlay=false.obs;
+  // 是否完全随机播放
+  var fullRandom=false.obs;
   // 所有歌单
   var playLists=[].obs;
   // 搜索关键词
@@ -79,6 +81,7 @@ class Controller extends GetxController{
   void updatePlayLists(data) => playLists.value=data;
   void updateSearchKey(data) => searchKey.value=data;
   void updateNowDuration(data) => nowDuration.value=data;
+  void updateFullRandom(data) => fullRandom.value=data;
 
   // 是否标记为喜爱?
   bool fav(String targetId){

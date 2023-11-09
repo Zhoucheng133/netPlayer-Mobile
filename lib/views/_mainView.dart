@@ -73,14 +73,29 @@ class _mainViewState extends State<mainView> {
               )
             ) : 
             c.pageIndex==0 ? 
-            IconButton(
-              onPressed: (){
-                // TODO 完全随机播放
-              }, 
-              icon: Icon(
-                Icons.shuffle,
-                size: 30
-              )
+            Row(
+              children: [
+                CircleAvatar(
+                  backgroundColor: c.fullRandom==true ? c.mainColor : Colors.white,
+                  child: IconButton(
+                    onPressed: (){
+                      if(c.fullRandom==true){
+                        // TODO 提示是否继续
+                        c.updateFullRandom(false);
+                        c.updateRandomPlay(false);
+                      }else{
+                        c.updateFullRandom(true);
+                        c.updateRandomPlay(true);
+                      }
+                    }, 
+                    icon: Icon(
+                      Icons.shuffle,
+                      size: 23
+                    )
+                  ),
+                ),
+                SizedBox(width: 5,)
+              ],
             ) :
             Container()
           )
