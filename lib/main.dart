@@ -60,7 +60,7 @@ class _MainAppState extends State<MainApp> {
       c.updatePlayInfo(decodePlayInfo);
     }
 
-    print(c.playInfo);
+    // print(c.playInfo);
 
     if(savePlay==false){
       c.savePlay.value=false;
