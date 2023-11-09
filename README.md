@@ -116,3 +116,27 @@
 
 ### v1.0.0 (iOS)
 - 第一个版本
+
+## 运行配置
+
+建议使用Visual Studio Code打开
+
+### 对于Android设备上运行
+
+需要安装`Android Studio`和`Gradle`
+
+**通过Visual Studio Code运行**
+
+在项目根目录中进入`android`文件夹，然后执行:  
+```bash
+gradle wrapper
+```
+
+**通过Android Studio运行**
+
+直接打开android文件夹
+
+### 对于iOS设备上运行
+
+受限于苹果的证书问题，你需要先用`Xcode`打开`ios/Runner.xcworkspace`  
+然后直接运行即可
