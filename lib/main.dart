@@ -60,6 +60,8 @@ class _MainAppState extends State<MainApp> {
       c.updatePlayInfo(decodePlayInfo);
     }
 
+    print(c.playInfo);
+
     if(savePlay==false){
       c.savePlay.value=false;
     }
@@ -68,12 +70,22 @@ class _MainAppState extends State<MainApp> {
       isLoaded=true;
     });
   }
+
+  Future<void> setFullRandom() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final bool? isFullRandom = prefs.getBool('isFullRandom');
+    if(isFullRandom==true){
+      c.updateFullRandom(true);
+      c.updateRandomPlay(true);
+    }
+  }
   
   @override
   void initState() {
     super.initState();
     // 检查登录
     checkLogin();
+    setFullRandom();
   }
   @override
   Widget build(BuildContext context) {

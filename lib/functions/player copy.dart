@@ -15,7 +15,7 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
   final Controller c = Get.put(Controller());
   final player = AudioPlayer();
 
-  // var playInfo={};
+  var playInfo={};
   var playingURL="";
 
   MediaItem item=MediaItem(id: "", title: "");
@@ -65,7 +65,7 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
       return;
     }
     var url="${c.userInfo["url"]}/rest/stream?v=1.12.0&c=netPlayer&f=json&u=${c.userInfo["username"]}&t=${c.userInfo["token"]}&s=${c.userInfo["salt"]}&id=${c.playInfo["id"]}";
-    // playInfo=c.playInfo;
+    playInfo=c.playInfo;
     // await player.play(UrlSource(url));
     if(playingURL!=url){
       await player.setUrl(url);
@@ -166,23 +166,23 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
       swtichNext();
       return;
     }
-    var index=c.playInfo["index"];
+    var index=playInfo["index"];
     if(index!=0){
-      index=(c.playInfo["list"].length+c.playInfo["index"]-1)%(c.playInfo["list"].length);
+      index=(playInfo["list"].length+playInfo["index"]-1)%(playInfo["list"].length);
     }else{
-      index=c.playInfo["list"].length-1;
+      index=playInfo["list"].length-1;
     }
     
     var tmp={
-      "name": c.playInfo["name"],
-      "id": c.playInfo["list"][index]["id"],
-      "title": c.playInfo["list"][index]["title"],
-      "artist": c.playInfo["list"][index]["artist"],
-      "duration": c.playInfo["list"][index]["duration"],
-      "ListId": c.playInfo["ListId"] ?? "",
+      "name": playInfo["name"],
+      "id": playInfo["list"][index]["id"],
+      "title": playInfo["list"][index]["title"],
+      "artist": playInfo["list"][index]["artist"],
+      "duration": playInfo["list"][index]["duration"],
+      "ListId": playInfo["ListId"] ?? "",
       "index": index,
-      "list": c.playInfo["list"],
-      "album": c.playInfo["list"][index]["album"],
+      "list": playInfo["list"],
+      "album": playInfo["list"][index]["album"],
     };
     c.updatePlayInfo(tmp);
   }
@@ -208,22 +208,22 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
     }else if(c.randomPlay==true){
       // print("Next1");
       Random random = Random();
-      index=random.nextInt(c.playInfo["list"].length);
+      index=random.nextInt(playInfo["list"].length);
     }else{
       // print("Next1");
       // print(c.playInfo);
-      index=(c.playInfo["list"].length+c.playInfo["index"]+1)%(c.playInfo["list"].length);
+      index=(playInfo["list"].length+playInfo["index"]+1)%(playInfo["list"].length);
     }
     var tmp={
-      "name": c.playInfo["name"],
-      "id": c.playInfo["list"][index]["id"],
-      "title": c.playInfo["list"][index]["title"],
-      "artist": c.playInfo["list"][index]["artist"],
-      "duration": c.playInfo["list"][index]["duration"],
-      "ListId": c.playInfo["ListId"] ?? "",
+      "name": playInfo["name"],
+      "id": playInfo["list"][index]["id"],
+      "title": playInfo["list"][index]["title"],
+      "artist": playInfo["list"][index]["artist"],
+      "duration": playInfo["list"][index]["duration"],
+      "ListId": playInfo["ListId"] ?? "",
       "index": index,
-      "list": c.playInfo["list"],
-      "album": c.playInfo["list"][index]["album"],
+      "list": playInfo["list"],
+      "album": playInfo["list"][index]["album"],
     };
     c.updatePlayInfo(tmp);
   }

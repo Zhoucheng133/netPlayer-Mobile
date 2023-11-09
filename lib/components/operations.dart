@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/functions/requests.dart';
 import 'package:netplayer_mobile/para/para.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final Controller c = Get.put(Controller());
 
@@ -29,7 +30,14 @@ List pageNameMap(String name, {List? playlist}){
 }
 
 // 播放音乐
-void playSong(Map item, int index, String pageName, dynamic audioHandler, {String? listID, List? playlist}){
+Future<void> playSong(Map item, int index, String pageName, dynamic audioHandler, {String? listID, List? playlist, bool? isFullRandom}) async {
+  if(isFullRandom==true){
+    c.updateFullRandom(true);
+  }else{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isFullRandom', false);
+    c.updateFullRandom(false);
+  }
   var newInfo={
     "name": pageName, 
     "title": item["title"],
@@ -1322,5 +1330,6 @@ class _moreOperationsState extends State<moreOperations> {
           ],
         ),
       )
-    );  }
+    );  
+  }
 }

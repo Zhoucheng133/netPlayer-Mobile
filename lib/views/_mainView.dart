@@ -1,8 +1,11 @@
 // ignore_for_file: camel_case_types, file_names, prefer_const_constructors, unrelated_type_equality_checks, prefer_const_literals_to_create_immutables, unused_field, prefer_typing_uninitialized_variables
+import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/components/operations.dart';
+import 'package:netplayer_mobile/functions/requests.dart';
 import 'package:netplayer_mobile/para/para.dart';
 import 'package:netplayer_mobile/views/allSongsView.dart';
 import 'package:netplayer_mobile/views/searchView.dart';
@@ -10,6 +13,7 @@ import 'package:netplayer_mobile/components/playingBar.dart';
 import 'package:netplayer_mobile/views/lovedSongsView.dart';
 import 'package:netplayer_mobile/views/settingsView.dart';
 import 'package:netplayer_mobile/views/songListsView.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 
 class mainView extends StatefulWidget {
@@ -50,6 +54,26 @@ class _mainViewState extends State<mainView> {
     return pageAsyc[c.pageIndex.value]!;
   }
 
+  Future<void> cancelFullRandomPlay() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isFullRandom', false);
+    c.updateFullRandom(false);
+    c.updateRandomPlay(false);
+    widget.audioHandler.stop();
+    c.updatePlayInfo({});
+    await prefs.setString("playInfo", "{}");
+  }
+
+  Future<void> fullRandomPlay() async {
+    c.updateFullRandom(true);
+    c.updateRandomPlay(true);
+    var tmp=await randomSongRequest();
+    tmp=tmp["randomSongs"]["song"][0];
+    playSong(tmp, 0, "", widget.audioHandler, isFullRandom: true);
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isFullRandom', true);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,12 +104,60 @@ class _mainViewState extends State<mainView> {
                   child: IconButton(
                     onPressed: (){
                       if(c.fullRandom==true){
-                        // TODO 提示是否继续
-                        c.updateFullRandom(false);
-                        c.updateRandomPlay(false);
+                        cancelFullRandomPlay();
                       }else{
-                        c.updateFullRandom(true);
-                        c.updateRandomPlay(true);
+                        // c.updateFullRandom(true);
+                        // c.updateRandomPlay(true);
+                        if(Platform.isIOS){
+                          showCupertinoDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return CupertinoAlertDialog(
+                                title: Text("随机播放所有歌曲?"),
+                                actions: <Widget>[
+                                  CupertinoDialogAction(
+                                    child: Text('取消'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                  CupertinoDialogAction(
+                                    child: Text('继续'),
+                                    onPressed: () {
+                                      fullRandomPlay();
+                                      Navigator.of(context).pop();
+                                    },
+                                  )
+                                ],
+                              );
+                            },
+                          );
+                        }else{
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text("添加成功"),
+                                content: Text("你可以去我的歌单中查看"),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: (){
+                                      Navigator.of(context).pop();
+                                    }, 
+                                    child: Text("取消")
+                                  ),
+                                  TextButton(
+                                    child: Text('继续'),
+                                    onPressed: () {
+                                      fullRandomPlay();
+                                      Navigator.of(context).pop();
+                                    },
+                                  )
+                                ],
+                              );
+                            },
+                          );
+                        }
                       }
                     }, 
                     icon: Icon(

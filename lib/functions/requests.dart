@@ -70,6 +70,25 @@ Future<Map> loginRequest(String url, String username, String password) async {
   return response;
 }
 
+Future<Map> randomSongRequest() async {
+  final Controller c = Get.put(Controller());
+
+  String url="${c.userInfo["url"]}/rest/getRandomSongs?v=1.12.0&c=netPlayer&f=json&u=${c.userInfo["username"]}&t=${c.userInfo["token"]}&s=${c.userInfo["salt"]}&size=500";
+  Map response=await httpRequest(url);
+  if(response.isEmpty){
+    return {"status": "URL Err"};
+  }
+  try{
+    response=response["subsonic-response"];
+  }catch(e){
+    return {"status": "URL Err"};
+  }
+  if(response["status"]!="ok"){
+    return {"status": "Pass Err"};
+  }
+  return response;
+}
+
 // 获取所有（随机的）歌曲
 Future<Map> allSongsRequest() async {
   final Controller c = Get.put(Controller());

@@ -113,33 +113,36 @@ class _playingViewState extends State<playingView> {
                 ),
                 Container(
                   height: 130,
-                  child: Column(
-                    children: [
-                      SizedBox(height: 30,),
-                      Obx(() => 
-                        Text(
-                          c.playInfo["title"]==null ? "没有播放" : c.playInfo["title"].toString(),
-                          style: TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        )
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                        child: Obx(() => 
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20, right: 20),
+                    child: Column(
+                      children: [
+                        SizedBox(height: 30,),
+                        Obx(() => 
                           Text(
-                            c.playInfo["title"]==null ? "/" : c.playInfo["artist"].toString(),
+                            c.playInfo["title"]==null ? "没有播放" : c.playInfo["title"].toString(),
                             style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.grey,
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold
                             ),
                             overflow: TextOverflow.ellipsis,
                           )
                         ),
-                      ),
-                    ],
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                          child: Obx(() => 
+                            Text(
+                              c.playInfo["title"]==null ? "/" : c.playInfo["artist"].toString(),
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.grey,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            )
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Padding(
@@ -161,7 +164,7 @@ class _playingViewState extends State<playingView> {
                           thumbColor: Colors.black
                         ),
                         child: Obx(() => 
-                          c.nowDuration!=0 ?
+                          c.nowDuration!=0 && c.playInfo["duration"]!=0 ?
                           Slider(
                             value: (c.nowDuration.value/c.playInfo["duration"]),
                             onChanged: (value) {
