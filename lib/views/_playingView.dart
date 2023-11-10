@@ -164,7 +164,7 @@ class _playingViewState extends State<playingView> {
                           thumbColor: Colors.black
                         ),
                         child: Obx(() => 
-                          c.nowDuration!=0 && c.playInfo["duration"]!=0 ?
+                          c.playInfo["duration"] is num && c.playInfo["duration"]!=0 ?
                           Slider(
                             value: (c.nowDuration.value/c.playInfo["duration"]),
                             onChanged: (value) {

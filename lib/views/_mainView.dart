@@ -62,6 +62,7 @@ class _mainViewState extends State<mainView> {
     widget.audioHandler.stop();
     c.updatePlayInfo({});
     await prefs.setString("playInfo", "{}");
+    c.updateNowDuration(0);
   }
 
   Future<void> fullRandomPlay() async {
