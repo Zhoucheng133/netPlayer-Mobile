@@ -138,8 +138,7 @@ class _mainViewState extends State<mainView> {
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                title: Text("添加成功"),
-                                content: Text("你可以去我的歌单中查看"),
+                                title: Text("随机播放所有歌曲?"),
                                 actions: <Widget>[
                                   TextButton(
                                     onPressed: (){
