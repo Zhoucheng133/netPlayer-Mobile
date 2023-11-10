@@ -205,7 +205,9 @@ class _playingViewState extends State<playingView> {
                   c.randomPlay.value==true ? 
                   GestureDetector(
                     onTap: (){
-                      c.updateRandomPlay(false);
+                      if(c.fullRandom!=true){
+                        c.updateRandomPlay(false);
+                      }
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
