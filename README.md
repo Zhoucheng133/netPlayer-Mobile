@@ -20,10 +20,7 @@
 
 （`apk`安装包见`Release`，iOS设备请自行下载源码安装）
 
-
-**注意，鉴于Subsonic没有提供“获取所有歌曲”的API，因此“所有歌曲”是通过获取随机歌曲排序后得到的，只能获取500首歌曲**
-
-> **受限于Subsonic API，“所有歌曲”只能显示500首（随机的500首歌曲排序展示），如果你要随机播放所有的歌曲，可以点击所有歌曲页面右上角的随机播放按钮**
+**受限于Subsonic API，“所有歌曲”只能显示500首（随机的500首歌曲排序展示），如果你要随机播放所有的歌曲，可以点击所有歌曲页面右上角的随机播放按钮**
 
 关于桌面版的netPlayer，你可以在这里查看：[Github](https://github.com/Zhoucheng133/net-player)  
 关于移动Lite的netPlayer，你可以在这里查看：[Github](https://github.com/Zhoucheng133/neyPlayer_Lite)  
