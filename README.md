@@ -5,7 +5,7 @@
 ![Flutter](https://img.shields.io/badge/Flutter-3.13-blue?logo=Flutter)
 ![get](https://img.shields.io/badge/get-4.6.5-red)
 ![audioservice](https://img.shields.io/badge/audio_service-0.18.10-green)
-![audioplayers](https://img.shields.io/badge/audioplayers-1.1.0-yellow)
+![just_audio](https://img.shields.io/badge/just_audio-0.9.35-yellow)
 ![http](https://img.shields.io/badge/http-1.1.0-orange)
 ![shared_preferences](https://img.shields.io/badge/shared_preferences-2.2.0-lightgreen)
 ![crypto](https://img.shields.io/badge/crypto-3.0.3-lightblue)
