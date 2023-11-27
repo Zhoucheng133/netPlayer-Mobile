@@ -8,6 +8,9 @@
 ![just_audio](https://img.shields.io/badge/just_audio-0.9.35-yellow)
 ![http](https://img.shields.io/badge/http-1.1.0-orange)
 ![shared_preferences](https://img.shields.io/badge/shared_preferences-2.2.0-lightgreen)
+![url_launcher](https://img.shields.io/badge/url_launcher-6.2.1-purple)
+![flutter_native_splash](https://img.shields.io/badge/flutter_native_splash-2.3.6-lightyellow)
+![package_info_plus](https://img.shields.io/badge/package_info_plus-4.2.0-pink)
 ![crypto](https://img.shields.io/badge/crypto-3.0.3-lightblue)
 
 ![License](https://img.shields.io/badge/License-MIT-dark_green)
@@ -110,6 +113,11 @@
 在项目根目录中进入`android`文件夹，然后执行:  
 ```bash
 gradle wrapper
+```
+
+如果你需要生成apk，执行:
+```bash
+flutter build apk --split-per-abi
 ```
 
 **通过Android Studio运行**
