@@ -1,9 +1,12 @@
-// ignore_for_file: camel_case_types, file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, unrelated_type_equality_checks
+// ignore_for_file: camel_case_types, file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, unrelated_type_equality_checks, use_build_context_synchronously, invalid_use_of_protected_member
 
 import 'dart:async';
+import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:netplayer_mobile/functions/requests.dart';
 import 'package:netplayer_mobile/para/para.dart';
 
 class playingView extends StatefulWidget {
@@ -46,6 +49,62 @@ class _playingViewState extends State<playingView> {
     int sec = time % 60;
     String formattedSec = sec.toString().padLeft(2, '0');
     return "$min:$formattedSec";
+  }
+
+  void failDialog(BuildContext context){
+    if(Platform.isIOS){
+      showCupertinoDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: Text("操作失败!"),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                child: Text('好'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        },
+      );
+    }else{
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("操作失败!"),
+            actions: <Widget>[
+              TextButton(
+                child: Text('好'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        },
+      );
+    }
+  }
+
+  Future<void> reloadLoved() async {
+    var tmp=await lovedSongRequest();
+    c.updateLovedSongs(tmp);
+
+    if(c.playInfo["name"]=="lovedSongs"){
+      int index = c.lovedSongs.indexWhere((element) => element["id"] == c.playInfo["id"]);
+      if(index==-1){
+        widget.audioHandler.stop();
+        c.updatePlayInfo({});
+        return;
+      }
+      var tmpPlayInfo=c.playInfo.value;
+      tmpPlayInfo["index"]=index;
+      tmpPlayInfo["list"]=c.lovedSongs.value;
+      c.updatePlayInfo(tmpPlayInfo);
+    }
   }
   
   @override
@@ -207,8 +266,11 @@ class _playingViewState extends State<playingView> {
                     Obx(() => 
                       (c.playInfo.isNotEmpty && c.fav(c.playInfo['id'])) ? 
                       GestureDetector(
-                        onTap: (){
-                          // TODO 取消喜欢
+                        onTap: () async {
+                          if(await setDelove(c.playInfo['id'])==false){
+                            failDialog(context);
+                          }
+                          reloadLoved();
                         },
                         child: Icon(
                           Icons.favorite,
@@ -216,9 +278,12 @@ class _playingViewState extends State<playingView> {
                         ),
                       ) : 
                       GestureDetector(
-                        onTap: (){
+                        onTap: () async {
                           if(c.playInfo.isNotEmpty){
-                            // TODO 喜欢
+                            if(await setLove(c.playInfo['id'])==false){
+                              failDialog(context);
+                            }
+                            reloadLoved();
                           }else{
                             return;
                           }
