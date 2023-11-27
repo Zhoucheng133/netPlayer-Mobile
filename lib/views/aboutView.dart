@@ -86,18 +86,6 @@ class _aboutViewState extends State<aboutView> {
                     ),
                   ),
                 ),
-                SizedBox(width: 20,),
-                GestureDetector(
-                  onTap: (){
-                    openURL("https://gitee.com/Ryan-zhou/net-player-mobile");
-                  },
-                  child: Text(
-                    "Gitee",
-                    style: TextStyle(
-                      color: Colors.grey
-                    ),
-                  ),
-                )
               ],
             )
           ],
