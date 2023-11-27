@@ -11,6 +11,7 @@ dependencies:
   crypto: ^3.0.3
   flutter:
     sdk: flutter
+  flutter_native_splash: ^2.3.6
   get: ^4.6.5
   http: ^1.1.0
   just_audio: ^0.9.35
@@ -27,3 +28,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/icon.png
