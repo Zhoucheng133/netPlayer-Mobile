@@ -201,46 +201,63 @@ class _playingViewState extends State<playingView> {
                 ),
                 // Text("hello?"),
                 SizedBox(height: 20,),
-                Obx(() => 
-                  c.randomPlay.value==true ? 
-                  GestureDetector(
-                    onTap: (){
-                      if(c.fullRandom!=true){
-                        c.updateRandomPlay(false);
-                      }
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.shuffle,
-                          color: c.fullRandom==true ? Colors.grey[400] : Colors.black,
-                        ),
-                        SizedBox(width: 5,),
-                        Text(
-                          "随机播放",
-                          style: TextStyle(
-                            color: c.fullRandom==true ? Colors.grey[400] : Colors.black,
-                          ),
-                        )
-                      ],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Obx(() => 
+                      (c.playInfo.isNotEmpty && c.fav(c.playInfo['id'])) ? 
+                      Icon(
+                        Icons.favorite,
+                        color: Colors.red,
+                      ) : 
+                      Icon(
+                        Icons.favorite,
+                        color: Colors.grey,
+                      )
                     ),
-                  ) :
-                  GestureDetector(
-                    onTap: (){
-                      c.updateRandomPlay(true);
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.repeat_rounded
+                    SizedBox(width: 30,),
+                    Obx(() => 
+                      c.randomPlay.value==true ? 
+                      GestureDetector(
+                        onTap: (){
+                          if(c.fullRandom!=true){
+                            c.updateRandomPlay(false);
+                          }
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.shuffle,
+                              color: c.fullRandom==true ? Colors.grey[400] : Colors.black,
+                            ),
+                            SizedBox(width: 5,),
+                            Text(
+                              "随机播放",
+                              style: TextStyle(
+                                color: c.fullRandom==true ? Colors.grey[400] : Colors.black,
+                              ),
+                            )
+                          ],
                         ),
-                        SizedBox(width: 5,),
-                        Text("顺序播放")
-                      ],
+                      ) :
+                      GestureDetector(
+                        onTap: (){
+                          c.updateRandomPlay(true);
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.repeat_rounded
+                            ),
+                            SizedBox(width: 5,),
+                            Text("顺序播放")
+                          ],
+                        ),
+                      )
                     ),
-                  )
+                  ],
                 ),
                 SizedBox(height: 15,),
                 Row(
