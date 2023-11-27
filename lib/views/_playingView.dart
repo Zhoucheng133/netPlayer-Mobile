@@ -206,13 +206,27 @@ class _playingViewState extends State<playingView> {
                   children: [
                     Obx(() => 
                       (c.playInfo.isNotEmpty && c.fav(c.playInfo['id'])) ? 
-                      Icon(
-                        Icons.favorite,
-                        color: Colors.red,
+                      GestureDetector(
+                        onTap: (){
+                          // TODO 取消喜欢
+                        },
+                        child: Icon(
+                          Icons.favorite,
+                          color: Colors.red,
+                        ),
                       ) : 
-                      Icon(
-                        Icons.favorite,
-                        color: Colors.grey,
+                      GestureDetector(
+                        onTap: (){
+                          if(c.playInfo.isNotEmpty){
+                            // TODO 喜欢
+                          }else{
+                            return;
+                          }
+                        },
+                        child: Icon(
+                          Icons.favorite,
+                          color: Colors.grey,
+                        ),
                       )
                     ),
                     SizedBox(width: 30,),
