@@ -223,6 +223,46 @@ class _allSongsViewState extends State<allSongsView> {
 
   final myScrollController=ScrollController();
 
+  void overCountDialog(BuildContext context){
+    if(Platform.isIOS){
+      showCupertinoDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: Text("显示的歌曲可能不完全"),
+            content: Text("Subsonic API能够一次性获取到的歌曲数量最多为500首，因此你看到的所有歌曲为随机的500首歌曲经过排序得到的"),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                child: Text('好的'),
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        },
+      );
+    }else{
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("显示的歌曲可能不完全"),
+            content: Text("Subsonic API能够一次性获取到的歌曲数量最多为500首，因此你看到的所有歌曲为随机的500首歌曲经过排序得到的"),
+            actions: <Widget>[
+              TextButton(
+                child: Text('好的'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        },
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -231,29 +271,53 @@ class _allSongsViewState extends State<allSongsView> {
           width: MediaQuery.of(context).size.width,
           height: 30,
           color: Colors.white,
-          child: Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+          child: Obx(() => 
+            Stack(
               children: [
-                Obx(() => 
-                  Text(
-                    "合计${c.allSongs.length}首歌", 
-                    style: TextStyle(color: c.mainColor),
+                Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        c.allSongs.length >= 500 ? "合计≥500首歌曲" : "合计${c.allSongs.length}首歌", 
+                        style: TextStyle(color: c.mainColor),
+                      ),
+                      SizedBox(width: 8,),
+                      GestureDetector(
+                        onTap: (){
+                          reloadList(context);
+                        },
+                        child: Icon(
+                          Icons.refresh,
+                          color: c.mainColor,
+                        ),
+                      )
+                    ],
                   ),
                 ),
-                SizedBox(width: 8,),
-                GestureDetector(
-                  onTap: (){
-                    reloadList(context);
-                  },
-                  child: Icon(
-                    Icons.refresh,
-                    color: c.mainColor,
+                c.allSongs.length >=500 ?
+                Center(
+                  child: Row(
+                    children: [
+                      Expanded(child: Container()),
+                      GestureDetector(
+                        onTap: (){
+                          overCountDialog(context);
+                        },
+                        child: Icon(
+                          Icons.warning,
+                          color: c.mainColor,
+                          size: 20,
+                        ),
+                      ),
+                      SizedBox(width: 20,)
+                    ],
                   ),
-                )
+                ) : Container()
               ],
-            )
-          ),
+            ),
+          )
         ),
         Expanded(
           child: CupertinoScrollbar(
