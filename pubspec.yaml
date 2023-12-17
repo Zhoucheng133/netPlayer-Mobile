@@ -30,5 +30,6 @@ flutter:
     - assets/
 
 flutter_native_splash:
+  web: false
   color: "#ffffff"
   image: assets/icon.png
