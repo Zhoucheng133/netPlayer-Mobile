@@ -29,6 +29,20 @@
 关于移动Lite的netPlayer，你可以在这里查看：[Github](https://github.com/Zhoucheng133/neyPlayer_Lite)  
 关于PWA版本的netPlayer，你可以在这里查看：[Github](https://github.com/Zhoucheng133/netPlayer-PWA)
 
+## 注意事项
+
+本项目使用Flutter开发，经过测试最新版本的Flutter运行此项目可能会出现问题，因此不建议使用最新版本的Flutter运行此项目
+
+开发环境：  
+Flutter ^3.13.7
+
+## 已知的问题
+
+**本项目已知的问题都存在于PWA版本上：**
+
+1. 设置页面错误
+2. 无法点击完全随机播放按钮
+3. Dialog显示错误
 
 ## 截图
 
