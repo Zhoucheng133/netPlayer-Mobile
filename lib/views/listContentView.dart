@@ -164,6 +164,24 @@ class _listContentViewState extends State<listContentView> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        actions: [
+          Row(
+            children: [
+              Obx(() => 
+                GestureDetector(
+                  onTap: (){
+                    // TODO 滚动到当前播放
+                  },
+                  child: Icon(
+                    Icons.my_location_rounded,
+                    color: c.playInfo['name']=='songList' && c.playInfo['ListId']==widget.item['id'] ? c.mainColor : Colors.grey[500],
+                  ),
+                )
+              ),
+              SizedBox(width: 10,)
+            ],
+          )
+        ],
         elevation: 0,
         title: Text(widget.item["name"]),
         backgroundColor: Colors.white,
