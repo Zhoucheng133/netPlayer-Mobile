@@ -85,8 +85,17 @@ class _mainViewState extends State<mainView> {
         // title: Text("所有音乐"),
         backgroundColor: Colors.white,
         foregroundColor: c.mainColor,
-        leading: GestureDetector(
-          child: Icon(Icons.my_location_rounded),
+        leading: Obx(() => 
+          c.pageIndex==0 || c.pageIndex==1 ? 
+          GestureDetector(
+            onTap: (){
+              // TODO 滚动到当前播放
+            },
+            child: Icon(
+              Icons.my_location_rounded,
+              color: c.pageAsycEn[c.pageIndex]==c.playInfo['name'] ? c.mainColor : Colors.grey[500],
+            ),
+          ) : Container()
         ),
         actions: [
           Obx(() => 

@@ -41,6 +41,14 @@ class Controller extends GetxController{
     4: "设置",
     5: "播放器",
   };
+  var pageAsycEn={
+    0: "allSongs",
+    1: "lovedSongs",
+    2: "songList",
+    3: "search",
+    4: "settings",
+    5: "player",
+  };
   // 现在的进度条位置
   var nowDuration=0.obs;
 
