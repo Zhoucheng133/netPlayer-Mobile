@@ -123,6 +123,16 @@ class _lovedSongsViewState extends State<lovedSongsView> {
 
   final myScrollController=ScrollController();
 
+  void scrollToNowPlay(){
+    if(c.playInfo['name']=='lovedSongs' && myScrollController.hasClients){
+      myScrollController.animateTo(
+        (c.playInfo['index']-1)*60.0,
+        duration: Duration(milliseconds: 300), 
+        curve: Curves.easeInOut
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -135,6 +145,19 @@ class _lovedSongsViewState extends State<lovedSongsView> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Obx(() => 
+                  GestureDetector(
+                    onTap: (){
+                      scrollToNowPlay();
+                    },
+                    child: Icon(
+                      Icons.my_location_rounded,
+                      color: c.pageAsycEn[c.pageIndex]==c.playInfo['name'] ? c.mainColor : Colors.grey[500],
+                      size: 22,
+                    ),
+                  ),
+                ),
+                SizedBox(width: 8,),
                 Obx(() => 
                   Text(
                     "合计${c.lovedSongs.value.length}首歌", 

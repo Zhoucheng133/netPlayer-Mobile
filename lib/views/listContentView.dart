@@ -158,30 +158,39 @@ class _listContentViewState extends State<listContentView> {
   }
   
   final myScrollController=ScrollController();
+
+  void scrollToNowPlay(){
+    if(c.playInfo['name']=='songList' && myScrollController.hasClients && c.playInfo["ListId"]==widget.item["id"]){
+      myScrollController.animateTo(
+        (c.playInfo['index']-1)*60.0,
+        duration: Duration(milliseconds: 300), 
+        curve: Curves.easeInOut
+      );
+    }
+  }
   
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        actions: [
-          Row(
-            children: [
-              Obx(() => 
-                GestureDetector(
-                  onTap: (){
-                    // TODO 滚动到当前播放
-                  },
-                  child: Icon(
-                    Icons.my_location_rounded,
-                    color: c.playInfo['name']=='songList' && c.playInfo['ListId']==widget.item['id'] ? c.mainColor : Colors.grey[500],
-                  ),
-                )
-              ),
-              SizedBox(width: 10,)
-            ],
-          )
-        ],
+        // actions: [
+        //   Row(
+        //     children: [
+        //       Obx(() => 
+        //         GestureDetector(
+        //           onTap: (){
+        //           },
+        //           child: Icon(
+        //             Icons.my_location_rounded,
+        //             color: c.playInfo['name']=='songList' && c.playInfo['ListId']==widget.item['id'] ? c.mainColor : Colors.grey[500],
+        //           ),
+        //         )
+        //       ),
+        //       SizedBox(width: 10,)
+        //     ],
+        //   )
+        // ],
         elevation: 0,
         title: Text(widget.item["name"]),
         backgroundColor: Colors.white,
@@ -199,6 +208,19 @@ class _listContentViewState extends State<listContentView> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      Obx(() => 
+                        GestureDetector(
+                          onTap: (){
+                            scrollToNowPlay();
+                          },
+                          child: Icon(
+                            Icons.my_location_rounded,
+                            color: c.pageAsycEn[c.pageIndex]==c.playInfo['name'] ? c.mainColor : Colors.grey[500],
+                            size: 22,
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 8,),
                       Text(
                         "合计${songList.length}首歌", 
                         style: TextStyle(color: c.mainColor),

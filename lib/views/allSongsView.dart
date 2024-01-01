@@ -19,8 +19,19 @@ class allSongsView extends StatefulWidget {
 
 class _allSongsViewState extends State<allSongsView> {
   final Controller c = Get.put(Controller());
+  final ScrollController myScrollController=ScrollController();
 
   // List songList=[];
+
+  void scrollToNowPlay(){
+    if(c.playInfo['name']=='allSongs' && myScrollController.hasClients){
+      myScrollController.animateTo(
+        (c.playInfo['index']-1)*60.0,
+        duration: Duration(milliseconds: 300), 
+        curve: Curves.easeInOut
+      );
+    }
+  }
 
   Future<void> getLovedSongs() async {
     if(c.lovedSongs.isEmpty){
@@ -221,8 +232,6 @@ class _allSongsViewState extends State<allSongsView> {
     }
   }
 
-  final myScrollController=ScrollController();
-
   void overCountDialog(BuildContext context){
     if(Platform.isIOS){
       showCupertinoDialog(
@@ -279,6 +288,19 @@ class _allSongsViewState extends State<allSongsView> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      Obx(() => 
+                        GestureDetector(
+                          onTap: (){
+                            scrollToNowPlay();
+                          },
+                          child: Icon(
+                            Icons.my_location_rounded,
+                            color: c.pageAsycEn[c.pageIndex]==c.playInfo['name'] ? c.mainColor : Colors.grey[500],
+                            size: 22,
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 8,),
                       Text(
                         c.allSongs.length >= 500 ? "合计≥500首歌曲" : "合计${c.allSongs.length}首歌", 
                         style: TextStyle(color: c.mainColor),
@@ -291,6 +313,7 @@ class _allSongsViewState extends State<allSongsView> {
                         child: Icon(
                           Icons.refresh,
                           color: c.mainColor,
+                          size: 22,
                         ),
                       )
                     ],
