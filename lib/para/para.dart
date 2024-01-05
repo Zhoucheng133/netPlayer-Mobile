@@ -134,7 +134,7 @@ class Controller extends GetxController{
       });
     }
     lyric.value=lyricCovert;
-    print(lyric.value);
+    // print(lyric.value);
   }
   void updateAllSongs(data) => allSongs.value=data;
   void updatesearchRlt(data) => searchRlt.value=data;
