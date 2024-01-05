@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'dart:convert';
+import 'package:netplayer_mobile/functions/requests.dart';
 
 class Controller extends GetxController{
   // 是否已经登录了
@@ -52,6 +54,9 @@ class Controller extends GetxController{
   // 现在的进度条位置
   var nowDuration=0.obs;
 
+  // 现在的进度条位置(毫秒)
+  var nowDurationInMc=0.obs;
+
   // ————分割线(上面为所有的全局变量)—————
 
   // 保存上次的播放
@@ -74,13 +79,63 @@ class Controller extends GetxController{
     "album": "albumName"    // 专辑名称
   };
 
-  // ————分割线(下面为更新变量函数)—————
+  var lyric=[].obs;
 
+  // ————分割线(下面为功能函数)—————
+
+  // 将时间戳转换成毫秒
+  int timeToMilliseconds(timeString) {
+    List<String> parts = timeString.split(':');
+    int minutes = int.parse(parts[0]);
+    List<String> secondsParts = parts[1].split('.');
+    int seconds = int.parse(secondsParts[0]);
+    int milliseconds = int.parse(secondsParts[1]);
+
+    // 将分钟、秒和毫秒转换为总毫秒数
+    return (minutes * 60 * 1000) + (seconds * 1000) + milliseconds;
+  }
+
+  // ————分割线(下面为更新变量函数)—————
+  
   // 更新数据
   void updateLogin(data) => isLogin.value=data;
   void updateUserInfo(data) => userInfo.value=data;
   void updateIsPlay(data) => isPlay.value=data;
-  void updatePlayInfo(Map data) => playInfo.value=data;
+  Future<void> updatePlayInfo(Map data) async {
+    lyric.value=[
+      {
+        'time': 0,
+        'content': '正在查找歌词...',
+      }
+    ];
+    playInfo.value=data;
+    String lyricPain=await getLyric(data['title'], data['album'], data['artist'], data['duration'].toString());
+
+    // print(lyricPain);
+
+    if(lyricPain=='没有找到歌词'){
+      lyric.value=[
+        {
+          'time': 0,
+          'content': '没有找到歌词',
+        }
+      ];
+      return;
+    }
+
+    List lyricCovert=[];
+    List<String> lines = LineSplitter.split(lyricPain).toList();
+    for(String line in lines){
+      int pos1=line.indexOf("[");
+      int pos2=line.indexOf("]");
+      lyricCovert.add({
+        'time': timeToMilliseconds(line.substring(pos1+1, pos2)),
+        'content': line.substring(pos2 + 1).trim(),
+      });
+    }
+    lyric.value=lyricCovert;
+    print(lyric.value);
+  }
   void updateAllSongs(data) => allSongs.value=data;
   void updatesearchRlt(data) => searchRlt.value=data;
   void updatePageIndex(data) => pageIndex.value=data;
@@ -90,6 +145,7 @@ class Controller extends GetxController{
   void updateSearchKey(data) => searchKey.value=data;
   void updateNowDuration(data) => nowDuration.value=data;
   void updateFullRandom(data) => fullRandom.value=data;
+  void updateNowDurationInMc(data) => nowDurationInMc.value=data;
 
   // 是否标记为喜爱?
   bool fav(String targetId){
