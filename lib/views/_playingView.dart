@@ -89,6 +89,10 @@ class _playingViewState extends State<playingView> {
     }
   }
 
+  void showLyric(){
+    // TODO 显示歌词
+  }
+
   Future<void> reloadLoved() async {
     var tmp=await lovedSongRequest();
     c.updateLovedSongs(tmp);
@@ -335,6 +339,13 @@ class _playingViewState extends State<playingView> {
                           ],
                         ),
                       )
+                    ),
+                    SizedBox(width: 25,),
+                    GestureDetector(
+                      child: Icon(Icons.lyrics_rounded),
+                      onTap: (){
+                        showLyric();
+                      },
                     ),
                   ],
                 ),
