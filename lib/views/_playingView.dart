@@ -119,6 +119,7 @@ class _playingViewState extends State<playingView> {
         child: GestureDetector(
           onVerticalDragUpdate: (details){
             if(details.delta.dy>10){
+              showLyric=false;
               Navigator.pop(context);
             }
           },

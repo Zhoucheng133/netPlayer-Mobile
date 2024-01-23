@@ -37,7 +37,7 @@ class _lyricContentState extends State<lyricContent> {
         itemBuilder: (BuildContext context, int index){
           return Column(
             children: [
-              index==0 ? SizedBox(height: widget.height/2-18*4.6,) : Container(),
+              index==0 ? SizedBox(height: widget.height/2-18*2.3,) : Container(),
               Obx(() => 
                 Text(
                   c.lyric[index]['content'],
