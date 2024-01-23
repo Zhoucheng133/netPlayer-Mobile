@@ -339,6 +339,11 @@ Future<bool> newList(String name) async {
 // 获取歌词
 Future<String> getLyric(String title, String album, String artist, String duration) async {
   String url="https://lrclib.net/api/get?artist_name=${artist}&track_name=${title}&album_name=${album}&duration=${duration}";
-  Map response=await httpRequest(url);
+  Map response={};
+  try {
+    response=await httpRequest(url);
+  } catch (e) {
+    return '没有找到歌词';
+  }
   return response['syncedLyrics'] ?? "没有找到歌词";
 }
