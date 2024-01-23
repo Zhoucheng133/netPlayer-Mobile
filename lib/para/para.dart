@@ -85,8 +85,6 @@ class Controller extends GetxController{
     "album": "albumName"    // 专辑名称
   };
 
-  var lyric=[].obs;
-
   // ————分割线(下面为功能函数)—————
 
   // 将时间戳转换成毫秒
@@ -104,6 +102,7 @@ class Controller extends GetxController{
   // ————分割线(下面为更新变量函数)—————
   
   // 更新数据
+  void updateLyricLine(data) => lyricLine.value=data;
   void updateLogin(data) => isLogin.value=data;
   void updateUserInfo(data) => userInfo.value=data;
   void updateIsPlay(data) => isPlay.value=data;
