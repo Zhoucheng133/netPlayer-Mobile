@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/functions/requests.dart';
 import 'package:netplayer_mobile/para/para.dart';
+import 'package:netplayer_mobile/views/lyricView.dart';
 
 class playingView extends StatefulWidget {
   const playingView({super.key, required this.audioHandler});
@@ -91,6 +92,10 @@ class _playingViewState extends State<playingView> {
 
   void showLyric(){
     // TODO 显示歌词
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => lyricView()),
+    );
   }
 
   Future<void> reloadLoved() async {
@@ -119,7 +124,7 @@ class _playingViewState extends State<playingView> {
         child: GestureDetector(
           onVerticalDragUpdate: (details){
             if(details.delta.dy>10){
-                Navigator.pop(context);
+              Navigator.pop(context);
             }
           },
           child: Container(
@@ -182,13 +187,18 @@ class _playingViewState extends State<playingView> {
                       children: [
                         SizedBox(height: 30,),
                         Obx(() => 
-                          Text(
-                            c.playInfo["title"]==null ? "没有播放" : c.playInfo["title"].toString(),
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold
+                          Hero(
+                            tag: "title",
+                            child: Text(
+                              c.playInfo["title"]==null ? "没有播放" : c.playInfo["title"].toString(),
+                              style: TextStyle(
+                                fontSize: 25,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                decoration: TextDecoration.none
+                              ),
+                              overflow: TextOverflow.ellipsis,
                             ),
-                            overflow: TextOverflow.ellipsis,
                           )
                         ),
                         Padding(
