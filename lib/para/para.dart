@@ -57,6 +57,12 @@ class Controller extends GetxController{
   // 现在的进度条位置(毫秒)
   var nowDurationInMc=0.obs;
 
+  // 当前歌词到第几行了
+  var lyricLine=0.obs;
+  
+  // 歌词
+  var lyric=[].obs;
+
   // ————分割线(上面为所有的全局变量)—————
 
   // 保存上次的播放
@@ -149,7 +155,18 @@ class Controller extends GetxController{
   void updateFullRandom(data) => fullRandom.value=data;
   void updateNowDurationInMc(data){
     nowDurationInMc.value=data;
-    // print(data+": "+ lyric[0]['time']);
+    if(lyric.isNotEmpty && lyric.length!=1){
+      for (var i = 0; i < lyric.length; i++) {
+        if(i==lyric.length-1){
+          updateLyricLine(0);
+          break;
+        }else if(data>=lyric[i]['time'] && data<lyric[i+1]['time']){
+          updateLyricLine(i+1);
+          break;
+        }
+      }
+    }
+    // print(lyricLine.toString());
   }
 
   // 是否标记为喜爱?
