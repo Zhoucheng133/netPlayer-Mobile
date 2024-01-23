@@ -133,6 +133,7 @@ class Controller extends GetxController{
         'content': line.substring(pos2 + 1).trim(),
       });
     }
+    print(lyricCovert);
     lyric.value=lyricCovert;
     // print(lyric.value);
   }

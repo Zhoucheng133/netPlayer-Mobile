@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:netplayer_mobile/components/lyricContent.dart';
 import 'package:netplayer_mobile/functions/requests.dart';
 import 'package:netplayer_mobile/para/para.dart';
 
@@ -181,6 +182,11 @@ class _playingViewState extends State<playingView> {
                         width: MediaQuery.of(context).size.width-120,
                         height: MediaQuery.of(context).size.width-120,
                         color: showLyric ? Color.fromARGB(255, 250, 250, 250) : Color.fromARGB(0, 250, 250, 250),
+                        child: AnimatedOpacity(
+                          duration: Duration(milliseconds: 300),
+                          opacity: showLyric ? 1.0 : 0.0,
+                          child: lyricContent(),
+                        ),
                       )
                     )
                   ]
