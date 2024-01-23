@@ -1,6 +1,6 @@
 // ignore_for_file: file_names, camel_case_types, prefer_const_constructors
 
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/para/para.dart';
@@ -21,7 +21,7 @@ class _lyricContentState extends State<lyricContent> {
   bool playedLyric(index){
     bool flag=false;
     try {
-      flag=c.nowDurationInMc>c.lyric[index]['time'] && c.nowDurationInMc<c.lyric[index+1]['time'];
+      flag=c.nowDurationInMc>=c.lyric[index]['time'] && c.nowDurationInMc<c.lyric[index+1]['time'];
     } catch (e) {
       flag=false;
     }
@@ -37,7 +37,7 @@ class _lyricContentState extends State<lyricContent> {
         itemBuilder: (BuildContext context, int index){
           return Column(
             children: [
-              index==0 ? SizedBox(height: widget.height/2,) : Container(),
+              index==0 ? SizedBox(height: widget.height/2-18*4.6,) : Container(),
               Obx(() => 
                 Text(
                   c.lyric[index]['content'],
