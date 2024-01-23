@@ -19,6 +19,9 @@ class _lyricContentState extends State<lyricContent> {
   final ScrollController lyricScroll=ScrollController();
 
   bool playedLyric(index){
+    if(c.lyric.length==1){
+      return true;
+    }
     bool flag=false;
     try {
       flag=c.nowDurationInMc>=c.lyric[index]['time'] && c.nowDurationInMc<c.lyric[index+1]['time'];
