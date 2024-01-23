@@ -29,22 +29,26 @@
 关于移动Lite的netPlayer，你可以在这里查看：[Github](https://github.com/Zhoucheng133/neyPlayer_Lite)  
 关于PWA版本的netPlayer，你可以在这里查看：[Github](https://github.com/Zhoucheng133/netPlayer-PWA)
 
-## 注意事项
+注意，从`1.3.0`版本开始，放弃支持`PWA`设备，如果你有需要可以使用上面的PWA版本的netPlayer
 
-**本项目使用Flutter开发，经过测试最新版本的Flutter运行此项目可能会出现问题，因此不建议使用最新版本的Flutter运行此项目**
+## 在你的设备上配置netPlayer Mobile
 
-开发环境：  
-Flutter ^3.13.7
+由于本项目没有区分`正在开发的版本`和`发布的版本`，如果你需要获取可以正确执行的代码，**不要直接下载最新的代码! 请在Tag中选择最新的版本下载（或者在Release中下载Source code）**
 
-## 已知的问题
+请不要使用本项目的代码发布Web/PWA版本，本项目的PWA存在很多问题，因此如果如果你希望在Web端（PWA）上使用netPlayer，可以使用PWA版本的netPlayer
 
-**本项目已知的问题都存在于PWA版本上：**
+### 环境配置
 
-1. 设置页面错误
-2. 无法点击完全随机播放按钮
-3. Dialog显示错误
+- Flutter^3.13.7，**经过测试最新版本的Flutter运行此项目可能会出现问题，因此不建议使用最新版本的Flutter运行此项目**
+- 如果你需要在Android设备上运行或者调试，需要安装Android Studio和Gradle
+- 如果你需要在iOS设备上运行或者调试，需要使用Mac，并且安装Xcode<sup>*</sup>
+- 建议使用Visual Studio Code打开项目
+  - 在Visual Studio Code的右下角找到`Device`按钮（也有可能显示为可用的设备），选择目标设备或者模拟器
+  - 在`运行和调试`面板选择`Debug`，`Profile`或者`Release`<sup>**</sup>，详细的区别见[Flutter官网](https://docs.flutter.dev/testing/build-modes)
 
-（Flutter的问题，本人不接锅😅）
+<sup>*</sup>注意，你需要通过Xcode（使用Xcode打开文件`ios/Runner.xcworkspace`可以自动获取）获取证书，非开发者账户的证书的有效期为一个星期，也就是说一个星期之后你需要重新打开Xcode获取证书
+
+<sup>**</sup>注意，模拟器无法使用`Release`模式，实体iPhone无法使用`Debug`模式
 
 ## 截图
 
@@ -124,32 +128,3 @@ Flutter ^3.13.7
 
 ### v1.0.0 (iOS)
 - 第一个版本
-
-## 运行配置
-
-建议使用Visual Studio Code打开
-
-### 对于Android设备上运行
-
-需要安装`Android Studio`和`Gradle`
-
-**通过Visual Studio Code运行**
-
-在项目根目录中进入`android`文件夹，然后执行:  
-```bash
-gradle wrapper
-```
-
-如果你需要生成apk，执行:
-```bash
-flutter build apk --split-per-abi
-```
-
-**通过Android Studio运行**
-
-直接打开android文件夹
-
-### 对于iOS设备上运行
-
-受限于苹果的证书问题，你需要先用`Xcode`打开`ios/Runner.xcworkspace`  
-然后直接运行即可
