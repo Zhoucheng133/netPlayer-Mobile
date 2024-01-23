@@ -18,6 +18,16 @@ class _lyricContentState extends State<lyricContent> {
   final Controller c = Get.put(Controller());
   final ScrollController lyricScroll=ScrollController();
 
+  bool playedLyric(index){
+    bool flag=false;
+    try {
+      flag=c.nowDurationInMc>c.lyric[index]['time'] && c.nowDurationInMc<c.lyric[index+1]['time'];
+    } catch (e) {
+      flag=false;
+    }
+    return flag;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Obx(() => 
@@ -35,7 +45,8 @@ class _lyricContentState extends State<lyricContent> {
                   style: TextStyle(
                     fontSize: 18,
                     height: 2.3,
-                    color: c.nowDurationInMc>c.lyric[index]['time'] && c.nowDurationInMc<c.lyric[index+1]['time']?c.mainColor:Colors.grey,
+                    color: playedLyric(index) ? c.mainColor:Colors.grey,
+                    fontWeight: playedLyric(index) ? FontWeight.bold: FontWeight.normal,
                   ),
                 ),
               ),

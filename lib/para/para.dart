@@ -108,12 +108,14 @@ class Controller extends GetxController{
         'content': '正在查找歌词...',
       }
     ];
+    // print(lyric.value);
     playInfo.value=data;
     String lyricPain=await getLyric(data['title'], data['album'], data['artist'], data['duration'].toString());
 
     // print(lyricPain);
 
     if(lyricPain=='没有找到歌词'){
+      // print("没有找到歌词");
       lyric.value=[
         {
           'time': 0,
@@ -134,7 +136,7 @@ class Controller extends GetxController{
       });
     }
     lyric.value=lyricCovert;
-    // print(lyric.value);
+    print(lyric.value);
   }
   void updateAllSongs(data) => allSongs.value=data;
   void updatesearchRlt(data) => searchRlt.value=data;
