@@ -9,7 +9,7 @@ import 'package:crypto/crypto.dart';
 import 'package:netplayer_mobile/para/para.dart';
 
 // 请求函数
-Future<Map<String, dynamic>> httpRequest(String url, {int timeoutInSeconds = 3}) async {
+Future<Map<String, dynamic>> httpRequest(String url, {int timeoutInSeconds = 5}) async {
   try {
     final response = await http.get(Uri.parse(url)).timeout(Duration(seconds: timeoutInSeconds));
 
