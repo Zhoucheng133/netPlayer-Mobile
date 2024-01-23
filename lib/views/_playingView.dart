@@ -185,7 +185,7 @@ class _playingViewState extends State<playingView> {
                         child: AnimatedOpacity(
                           duration: Duration(milliseconds: 300),
                           opacity: showLyric ? 1.0 : 0.0,
-                          child: lyricContent(),
+                          child: lyricContent(height: MediaQuery.of(context).size.width-120,),
                         ),
                       )
                     )

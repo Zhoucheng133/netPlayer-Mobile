@@ -133,7 +133,6 @@ class Controller extends GetxController{
         'content': line.substring(pos2 + 1).trim(),
       });
     }
-    print(lyricCovert);
     lyric.value=lyricCovert;
     // print(lyric.value);
   }
@@ -146,7 +145,10 @@ class Controller extends GetxController{
   void updateSearchKey(data) => searchKey.value=data;
   void updateNowDuration(data) => nowDuration.value=data;
   void updateFullRandom(data) => fullRandom.value=data;
-  void updateNowDurationInMc(data) => nowDurationInMc.value=data;
+  void updateNowDurationInMc(data){
+    nowDurationInMc.value=data;
+    // print(data+": "+ lyric[0]['time']);
+  }
 
   // 是否标记为喜爱?
   bool fav(String targetId){

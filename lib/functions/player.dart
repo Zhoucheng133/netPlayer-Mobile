@@ -25,6 +25,7 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
   MyAudioHandler(){
     player.positionStream.listen((position) {
       c.updateNowDuration(position.inSeconds);
+      c.updateNowDurationInMc(position.inMilliseconds);
       // print(c.nowDuration);
     });
 
