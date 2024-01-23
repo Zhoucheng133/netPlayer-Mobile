@@ -189,7 +189,15 @@ class _playingViewState extends State<playingView> {
                           child: lyricContent(height: MediaQuery.of(context).size.width-120,),
                         ),
                       )
-                    )
+                    ),
+                    // TODO 添加下面的代码
+                    // Positioned(
+                    //   child: Container(
+                    //     width: MediaQuery.of(context).size.width-120,
+                    //     height: MediaQuery.of(context).size.width-120,
+                    //     color: Color.fromARGB(0, 0, 0, 0),
+                    //   )
+                    // )
                   ]
                 ),
                 Container(
