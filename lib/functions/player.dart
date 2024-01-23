@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable, invalid_use_of_protected_member, prefer_const_constructors, prefer_typing_uninitialized_variables, unrelated_type_equality_checks
+// ignore_for_file: unused_local_variable, invalid_use_of_protected_member, prefer_const_constructors, prefer_typing_uninitialized_variables, unrelated_type_equality_checks, empty_catches, prefer_interpolation_to_compose_strings
 
 import 'dart:convert';
 import 'dart:math';
