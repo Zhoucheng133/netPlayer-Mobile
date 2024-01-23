@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/functions/requests.dart';
 import 'package:netplayer_mobile/para/para.dart';
-import 'package:netplayer_mobile/views/lyricView.dart';
 
 class playingView extends StatefulWidget {
   const playingView({super.key, required this.audioHandler});
@@ -90,14 +89,6 @@ class _playingViewState extends State<playingView> {
     }
   }
 
-  void showLyric(){
-    // TODO 显示歌词
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => lyricView()),
-    );
-  }
-
   Future<void> reloadLoved() async {
     var tmp=await lovedSongRequest();
     c.updateLovedSongs(tmp);
@@ -115,9 +106,12 @@ class _playingViewState extends State<playingView> {
       c.updatePlayInfo(tmpPlayInfo);
     }
   }
+
+  bool showLyric=false;
   
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Center(
@@ -153,31 +147,43 @@ class _playingViewState extends State<playingView> {
                   ],
                 ),
                 SizedBox(height: 40,),
-                Hero(
-                  tag: "cover",
-                  child: AnimatedContainer(
-                    width: MediaQuery.of(context).size.width-120,
-                    height: MediaQuery.of(context).size.width-120,
-                    color: Colors.white,
-                    duration: Duration(milliseconds: 200),
-                    child: Obx(() => 
-                      c.playInfo["id"]==null ?
-                      Image.asset(
-                        "assets/blank.jpg",
-                        fit: BoxFit.contain,
-                      ) : 
-                      Image.network(
-                        "${c.userInfo["url"]}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${c.userInfo["username"]}&t=${c.userInfo["token"]}&s=${c.userInfo["salt"]}&id=${c.playInfo["id"]}",
-                        fit: BoxFit.contain,
-                        errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                          return Image.asset(
+                Stack(
+                  children: [
+                    Hero(
+                      tag: "cover",
+                      child: AnimatedContainer(
+                        width: MediaQuery.of(context).size.width-120,
+                        height: MediaQuery.of(context).size.width-120,
+                        color: Colors.white,
+                        duration: Duration(milliseconds: 200),
+                        child: Obx(() => 
+                          c.playInfo["id"]==null ?
+                          Image.asset(
                             "assets/blank.jpg",
                             fit: BoxFit.contain,
-                          );
-                        },
-                      )
+                          ) : 
+                          Image.network(
+                            "${c.userInfo["url"]}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${c.userInfo["username"]}&t=${c.userInfo["token"]}&s=${c.userInfo["salt"]}&id=${c.playInfo["id"]}",
+                            fit: BoxFit.contain,
+                            errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                              return Image.asset(
+                                "assets/blank.jpg",
+                                fit: BoxFit.contain,
+                              );
+                            },
+                          )
+                        ),
+                      ),
                     ),
-                  ),
+                    Positioned(
+                      child: AnimatedContainer(
+                        duration: Duration(milliseconds: 300),
+                        width: MediaQuery.of(context).size.width-120,
+                        height: MediaQuery.of(context).size.width-120,
+                        color: showLyric ? Color.fromARGB(255, 250, 250, 250) : Color.fromARGB(0, 250, 250, 250),
+                      )
+                    )
+                  ]
                 ),
                 Container(
                   height: 130,
@@ -187,18 +193,15 @@ class _playingViewState extends State<playingView> {
                       children: [
                         SizedBox(height: 30,),
                         Obx(() => 
-                          Hero(
-                            tag: "title",
-                            child: Text(
-                              c.playInfo["title"]==null ? "没有播放" : c.playInfo["title"].toString(),
-                              style: TextStyle(
-                                fontSize: 25,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                decoration: TextDecoration.none
-                              ),
-                              overflow: TextOverflow.ellipsis,
+                          Text(
+                            c.playInfo["title"]==null ? "没有播放" : c.playInfo["title"].toString(),
+                            style: TextStyle(
+                              fontSize: 25,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.none
                             ),
+                            overflow: TextOverflow.ellipsis,
                           )
                         ),
                         Padding(
@@ -354,7 +357,9 @@ class _playingViewState extends State<playingView> {
                     GestureDetector(
                       child: Icon(Icons.lyrics_rounded),
                       onTap: (){
-                        showLyric();
+                        setState(() {
+                          showLyric=!showLyric;
+                        });
                       },
                     ),
                   ],
