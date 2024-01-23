@@ -355,7 +355,10 @@ class _playingViewState extends State<playingView> {
                     ),
                     SizedBox(width: 25,),
                     GestureDetector(
-                      child: Icon(Icons.lyrics_rounded),
+                      child: Icon(
+                        Icons.lyrics_rounded,
+                        color: showLyric ? c.mainColor : Colors.black,
+                      ),
                       onTap: (){
                         setState(() {
                           showLyric=!showLyric;
