@@ -120,6 +120,7 @@ class _playingViewState extends State<playingView> {
           onVerticalDragUpdate: (details){
             if(details.delta.dy>10){
               showLyric=false;
+              c.updateShowLyric(showLyric);
               Navigator.pop(context);
             }
           },
