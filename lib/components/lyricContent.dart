@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/para/para.dart';
-import 'package:decimal/decimal.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 
 class lyricContent extends StatefulWidget {
   const lyricContent({super.key, required this.height});
@@ -16,7 +16,7 @@ class lyricContent extends StatefulWidget {
 
 class _lyricContentState extends State<lyricContent> {
   final Controller c = Get.put(Controller());
-  final ScrollController lyricScroll=ScrollController();
+  final AutoScrollController lyricScroll=AutoScrollController();
 
   bool playedLyric(index){
     if(c.lyric.length==1){
@@ -44,23 +44,8 @@ class _lyricContentState extends State<lyricContent> {
     return textPainter.width;
   }
 
-  final d = (String s) => Decimal.parse(s);
-
   void scrollLyric(){
-    var moveLength=0.0;
-    Decimal dLength=Decimal.zero;
-    for(var i=0;i<c.lyricLine.value;i++){
-      var lineNum=d(getTextWidth(c.lyric[i]['content'], 18).toString())~/d((widget.height).toString());
-      dLength+=(d((lineNum+BigInt.one).toString())*d('41.4'));
-    }
-    moveLength=dLength.toDouble();
-    if(lyricScroll.hasClients){
-      lyricScroll.animateTo(
-        moveLength, 
-        duration: Duration(milliseconds: 300), 
-        curve: Curves.easeInOut
-      );
-    }
+    lyricScroll.scrollToIndex(c.lyricLine.value-1, preferPosition: AutoScrollPosition.middle);
   }
 
   @override
@@ -105,16 +90,21 @@ class _lyricContentState extends State<lyricContent> {
             children: [
               index==0 ? SizedBox(height: widget.height/2-18*2.3,) : Container(),
               Obx(() => 
-                Text(
-                  c.lyric[index]['content'],
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 18,
-                    height: 2.3,
-                    color: playedLyric(index) ? c.mainColor:Colors.grey,
-                    fontWeight: playedLyric(index) ? FontWeight.bold: FontWeight.normal,
+                AutoScrollTag(
+                  key: ValueKey(index), 
+                  controller: lyricScroll, 
+                  index: index,
+                  child: Text(
+                    c.lyric[index]['content'],
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 18,
+                      height: 2.3,
+                      color: playedLyric(index) ? c.mainColor:Colors.grey,
+                      fontWeight: playedLyric(index) ? FontWeight.bold: FontWeight.normal,
+                    ),
                   ),
-                ),
+                )
               ),
               index==c.lyric.length-1 ? SizedBox(height: widget.height/2,) : Container(),
             ],
