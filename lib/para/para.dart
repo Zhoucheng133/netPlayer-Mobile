@@ -157,6 +157,9 @@ class Controller extends GetxController{
     if(lyric.isNotEmpty && lyric.length!=1){
       for (var i = 0; i < lyric.length; i++) {
         if(i==lyric.length-1){
+          updateLyricLine(lyric.length);
+          break;
+        }else if(i==0 && data<lyric[i]['time']){
           updateLyricLine(0);
           break;
         }else if(data>=lyric[i]['time'] && data<lyric[i+1]['time']){
@@ -164,6 +167,8 @@ class Controller extends GetxController{
           break;
         }
       }
+    }else if(lyric.length==1){
+      updateLyricLine(0);
     }
     // print(lyricLine.toString());
   }
