@@ -12,7 +12,7 @@
 ![flutter_native_splash](https://img.shields.io/badge/flutter_native_splash-2.3.6-lightyellow)
 ![package_info_plus](https://img.shields.io/badge/package_info_plus-4.2.0-pink)
 ![crypto](https://img.shields.io/badge/crypto-3.0.3-lightblue)
-![decimal](https://img.shields.io/badge/decimal-2.3.3-green)
+![scroll_to_index](https://img.shields.io/badge/scroll_to_index-3.0.1-green)
 
 ![License](https://img.shields.io/badge/License-MIT-dark_green)
 
