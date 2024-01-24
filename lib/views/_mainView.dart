@@ -85,6 +85,7 @@ class _mainViewState extends State<mainView> {
         // title: Text("所有音乐"),
         backgroundColor: Colors.white,
         foregroundColor: c.mainColor,
+        centerTitle: true,
         // leading: Obx(() => 
         //   c.pageIndex==0 || c.pageIndex==1 ? 
         //   GestureDetector(
