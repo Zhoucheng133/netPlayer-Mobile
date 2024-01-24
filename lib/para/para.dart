@@ -63,6 +63,9 @@ class Controller extends GetxController{
   // 歌词
   var lyric=[].obs;
 
+  // 显示歌词
+  var showLyric=false.obs;
+
   // ————分割线(上面为所有的全局变量)—————
 
   // 保存上次的播放
@@ -151,6 +154,7 @@ class Controller extends GetxController{
   void updatePlayLists(data) => playLists.value=data;
   void updateSearchKey(data) => searchKey.value=data;
   void updateNowDuration(data) => nowDuration.value=data;
+  void updateShowLyric(data) => showLyric.value=data;
   void updateFullRandom(data) => fullRandom.value=data;
   void updateNowDurationInMc(data){
     nowDurationInMc.value=data;

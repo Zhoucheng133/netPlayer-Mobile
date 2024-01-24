@@ -78,6 +78,20 @@ class _lyricContentState extends State<lyricContent> {
       }
       
     });
+    
+    ever(c.showLyric, (callback){
+      if(c.showLyric==true){
+        if(c.lyricLine==0 && lyricScroll.hasClients){
+          lyricScroll.animateTo(
+            0,
+            duration: Duration(milliseconds: 300), 
+            curve: Curves.easeInOut
+          );
+        }else{
+          scrollLyric();
+        }
+      }
+    });
   }
 
   @override

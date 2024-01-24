@@ -377,6 +377,7 @@ class _playingViewState extends State<playingView> {
                         setState(() {
                           showLyric=!showLyric;
                         });
+                        c.updateShowLyric(showLyric);
                       },
                     ),
                   ],
