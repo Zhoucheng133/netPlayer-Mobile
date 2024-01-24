@@ -1,8 +1,9 @@
-// ignore_for_file: file_names, camel_case_types, prefer_const_constructors
+// ignore_for_file: file_names, camel_case_types, prefer_const_constructors, unrelated_type_equality_checks, prefer_function_declarations_over_variables
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/para/para.dart';
+import 'package:decimal/decimal.dart';
 
 class lyricContent extends StatefulWidget {
   const lyricContent({super.key, required this.height});
@@ -28,6 +29,55 @@ class _lyricContentState extends State<lyricContent> {
       flag=false;
     }
     return flag;
+  }
+
+  // 获取文本如果平铺宽度
+  double getTextWidth(String text, double fontSize) {
+    TextPainter textPainter = TextPainter(
+      text: TextSpan(
+        text: text,
+        style: TextStyle(fontSize: fontSize),
+      ),
+      textDirection: TextDirection.ltr,
+    )..layout();
+
+    return textPainter.width;
+  }
+
+  final d = (String s) => Decimal.parse(s);
+
+  void scrollLyric(){
+    var moveLength=0.0;
+    Decimal dLength=Decimal.zero;
+    for(var i=0;i<c.lyricLine.value;i++){
+      var lineNum=d(getTextWidth(c.lyric[i]['content'], 18).toString())~/d((widget.height).toString());
+      dLength+=(d((lineNum+BigInt.one).toString())*d('41.4'));
+    }
+    moveLength=dLength.toDouble();
+    if(lyricScroll.hasClients){
+      lyricScroll.animateTo(
+        moveLength, 
+        duration: Duration(milliseconds: 300), 
+        curve: Curves.easeInOut
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    ever(c.lyricLine, (callback) {
+      if(c.lyricLine==0 && lyricScroll.hasClients){
+        lyricScroll.animateTo(
+          0,
+          duration: Duration(milliseconds: 300), 
+          curve: Curves.easeInOut
+        );
+      }else{
+        scrollLyric();
+      }
+      
+    });
   }
 
   @override
