@@ -129,3 +129,11 @@
 
 ### v1.0.0 (iOS)
 - 第一个版本
+
+## Subsonic API
+
+[关于所有的API点此](http://www.subsonic.org/pages/api.jsp)
+
+## 歌词API
+
+[关于歌词的API点此](https://lrclib.net/docs)
