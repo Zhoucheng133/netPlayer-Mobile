@@ -108,71 +108,75 @@ class _mainViewState extends State<mainView> {
             c.pageIndex==0 ? 
             Row(
               children: [
-                CircleAvatar(
-                  backgroundColor: c.fullRandom==true ? c.mainColor : Colors.white,
-                  child: IconButton(
-                    onPressed: (){
-                      if(c.fullRandom==true){
-                        cancelFullRandomPlay();
-                      }else{
-                        // c.updateFullRandom(true);
-                        // c.updateRandomPlay(true);
-                        if(Platform.isIOS){
-                          showCupertinoDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return CupertinoAlertDialog(
-                                title: Text("随机播放所有歌曲?"),
-                                actions: <Widget>[
-                                  CupertinoDialogAction(
-                                    child: Text('取消'),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                  CupertinoDialogAction(
-                                    child: Text('继续'),
-                                    onPressed: () {
-                                      fullRandomPlay();
-                                      Navigator.of(context).pop();
-                                    },
-                                  )
-                                ],
-                              );
-                            },
-                          );
+                Obx(() => 
+                  CircleAvatar(
+                    backgroundColor: c.fullRandom==true ? c.mainColor : Colors.white,
+                    child: IconButton(
+                      onPressed: (){
+                        if(c.fullRandom==true){
+                          cancelFullRandomPlay();
                         }else{
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: Text("随机播放所有歌曲?"),
-                                actions: <Widget>[
-                                  TextButton(
-                                    onPressed: (){
-                                      Navigator.of(context).pop();
-                                    }, 
-                                    child: Text("取消")
-                                  ),
-                                  TextButton(
-                                    child: Text('继续'),
-                                    onPressed: () {
-                                      fullRandomPlay();
-                                      Navigator.of(context).pop();
-                                    },
-                                  )
-                                ],
-                              );
-                            },
-                          );
+                          // c.updateFullRandom(true);
+                          // c.updateRandomPlay(true);
+                          if(Platform.isIOS){
+                            showCupertinoDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return CupertinoAlertDialog(
+                                  title: Text("随机播放所有歌曲?"),
+                                  actions: <Widget>[
+                                    CupertinoDialogAction(
+                                      child: Text('取消'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                    CupertinoDialogAction(
+                                      child: Text('继续'),
+                                      onPressed: () {
+                                        fullRandomPlay();
+                                        Navigator.of(context).pop();
+                                      },
+                                    )
+                                  ],
+                                );
+                              },
+                            );
+                          }else{
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text("随机播放所有歌曲?"),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: (){
+                                        Navigator.of(context).pop();
+                                      }, 
+                                      child: Text("取消")
+                                    ),
+                                    TextButton(
+                                      child: Text('继续'),
+                                      onPressed: () {
+                                        fullRandomPlay();
+                                        Navigator.of(context).pop();
+                                      },
+                                    )
+                                  ],
+                                );
+                              },
+                            );
+                          }
                         }
-                      }
-                    }, 
-                    icon: Icon(
-                      Icons.shuffle,
-                      size: 23,
-                      color: c.mainColor,
-                    )
+                      }, 
+                      icon: Obx(() => 
+                        Icon(
+                          Icons.shuffle,
+                          size: 23,
+                          color: c.fullRandom==true ? Colors.white : c.mainColor,
+                        )
+                      )
+                    ),
                   ),
                 ),
                 SizedBox(width: 5,)
