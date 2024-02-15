@@ -57,7 +57,9 @@ class _MainAppState extends State<MainApp> {
 
     if(savePlay!=false && playInfo!=null){
       Map<String,dynamic> decodePlayInfo = json.decode(playInfo);
-      c.updatePlayInfo(decodePlayInfo);
+      if(decodePlayInfo.isNotEmpty){
+        c.updatePlayInfo(decodePlayInfo);
+      }
     }
 
     // print(c.playInfo);
