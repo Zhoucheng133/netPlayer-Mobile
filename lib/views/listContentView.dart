@@ -172,27 +172,12 @@ class _listContentViewState extends State<listContentView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        // actions: [
-        //   Row(
-        //     children: [
-        //       Obx(() => 
-        //         GestureDetector(
-        //           onTap: (){
-        //           },
-        //           child: Icon(
-        //             Icons.my_location_rounded,
-        //             color: c.playInfo['name']=='songList' && c.playInfo['ListId']==widget.item['id'] ? c.mainColor : Colors.grey[500],
-        //           ),
-        //         )
-        //       ),
-        //       SizedBox(width: 10,)
-        //     ],
-        //   )
-        // ],
         elevation: 0,
         title: Text(widget.item["name"]),
+        scrolledUnderElevation:0.0,
         backgroundColor: Colors.white,
         foregroundColor: c.mainColor,
       ),

@@ -38,8 +38,10 @@ class _aboutViewState extends State<aboutView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text("关于"),
+        scrolledUnderElevation:0.0,
         backgroundColor: Colors.white,
         foregroundColor: c.mainColor,
         elevation: 0,

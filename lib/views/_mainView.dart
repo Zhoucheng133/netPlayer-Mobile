@@ -75,29 +75,20 @@ class _mainViewState extends State<mainView> {
     await prefs.setBool('isFullRandom', true);
   }
 
+  NavigationDestinationLabelBehavior labelBehavior = NavigationDestinationLabelBehavior.onlyShowSelected;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         elevation: 0,
         title: Obx(() => Text(appBarText())),
-        // title: Text("所有音乐"),
         backgroundColor: Colors.white,
+        scrolledUnderElevation:0.0,
         foregroundColor: c.mainColor,
         centerTitle: true,
-        // leading: Obx(() => 
-        //   c.pageIndex==0 || c.pageIndex==1 ? 
-        //   GestureDetector(
-        //     onTap: (){
-          
-        //     },
-        //     child: Icon(
-        //       Icons.my_location_rounded,
-        //       color: c.pageAsycEn[c.pageIndex]==c.playInfo['name'] ? c.mainColor : Colors.grey[500],
-        //     ),
-        //   ) : Container()
-        // ),
         actions: [
           Obx(() => 
             c.pageIndex==2 ?
@@ -175,7 +166,8 @@ class _mainViewState extends State<mainView> {
                     }, 
                     icon: Icon(
                       Icons.shuffle,
-                      size: 23
+                      size: 23,
+                      color: c.mainColor,
                     )
                   ),
                 ),
@@ -187,34 +179,33 @@ class _mainViewState extends State<mainView> {
         ],
       ),
       bottomNavigationBar: Obx(() => 
-        BottomNavigationBar(
+        NavigationBar(
+          backgroundColor: Colors.white,
           elevation: 0,
-          selectedItemColor: c.mainColor,
-          unselectedItemColor: Colors.grey,
-          selectedFontSize: 14.0,
-          unselectedFontSize: 14.0,
-          onTap: (index){
+          // indicatorColor: c.mainColor,
+          onDestinationSelected: (index){
             c.updatePageIndex(index);
           },
-          currentIndex: c.pageIndex.value,
-          items: [
-            BottomNavigationBarItem(
+          selectedIndex: c.pageIndex.value,
+          labelBehavior: labelBehavior,
+          destinations: [
+            NavigationDestination(
               icon: Icon(Icons.music_note),
               label: "所有音乐"
             ),
-            BottomNavigationBarItem(
+            NavigationDestination(
               icon: Icon(Icons.favorite),
               label: "我喜欢的"
             ),
-            BottomNavigationBarItem(
+            NavigationDestination(
               icon: Icon(Icons.queue_music),
               label: "我的歌单"
             ),
-            BottomNavigationBarItem(
+            NavigationDestination(
               icon: Icon(Icons.search),
               label: "搜索"
             ),
-            BottomNavigationBarItem(
+            NavigationDestination(
               icon: Icon(Icons.settings),
               label: "设置"
             )

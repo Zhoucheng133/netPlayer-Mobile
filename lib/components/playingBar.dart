@@ -53,7 +53,7 @@ class _playingBarState extends State<playingBar> {
         );
       },
       child: Container(
-        color: Color.fromARGB(255, 250, 250, 250),
+        color: Colors.white,
         child: Row(
           children: [
             SizedBox(width: 10,),

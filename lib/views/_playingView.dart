@@ -114,6 +114,7 @@ class _playingViewState extends State<playingView> {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       body: Center(
         child: GestureDetector(

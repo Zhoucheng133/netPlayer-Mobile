@@ -93,8 +93,11 @@ class _MainAppState extends State<MainApp> {
       theme: ThemeData(
         highlightColor: Colors.transparent,
         splashColor: Colors.transparent,
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
       ),
       home: Scaffold(
+        backgroundColor: Colors.white,
         resizeToAvoidBottomInset: false,
         body:  isLoaded ? Obx(
           () => AnimatedSwitcher(
