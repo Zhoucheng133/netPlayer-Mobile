@@ -1,4 +1,4 @@
-# netPlayer Mobile Material3
+# netPlayer Mobile
 
 <img src="./_assets/icon.png" width="100px">
 
