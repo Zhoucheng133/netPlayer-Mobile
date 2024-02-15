@@ -45,6 +45,10 @@ class _aboutViewState extends State<aboutView> {
         backgroundColor: Colors.white,
         foregroundColor: c.mainColor,
         elevation: 0,
+        titleTextStyle: TextStyle(
+          fontSize: 20,
+          color: c.mainColor
+        ),
       ),
       body: Center(
         child: Column(

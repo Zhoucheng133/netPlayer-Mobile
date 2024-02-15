@@ -89,6 +89,10 @@ class _mainViewState extends State<mainView> {
         scrolledUnderElevation:0.0,
         foregroundColor: c.mainColor,
         centerTitle: true,
+        titleTextStyle: TextStyle(
+          fontSize: 20,
+          color: c.mainColor
+        ),
         actions: [
           Obx(() => 
             c.pageIndex==2 ?

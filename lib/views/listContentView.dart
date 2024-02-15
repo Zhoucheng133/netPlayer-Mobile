@@ -180,6 +180,10 @@ class _listContentViewState extends State<listContentView> {
         scrolledUnderElevation:0.0,
         backgroundColor: Colors.white,
         foregroundColor: c.mainColor,
+        titleTextStyle: TextStyle(
+          fontSize: 20,
+          color: c.mainColor
+        ),
       ),
       body: Stack(
         children: [
