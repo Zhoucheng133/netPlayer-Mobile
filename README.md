@@ -2,7 +2,7 @@
 
 <img src="./_assets/icon.png" width="100px">
 
-![Flutter](https://img.shields.io/badge/Flutter-3.13-blue?logo=Flutter)
+![Flutter](https://img.shields.io/badge/Flutter-3.16-blue?logo=Flutter)
 ![get](https://img.shields.io/badge/get-4.6.5-red)
 ![audioservice](https://img.shields.io/badge/audio_service-0.18.10-green)
 ![just_audio](https://img.shields.io/badge/just_audio-0.9.35-yellow)
@@ -40,7 +40,7 @@
 
 ### 环境配置
 
-- Flutter^3.13.7，**经过测试最新版本的Flutter运行此项目可能会出现问题，因此不建议使用最新版本的Flutter运行此项目**
+- Flutter^3.16
 - 如果你需要在Android设备上运行或者调试，需要安装Android Studio和Gradle
 - 如果你需要在iOS设备上运行或者调试，需要使用Mac，并且安装Xcode<sup>*</sup>
 - 建议使用Visual Studio Code打开项目
@@ -63,6 +63,11 @@
 <img src="./_assets/截图6.PNG" alt="netPlayer_Mobile_截图.jpg" width="200px" />
 
 ## 更新日志
+
+### 1.5.0 (iOS & Android) (2024/2/16)
+- 使用Material风格的底部栏
+- 改进AppBar
+- 修复从随机播放模式退出之后无法打开App的问题
 
 ### 1.4.0 (iOS & Android) (2024/1/24)
 - 添加显示歌词功能
