@@ -18,6 +18,8 @@
 
 **基于Subsonic API的移动端播放器**
 
+[**netPlayer Next**](https://github.com/Zhoucheng133/netPlayer-Next) | [**netPlayer**](https://github.com/Zhoucheng133/net-player) | **★ netPlayer Mobile**
+
 **支持Android设备和iOS设备**
 
 经过测试的平台：iPhone13 & 小米5X
@@ -25,8 +27,6 @@
 （`apk`安装包见`Release`，iOS设备请自行下载源码安装）
 
 **受限于Subsonic API，“所有歌曲”只能显示500首（随机的500首歌曲排序展示），如果你要随机播放所有的歌曲，可以点击所有歌曲页面右上角的随机播放按钮**
-
-[**netPlayer Next**](https://github.com/Zhoucheng133/netPlayer-Next) | [**netPlayer**](https://github.com/Zhoucheng133/net-player) | **★ netPlayer Mobile**
 
 ## 在你的设备上配置netPlayer Mobile
 
