@@ -26,17 +26,11 @@
 
 **受限于Subsonic API，“所有歌曲”只能显示500首（随机的500首歌曲排序展示），如果你要随机播放所有的歌曲，可以点击所有歌曲页面右上角的随机播放按钮**
 
-关于桌面版的netPlayer，你可以在这里查看：[Github](https://github.com/Zhoucheng133/net-player)  
-关于移动Lite的netPlayer，你可以在这里查看：[Github](https://github.com/Zhoucheng133/neyPlayer_Lite)  
-关于PWA版本的netPlayer，你可以在这里查看：[Github](https://github.com/Zhoucheng133/netPlayer-PWA)
-
-注意，从`1.3.0`版本开始，放弃支持`PWA`设备，如果你有需要可以使用上面的PWA版本的netPlayer
+[**netPlayer Next**](https://github.com/Zhoucheng133/netPlayer-Next) | [**netPlayer**](https://github.com/Zhoucheng133/net-player) | **★ netPlayer Mobile**
 
 ## 在你的设备上配置netPlayer Mobile
 
 由于本项目没有区分`正在开发的版本`和`发布的版本`，如果你需要获取可以正确执行的代码，**不要直接下载最新的代码! 请在Tag中选择最新的版本下载（或者在Release中下载Source code）**
-
-请不要使用本项目的代码发布Web/PWA版本，本项目的PWA存在很多问题，因此如果如果你希望在Web端（PWA）上使用netPlayer，可以使用PWA版本的netPlayer
 
 ### 环境配置
 
