@@ -110,6 +110,16 @@ class Controller extends GetxController{
   void updateUserInfo(data) => userInfo.value=data;
   void updateIsPlay(data) => isPlay.value=data;
   Future<void> updatePlayInfo(Map data) async {
+    if(data.isEmpty){
+      playInfo.value=data;
+      lyric.value=[
+        {
+          'time': 0,
+          'content': '没有在播放',
+        }
+      ];
+      return;
+    }
     lyric.value=[
       {
         'time': 0,
