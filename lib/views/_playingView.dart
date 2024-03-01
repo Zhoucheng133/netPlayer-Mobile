@@ -108,7 +108,7 @@ class _playingViewState extends State<playingView> {
     }
   }
 
-  bool showLyric=false;
+  var isCalled=false;
   
   @override
   Widget build(BuildContext context) {
@@ -118,11 +118,27 @@ class _playingViewState extends State<playingView> {
       resizeToAvoidBottomInset: false,
       body: Center(
         child: GestureDetector(
-          onVerticalDragUpdate: (details){
+          onVerticalDragUpdate: (details) async {
             if(details.delta.dy>10){
-              showLyric=false;
-              c.updateShowLyric(showLyric);
-              Navigator.pop(context);
+              if(isCalled){
+                return;
+              }
+              if(!c.showLyric.value){
+                Navigator.pop(context);
+                setState(() {
+                  isCalled=true;
+                });
+              }else{
+                c.updateShowLyric(false);
+                Future.delayed(Duration(milliseconds: 300), (){
+                  if (mounted) {
+                    Navigator.pop(context);
+                  }
+                });
+                setState(() {
+                  isCalled=true;
+                });
+              }
             }
           },
           child: Container(
@@ -153,10 +169,10 @@ class _playingViewState extends State<playingView> {
                 SizedBox(height: 40,),
                 GestureDetector(
                   onTap: (){
-                    setState(() {
-                      showLyric=!showLyric;
-                    });
-                    c.updateShowLyric(showLyric);
+                    // setState(() {
+                    //   showLyric=!showLyric;
+                    // });
+                    c.updateShowLyric(!c.showLyric.value);
                   },
                   child: Stack(
                     children: [
@@ -187,16 +203,18 @@ class _playingViewState extends State<playingView> {
                         ),
                       ),
                       Positioned(
-                        child: AnimatedContainer(
-                          duration: Duration(milliseconds: 300),
-                          width: MediaQuery.of(context).size.width-120,
-                          height: MediaQuery.of(context).size.width-120,
-                          color: showLyric ? Color.fromARGB(255, 250, 250, 250) : Color.fromARGB(0, 250, 250, 250),
-                          child: AnimatedOpacity(
+                        child: Obx(() => 
+                          AnimatedContainer(
                             duration: Duration(milliseconds: 300),
-                            opacity: showLyric ? 1.0 : 0.0,
-                            child: lyricContent(height: MediaQuery.of(context).size.width-120,),
-                          ),
+                            width: MediaQuery.of(context).size.width-120,
+                            height: MediaQuery.of(context).size.width-120,
+                            color: c.showLyric.value ? Color.fromARGB(255, 250, 250, 250) : Color.fromARGB(0, 250, 250, 250),
+                            child: AnimatedOpacity(
+                              duration: Duration(milliseconds: 300),
+                              opacity: c.showLyric.value ? 1.0 : 0.0,
+                              child: lyricContent(height: MediaQuery.of(context).size.width-120,),
+                            ),
+                          )
                         )
                       ),
                       Positioned(
@@ -423,15 +441,14 @@ class _playingViewState extends State<playingView> {
                     ) ,
                     SizedBox(width: 25,),
                     GestureDetector(
-                      child: Icon(
-                        Icons.lyrics_rounded,
-                        color: showLyric ? c.mainColor : Colors.black,
+                      child: Obx(() => 
+                        Icon(
+                          Icons.lyrics_rounded,
+                          color: c.showLyric.value ? c.mainColor : Colors.black,
+                        ),
                       ),
                       onTap: (){
-                        setState(() {
-                          showLyric=!showLyric;
-                        });
-                        c.updateShowLyric(showLyric);
+                        c.updateShowLyric(!c.showLyric.value);
                       },
                     ),
                   ],
