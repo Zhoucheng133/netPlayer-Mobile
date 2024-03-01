@@ -22,8 +22,8 @@ class Controller extends GetxController{
   var pageIndex=0.obs;
   // 喜欢的歌曲信息
   var lovedSongs=[].obs;
-  // 是否随机播放
-  var randomPlay=false.obs;
+  // 播放模式
+  var playMode="顺序播放".obs;
   // 是否完全随机播放
   var fullRandom=false.obs;
   // 所有歌单
@@ -150,7 +150,7 @@ class Controller extends GetxController{
   void updatesearchRlt(data) => searchRlt.value=data;
   void updatePageIndex(data) => pageIndex.value=data;
   void updateLovedSongs(data) => lovedSongs.value=data;
-  void updateRandomPlay(data) => randomPlay.value=data;
+  void updatePlayMode(data) => playMode.value=data;
   void updatePlayLists(data) => playLists.value=data;
   void updateSearchKey(data) => searchKey.value=data;
   void updateNowDuration(data) => nowDuration.value=data;

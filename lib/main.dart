@@ -78,7 +78,7 @@ class _MainAppState extends State<MainApp> {
     final bool? isFullRandom = prefs.getBool('isFullRandom');
     if(isFullRandom==true){
       c.updateFullRandom(true);
-      c.updateRandomPlay(true);
+      c.updatePlayMode("随机播放");
     }
   }
   

@@ -58,7 +58,7 @@ class _mainViewState extends State<mainView> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isFullRandom', false);
     c.updateFullRandom(false);
-    c.updateRandomPlay(false);
+    // c.updateRandomPlay(false);
     widget.audioHandler.stop();
     c.updatePlayInfo({});
     await prefs.setString("playInfo", "{}");
@@ -67,7 +67,7 @@ class _mainViewState extends State<mainView> {
 
   Future<void> fullRandomPlay() async {
     c.updateFullRandom(true);
-    c.updateRandomPlay(true);
+    // c.updateRandomPlay(true);
     var tmp=await randomSongRequest();
     tmp=tmp["randomSongs"]["song"][0];
     playSong(tmp, 0, "", widget.audioHandler, isFullRandom: true);

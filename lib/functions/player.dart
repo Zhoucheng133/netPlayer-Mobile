@@ -206,10 +206,14 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
       };
       c.updatePlayInfo(tempInfo);
       return;
-    }else if(c.randomPlay==true){
+    }else if(c.playMode.value=="随机播放"){
       // print("Next1");
       Random random = Random();
       index=random.nextInt(c.playInfo["list"].length);
+    }else if(c.playMode.value=="单曲循环"){
+      playingURL="";
+      play();
+      return;
     }else{
       // print("Next1");
       // print(c.playInfo);

@@ -337,46 +337,90 @@ class _playingViewState extends State<playingView> {
                     ),
                     SizedBox(width: 30,),
                     Obx(() => 
-                      c.randomPlay.value==true ? 
-                      GestureDetector(
-                        onTap: (){
-                          if(c.fullRandom!=true){
-                            c.updateRandomPlay(false);
+                      PopupMenuButton(
+                        surfaceTintColor: Colors.white,
+                        initialValue: c.playMode.value,
+                        onSelected: (val){
+                          if(c.fullRandom.value){
+                            return;
                           }
+                          c.updatePlayMode(val);
                         },
+                        enabled: !c.fullRandom.value,
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
-                              Icons.shuffle,
-                              color: c.fullRandom==true ? Colors.grey[400] : Colors.black,
+                            Obx(() => 
+                              c.fullRandom.value ? Icon(
+                                Icons.shuffle_rounded,
+                                color: Colors.grey,
+                              ) : 
+                              c.playMode.value=="随机播放" ? Icon(Icons.shuffle_rounded) : 
+                              c.playMode.value=="顺序播放" ? Icon(Icons.repeat_rounded) :
+                              Icon(Icons.repeat_one_rounded)
                             ),
                             SizedBox(width: 5,),
-                            Text(
-                              "随机播放",
-                              style: TextStyle(
-                                color: c.fullRandom==true ? Colors.grey[400] : Colors.black,
-                              ),
+                            Obx(() => 
+                              Text(
+                                c.fullRandom.value ? "随机播放" : c.playMode.value,
+                                style: TextStyle(
+                                  color: c.fullRandom.value ? Colors.grey : Colors.black,
+                                ),
+                              )
                             )
                           ],
                         ),
-                      ) :
-                      GestureDetector(
-                        onTap: (){
-                          c.updateRandomPlay(true);
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.repeat_rounded
+                        itemBuilder: (context)=>[
+                          PopupMenuItem(
+                            value: "顺序播放",
+                            height: 35,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.repeat_rounded,
+                                  // size: 18,
+                                ),
+                                SizedBox(width: 5,),
+                                Text("顺序播放")
+                              ],
                             ),
-                            SizedBox(width: 5,),
-                            Text("顺序播放")
-                          ],
-                        ),
+                          ),
+                          PopupMenuItem(
+                            value: "随机播放",
+                            height: 35,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.shuffle_rounded,
+                                  // size: 18,
+                                ),
+                                SizedBox(width: 5,),
+                                Text("随机播放")
+                              ],
+                            ),
+                          ),
+                          PopupMenuItem(
+                            value: "单曲循环",
+                            height: 35,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.repeat_one_rounded,
+                                  // size: 18,
+                                ),
+                                SizedBox(width: 5,),
+                                Text("单曲循环")
+                              ],
+                            ),
+                          ),
+                        ]
                       )
-                    ),
+                    ) ,
                     SizedBox(width: 25,),
                     GestureDetector(
                       child: Icon(
