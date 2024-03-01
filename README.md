@@ -34,7 +34,6 @@
 
 ### 环境配置
 
-- Flutter^3.16
 - 如果你需要在Android设备上运行或者调试，需要安装Android Studio和Gradle
 - 如果你需要在iOS设备上运行或者调试，需要使用Mac，并且安装Xcode<sup>*</sup>
 - 建议使用Visual Studio Code打开项目
