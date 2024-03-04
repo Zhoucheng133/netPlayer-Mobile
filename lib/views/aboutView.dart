@@ -1,4 +1,5 @@
-// ignore_for_file: file_names, prefer_const_constructors, camel_case_types
+// ignore_for_file: file_names, prefer_const_constructors, camel_case_types, prefer_const_literals_to_create_immutables
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/para/para.dart';
@@ -50,52 +51,65 @@ class _aboutViewState extends State<aboutView> {
           color: c.mainColor
         ),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              "assets/icon.png",
-              height: 100,
-              width: 100,
+      body: Stack(
+        children: [
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  "assets/icon.png",
+                  height: 100,
+                  width: 100,
+                ),
+                SizedBox(height: 10,),
+                Text(
+                  "netPlayer Mobile",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
+                SizedBox(height: 8,),
+                Text(
+                  // c.version.value,
+                  "v.$version",
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
+                SizedBox(height: 10,),
+              ],
             ),
-            SizedBox(height: 10,),
-            Text(
-              "netPlayer Mobile",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold
-              ),
-            ),
-            SizedBox(height: 8,),
-            Text(
-              // c.version.value,
-              "v.$version",
-              style: TextStyle(
-                color: Colors.grey,
-              ),
-            ),
-            SizedBox(height: 10,),
-            Text("Developed by zhouc"),
-            SizedBox(height: 10,),
-            Row(
+          ),
+          Positioned(
+            bottom: 60,
+            left: 0,
+            right: 0,
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GestureDetector(
                   onTap: (){
                     openURL("https://github.com/Zhoucheng133/netPlayer-Mobile");
                   },
-                  child: Text(
-                    "Github",
-                    style: TextStyle(
-                      color: Colors.grey
-                    ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.code_rounded),
+                      SizedBox(width: 5,),
+                      Text(
+                        "Github",
+                        style: TextStyle(
+                          fontSize: 15
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
-            )
-          ],
-        ),
+            ),
+          )
+        ]
       ),
     );
   }
