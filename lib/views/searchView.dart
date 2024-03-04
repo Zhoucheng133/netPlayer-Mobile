@@ -103,6 +103,8 @@ class _searchViewState extends State<searchView> {
 
   final myScrollController=ScrollController();
 
+  final FocusNode textFocus=FocusNode();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -113,6 +115,20 @@ class _searchViewState extends State<searchView> {
           width: MediaQuery.of(context).size.width,
           child: Row(
             children: [
+              SizedBox(width: 10,),
+              GestureDetector(
+                onTap: (){
+                  _clearText();
+                  textFocus.unfocus();
+                },
+                child: Text(
+                  "取消",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: textFocus.hasFocus ? Colors.blue : Colors.grey[400]
+                  ),
+                ),
+              ),
               Expanded(
                 child: Container(
                   color: Colors.white,
@@ -128,6 +144,7 @@ class _searchViewState extends State<searchView> {
                         child: Center(
                           child: TextField(
                             controller: key,
+                            focusNode: textFocus,
                             decoration: InputDecoration(
                               // border: InputBorder.none,
                               enabledBorder: OutlineInputBorder(
@@ -140,6 +157,9 @@ class _searchViewState extends State<searchView> {
                               suffixIcon: GestureDetector(
                                 onTap: (){
                                   _clearText();
+                                  if(!textFocus.hasFocus){
+                                    textFocus.requestFocus();
+                                  }
                                 },
                                 child: Container(
                                   color: Colors.grey[100],
@@ -156,8 +176,13 @@ class _searchViewState extends State<searchView> {
                             autocorrect: false,
                             enableSuggestions: false,
                             onEditingComplete: (){
-                              searchController(context);
-                              FocusScope.of(context).unfocus();
+                              if(key.text.isEmpty){
+                                textFocus.unfocus();
+                              }else{
+                                searchController(context);
+                                textFocus.unfocus();
+                              }
+                              
                             },
                           ),
                         ),
