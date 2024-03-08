@@ -136,7 +136,7 @@ class _searchViewState extends State<searchView> {
                     padding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Colors.grey[100],
+                        color: Colors.grey[50],
                         borderRadius: BorderRadius.circular(10)
                       ),
                       child: Padding(
@@ -145,15 +145,25 @@ class _searchViewState extends State<searchView> {
                           child: TextField(
                             controller: key,
                             focusNode: textFocus,
+                            textAlignVertical: TextAlignVertical.center,
                             decoration: InputDecoration(
-                              // border: InputBorder.none,
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.transparent), // 设置失去焦点时的边框颜色
-                              ),
+                              border: OutlineInputBorder(),
+                              isCollapsed: true,
+                              contentPadding: EdgeInsets.fromLTRB(10, 10, 0, 10),
                               focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.transparent), // 设置获取焦点时的边框颜色
+                                borderSide: BorderSide(
+                                  color: Color.fromARGB(100, 210, 210, 210),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(5)
                               ),
-                              contentPadding: EdgeInsets.all(10),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color.fromARGB(50, 210, 210, 210),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(5)
+                              ),
                               suffixIcon: GestureDetector(
                                 onTap: (){
                                   _clearText();
@@ -161,18 +171,15 @@ class _searchViewState extends State<searchView> {
                                     textFocus.requestFocus();
                                   }
                                 },
-                                child: Container(
-                                  color: Colors.grey[100],
-                                  child: Icon(
-                                    Icons.clear,
-                                    color: Colors.grey[400],
-                                  ),
+                                child: Icon(
+                                  Icons.clear,
+                                  color: Colors.grey[400],
                                 ),
                               )
                             ),
-                            style: TextStyle(
-                              fontSize: 14
-                            ),
+                            // style: TextStyle(
+                            //   fontSize: 14
+                            // ),
                             autocorrect: false,
                             enableSuggestions: false,
                             onEditingComplete: (){
