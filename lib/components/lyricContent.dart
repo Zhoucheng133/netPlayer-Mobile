@@ -45,7 +45,9 @@ class _lyricContentState extends State<lyricContent> {
   }
 
   void scrollLyric(){
-    lyricScroll.scrollToIndex(c.lyricLine.value-1, preferPosition: AutoScrollPosition.middle);
+    if(c.fronted.value && c.showLyric.value && c.lyricLine.value!=0){
+      lyricScroll.scrollToIndex(c.lyricLine.value-1, preferPosition: AutoScrollPosition.middle);
+    }
   }
 
   @override
@@ -76,6 +78,10 @@ class _lyricContentState extends State<lyricContent> {
           scrollLyric();
         }
       }
+    });
+
+    ever(c.fronted, (callback){
+      scrollLyric();
     });
   }
 
