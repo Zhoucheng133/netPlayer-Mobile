@@ -33,10 +33,27 @@ class MainApp extends StatefulWidget {
   State<MainApp> createState() => _MainAppState();
 }
 
-class _MainAppState extends State<MainApp> {
+class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
   final Controller c = Get.put(Controller());
 
   var isLoaded=false;
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      // 应用进入前台
+      c.updateFronted(true);
+    } else {
+      // 应用进入后台
+      c.updateFronted(false);
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
 
   Future<void> checkLogin() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -84,6 +101,9 @@ class _MainAppState extends State<MainApp> {
   
   @override
   void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+
     super.initState();
     // 检查登录
     checkLogin();

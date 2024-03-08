@@ -66,6 +66,9 @@ class Controller extends GetxController{
   // 显示歌词
   var showLyric=false.obs;
 
+  // App在前台运行
+  var fronted=true.obs;
+
   // ————分割线(上面为所有的全局变量)—————
 
   // 保存上次的播放
@@ -105,6 +108,7 @@ class Controller extends GetxController{
   // ————分割线(下面为更新变量函数)—————
   
   // 更新数据
+  void updateFronted(data) => fronted.value=data;
   void updateLyricLine(data) => lyricLine.value=data;
   void updateLogin(data) => isLogin.value=data;
   void updateUserInfo(data) => userInfo.value=data;
