@@ -11,6 +11,8 @@ dependencies:
   crypto: ^3.0.3
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   flutter_native_splash: ^2.3.6
   get: ^4.6.5
   http: ^1.1.0

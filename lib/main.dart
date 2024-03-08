@@ -1,9 +1,10 @@
-// ignore_for_file: prefer_const_constructors, unrelated_type_equality_checks, prefer_typing_uninitialized_variables, unused_element
+// ignore_for_file: prefer_const_constructors, unrelated_type_equality_checks, prefer_typing_uninitialized_variables, unused_element, prefer_const_literals_to_create_immutables
 
 import 'dart:convert';
 
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/functions/player.dart';
 import 'package:netplayer_mobile/para/para.dart';
@@ -112,6 +113,15 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate
+      ],
+      supportedLocales: [
+        Locale('en', 'US'), // 美国英语
+        Locale('zh', 'CN'), // 中文简体
+      ],
       theme: ThemeData(
         highlightColor: Colors.transparent,
         splashColor: Colors.transparent,
