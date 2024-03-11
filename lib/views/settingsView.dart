@@ -198,9 +198,11 @@ class _settingsViewState extends State<settingsView> {
   Future<void> clearController() async {
     final cacheDir = await getTemporaryDirectory();
     if (cacheDir.existsSync()) {
-      cacheDir.deleteSync(recursive: true);
-      cacheSize=0;
+      try {
+        cacheDir.deleteSync(recursive: true);
+      } catch (_) {}
     }
+    getCacheSize();
   }
 
   Future<void> clearCache(BuildContext context) async {
