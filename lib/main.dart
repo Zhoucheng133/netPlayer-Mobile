@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/functions/player.dart';
@@ -24,6 +25,10 @@ Future<void> main() async {
       androidNotificationChannelName: 'Music playback',
     ),
   );
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    systemNavigationBarColor: Colors.transparent,
+    statusBarColor: Colors.transparent,
+  ));
   runApp(MainApp());
 }
 

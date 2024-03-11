@@ -143,7 +143,7 @@ class _playingViewState extends State<playingView> {
           },
           child: Container(
             width: MediaQuery.of(context).size.width,
-            color: Color.fromARGB(255, 250, 250, 250),
+            color: Colors.white,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
