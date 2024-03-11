@@ -199,7 +199,7 @@ class _settingsViewState extends State<settingsView> {
     final cacheDir = await getTemporaryDirectory();
     if (cacheDir.existsSync()) {
       cacheDir.deleteSync(recursive: true);
-      getCacheSize();
+      cacheSize=0;
     }
   }
 
