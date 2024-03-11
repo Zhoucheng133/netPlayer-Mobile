@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:netplayer_mobile/para/para.dart';
 import 'package:netplayer_mobile/views/aboutView.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -156,10 +157,113 @@ class _settingsViewState extends State<settingsView> {
   
   String version="";
   final myScrollController=ScrollController();
+  int cacheSize=0;
+
+  String sizeConvert(int bytes) {
+    if (bytes < 1024) {
+      return '$bytes B';
+    } else if (bytes < 1048576) {
+      return '${(bytes / 1024).toStringAsFixed(2)} KB';
+    } else if (bytes < 1073741824) {
+      return '${(bytes / 1048576).toStringAsFixed(2)} MB';
+    } else {
+      return '${(bytes / 1073741824).toStringAsFixed(2)} GB';
+    }
+  }
+
+  Future<int> getDirectorySize(Directory path) async {
+    int size = 0;
+    for (var entity in path.listSync(recursive: true)) {
+      if (entity is File) {
+        size += entity.lengthSync();
+      }
+    }
+    return size;
+  }
+
+  Future<void> getCacheSize() async {
+    try {
+      final Directory tempDir = await getTemporaryDirectory();
+      var size = await getDirectorySize(tempDir);
+      setState(() {
+        cacheSize=size;
+      });
+    } catch (_) {
+      setState(() {
+        cacheSize=0;
+      });
+    }
+  }
+
+  Future<void> clearController() async {
+    final cacheDir = await getTemporaryDirectory();
+    if (cacheDir.existsSync()) {
+      cacheDir.deleteSync(recursive: true);
+      getCacheSize();
+    }
+  }
+
+  Future<void> clearCache(BuildContext context) async {
+    if(Platform.isIOS){
+      showDialog(
+        context: context,
+        builder: (context) {
+          return CupertinoAlertDialog(
+            title: Text('清理歌曲封面缓存?'),
+            content: Text('这不会对程序运行产生影响'),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                child: Text('取消'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              CupertinoDialogAction(
+                child: Text('确定'),
+                onPressed: () {
+                  clearController();
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }else{
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('清理歌曲封面缓存?'),
+            content: Text('这不会对程序运行产生影响'),
+            actions: <Widget>[
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                }, 
+                child: Text("取消")
+              ),
+              FilledButton(
+                onPressed: () async {
+                  clearController();
+                  Navigator.pop(context);
+                }, 
+                child: Text("确定")
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
   
   @override
   void initState() {
     getVersion();
+
+    getCacheSize();
+
     super.initState();
   }
 
@@ -217,6 +321,13 @@ class _settingsViewState extends State<settingsView> {
             onTap: (){
               logoutController(context);
             },
+          ),
+          ListTile(
+            onTap: () => clearCache(context),
+            title: Text(
+              "清理歌曲封面缓存"
+            ),
+            trailing: Text(sizeConvert(cacheSize)),
           ),
           ListTile(
             title: Text("关于"),
