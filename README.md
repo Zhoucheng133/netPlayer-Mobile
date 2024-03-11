@@ -57,6 +57,10 @@
 
 ## 更新日志
 
+### 1.5.4 (iOS & Android) (2024/3/11)
+- 添加清理歌曲封面图片缓存的功能
+- 修复安卓设备导航条黑色背景的问题 ([#2](https://github.com/Zhoucheng133/netPlayer-Mobile/issues/2))
+
 ### 1.5.3 (iOS & Android) (2024/3/8)
 - 本地化一些系统控件的语言
 - 修复后台滚动歌词的问题
