@@ -208,7 +208,7 @@ class _playingViewState extends State<playingView> {
                             duration: Duration(milliseconds: 300),
                             width: MediaQuery.of(context).size.width-120,
                             height: MediaQuery.of(context).size.width-120,
-                            color: c.showLyric.value ? Color.fromARGB(255, 250, 250, 250) : Color.fromARGB(0, 250, 250, 250),
+                            color: c.showLyric.value ? Color.fromARGB(255, 255, 255, 255) : Color.fromARGB(0, 255, 255, 255),
                             child: AnimatedOpacity(
                               duration: Duration(milliseconds: 300),
                               opacity: c.showLyric.value ? 1.0 : 0.0,
