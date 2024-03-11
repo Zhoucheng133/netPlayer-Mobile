@@ -25,9 +25,10 @@ Future<void> main() async {
       androidNotificationChannelName: 'Music playback',
     ),
   );
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    systemNavigationBarColor: Colors.transparent,
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
+    systemNavigationBarColor: Colors.transparent,
   ));
   runApp(MainApp());
 }
