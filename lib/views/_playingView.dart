@@ -5,8 +5,8 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:netplayer_mobile/components/lyricContent.dart';
 import 'package:netplayer_mobile/functions/requests.dart';
 import 'package:netplayer_mobile/para/para.dart';
 
@@ -116,39 +116,37 @@ class _playingViewState extends State<playingView> {
     return Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
-      body: Center(
-        child: GestureDetector(
-          onVerticalDragUpdate: (details) async {
-            if(details.delta.dy>10){
-              if(isCalled){
-                return;
-              }
-              if(!c.showLyric.value){
-                Navigator.pop(context);
-                setState(() {
-                  isCalled=true;
-                });
-              }else{
-                c.updateShowLyric(false);
-                Future.delayed(Duration(milliseconds: 300), (){
-                  if (mounted) {
-                    Navigator.pop(context);
-                  }
-                });
-                setState(() {
-                  isCalled=true;
-                });
-              }
+      body: GestureDetector(
+        onVerticalDragUpdate: (details) async {
+          if(details.delta.dy>10){
+            if(isCalled){
+              return;
             }
-          },
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            color: Colors.white,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Row(
+            if(!c.showLyric.value){
+              Navigator.pop(context);
+              setState(() {
+                isCalled=true;
+              });
+            }else{
+              c.updateShowLyric(false);
+              Future.delayed(Duration(milliseconds: 300), (){
+                if (mounted) {
+                  Navigator.pop(context);
+                }
+              });
+              setState(() {
+                isCalled=true;
+              });
+            }
+          }
+        },
+        child: Stack(
+          children: [
+            Positioned(
+              top: 60,
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
@@ -166,341 +164,214 @@ class _playingViewState extends State<playingView> {
                     ),
                   ],
                 ),
-                SizedBox(height: 40,),
-                GestureDetector(
-                  onTap: (){
-                    // setState(() {
-                    //   showLyric=!showLyric;
-                    // });
-                    c.updateShowLyric(!c.showLyric.value);
-                  },
-                  child: Stack(
-                    children: [
-                      Hero(
-                        tag: "cover",
-                        child: AnimatedContainer(
-                          width: MediaQuery.of(context).size.width-120,
-                          height: MediaQuery.of(context).size.width-120,
-                          color: Colors.white,
-                          duration: Duration(milliseconds: 200),
-                          child: Obx(() => 
-                            c.playInfo["id"]==null ?
-                            Image.asset(
+              ),
+            ),
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // 封面
+                  Hero(
+                    tag: "cover",
+                    child: AnimatedContainer(
+                      width: MediaQuery.of(context).size.width-100,
+                      height: MediaQuery.of(context).size.width-100,
+                      color: Colors.white,
+                      duration: Duration(milliseconds: 200),
+                      child: Obx(() => 
+                        c.playInfo["id"]==null ?
+                        Image.asset(
+                          "assets/blank.jpg",
+                          fit: BoxFit.contain,
+                        ) : 
+                        Image.network(
+                          "${c.userInfo["url"]}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${c.userInfo["username"]}&t=${c.userInfo["token"]}&s=${c.userInfo["salt"]}&id=${c.playInfo["id"]}",
+                          fit: BoxFit.contain,
+                          errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                            return Image.asset(
                               "assets/blank.jpg",
                               fit: BoxFit.contain,
-                            ) : 
-                            Image.network(
-                              "${c.userInfo["url"]}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${c.userInfo["username"]}&t=${c.userInfo["token"]}&s=${c.userInfo["salt"]}&id=${c.playInfo["id"]}",
-                              fit: BoxFit.contain,
-                              errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                                return Image.asset(
-                                  "assets/blank.jpg",
-                                  fit: BoxFit.contain,
-                                );
-                              },
-                            )
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        child: Obx(() => 
-                          AnimatedContainer(
-                            duration: Duration(milliseconds: 300),
-                            width: MediaQuery.of(context).size.width-120,
-                            height: MediaQuery.of(context).size.width-120,
-                            color: c.showLyric.value ? Color.fromARGB(255, 255, 255, 255) : Color.fromARGB(0, 255, 255, 255),
-                            child: AnimatedOpacity(
-                              duration: Duration(milliseconds: 300),
-                              opacity: c.showLyric.value ? 1.0 : 0.0,
-                              child: lyricContent(height: MediaQuery.of(context).size.width-120,),
-                            ),
-                          )
+                            );
+                          },
                         )
                       ),
-                      Positioned(
-                        child: Container(
-                          width: MediaQuery.of(context).size.width-120,
-                          height: MediaQuery.of(context).size.width-120,
-                          color: Color.fromARGB(0, 0, 0, 0),
-                        )
-                      )
-                    ]
+                    ),
                   ),
-                ),
-                Container(
-                  height: 130,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 20, right: 20),
-                    child: Column(
+                  SizedBox(height: 20,),
+                  // 标题和艺术家信息
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width-120,
+                    child: Row(
                       children: [
-                        SizedBox(height: 30,),
-                        Obx(() => 
-                          Text(
-                            c.playInfo["title"]==null ? "没有播放" : c.playInfo["title"].toString(),
-                            style: TextStyle(
-                              fontSize: 25,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              decoration: TextDecoration.none
-                            ),
-                            overflow: TextOverflow.ellipsis,
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Obx(() => 
+                                Text(
+                                  c.playInfo["title"]==null ? "没有播放" : c.playInfo["title"].toString(),
+                                  style: TextStyle(
+                                    fontSize: 25,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    decoration: TextDecoration.none
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                )
+                              ),
+                              Obx(() => 
+                                Text(
+                                  c.playInfo["title"]==null ? "/" : c.playInfo["artist"].toString(),
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.grey,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                )
+                              ),
+                            ],
                           )
                         ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                          child: Obx(() => 
-                            Text(
-                              c.playInfo["title"]==null ? "/" : c.playInfo["artist"].toString(),
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.grey,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                            )
-                          ),
+                        SizedBox(width: 10,),
+                        Obx(() => 
+                          (c.playInfo.isNotEmpty && c.fav(c.playInfo['id'])) ? 
+                          GestureDetector(
+                            onTap: () async {
+                              if(await setDelove(c.playInfo['id'])==false){
+                                failDialog(context);
+                              }
+                              reloadLoved();
+                            },
+                            child: Icon(
+                              Icons.favorite,
+                              color: Colors.red,
+                            ),
+                          ) : 
+                          GestureDetector(
+                            onTap: () async {
+                              if(c.playInfo.isNotEmpty){
+                                if(await setLove(c.playInfo['id'])==false){
+                                  failDialog(context);
+                                }
+                                reloadLoved();
+                              }else{
+                                return;
+                              }
+                            },
+                            child: Icon(
+                              Icons.favorite,
+                              color: Colors.grey,
+                            ),
+                          )
                         ),
                       ],
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 30, right: 30),
-                  child: Column(
-                    children: [
-                      SliderTheme(
-                        data: SliderThemeData(
-                          overlayColor: Colors.transparent,
-                          overlayShape: RoundSliderOverlayShape(overlayRadius: 0.0), // 取消波纹效果
-                          activeTrackColor: Colors.black, // 设置已激活轨道的颜色
-                          inactiveTrackColor: Colors.grey[200], 
-                          trackHeight: 2,
-                          thumbShape: RoundSliderThumbShape(
-                            enabledThumbRadius: 8, // 设置滑块的半径
-                            pressedElevation: 5,
-                            elevation: 1,
-                          ),
-                          thumbColor: Colors.black
+                  SizedBox(height: 20,),
+                  // 进度条
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30, right: 30),
+                    child: SliderTheme(
+                      data: SliderThemeData(
+                        overlayColor: Colors.transparent,
+                        overlayShape: RoundSliderOverlayShape(overlayRadius: 0.0), // 取消波纹效果
+                        activeTrackColor: Colors.black, // 设置已激活轨道的颜色
+                        inactiveTrackColor: Colors.grey[200], 
+                        trackHeight: 2,
+                        thumbShape: RoundSliderThumbShape(
+                          enabledThumbRadius: 8, // 设置滑块的半径
+                          pressedElevation: 5,
+                          elevation: 1,
                         ),
+                        thumbColor: Colors.black
+                      ),
+                      child: Obx(() => 
+                        c.playInfo["duration"] is num && c.playInfo["duration"]!=0 ?
+                        Slider(
+                          value: (c.nowDuration.value/c.playInfo["duration"]),
+                          onChanged: (value) {
+                            _handleSliderChange(value);
+                          },
+                        ) : 
+                        Slider(
+                          value: 0,
+                          onChanged: (value) {
+                            // 没有在播放的情况下，不需要任何操作
+                          },
+                        )
+                      )
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30, right: 30),
+                    child: Row(
+                      children: [
+                        Obx(() => 
+                          Text(
+                            timeConvert(c.nowDuration.value),
+                          ),
+                        ),
+                        Expanded(child: Container()),
+                        Obx(() => 
+                          Text(
+                            c.playInfo.isEmpty ? 
+                            "0:00" :
+                            timeConvert(c.playInfo["duration"]),
+                          )
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 20,),
+                  // 控制播放
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: (){
+                          widget.audioHandler.skipToPrevious();
+                        },
+                        child: Icon(
+                          Icons.skip_previous_rounded,
+                          size: 65,
+                        ),
+                      ),
+                      SizedBox(width: 10,),
+                      GestureDetector(
+                        onTap: (){
+                          playController();
+                        },
                         child: Obx(() => 
-                          c.playInfo["duration"] is num && c.playInfo["duration"]!=0 ?
-                          Slider(
-                            value: (c.nowDuration.value/c.playInfo["duration"]),
-                            onChanged: (value) {
-                              _handleSliderChange(value);
-                            },
-                          ) : 
-                          Slider(
-                            value: 0,
-                            onChanged: (value) {
-                              // 没有在播放的情况下，不需要任何操作
-                            },
+                          c.isPlay==true ? 
+                          Icon(
+                            Icons.pause_rounded,
+                            size: 70,
+                          ):
+                          Icon(
+                            Icons.play_arrow_rounded,
+                            size: 70,
                           )
                         )
                       ),
-                      Row(
-                        children: [
-                          Obx(() => 
-                            Text(
-                              timeConvert(c.nowDuration.value),
-                            ),
-                          ),
-                          Expanded(child: Container()),
-                          Obx(() => 
-                            Text(
-                              c.playInfo.isEmpty ? 
-                              "0:00" :
-                              timeConvert(c.playInfo["duration"]),
-                            )
-                          )
-                        ],
-                      )
+                      SizedBox(width: 10,),
+                      GestureDetector(
+                        onTap: (){
+                          widget.audioHandler.skipToNext();
+                        },
+                        child: Icon(
+                          Icons.skip_next_rounded,
+                          size: 65,
+                        ),
+                      ),
                     ],
                   ),
-                ),
-                // Text("hello?"),
-                SizedBox(height: 20,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Obx(() => 
-                      (c.playInfo.isNotEmpty && c.fav(c.playInfo['id'])) ? 
-                      GestureDetector(
-                        onTap: () async {
-                          if(await setDelove(c.playInfo['id'])==false){
-                            failDialog(context);
-                          }
-                          reloadLoved();
-                        },
-                        child: Icon(
-                          Icons.favorite,
-                          color: Colors.red,
-                        ),
-                      ) : 
-                      GestureDetector(
-                        onTap: () async {
-                          if(c.playInfo.isNotEmpty){
-                            if(await setLove(c.playInfo['id'])==false){
-                              failDialog(context);
-                            }
-                            reloadLoved();
-                          }else{
-                            return;
-                          }
-                        },
-                        child: Icon(
-                          Icons.favorite,
-                          color: Colors.grey,
-                        ),
-                      )
-                    ),
-                    SizedBox(width: 30,),
-                    Obx(() => 
-                      PopupMenuButton(
-                        surfaceTintColor: Colors.white,
-                        initialValue: c.playMode.value,
-                        onSelected: (val){
-                          if(c.fullRandom.value){
-                            return;
-                          }
-                          c.updatePlayMode(val);
-                        },
-                        enabled: !c.fullRandom.value,
-                        child: Row(
-                          children: [
-                            Obx(() => 
-                              c.fullRandom.value ? Icon(
-                                Icons.shuffle_rounded,
-                                color: Colors.grey,
-                              ) : 
-                              c.playMode.value=="随机播放" ? Icon(Icons.shuffle_rounded) : 
-                              c.playMode.value=="顺序播放" ? Icon(Icons.repeat_rounded) :
-                              Icon(Icons.repeat_one_rounded)
-                            ),
-                            SizedBox(width: 5,),
-                            Obx(() => 
-                              Text(
-                                c.fullRandom.value ? "随机播放" : c.playMode.value,
-                                style: TextStyle(
-                                  color: c.fullRandom.value ? Colors.grey : Colors.black,
-                                ),
-                              )
-                            )
-                          ],
-                        ),
-                        itemBuilder: (context)=>[
-                          PopupMenuItem(
-                            value: "顺序播放",
-                            height: 35,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.repeat_rounded,
-                                  // size: 18,
-                                ),
-                                SizedBox(width: 5,),
-                                Text("顺序播放")
-                              ],
-                            ),
-                          ),
-                          PopupMenuItem(
-                            value: "随机播放",
-                            height: 35,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.shuffle_rounded,
-                                  // size: 18,
-                                ),
-                                SizedBox(width: 5,),
-                                Text("随机播放")
-                              ],
-                            ),
-                          ),
-                          PopupMenuItem(
-                            value: "单曲循环",
-                            height: 35,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.repeat_one_rounded,
-                                  // size: 18,
-                                ),
-                                SizedBox(width: 5,),
-                                Text("单曲循环")
-                              ],
-                            ),
-                          ),
-                        ]
-                      )
-                    ) ,
-                    SizedBox(width: 25,),
-                    GestureDetector(
-                      child: Obx(() => 
-                        Icon(
-                          Icons.lyrics_rounded,
-                          color: c.showLyric.value ? c.mainColor : Colors.black,
-                        ),
-                      ),
-                      onTap: (){
-                        c.updateShowLyric(!c.showLyric.value);
-                      },
-                    ),
-                  ],
-                ),
-                SizedBox(height: 15,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: (){
-                        widget.audioHandler.skipToPrevious();
-                      },
-                      child: Icon(
-                        Icons.skip_previous_rounded,
-                        size: 65,
-                      ),
-                    ),
-                    SizedBox(width: 10,),
-                    GestureDetector(
-                      onTap: (){
-                        playController();
-                      },
-                      child: Obx(() => 
-                        c.isPlay==true ? 
-                        Icon(
-                          Icons.pause_rounded,
-                          size: 70,
-                        ):
-                        Icon(
-                          Icons.play_arrow_rounded,
-                          size: 70,
-                        )
-                      )
-                    ),
-                    SizedBox(width: 10,),
-                    GestureDetector(
-                      onTap: (){
-                        widget.audioHandler.skipToNext();
-                      },
-                      child: Icon(
-                        Icons.skip_next_rounded,
-                        size: 65,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 40,)
-              ],
-            ),
-          ),
+                ],
+              ),
+            )
+          ],
         ),
-      ),
+      )
     );
   }
 }
