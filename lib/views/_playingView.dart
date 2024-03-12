@@ -5,8 +5,8 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:netplayer_mobile/components/bottomArea.dart';
 import 'package:netplayer_mobile/functions/requests.dart';
 import 'package:netplayer_mobile/para/para.dart';
 
@@ -110,7 +110,7 @@ class _playingViewState extends State<playingView> {
 
   var isCalled=false;
 
-  var showButton=false;
+  var showBottom=false;
   
   @override
   Widget build(BuildContext context) {
@@ -379,7 +379,7 @@ class _playingViewState extends State<playingView> {
         ),
         AnimatedSwitcher(
           duration: Duration(milliseconds: 200),
-          child: showButton ? Opacity(
+          child: showBottom ? Opacity(
             opacity: 0.7, 
             child: Container(
               height: double.infinity,
@@ -399,12 +399,11 @@ class _playingViewState extends State<playingView> {
                   height: 70,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
-                    color: Colors.red,
+                    // TODO 记得修改颜色
+                    color: Colors.grey[100],
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))
                   ),
-                  child: Column(
-                    
-                  ),
+                  child: BottomArea()
                 )
               ),
             ],
