@@ -111,6 +111,11 @@ class _playingViewState extends State<playingView> {
   var isCalled=false;
 
   var showBottom=false;
+
+  var positionBottomSize=0.0;
+  void changeSize(val){
+
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -393,17 +398,21 @@ class _playingViewState extends State<playingView> {
             children: [
               AnimatedPositioned(
                 left: 0,
-                bottom: 0,
+                bottom: positionBottomSize,
                 duration: Duration(milliseconds: 200),
                 child: Container(
                   height: 70,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
-                    // TODO 记得修改颜色
-                    color: Colors.grey[100],
+                    // TODO 临时添加边框，注意最后删除
+                    border: Border.all(
+                      color: Colors.black,
+                      width: 1,
+                    ),
+                    color: Colors.white,
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))
                   ),
-                  child: BottomArea()
+                  child: BottomArea(changeSize: (value) => changeSize(value),)
                 )
               ),
             ],
