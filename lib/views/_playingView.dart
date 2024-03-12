@@ -5,7 +5,6 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/functions/requests.dart';
 import 'package:netplayer_mobile/para/para.dart';
@@ -114,262 +113,273 @@ class _playingViewState extends State<playingView> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: Colors.white,
-      resizeToAvoidBottomInset: false,
-      body: GestureDetector(
-        onVerticalDragUpdate: (details) async {
-          if(details.delta.dy>10){
-            if(isCalled){
-              return;
-            }
-            if(!c.showLyric.value){
-              Navigator.pop(context);
-              setState(() {
-                isCalled=true;
-              });
-            }else{
-              c.updateShowLyric(false);
-              Future.delayed(Duration(milliseconds: 300), (){
-                if (mounted) {
-                  Navigator.pop(context);
-                }
-              });
-              setState(() {
-                isCalled=true;
-              });
-            }
-          }
-        },
-        child: Stack(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Positioned(
-              top: 60,
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: (){
-                        Navigator.pop(context);
-                      },
-                      child: Icon(
-                        Icons.swipe_down_alt,
-                        size: 40,
-                      ),
-                    ),
-                    SizedBox(width: 5,),
-                    Text(
-                      "向下滑动返回",
-                    ),
-                  ],
-                ),
+            Icon(
+              Icons.swipe_down_alt,
+              size: 30,
+            ),
+            SizedBox(width: 5,),
+            Text(
+              "向下滑动返回",
+              style: TextStyle(
+                fontSize: 16,
               ),
             ),
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  // 封面
-                  Hero(
-                    tag: "cover",
-                    child: AnimatedContainer(
-                      width: MediaQuery.of(context).size.width-100,
-                      height: MediaQuery.of(context).size.width-100,
-                      color: Colors.white,
-                      duration: Duration(milliseconds: 200),
-                      child: Obx(() => 
-                        c.playInfo["id"]==null ?
-                        Image.asset(
-                          "assets/blank.jpg",
-                          fit: BoxFit.contain,
-                        ) : 
-                        Image.network(
-                          "${c.userInfo["url"]}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${c.userInfo["username"]}&t=${c.userInfo["token"]}&s=${c.userInfo["salt"]}&id=${c.playInfo["id"]}",
-                          fit: BoxFit.contain,
-                          errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                            return Image.asset(
-                              "assets/blank.jpg",
-                              fit: BoxFit.contain,
-                            );
-                          },
-                        )
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 20,),
-                  // 标题和艺术家信息
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width-120,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Obx(() => 
-                                Text(
-                                  c.playInfo["title"]==null ? "没有播放" : c.playInfo["title"].toString(),
-                                  style: TextStyle(
-                                    fontSize: 25,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    decoration: TextDecoration.none
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                )
-                              ),
-                              Obx(() => 
-                                Text(
-                                  c.playInfo["title"]==null ? "/" : c.playInfo["artist"].toString(),
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.grey,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                )
-                              ),
-                            ],
+          ],
+        ),
+        leading: Container()
+      ),
+      backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: GestureDetector(
+          onVerticalDragUpdate: (details) async {
+            if(details.delta.dy>10){
+              if(isCalled){
+                return;
+              }
+              if(!c.showLyric.value){
+                Navigator.pop(context);
+                setState(() {
+                  isCalled=true;
+                });
+              }else{
+                c.updateShowLyric(false);
+                Future.delayed(Duration(milliseconds: 300), (){
+                  if (mounted) {
+                    Navigator.pop(context);
+                  }
+                });
+                setState(() {
+                  isCalled=true;
+                });
+              }
+            }
+          },
+          child: Stack(
+            children: [
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    // 封面
+                    Hero(
+                      tag: "cover",
+                      child: AnimatedContainer(
+                        width: MediaQuery.of(context).size.width-100,
+                        height: MediaQuery.of(context).size.width-100,
+                        color: Colors.white,
+                        duration: Duration(milliseconds: 200),
+                        child: Obx(() => 
+                          c.playInfo["id"]==null ?
+                          Image.asset(
+                            "assets/blank.jpg",
+                            fit: BoxFit.contain,
+                          ) : 
+                          Image.network(
+                            "${c.userInfo["url"]}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${c.userInfo["username"]}&t=${c.userInfo["token"]}&s=${c.userInfo["salt"]}&id=${c.playInfo["id"]}",
+                            fit: BoxFit.contain,
+                            errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                              return Image.asset(
+                                "assets/blank.jpg",
+                                fit: BoxFit.contain,
+                              );
+                            },
                           )
                         ),
-                        SizedBox(width: 10,),
-                        Obx(() => 
-                          (c.playInfo.isNotEmpty && c.fav(c.playInfo['id'])) ? 
-                          GestureDetector(
-                            onTap: () async {
-                              if(await setDelove(c.playInfo['id'])==false){
-                                failDialog(context);
-                              }
-                              reloadLoved();
-                            },
-                            child: Icon(
-                              Icons.favorite,
-                              color: Colors.red,
-                            ),
-                          ) : 
-                          GestureDetector(
-                            onTap: () async {
-                              if(c.playInfo.isNotEmpty){
-                                if(await setLove(c.playInfo['id'])==false){
+                      ),
+                    ),
+                    SizedBox(height: 20,),
+                    // 标题和艺术家信息
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width-120,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Obx(() => 
+                                  Text(
+                                    c.playInfo["title"]==null ? "没有播放" : c.playInfo["title"].toString(),
+                                    style: TextStyle(
+                                      fontSize: 25,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      decoration: TextDecoration.none
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  )
+                                ),
+                                Obx(() => 
+                                  Text(
+                                    c.playInfo["title"]==null ? "/" : c.playInfo["artist"].toString(),
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.grey,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  )
+                                ),
+                              ],
+                            )
+                          ),
+                          SizedBox(width: 10,),
+                          Obx(() => 
+                            (c.playInfo.isNotEmpty && c.fav(c.playInfo['id'])) ? 
+                            GestureDetector(
+                              onTap: () async {
+                                if(await setDelove(c.playInfo['id'])==false){
                                   failDialog(context);
                                 }
                                 reloadLoved();
-                              }else{
-                                return;
-                              }
-                            },
-                            child: Icon(
-                              Icons.favorite,
-                              color: Colors.grey,
-                            ),
-                          )
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 20,),
-                  // 进度条
-                  Padding(
-                    padding: const EdgeInsets.only(left: 30, right: 30),
-                    child: SliderTheme(
-                      data: SliderThemeData(
-                        overlayColor: Colors.transparent,
-                        overlayShape: RoundSliderOverlayShape(overlayRadius: 0.0), // 取消波纹效果
-                        activeTrackColor: Colors.black, // 设置已激活轨道的颜色
-                        inactiveTrackColor: Colors.grey[200], 
-                        trackHeight: 2,
-                        thumbShape: RoundSliderThumbShape(
-                          enabledThumbRadius: 8, // 设置滑块的半径
-                          pressedElevation: 5,
-                          elevation: 1,
-                        ),
-                        thumbColor: Colors.black
+                              },
+                              child: Icon(
+                                Icons.favorite,
+                                color: Colors.red,
+                              ),
+                            ) : 
+                            GestureDetector(
+                              onTap: () async {
+                                if(c.playInfo.isNotEmpty){
+                                  if(await setLove(c.playInfo['id'])==false){
+                                    failDialog(context);
+                                  }
+                                  reloadLoved();
+                                }else{
+                                  return;
+                                }
+                              },
+                              child: Icon(
+                                Icons.favorite,
+                                color: Colors.grey,
+                              ),
+                            )
+                          ),
+                        ],
                       ),
-                      child: Obx(() => 
-                        c.playInfo["duration"] is num && c.playInfo["duration"]!=0 ?
-                        Slider(
-                          value: (c.nowDuration.value/c.playInfo["duration"]),
-                          onChanged: (value) {
-                            _handleSliderChange(value);
-                          },
-                        ) : 
-                        Slider(
-                          value: 0,
-                          onChanged: (value) {
-                            // 没有在播放的情况下，不需要任何操作
-                          },
-                        )
-                      )
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 30, right: 30),
-                    child: Row(
+                    SizedBox(height: 20,),
+                    // 进度条
+                    Padding(
+                      padding: const EdgeInsets.only(left: 30, right: 30),
+                      child: SliderTheme(
+                        data: SliderThemeData(
+                          overlayColor: Colors.transparent,
+                          overlayShape: RoundSliderOverlayShape(overlayRadius: 0.0), // 取消波纹效果
+                          activeTrackColor: Colors.black, // 设置已激活轨道的颜色
+                          inactiveTrackColor: Colors.grey[200], 
+                          trackHeight: 2,
+                          thumbShape: RoundSliderThumbShape(
+                            enabledThumbRadius: 8, // 设置滑块的半径
+                            pressedElevation: 5,
+                            elevation: 1,
+                          ),
+                          thumbColor: Colors.black
+                        ),
+                        child: Obx(() => 
+                          c.playInfo["duration"] is num && c.playInfo["duration"]!=0 ?
+                          Slider(
+                            value: (c.nowDuration.value/c.playInfo["duration"]),
+                            onChanged: (value) {
+                              _handleSliderChange(value);
+                            },
+                          ) : 
+                          Slider(
+                            value: 0,
+                            onChanged: (value) {
+                              // 没有在播放的情况下，不需要任何操作
+                            },
+                          )
+                        )
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 30, right: 30),
+                      child: Row(
+                        children: [
+                          Obx(() => 
+                            Text(
+                              timeConvert(c.nowDuration.value),
+                            ),
+                          ),
+                          Expanded(child: Container()),
+                          Obx(() => 
+                            Text(
+                              c.playInfo.isEmpty ? 
+                              "0:00" :
+                              timeConvert(c.playInfo["duration"]),
+                            )
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 20,),
+                    // 控制播放
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Obx(() => 
-                          Text(
-                            timeConvert(c.nowDuration.value),
+                        GestureDetector(
+                          onTap: (){
+                            widget.audioHandler.skipToPrevious();
+                          },
+                          child: Icon(
+                            Icons.skip_previous_rounded,
+                            size: 65,
                           ),
                         ),
-                        Expanded(child: Container()),
-                        Obx(() => 
-                          Text(
-                            c.playInfo.isEmpty ? 
-                            "0:00" :
-                            timeConvert(c.playInfo["duration"]),
+                        SizedBox(width: 10,),
+                        GestureDetector(
+                          onTap: (){
+                            playController();
+                          },
+                          child: Obx(() => 
+                            c.isPlay==true ? 
+                            Icon(
+                              Icons.pause_rounded,
+                              size: 70,
+                            ):
+                            Icon(
+                              Icons.play_arrow_rounded,
+                              size: 70,
+                            )
                           )
-                        )
+                        ),
+                        SizedBox(width: 10,),
+                        GestureDetector(
+                          onTap: (){
+                            widget.audioHandler.skipToNext();
+                          },
+                          child: Icon(
+                            Icons.skip_next_rounded,
+                            size: 65,
+                          ),
+                        ),
                       ],
                     ),
-                  ),
-                  SizedBox(height: 20,),
-                  // 控制播放
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      GestureDetector(
-                        onTap: (){
-                          widget.audioHandler.skipToPrevious();
-                        },
-                        child: Icon(
-                          Icons.skip_previous_rounded,
-                          size: 65,
-                        ),
-                      ),
-                      SizedBox(width: 10,),
-                      GestureDetector(
-                        onTap: (){
-                          playController();
-                        },
-                        child: Obx(() => 
-                          c.isPlay==true ? 
-                          Icon(
-                            Icons.pause_rounded,
-                            size: 70,
-                          ):
-                          Icon(
-                            Icons.play_arrow_rounded,
-                            size: 70,
-                          )
-                        )
-                      ),
-                      SizedBox(width: 10,),
-                      GestureDetector(
-                        onTap: (){
-                          widget.audioHandler.skipToNext();
-                        },
-                        child: Icon(
-                          Icons.skip_next_rounded,
-                          size: 65,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                    SizedBox(height: 50,)
+                  ],
+                ),
               ),
-            )
-          ],
+              // 控制
+              Positioned(
+                left: 0,
+                bottom: 0,
+                child: Container(
+                  height: 50,
+                  width: MediaQuery.of(context).size.width,
+                  color: Colors.red,
+                )
+              )
+            ],
+          ),
         ),
       )
     );
