@@ -1,9 +1,12 @@
-// ignore_for_file: file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables, invalid_use_of_protected_member
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/components/lyricContent.dart';
+import 'package:netplayer_mobile/components/operations.dart';
+// import 'package:netplayer_mobile/components/operations.dart';
+// import 'package:netplayer_mobile/functions/requests.dart';
+// import 'package:netplayer_mobile/components/operations.dart';
 import 'package:netplayer_mobile/para/para.dart';
 
 class BottomArea extends StatefulWidget {
@@ -29,7 +32,14 @@ class _BottomAreaState extends State<BottomArea> {
       case "playMode":
         widget.changeSize(260.0);
         break;
-      default:
+      case "add":
+        songAddListController(c.playInfo["id"], context, pop: false);
+        widget.changeSize(100.0);
+        c.updateMenuType("");
+        break;
+      case "more":
+        widget.changeSize(200.0);
+        break;
     }
   }
   
@@ -223,7 +233,7 @@ class _BottomAreaState extends State<BottomArea> {
                   ),
                 ),
               )
-            )
+            ),
           ],
         ),
       ],

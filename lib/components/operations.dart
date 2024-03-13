@@ -579,8 +579,10 @@ class _listAddContentState extends State<listAddContent> {
 }
 
 // 歌曲添加到歌单
-void songAddListController(String id, BuildContext context){
-  Navigator.of(context).pop();
+void songAddListController(String id, BuildContext context, {dynamic pop}){
+  if(pop!=false){
+    Navigator.of(context).pop();
+  }
   showModalBottomSheet<void>(
     context: context,
     backgroundColor: Colors.transparent,
