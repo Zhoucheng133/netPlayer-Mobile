@@ -414,13 +414,8 @@ class _playingViewState extends State<playingView> {
                 height: 600,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                  // TODO 临时添加边框，注意最后删除
-                  // border: Border.all(
-                  //   color: Colors.black,
-                  //   width: 1,
-                  // ),
                   color: Colors.white,
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))
                 ),
                 child: BottomArea(changeSize: (value) => changeSize(value),)
               )

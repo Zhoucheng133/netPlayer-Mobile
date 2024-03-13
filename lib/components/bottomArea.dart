@@ -1,5 +1,6 @@
 // ignore_for_file: file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/components/lyricContent.dart';
@@ -25,6 +26,9 @@ class _BottomAreaState extends State<BottomArea> {
       case "lyric":
         widget.changeSize(500.0);
         break;
+      case "playMode":
+        widget.changeSize(260.0);
+        break;
       default:
     }
   }
@@ -33,37 +37,39 @@ class _BottomAreaState extends State<BottomArea> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          height: 60,
-          width: 220,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
-                onTap: () => changeContent("lyric"),
-                child: Icon(Icons.lyrics),
-              ),
-              GestureDetector(
-                onTap: () => changeContent("playMode"),
-                child: Obx(() => 
-                  c.fullRandom.value ? Icon(
-                    Icons.shuffle_rounded,
-                    color: Colors.grey,
-                  ) : 
-                  c.playMode.value=="随机播放" ? Icon(Icons.shuffle_rounded) : 
-                  c.playMode.value=="顺序播放" ? Icon(Icons.repeat_rounded) :
-                  Icon(Icons.repeat_one_rounded),
+        GestureDetector(
+          child: SizedBox(
+            height: 60,
+            width: 220,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  onTap: () => changeContent("lyric"),
+                  child: Icon(Icons.lyrics),
                 ),
-              ),
-              GestureDetector(
-                onTap: () => changeContent("add"),
-                child: Icon(Icons.add_rounded)
-              ),
-              GestureDetector(
-                onTap: () => changeContent("more"),
-                child: Icon(Icons.more_horiz_rounded)
-              ),
-            ],
+                GestureDetector(
+                  onTap: () => changeContent("playMode"),
+                  child: Obx(() => 
+                    c.fullRandom.value ? Icon(
+                      Icons.shuffle_rounded,
+                      color: Colors.grey,
+                    ) : 
+                    c.playMode.value=="随机播放" ? Icon(Icons.shuffle_rounded) : 
+                    c.playMode.value=="顺序播放" ? Icon(Icons.repeat_rounded) :
+                    Icon(Icons.repeat_one_rounded),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () => changeContent("add"),
+                  child: Icon(Icons.add_rounded)
+                ),
+                GestureDetector(
+                  onTap: () => changeContent("more"),
+                  child: Icon(Icons.more_horiz_rounded)
+                ),
+              ],
+            ),
           ),
         ),
         SizedBox(height: 10,),
@@ -74,8 +80,104 @@ class _BottomAreaState extends State<BottomArea> {
               width: double.infinity,
               child: lyricContent(height: 400),
             ),
-            SizedBox(
-              
+            Obx(() => 
+              AnimatedOpacity(
+                opacity: c.menuType.value=="playMode" ? 1 : 0,
+                duration: Duration(milliseconds: 200),
+                child: Center(
+                  child: SizedBox(
+                    width: 220,
+                    child: Column(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            c.updatePlayMode("顺序播放");
+                            c.updateMenuType("");
+                            widget.changeSize(100.0);
+                          },
+                          child: SizedBox(
+                            height: 50,
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.repeat_rounded,
+                                  color: c.playMode.value=="顺序播放" ? c.mainColor : Colors.black,
+                                ),
+                                SizedBox(width: 10,),
+                                Text(
+                                  "顺序播放",
+                                  style: TextStyle(
+                                    decoration: TextDecoration.none,
+                                    fontSize: 16,
+                                    color: c.playMode.value=="顺序播放" ? c.mainColor : Colors.black,
+                                  ),
+                                ),
+                                Expanded(child: Container(color: Colors.white,))
+                              ],
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            c.updatePlayMode("随机播放");
+                            c.updateMenuType("");
+                            widget.changeSize(100.0);
+                          },
+                          child: SizedBox(
+                            height: 50,
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.shuffle_rounded,
+                                  color: c.playMode.value=="随机播放" ? c.mainColor : Colors.black,
+                                ),
+                                SizedBox(width: 10,),
+                                Text(
+                                  "顺序播放",
+                                  style: TextStyle(
+                                    decoration: TextDecoration.none,
+                                    fontSize: 16,
+                                    color: c.playMode.value=="随机播放" ? c.mainColor : Colors.black,
+                                  ),
+                                ),
+                                Expanded(child: Container(color: Colors.white,))
+                              ],
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            c.updatePlayMode("单曲循环");
+                            c.updateMenuType("");
+                            widget.changeSize(100.0);
+                          },
+                          child: SizedBox(
+                            height: 50,
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.repeat_one_rounded,
+                                  color: c.playMode.value=="单曲循环" ? c.mainColor : Colors.black,
+                                ),
+                                SizedBox(width: 10,),
+                                Text(
+                                  "顺序播放",
+                                  style: TextStyle(
+                                    decoration: TextDecoration.none,
+                                    fontSize: 16,
+                                    color: c.playMode.value=="单曲循环" ? c.mainColor : Colors.black,
+                                  ),
+                                ),
+                                Expanded(child: Container(color: Colors.white,))
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              )
             )
           ],
         ),
