@@ -64,7 +64,11 @@ class _BottomAreaState extends State<BottomArea> {
                       child: Icon(Icons.lyrics),
                     ),
                     GestureDetector(
-                      onTap: () => changeContent("playMode"),
+                      onTap: () {
+                        if(!c.fullRandom.value){
+                          changeContent("playMode");
+                        }
+                      },
                       child: Obx(() => 
                         c.fullRandom.value ? Icon(
                           Icons.shuffle_rounded,
