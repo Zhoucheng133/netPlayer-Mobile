@@ -117,8 +117,19 @@ class _playingViewState extends State<playingView> {
     setState(() {
       positionBottomSize=val-600.0;
     });
+    if(val==100){
+      Timer(Duration(milliseconds: 300), () { 
+        setState(() {
+          showShadow=false;
+        });
+      });
+    }else{
+      showShadow=true;
+    }
   }
-  
+
+  var showShadow=false;
+
   @override
   Widget build(BuildContext context) {
 
@@ -384,30 +395,31 @@ class _playingViewState extends State<playingView> {
             ),
           )
         ),
-        Obx(() => 
-          AnimatedSwitcher(
-            duration: Duration(milliseconds: 300),
-            child: c.menuType!="" ? GestureDetector(
-              onTap: (){
+        AnimatedSwitcher(
+          duration: Duration(milliseconds: 300),
+          child: showShadow ? GestureDetector(
+            onTap: (){
+              c.updateMenuType("");
+              changeSize(100);
+            },
+            onVerticalDragUpdate: (details) async {
+              if(details.delta.dy>10){
                 c.updateMenuType("");
-                changeSize(100);
-              },
-              onVerticalDragUpdate: (details) async {
-                if(details.delta.dy>10){
-                  c.updateMenuType("");
-                  changeSize(100.0);
-                }
-              },
-              child: Opacity(
-                opacity: 0.7, 
+                changeSize(100.0);
+              }
+            },
+            child: Obx(() => 
+              AnimatedOpacity(
+                opacity: c.menuType=="" ? 0 : 0.7, 
+                duration: Duration(milliseconds: 300),
                 child: Container(
                   height: double.infinity,
                   width: double.infinity,
                   color: Colors.black,
                 ),
               ),
-            ) : Container()
-          ),
+            )
+          ) : Container(),
         ),
         Stack(
           children: [
