@@ -1,8 +1,6 @@
 // ignore_for_file: file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/para/para.dart';
 
@@ -21,7 +19,13 @@ class _BottomAreaState extends State<BottomArea> {
   final Controller c = Get.put(Controller());
 
   void changeContent(String type){
-
+    c.updateMenuType(type);
+    switch (type) {
+      case "lyric":
+        widget.changeSize(500.0);
+        break;
+      default:
+    }
   }
   
   @override

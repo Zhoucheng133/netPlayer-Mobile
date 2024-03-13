@@ -63,11 +63,14 @@ class Controller extends GetxController{
   // 歌词
   var lyric=[].obs;
 
-  // 显示歌词
+  // TODO 显示歌词，这个参数需要删除
   var showLyric=false.obs;
 
   // App在前台运行
   var fronted=true.obs;
+
+  // 菜单选择
+  var menuType="".obs;
 
   // ————分割线(上面为所有的全局变量)—————
 
@@ -168,6 +171,7 @@ class Controller extends GetxController{
   void updatePlayLists(data) => playLists.value=data;
   void updateSearchKey(data) => searchKey.value=data;
   void updateNowDuration(data) => nowDuration.value=data;
+  void updateMenuType(data) => menuType.value=data;
   void updateShowLyric(data) => showLyric.value=data;
   void updateFullRandom(data) => fullRandom.value=data;
   void updateNowDurationInMc(data){

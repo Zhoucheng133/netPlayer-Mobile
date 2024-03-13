@@ -110,11 +110,13 @@ class _playingViewState extends State<playingView> {
 
   var isCalled=false;
 
-  var showBottom=false;
+  // var showBottom=false;
 
-  var positionBottomSize=0.0;
-  void changeSize(val){
-
+  var positionBottomSize=-500.0;
+  void changeSize(double val){
+    setState(() {
+      positionBottomSize=val-600.0;
+    });
   }
   
   @override
@@ -205,7 +207,7 @@ class _playingViewState extends State<playingView> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 20,),
+                        SizedBox(height: 10,),
                         // 标题和艺术家信息
                         SizedBox(
                           width: MediaQuery.of(context).size.width-120,
@@ -330,7 +332,7 @@ class _playingViewState extends State<playingView> {
                             ],
                           ),
                         ),
-                        SizedBox(height: 20,),
+                        SizedBox(height: 10,),
                         // 控制播放
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -382,41 +384,48 @@ class _playingViewState extends State<playingView> {
             ),
           )
         ),
-        AnimatedSwitcher(
-          duration: Duration(milliseconds: 200),
-          child: showBottom ? Opacity(
-            opacity: 0.7, 
-            child: Container(
-              height: double.infinity,
-              width: double.infinity,
-              color: Colors.black,
-            ),
-          ) : Container()
-        ),
-        SafeArea(
-          child: Stack(
-            children: [
-              AnimatedPositioned(
-                left: 0,
-                bottom: positionBottomSize,
-                duration: Duration(milliseconds: 200),
+        Obx(() => 
+          AnimatedSwitcher(
+            duration: Duration(milliseconds: 300),
+            child: c.menuType!="" ? GestureDetector(
+              onTap: (){
+                c.updateMenuType("");
+                changeSize(100);
+              },
+              child: Opacity(
+                opacity: 0.7, 
                 child: Container(
-                  height: 70,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    // TODO 临时添加边框，注意最后删除
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 1,
-                    ),
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))
-                  ),
-                  child: BottomArea(changeSize: (value) => changeSize(value),)
-                )
+                  height: double.infinity,
+                  width: double.infinity,
+                  color: Colors.black,
+                ),
               ),
-            ],
+            ) : Container()
           ),
+        ),
+        Stack(
+          children: [
+            AnimatedPositioned(
+              left: 0,
+              bottom: positionBottomSize,
+              duration: Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+              child: Container(
+                height: 600,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  // TODO 临时添加边框，注意最后删除
+                  // border: Border.all(
+                  //   color: Colors.black,
+                  //   width: 1,
+                  // ),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))
+                ),
+                child: BottomArea(changeSize: (value) => changeSize(value),)
+              )
+            ),
+          ],
         )
       ],
     );
