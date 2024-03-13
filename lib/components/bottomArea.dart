@@ -61,7 +61,12 @@ class _BottomAreaState extends State<BottomArea> {
                   children: [
                     GestureDetector(
                       onTap: () => changeContent("lyric"),
-                      child: Icon(Icons.lyrics),
+                      child: Obx(() => 
+                        Icon(
+                          Icons.lyrics,
+                          color: c.menuType.value=="lyric" ? c.mainColor : Colors.black,
+                        ),
+                      )
                     ),
                     GestureDetector(
                       onTap: () {
@@ -74,18 +79,37 @@ class _BottomAreaState extends State<BottomArea> {
                           Icons.shuffle_rounded,
                           color: Colors.grey,
                         ) : 
-                        c.playMode.value=="随机播放" ? Icon(Icons.shuffle_rounded) : 
-                        c.playMode.value=="顺序播放" ? Icon(Icons.repeat_rounded) :
-                        Icon(Icons.repeat_one_rounded),
+                        c.playMode.value=="随机播放" ? Icon(
+                          Icons.shuffle_rounded,
+                          color: c.menuType.value=="playMode" ? c.mainColor : Colors.black,
+                        ) : 
+                        c.playMode.value=="顺序播放" ? Icon(
+                          Icons.repeat_rounded,
+                          color: c.menuType.value=="playMode" ? c.mainColor : Colors.black,
+                        ) :
+                        Icon(
+                          Icons.repeat_one_rounded,
+                          color: c.menuType.value=="playMode" ? c.mainColor : Colors.black,
+                        ),
                       ),
                     ),
                     GestureDetector(
                       onTap: () => changeContent("add"),
-                      child: Icon(Icons.add_rounded)
+                      child: Obx(() => 
+                        Icon(
+                          Icons.add_rounded,
+                          color: c.menuType.value=="add" ? c.mainColor : Colors.black,
+                        )
+                      )
                     ),
                     GestureDetector(
                       onTap: () => changeContent("more"),
-                      child: Icon(Icons.more_horiz_rounded)
+                      child: Obx(() => 
+                        Icon(
+                          Icons.more_horiz_rounded,
+                          color: c.menuType.value=="more" ? c.mainColor : Colors.black,
+                        )
+                      )
                     ),
                   ],
                 ),
