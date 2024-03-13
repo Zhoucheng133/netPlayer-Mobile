@@ -392,6 +392,12 @@ class _playingViewState extends State<playingView> {
                 c.updateMenuType("");
                 changeSize(100);
               },
+              onVerticalDragUpdate: (details) async {
+                if(details.delta.dy>10){
+                  c.updateMenuType("");
+                  changeSize(100.0);
+                }
+              },
               child: Opacity(
                 opacity: 0.7, 
                 child: Container(

@@ -37,40 +37,57 @@ class _BottomAreaState extends State<BottomArea> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        GestureDetector(
-          child: SizedBox(
-            height: 60,
-            width: 220,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                  onTap: () => changeContent("lyric"),
-                  child: Icon(Icons.lyrics),
-                ),
-                GestureDetector(
-                  onTap: () => changeContent("playMode"),
-                  child: Obx(() => 
-                    c.fullRandom.value ? Icon(
-                      Icons.shuffle_rounded,
-                      color: Colors.grey,
-                    ) : 
-                    c.playMode.value=="随机播放" ? Icon(Icons.shuffle_rounded) : 
-                    c.playMode.value=="顺序播放" ? Icon(Icons.repeat_rounded) :
-                    Icon(Icons.repeat_one_rounded),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () => changeContent("add"),
-                  child: Icon(Icons.add_rounded)
-                ),
-                GestureDetector(
-                  onTap: () => changeContent("more"),
-                  child: Icon(Icons.more_horiz_rounded)
-                ),
-              ],
+        Stack(
+          children: [
+            GestureDetector(
+              onVerticalDragUpdate: (details) async {
+                if(details.delta.dy>10){
+                  c.updateMenuType("");
+                  widget.changeSize(100.0);
+                }
+              },
+              child: Container(
+                color: Colors.transparent,
+                width: double.infinity,
+                height: 60,
+              ),
             ),
-          ),
+            Center(
+              child: SizedBox(
+                height: 60,
+                width: 220,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () => changeContent("lyric"),
+                      child: Icon(Icons.lyrics),
+                    ),
+                    GestureDetector(
+                      onTap: () => changeContent("playMode"),
+                      child: Obx(() => 
+                        c.fullRandom.value ? Icon(
+                          Icons.shuffle_rounded,
+                          color: Colors.grey,
+                        ) : 
+                        c.playMode.value=="随机播放" ? Icon(Icons.shuffle_rounded) : 
+                        c.playMode.value=="顺序播放" ? Icon(Icons.repeat_rounded) :
+                        Icon(Icons.repeat_one_rounded),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () => changeContent("add"),
+                      child: Icon(Icons.add_rounded)
+                    ),
+                    GestureDetector(
+                      onTap: () => changeContent("more"),
+                      child: Icon(Icons.more_horiz_rounded)
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
         SizedBox(height: 10,),
         Stack(
