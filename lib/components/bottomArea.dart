@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:netplayer_mobile/components/lyricContent.dart';
 import 'package:netplayer_mobile/para/para.dart';
 
 class BottomArea extends StatefulWidget {
@@ -64,7 +65,20 @@ class _BottomAreaState extends State<BottomArea> {
               ),
             ],
           ),
-        )
+        ),
+        SizedBox(height: 10,),
+        Stack(
+          children: [
+            SizedBox(
+              height: 400,
+              width: double.infinity,
+              child: lyricContent(height: 400),
+            ),
+            SizedBox(
+              
+            )
+          ],
+        ),
       ],
     );
   }

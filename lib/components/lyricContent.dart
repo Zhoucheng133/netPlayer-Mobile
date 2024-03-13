@@ -45,7 +45,7 @@ class _lyricContentState extends State<lyricContent> {
   }
 
   void scrollLyric(){
-    if(c.fronted.value && c.showLyric.value && c.lyricLine.value!=0){
+    if(c.fronted.value && c.menuType.value=="lyric" && c.lyricLine.value!=0){
       lyricScroll.scrollToIndex(c.lyricLine.value-1, preferPosition: AutoScrollPosition.middle);
     }
   }
@@ -66,8 +66,9 @@ class _lyricContentState extends State<lyricContent> {
       
     });
     
-    ever(c.showLyric, (callback){
-      if(c.showLyric==true){
+    ever(c.menuType, (callback){
+      // print("changed: ${c.menuType.value}");
+      if(c.menuType.value=="lyric"){
         if(c.lyricLine==0 && lyricScroll.hasClients){
           lyricScroll.animateTo(
             0,
@@ -88,34 +89,39 @@ class _lyricContentState extends State<lyricContent> {
   @override
   Widget build(BuildContext context) {
     return Obx(() => 
-      ListView.builder(
-        itemCount: c.lyric.length,
-        controller: lyricScroll,
-        itemBuilder: (BuildContext context, int index){
-          return Column(
-            children: [
-              index==0 ? SizedBox(height: widget.height/2-18*2.3,) : Container(),
-              Obx(() => 
-                AutoScrollTag(
-                  key: ValueKey(index), 
-                  controller: lyricScroll, 
-                  index: index,
-                  child: Text(
-                    c.lyric[index]['content'],
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 18,
-                      height: 2.3,
-                      color: playedLyric(index) ? c.mainColor:Colors.grey,
-                      fontWeight: playedLyric(index) ? FontWeight.bold: FontWeight.normal,
+      AnimatedOpacity(
+        opacity: c.menuType.value=="lyric" ? 1 : 0,
+        duration: Duration(milliseconds: 200),
+        child: ListView.builder(
+          itemCount: c.lyric.length,
+          controller: lyricScroll,
+          itemBuilder: (BuildContext context, int index){
+            return Column(
+              children: [
+                index==0 ? SizedBox(height: widget.height/2-18*2.3,) : Container(),
+                Obx(() => 
+                  AutoScrollTag(
+                    key: ValueKey(index), 
+                    controller: lyricScroll, 
+                    index: index,
+                    child: Text(
+                      c.lyric[index]['content'],
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 18,
+                        height: 2.3,
+                        color: playedLyric(index) ? c.mainColor:Colors.grey,
+                        fontWeight: playedLyric(index) ? FontWeight.bold: FontWeight.normal,
+                        decoration: TextDecoration.none,
+                      ),
                     ),
-                  ),
-                )
-              ),
-              index==c.lyric.length-1 ? SizedBox(height: widget.height/2,) : Container(),
-            ],
-          );
-        }
+                  )
+                ),
+                index==c.lyric.length-1 ? SizedBox(height: widget.height/2,) : Container(),
+              ],
+            );
+          }
+        ),
       )
     );
   }
