@@ -18,6 +18,7 @@ class _lyricContentState extends State<lyricContent> {
   final Controller c = Get.put(Controller());
   final AutoScrollController lyricScroll=AutoScrollController();
 
+
   bool playedLyric(index){
     if(c.lyric.length==1){
       return true;
@@ -45,15 +46,22 @@ class _lyricContentState extends State<lyricContent> {
   }
 
   void scrollLyric(){
+    print("scroll!");
     if(c.fronted.value && c.menuType.value=="lyric" && c.lyricLine.value!=0){
       lyricScroll.scrollToIndex(c.lyricLine.value-1, preferPosition: AutoScrollPosition.middle);
     }
   }
 
+  late Worker listenLine;
+  late Worker listenFront;
+
   @override
   void initState() {
     super.initState();
-    ever(c.lyricLine, (callback) {
+
+    scrollLyric();
+
+    listenLine=ever(c.lyricLine, (callback) {
       if(c.lyricLine==0 && lyricScroll.hasClients){
         lyricScroll.animateTo(
           0,
@@ -63,27 +71,21 @@ class _lyricContentState extends State<lyricContent> {
       }else{
         scrollLyric();
       }
-      
     });
-    
-    ever(c.menuType, (callback){
-      // print("changed: ${c.menuType.value}");
-      if(c.menuType.value=="lyric"){
-        if(c.lyricLine==0 && lyricScroll.hasClients){
-          lyricScroll.animateTo(
-            0,
-            duration: Duration(milliseconds: 300), 
-            curve: Curves.easeInOut
-          );
-        }else{
-          scrollLyric();
-        }
+
+    listenFront=ever(c.fronted, (callback){
+      if(c.fronted.value){
+        scrollLyric();
       }
     });
 
-    ever(c.fronted, (callback){
-      scrollLyric();
-    });
+  }
+
+  @override
+  void dispose() {
+    listenLine.dispose();
+    listenFront.dispose();
+    super.dispose();
   }
 
   @override
