@@ -4,9 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/components/lyricContent.dart';
 import 'package:netplayer_mobile/components/operations.dart';
-// import 'package:netplayer_mobile/components/operations.dart';
-// import 'package:netplayer_mobile/functions/requests.dart';
-// import 'package:netplayer_mobile/components/operations.dart';
 import 'package:netplayer_mobile/para/para.dart';
 
 class BottomArea extends StatefulWidget {
@@ -234,6 +231,13 @@ class _BottomAreaState extends State<BottomArea> {
                 ),
               )
             ),
+            Obx(() => 
+              AnimatedOpacity(
+                opacity: c.menuType.value=="more" ? 1 : 0,
+                duration: Duration(milliseconds: 200),
+                child: Text("?"),
+              )
+            )
           ],
         ),
       ],
