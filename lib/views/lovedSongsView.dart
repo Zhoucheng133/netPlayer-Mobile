@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:netplayer_mobile/components/listHeader.dart';
 import 'package:netplayer_mobile/components/operations.dart';
 import 'package:netplayer_mobile/functions/requests.dart';
 import 'package:netplayer_mobile/para/para.dart';
@@ -134,47 +135,7 @@ class _lovedSongsViewState extends State<lovedSongsView> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          width: MediaQuery.of(context).size.width,
-          height: 30,
-          color: Colors.white,
-          child: Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Obx(() => 
-                  GestureDetector(
-                    onTap: (){
-                      scrollToNowPlay();
-                    },
-                    child: Icon(
-                      Icons.my_location_rounded,
-                      color: c.pageAsycEn[c.pageIndex]==c.playInfo['name'] ? c.mainColor : Colors.grey[500],
-                      size: 22,
-                    ),
-                  ),
-                ),
-                SizedBox(width: 8,),
-                Obx(() => 
-                  Text(
-                    "合计${c.lovedSongs.value.length}首歌", 
-                    style: TextStyle(color: c.mainColor),
-                  ),
-                ),
-                SizedBox(width: 8,),
-                GestureDetector(
-                  onTap: (){
-                    reloadList(context);
-                  },
-                  child: Icon(
-                    Icons.refresh,
-                    color: c.mainColor,
-                  ),
-                )
-              ],
-            )
-          ),
-        ),
+        Obx(() => ListHeader(pageFrom: "喜欢的歌曲", locate: () => scrollToNowPlay(), refresh: () => reloadList(context), allowLocate: c.pageAsycEn[c.pageIndex]==c.playInfo['name'], cnt: c.lovedSongs.length,),),
         Expanded(
           child: CupertinoScrollbar(
             controller: myScrollController,

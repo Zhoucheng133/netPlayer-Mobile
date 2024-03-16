@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:netplayer_mobile/components/listHeader.dart';
 import 'package:netplayer_mobile/components/operations.dart';
 import 'package:netplayer_mobile/functions/requests.dart';
 import 'package:netplayer_mobile/para/para.dart';
@@ -126,34 +127,7 @@ class _songListsViewState extends State<songListsView> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          width: MediaQuery.of(context).size.width,
-          height: 30,
-          color: Colors.white,
-          child: Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Obx(() => 
-                  Text(
-                    "合计${c.playLists.length}个歌单", 
-                    style: TextStyle(color: c.mainColor),
-                  ),
-                ),
-                SizedBox(width: 8,),
-                GestureDetector(
-                  onTap: (){
-                    reloadList(context);
-                  },
-                  child: Icon(
-                    Icons.refresh,
-                    color: c.mainColor,
-                  ),
-                )
-              ],
-            )
-          ),
-        ),
+        Obx(() => ListHeader(pageFrom: "歌单列表", locate: () => {}, refresh: () => reloadList(context), allowLocate: c.pageAsycEn[c.pageIndex]==c.playInfo['name'], cnt: c.playLists.length,),),
         Expanded(
           child: CupertinoScrollbar(
             controller: myScrollController,

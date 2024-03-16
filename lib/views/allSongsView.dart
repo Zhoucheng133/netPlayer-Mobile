@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:netplayer_mobile/components/listHeader.dart';
 import 'package:netplayer_mobile/components/operations.dart';
 import 'package:netplayer_mobile/functions/requests.dart';
 import 'package:netplayer_mobile/para/para.dart';
@@ -273,72 +274,7 @@ class _allSongsViewState extends State<allSongsView> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          width: MediaQuery.of(context).size.width,
-          height: 30,
-          color: Colors.white,
-          child: Obx(() => 
-            Stack(
-              children: [
-                Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Obx(() => 
-                        GestureDetector(
-                          onTap: (){
-                            scrollToNowPlay();
-                          },
-                          child: Icon(
-                            Icons.my_location_rounded,
-                            color: c.pageAsycEn[c.pageIndex]==c.playInfo['name'] ? c.mainColor : Colors.grey[500],
-                            size: 22,
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 8,),
-                      Text(
-                        c.allSongs.length >= 500 ? "合计≥500首歌曲" : "合计${c.allSongs.length}首歌", 
-                        style: TextStyle(color: c.mainColor),
-                      ),
-                      SizedBox(width: 8,),
-                      GestureDetector(
-                        onTap: (){
-                          reloadList(context);
-                        },
-                        child: Icon(
-                          Icons.refresh,
-                          color: c.mainColor,
-                          size: 22,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                c.allSongs.length >=500 ?
-                Center(
-                  child: Row(
-                    children: [
-                      Expanded(child: Container()),
-                      GestureDetector(
-                        onTap: (){
-                          overCountDialog(context);
-                        },
-                        child: Icon(
-                          Icons.warning,
-                          color: c.mainColor,
-                          size: 20,
-                        ),
-                      ),
-                      SizedBox(width: 20,)
-                    ],
-                  ),
-                ) : Container()
-              ],
-            ),
-          )
-        ),
+        Obx(() => ListHeader(pageFrom: "所有歌曲", locate: () => scrollToNowPlay(), refresh: () => reloadList(context), allowLocate: c.pageAsycEn[c.pageIndex]==c.playInfo['name'], cnt: c.allSongs.length,),),
         Expanded(
           child: CupertinoScrollbar(
             controller: myScrollController,
