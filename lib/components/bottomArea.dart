@@ -61,7 +61,7 @@ class _BottomAreaState extends State<BottomArea> {
       case 'search':
         return "搜索";
       default:
-        return "";
+        return "随机播放";
     }
   }
   
