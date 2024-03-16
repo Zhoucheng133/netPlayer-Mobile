@@ -59,26 +59,29 @@ class _playingBarState extends State<playingBar> {
             SizedBox(width: 10,),
             Hero(
               tag: "cover",
-              child: Container(
-                color: Colors.white,
-                width: 50,
-                height: 50,
-                child: Obx(() => 
-                  c.playInfo["id"]==null ?
-                  Image.asset(
-                    "assets/blank.jpg",
-                    fit: BoxFit.contain,
-                  )
-                  : 
-                  Image.network(
-                    "${c.userInfo["url"]}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${c.userInfo["username"]}&t=${c.userInfo["token"]}&s=${c.userInfo["salt"]}&id=${c.playInfo["id"]}",
-                    fit: BoxFit.contain,
-                    errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                      return Image.asset(
-                        "assets/blank.jpg",
-                        fit: BoxFit.contain,
-                      );
-                    },
+              child: ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+                child: Container(
+                  color: Colors.white,
+                  width: 50,
+                  height: 50,
+                  child: Obx(() => 
+                    c.playInfo["id"]==null ?
+                    Image.asset(
+                      "assets/blank.jpg",
+                      fit: BoxFit.contain,
+                    )
+                    : 
+                    Image.network(
+                      "${c.userInfo["url"]}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${c.userInfo["username"]}&t=${c.userInfo["token"]}&s=${c.userInfo["salt"]}&id=${c.playInfo["id"]}",
+                      fit: BoxFit.contain,
+                      errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                        return Image.asset(
+                          "assets/blank.jpg",
+                          fit: BoxFit.contain,
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
