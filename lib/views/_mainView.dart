@@ -179,7 +179,7 @@ class _mainViewState extends State<mainView> {
                     ),
                   ),
                 ),
-                SizedBox(width: 5,)
+                SizedBox(width: 15,)
               ],
             ) :
             Container()
