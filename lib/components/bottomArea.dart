@@ -1,6 +1,8 @@
 // ignore_for_file: file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables, invalid_use_of_protected_member
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/components/lyricContent.dart';
 import 'package:netplayer_mobile/components/operations.dart';
@@ -35,7 +37,7 @@ class _BottomAreaState extends State<BottomArea> {
         c.updateMenuType("");
         break;
       case "more":
-        widget.changeSize(200.0);
+        widget.changeSize(400.0);
         break;
     }
   }
@@ -235,7 +237,69 @@ class _BottomAreaState extends State<BottomArea> {
               AnimatedOpacity(
                 opacity: c.menuType.value=="more" ? 1 : 0,
                 duration: Duration(milliseconds: 200),
-                child: Text("?"),
+                child: Padding(
+                  padding: EdgeInsets.only(left: 20, right: 20),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            child: SizedBox(
+                              width: 100,
+                              height: 100,
+                              child: Image.network(
+                                "${c.userInfo["url"]}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${c.userInfo["username"]}&t=${c.userInfo["token"]}&s=${c.userInfo["salt"]}&id=${c.playInfo["id"]}",
+                                fit: BoxFit.contain,
+                                errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                                  return Image.asset(
+                                    "assets/blank.jpg",
+                                    fit: BoxFit.contain,
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 15,),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Obx(() => 
+                                  Text(
+                                    c.playInfo["title"],
+                                    maxLines: 2,
+                                    style: TextStyle(
+                                      decoration: TextDecoration.none,
+                                      color: Colors.black,
+                                      overflow: TextOverflow.ellipsis,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: "Noto",
+                                    ),
+                                  )
+                                ),
+                                Obx(() => 
+                                  Text(
+                                    c.playInfo["artist"],
+                                    maxLines: 1,
+                                    style: TextStyle(
+                                      fontSize: 17,
+                                      decoration: TextDecoration.none,
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.normal,
+                                      fontFamily: "Noto",
+                                    ),
+                                  )
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ),
               )
             )
           ],
