@@ -87,16 +87,21 @@ class _BottomAreaState extends State<BottomArea> {
             Center(
               child: SizedBox(
                 height: 60,
-                width: 220,
+                width: 250,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
                       onTap: () => changeContent("lyric"),
-                      child: Obx(() => 
-                        Icon(
-                          Icons.lyrics,
-                          color: c.playInfo.value.isEmpty ? Colors.grey : c.menuType.value=="lyric" ? c.mainColor : Colors.black,
+                      child: Container(
+                        height: 40,
+                        width: 40,
+                        color: Colors.white,
+                        child: Obx(() => 
+                          Icon(
+                            Icons.lyrics,
+                            color: c.playInfo.value.isEmpty ? Colors.grey : c.menuType.value=="lyric" ? c.mainColor : Colors.black,
+                          ),
                         ),
                       )
                     ),
@@ -106,41 +111,56 @@ class _BottomAreaState extends State<BottomArea> {
                           changeContent("playMode");
                         }
                       },
-                      child: Obx(() => 
-                        c.fullRandom.value ? Icon(
-                          Icons.shuffle_rounded,
-                          color: Colors.grey,
-                        ) : 
-                        c.playMode.value=="随机播放" ? Icon(
-                          Icons.shuffle_rounded,
-                          color: c.menuType.value=="playMode" ? c.mainColor : Colors.black,
-                        ) : 
-                        c.playMode.value=="顺序播放" ? Icon(
-                          Icons.repeat_rounded,
-                          color: c.menuType.value=="playMode" ? c.mainColor : Colors.black,
-                        ) :
-                        Icon(
-                          Icons.repeat_one_rounded,
-                          color: c.menuType.value=="playMode" ? c.mainColor : Colors.black,
+                      child: Container(
+                        height: 40,
+                        width: 40,
+                        color: Colors.white,
+                        child: Obx(() => 
+                          c.fullRandom.value ? Icon(
+                            Icons.shuffle_rounded,
+                            color: Colors.grey,
+                          ) : 
+                          c.playMode.value=="随机播放" ? Icon(
+                            Icons.shuffle_rounded,
+                            color: c.menuType.value=="playMode" ? c.mainColor : Colors.black,
+                          ) : 
+                          c.playMode.value=="顺序播放" ? Icon(
+                            Icons.repeat_rounded,
+                            color: c.menuType.value=="playMode" ? c.mainColor : Colors.black,
+                          ) :
+                          Icon(
+                            Icons.repeat_one_rounded,
+                            color: c.menuType.value=="playMode" ? c.mainColor : Colors.black,
+                          ),
                         ),
                       ),
                     ),
                     GestureDetector(
                       onTap: () => changeContent("add"),
                       child: Obx(() => 
-                        Icon(
-                          Icons.add_rounded,
-                          color: c.playInfo.value.isEmpty ? Colors.grey : c.menuType.value=="add" ? c.mainColor : Colors.black,
+                        Container(
+                          height: 40,
+                          width: 40,
+                          color: Colors.white,
+                          child: Icon(
+                            Icons.add_rounded,
+                            color: c.playInfo.value.isEmpty ? Colors.grey : c.menuType.value=="add" ? c.mainColor : Colors.black,
+                          ),
                         )
                       )
                     ),
                     GestureDetector(
                       onTap: () => changeContent("more"),
-                      child: Obx(() => 
-                        Icon(
-                          Icons.more_horiz_rounded,
-                          color: c.playInfo.value.isEmpty ? Colors.grey : c.menuType.value=="more" ? c.mainColor : Colors.black,
-                        )
+                      child: Container(
+                        height: 40,
+                        width: 40,
+                        color: Colors.white,
+                        child: Obx(() => 
+                          Icon(
+                            Icons.more_horiz_rounded,
+                            color: c.playInfo.value.isEmpty ? Colors.grey : c.menuType.value=="more" ? c.mainColor : Colors.black,
+                          )
+                        ),
                       )
                     ),
                   ],
