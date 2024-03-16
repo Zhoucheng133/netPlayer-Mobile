@@ -270,7 +270,7 @@ class _playingViewState extends State<playingView> {
                             ],
                           ),
                         ),
-                        SizedBox(height: 20,),
+                        SizedBox(height: 10,),
                         // 进度条
                         Padding(
                           padding: const EdgeInsets.only(left: 30, right: 30),
