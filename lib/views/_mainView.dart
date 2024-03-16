@@ -87,11 +87,11 @@ class _mainViewState extends State<mainView> {
         title: Obx(() => Text(appBarText())),
         backgroundColor: Colors.white,
         scrolledUnderElevation:0.0,
-        foregroundColor: c.mainColor,
+        foregroundColor: Colors.black,
         centerTitle: true,
         titleTextStyle: TextStyle(
           fontSize: 20,
-          color: c.mainColor
+          color: Colors.black
         ),
         actions: [
           Obx(() => 
@@ -173,7 +173,7 @@ class _mainViewState extends State<mainView> {
                         Icon(
                           Icons.shuffle,
                           size: 23,
-                          color: c.fullRandom==true ? Colors.white : c.mainColor,
+                          color: c.fullRandom==true ? Colors.white : Colors.black,
                         )
                       )
                     ),
