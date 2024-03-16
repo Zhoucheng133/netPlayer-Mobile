@@ -23,22 +23,47 @@ class _BottomAreaState extends State<BottomArea> {
   final Controller c = Get.put(Controller());
 
   void changeContent(String type){
-    c.updateMenuType(type);
     switch (type) {
       case "lyric":
-        widget.changeSize(500.0);
+        if(c.playInfo.value.isNotEmpty){
+          widget.changeSize(500.0);
+          c.updateMenuType(type);
+        }
         break;
       case "playMode":
         widget.changeSize(260.0);
+        c.updateMenuType(type);
         break;
       case "add":
-        songAddListController(c.playInfo["id"], context, pop: false);
-        widget.changeSize(100.0);
-        c.updateMenuType("");
+        if(c.playInfo.value.isNotEmpty){
+          songAddListController(c.playInfo["id"], context, pop: false);
+          widget.changeSize(100.0);
+          c.updateMenuType("");
+        }
         break;
       case "more":
-        widget.changeSize(400.0);
+        if(c.playInfo.value.isNotEmpty){
+          widget.changeSize(350.0);
+          c.updateMenuType(type);
+        }
         break;
+    }
+  }
+
+  String getPlayFrom(){
+    switch (c.playInfo["name"]) {
+      case 'allSongs':
+        return "所有歌曲";
+      case 'lovedSongs':
+        return "喜欢的歌曲";
+      case 'songList':
+        return "歌单";
+      case 'album':
+        return "专辑";
+      case 'search':
+        return "搜索";
+      default:
+        return "";
     }
   }
   
@@ -73,7 +98,7 @@ class _BottomAreaState extends State<BottomArea> {
                       child: Obx(() => 
                         Icon(
                           Icons.lyrics,
-                          color: c.menuType.value=="lyric" ? c.mainColor : Colors.black,
+                          color: c.playInfo.value.isEmpty ? Colors.grey : c.menuType.value=="lyric" ? c.mainColor : Colors.black,
                         ),
                       )
                     ),
@@ -107,7 +132,7 @@ class _BottomAreaState extends State<BottomArea> {
                       child: Obx(() => 
                         Icon(
                           Icons.add_rounded,
-                          color: c.menuType.value=="add" ? c.mainColor : Colors.black,
+                          color: c.playInfo.value.isEmpty ? Colors.grey : c.menuType.value=="add" ? c.mainColor : Colors.black,
                         )
                       )
                     ),
@@ -116,7 +141,7 @@ class _BottomAreaState extends State<BottomArea> {
                       child: Obx(() => 
                         Icon(
                           Icons.more_horiz_rounded,
-                          color: c.menuType.value=="more" ? c.mainColor : Colors.black,
+                          color: c.playInfo.value.isEmpty ? Colors.grey : c.menuType.value=="more" ? c.mainColor : Colors.black,
                         )
                       )
                     ),
@@ -240,6 +265,7 @@ class _BottomAreaState extends State<BottomArea> {
                 child: Padding(
                   padding: EdgeInsets.only(left: 20, right: 20),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
@@ -248,16 +274,23 @@ class _BottomAreaState extends State<BottomArea> {
                             child: SizedBox(
                               width: 100,
                               height: 100,
-                              child: Image.network(
-                                "${c.userInfo["url"]}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${c.userInfo["username"]}&t=${c.userInfo["token"]}&s=${c.userInfo["salt"]}&id=${c.playInfo["id"]}",
-                                fit: BoxFit.contain,
-                                errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                                  return Image.asset(
-                                    "assets/blank.jpg",
-                                    fit: BoxFit.contain,
-                                  );
-                                },
-                              ),
+                              child: Obx(() => 
+                                c.playInfo["id"]==null ?
+                                Image.asset(
+                                  "assets/blank.jpg",
+                                  fit: BoxFit.contain,
+                                ) : 
+                                Image.network(
+                                  "${c.userInfo["url"]}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${c.userInfo["username"]}&t=${c.userInfo["token"]}&s=${c.userInfo["salt"]}&id=${c.playInfo["id"]}",
+                                  fit: BoxFit.contain,
+                                  errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                                    return Image.asset(
+                                      "assets/blank.jpg",
+                                      fit: BoxFit.contain,
+                                    );
+                                  },
+                                )
+                              )
                             ),
                           ),
                           SizedBox(width: 15,),
@@ -267,7 +300,7 @@ class _BottomAreaState extends State<BottomArea> {
                               children: [
                                 Obx(() => 
                                   Text(
-                                    c.playInfo["title"],
+                                    c.playInfo["title"] ?? "",
                                     maxLines: 2,
                                     style: TextStyle(
                                       decoration: TextDecoration.none,
@@ -281,7 +314,7 @@ class _BottomAreaState extends State<BottomArea> {
                                 ),
                                 Obx(() => 
                                   Text(
-                                    c.playInfo["artist"],
+                                    c.playInfo["artist"] ?? "",
                                     maxLines: 1,
                                     style: TextStyle(
                                       fontSize: 17,
@@ -294,6 +327,80 @@ class _BottomAreaState extends State<BottomArea> {
                                 )
                               ],
                             ),
+                          )
+                        ],
+                      ),
+                      SizedBox(height: 10,),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: 100,
+                            child: Text(
+                              "专辑",
+                              style: TextStyle(
+                                decoration: TextDecoration.none,
+                                color: Colors.black,
+                                overflow: TextOverflow.ellipsis,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "Noto",
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Obx(() => 
+                              Text(
+                                "《${c.playInfo["album"] ?? ""}》",
+                                maxLines: 2,
+                                textAlign: TextAlign.end,
+                                style: TextStyle(
+                                  decoration: TextDecoration.none,
+                                  color: Colors.black,
+                                  overflow: TextOverflow.ellipsis,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.normal,
+                                  fontFamily: "Noto",
+                                ),
+                              ),
+                            )
+                          )
+                        ],
+                      ),
+                      SizedBox(height: 10,),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: 100,
+                            child: Text(
+                              "播放来自",
+                              style: TextStyle(
+                                decoration: TextDecoration.none,
+                                color: Colors.black,
+                                overflow: TextOverflow.ellipsis,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "Noto",
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Obx(() => 
+                              Text(
+                                getPlayFrom(),
+                                maxLines: 2,
+                                textAlign: TextAlign.end,
+                                style: TextStyle(
+                                  decoration: TextDecoration.none,
+                                  color: Colors.black,
+                                  overflow: TextOverflow.ellipsis,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.normal,
+                                  fontFamily: "Noto",
+                                ),
+                              ),
+                            )
                           )
                         ],
                       )
