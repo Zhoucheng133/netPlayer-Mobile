@@ -92,35 +92,38 @@ class _lyricContentState extends State<lyricContent> {
       AnimatedOpacity(
         opacity: c.menuType.value=="lyric" ? 1 : 0,
         duration: Duration(milliseconds: 200),
-        child: ListView.builder(
-          itemCount: c.lyric.length,
-          controller: lyricScroll,
-          itemBuilder: (BuildContext context, int index){
-            return Column(
-              children: [
-                index==0 ? SizedBox(height: 100,) : Container(),
-                Obx(() => 
-                  AutoScrollTag(
-                    key: ValueKey(index), 
-                    controller: lyricScroll, 
-                    index: index,
-                    child: Text(
-                      c.lyric[index]['content'],
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 18,
-                        height: 2.3,
-                        color: playedLyric(index) ? c.mainColor:Colors.grey,
-                        fontWeight: playedLyric(index) ? FontWeight.bold: FontWeight.normal,
-                        decoration: TextDecoration.none,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 25, right: 25),
+          child: ListView.builder(
+            itemCount: c.lyric.length,
+            controller: lyricScroll,
+            itemBuilder: (BuildContext context, int index){
+              return Column(
+                children: [
+                  index==0 ? SizedBox(height: 100,) : Container(),
+                  Obx(() => 
+                    AutoScrollTag(
+                      key: ValueKey(index), 
+                      controller: lyricScroll, 
+                      index: index,
+                      child: Text(
+                        c.lyric[index]['content'],
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 18,
+                          height: 2.3,
+                          color: playedLyric(index) ? c.mainColor:Colors.grey,
+                          fontWeight: playedLyric(index) ? FontWeight.bold: FontWeight.normal,
+                          decoration: TextDecoration.none,
+                        ),
                       ),
-                    ),
-                  )
-                ),
-                index==c.lyric.length-1 ? SizedBox(height: 100,) : Container(),
-              ],
-            );
-          }
+                    )
+                  ),
+                  index==c.lyric.length-1 ? SizedBox(height: 100,) : Container(),
+                ],
+              );
+            }
+          ),
         ),
       )
     );
