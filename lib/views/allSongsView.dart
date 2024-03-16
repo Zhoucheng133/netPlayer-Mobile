@@ -147,9 +147,6 @@ class _allSongsViewState extends State<allSongsView> {
       // 这个回调会在Widget构建完毕后被触发
       getList();
     });
-    if(c.playInfo["name"]=="allSongs"){
-      reloadHandler();
-    }
   }
 
   Future<void> reloadHandler() async {
