@@ -32,6 +32,11 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+  fonts:
+    - family: "Noto"
+      fonts:
+        - asset: assets/fonts/NotoSansSC-Bold.ttf
+        - asset: assets/fonts/NotoSansSC-Regular.ttf
 
 flutter_native_splash:
   web: false

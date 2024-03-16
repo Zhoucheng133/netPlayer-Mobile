@@ -129,6 +129,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
         Locale('zh', 'CN'), // 中文简体
       ],
       theme: ThemeData(
+        fontFamily: "Noto",
         highlightColor: Colors.transparent,
         splashColor: Colors.transparent,
         useMaterial3: true,
