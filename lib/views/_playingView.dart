@@ -108,8 +108,6 @@ class _playingViewState extends State<playingView> {
     }
   }
 
-  var isCalled=false;
-
   // var showBottom=false;
 
   var positionBottomSize=-500.0;
@@ -142,26 +140,7 @@ class _playingViewState extends State<playingView> {
             child: GestureDetector(
               onVerticalDragUpdate: (details) async {
                 if(details.delta.dy>10){
-                  // TODO 下面的代码需要重新编写
-                  if(isCalled){
-                    return;
-                  }
-                  if(!c.showLyric.value){
-                    Navigator.pop(context);
-                    setState(() {
-                      isCalled=true;
-                    });
-                  }else{
-                    c.updateShowLyric(false);
-                    Future.delayed(Duration(milliseconds: 300), (){
-                      if (mounted) {
-                        Navigator.pop(context);
-                      }
-                    });
-                    setState(() {
-                      isCalled=true;
-                    });
-                  }
+                  Navigator.pop(context);
                 }
               },
               child: Stack(
