@@ -98,7 +98,7 @@ class _lyricContentState extends State<lyricContent> {
           itemBuilder: (BuildContext context, int index){
             return Column(
               children: [
-                index==0 ? SizedBox(height: widget.height/2-18*2.3,) : Container(),
+                index==0 ? SizedBox(height: 100,) : Container(),
                 Obx(() => 
                   AutoScrollTag(
                     key: ValueKey(index), 
@@ -117,7 +117,7 @@ class _lyricContentState extends State<lyricContent> {
                     ),
                   )
                 ),
-                index==c.lyric.length-1 ? SizedBox(height: widget.height/2,) : Container(),
+                index==c.lyric.length-1 ? SizedBox(height: 100,) : Container(),
               ],
             );
           }
