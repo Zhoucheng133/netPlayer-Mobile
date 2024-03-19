@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   audio_service: ^0.18.12
+  audio_session: ^0.1.18
   crypto: ^3.0.3
   flutter:
     sdk: flutter
