@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:audio_service/audio_service.dart';
+import 'package:audio_session/audio_session.dart';
 // import 'package:audioplayers/audioplayers.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:get/get.dart';
@@ -22,7 +23,43 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
 
   bool fromPause=false;
 
+  Future<void> initSession() async {
+    final session = await AudioSession.instance;
+    await session.configure(AudioSessionConfiguration.music());
+    // print("configured: ${session.isConfigured}");
+    session.interruptionEventStream.listen((event) {
+      // print("event begin: ${event.begin}");
+      // print("event type: ${event.type}");
+      if (event.begin) {
+        switch (event.type) {
+          case AudioInterruptionType.duck:
+            player.setVolume(0.5);
+            // print("Duck!");
+            break;
+          case AudioInterruptionType.pause:
+          case AudioInterruptionType.unknown:
+            // print("pause Request");
+            pause();
+            break;
+        }
+      } else {
+        switch (event.type) {
+          case AudioInterruptionType.duck:
+            // The interruption ended and we should unduck.
+            player.setVolume(1);
+            break;
+          case AudioInterruptionType.pause:
+            play();
+          case AudioInterruptionType.unknown:
+            break;
+        }
+      }
+    });
+  }
+
   MyAudioHandler(){
+    initSession();
+
     player.positionStream.listen((position) {
       c.updateNowDuration(position.inSeconds);
       c.updateNowDurationInMc(position.inMilliseconds);
@@ -102,6 +139,8 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
   Future<void> pause() async {
     player.pause();
     c.updateIsPlay(false);
+    // print("pause!");
+    // print("isPlay: ${c.isPlay.value}");
     playbackState.add(playbackState.value.copyWith(
       playing: true,
       controls: [
