@@ -46,7 +46,7 @@ class _lyricContentState extends State<lyricContent> {
   }
 
   void scrollLyric(){
-    print("scroll!");
+    // print("scroll!");
     if(c.fronted.value && c.menuType.value=="lyric" && c.lyricLine.value!=0){
       lyricScroll.scrollToIndex(c.lyricLine.value-1, preferPosition: AutoScrollPosition.middle);
     }
