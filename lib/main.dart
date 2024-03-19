@@ -97,12 +97,17 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
     });
   }
 
-  Future<void> setFullRandom() async {
+  Future<void> setPlayMode() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final bool? isFullRandom = prefs.getBool('isFullRandom');
     if(isFullRandom==true){
       c.updateFullRandom(true);
       c.updatePlayMode("随机播放");
+    }
+    // 获取上一次播放模式
+    final String? playMode=prefs.getString("playMode");
+    if(playMode!=null){
+      c.updatePlayMode(playMode);
     }
   }
   
@@ -111,10 +116,9 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
 
-    super.initState();
     // 检查登录
     checkLogin();
-    setFullRandom();
+    setPlayMode();
   }
   @override
   Widget build(BuildContext context) {

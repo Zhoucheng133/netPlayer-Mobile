@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:netplayer_mobile/functions/requests.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Controller extends GetxController{
   // 是否已经登录了
@@ -166,7 +167,11 @@ class Controller extends GetxController{
   void updatesearchRlt(data) => searchRlt.value=data;
   void updatePageIndex(data) => pageIndex.value=data;
   void updateLovedSongs(data) => lovedSongs.value=data;
-  void updatePlayMode(data) => playMode.value=data;
+  Future<void> updatePlayMode(data) async {
+    playMode.value=data;
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("playMode", data);
+  }
   void updatePlayLists(data) => playLists.value=data;
   void updateSearchKey(data) => searchKey.value=data;
   void updateNowDuration(data) => nowDuration.value=data;
