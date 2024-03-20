@@ -69,7 +69,6 @@ class _allSongsViewState extends State<allSongsView> {
             builder: (BuildContext context) {
               return CupertinoAlertDialog(
                 title: Text("请求超时/错误，是否重试？"),
-                content: Text("请求时间超过3秒"),
                 actions: <Widget>[
                   CupertinoDialogAction(
                     child: Text('退出登录'),
@@ -95,7 +94,6 @@ class _allSongsViewState extends State<allSongsView> {
             builder: (BuildContext context) {
               return AlertDialog(
                 title: Text("请求超时/错误，是否重试？"),
-                content: Text("请求时间超过3秒"),
                 actions: <Widget>[
                   TextButton(
                     child: Text('退出登录'),
