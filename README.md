@@ -30,8 +30,6 @@
 
 ## 在你的设备上配置netPlayer Mobile
 
-由于本项目没有区分`正在开发的版本`和`发布的版本`，如果你需要获取可以正确执行的代码，**不要直接下载最新的代码! 请在Tag中选择最新的版本下载（或者在Release中下载Source code）**
-
 ### 环境配置
 
 - 如果你需要在Android设备上运行或者调试，需要安装Android Studio和Gradle
