@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/para/para.dart';
 import 'package:netplayer_mobile/views/aboutView.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -272,7 +273,7 @@ class _settingsViewState extends State<settingsView> {
   
   @override
   Widget build(BuildContext context) {
-    return CupertinoScrollbar(
+    return !kIsWeb ? CupertinoScrollbar(
       controller: myScrollController,
       child: ListView(
         controller: myScrollController,
@@ -342,6 +343,8 @@ class _settingsViewState extends State<settingsView> {
           )
         ],
       )
+    ) : Center(
+      child: Text("设置在Web端不适用"),
     );
   }
 }
