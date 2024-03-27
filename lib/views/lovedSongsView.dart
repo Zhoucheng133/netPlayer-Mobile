@@ -135,7 +135,7 @@ class _lovedSongsViewState extends State<lovedSongsView> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Obx(() => ListHeader(pageFrom: "喜欢的歌曲", locate: () => scrollToNowPlay(), refresh: () => reloadList(context), allowLocate: c.pageAsycEn[c.pageIndex]==c.playInfo['name'], cnt: c.lovedSongs.length,),),
+        Obx(() => ListHeader(pageFrom: "喜欢的歌曲", locate: () => scrollToNowPlay(), refresh: () => reloadList(context), allowLocate: c.playInfo['name']=='lovedSongs', cnt: c.lovedSongs.length,),),
         Expanded(
           child: CupertinoScrollbar(
             controller: myScrollController,

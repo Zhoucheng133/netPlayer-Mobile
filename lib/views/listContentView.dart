@@ -187,7 +187,7 @@ class _listContentViewState extends State<listContentView> {
         children: [
           Column(
             children: [
-              Obx(() => ListHeader(pageFrom: "歌单", locate: () => scrollToNowPlay(), refresh: () => reloadList(context), allowLocate: c.pageAsycEn[c.pageIndex]==c.playInfo['name'], cnt: songList.length,),),
+              Obx(() => ListHeader(pageFrom: "歌单", locate: () => scrollToNowPlay(), refresh: () => reloadList(context), allowLocate: c.playInfo['name']=='songList', cnt: songList.length,),),
               Expanded(
                 child: CupertinoScrollbar(
                   controller: myScrollController,

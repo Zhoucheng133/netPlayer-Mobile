@@ -269,7 +269,7 @@ class _allSongsViewState extends State<allSongsView> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Obx(() => ListHeader(pageFrom: "所有歌曲", locate: () => scrollToNowPlay(), refresh: () => reloadList(context), allowLocate: c.pageAsycEn[c.pageIndex]==c.playInfo['name'], cnt: c.allSongs.length,),),
+        Obx(() => ListHeader(pageFrom: "所有歌曲", locate: () => scrollToNowPlay(), refresh: () => reloadList(context), allowLocate:  c.playInfo['name']=='allSongs', cnt: c.allSongs.length,),),
         Expanded(
           child: CupertinoScrollbar(
             controller: myScrollController,

@@ -127,7 +127,7 @@ class _songListsViewState extends State<songListsView> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Obx(() => ListHeader(pageFrom: "歌单列表", locate: () => {}, refresh: () => reloadList(context), allowLocate: c.pageAsycEn[c.pageIndex]==c.playInfo['name'], cnt: c.playLists.length,),),
+        Obx(() => ListHeader(pageFrom: "歌单列表", locate: () => {}, refresh: () => reloadList(context), allowLocate: false, cnt: c.playLists.length,),),
         Expanded(
           child: CupertinoScrollbar(
             controller: myScrollController,
