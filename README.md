@@ -30,8 +30,6 @@
 
 ## 在你的设备上配置netPlayer Mobile
 
-由于本项目没有区分`正在开发的版本`和`发布的版本`，如果你需要获取可以正确执行的代码，**不要直接下载最新的代码! 请在Tag中选择最新的版本下载（或者在Release中下载Source code）**
-
 ### 环境配置
 
 - 如果你需要在Android设备上运行或者调试，需要安装Android Studio和Gradle
@@ -53,6 +51,10 @@
 <img src="./_assets/截图7.PNG" alt="netPlayer_Mobile_截图.jpg" width="200px" /><img src="./_assets/截图8.PNG" alt="netPlayer_Mobile_截图.jpg" width="200px" /><img src="./_assets/截图9.PNG" alt="netPlayer_Mobile_截图.jpg" width="200px" />
 
 ## 更新日志
+
+### 1.6.2 (iOS & Android) (2024/4/3)
+- 修复更新歌曲没有更新歌曲定位的问题
+- 修复提示错误
 
 ### 1.6.1 (iOS & Android) (2024/3/19)
 - 添加记住播放顺序的功能
