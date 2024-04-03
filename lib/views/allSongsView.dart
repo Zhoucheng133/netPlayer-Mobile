@@ -143,7 +143,7 @@ class _allSongsViewState extends State<allSongsView> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // 这个回调会在Widget构建完毕后被触发
-      getList();
+      reloadHandler();
     });
   }
 
