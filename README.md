@@ -53,6 +53,13 @@
 
 ## 更新日志
 
+### 1.6.3 (iOS & Android, 仅Android的更新) (2024/5/13)
+- 修复新版本Android系统无法使用http连接的问题
+- 添加一些用于开发的镜像地址
+
+<details>
+<summary>过往的版本</summary>
+
 ### 1.6.2 (iOS & Android) (2024/4/3)
 - 修复更新歌曲没有更新歌曲定位的问题
 - 修复提示错误
@@ -162,6 +169,8 @@
 
 ### v1.0.0 (iOS)
 - 第一个版本
+
+</details>
 
 ## Subsonic API
 
