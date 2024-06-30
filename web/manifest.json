@@ -1,11 +1,11 @@
 {
-    "name": "netPlayer Mobile",
-    "short_name": "netPlayer",
+    "name": "netplayer_mobile",
+    "short_name": "netplayer_mobile",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#ffffff",
-    "theme_color": "#ffffff",
-    "description": "netPlayer mobile version",
+    "background_color": "#0175C2",
+    "theme_color": "#0175C2",
+    "description": "A new Flutter project.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
