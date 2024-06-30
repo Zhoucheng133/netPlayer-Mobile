@@ -1,4 +1,5 @@
 {
   "editor.tabSize": 2,
-  "files.autoSave": "off"
+  "files.autoSave": "off",
+  "java.configuration.updateBuildConfiguration": "automatic"
 }
