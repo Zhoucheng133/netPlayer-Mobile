@@ -15,6 +15,8 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   flutter_native_splash: ^2.4.0
   google_fonts: ^6.2.1
+  shared_preferences: ^2.2.3
+  font_awesome_flutter: ^10.7.0
 
 dev_dependencies:
   flutter_test:
