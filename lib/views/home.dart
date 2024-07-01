@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:netplayer_mobile/funcs/operations_service.dart';
+import 'package:netplayer_mobile/funcs/operations.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
