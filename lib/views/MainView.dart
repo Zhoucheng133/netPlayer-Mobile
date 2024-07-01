@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:netplayer_mobile/funcs/LocalDialog.dart';
+import 'package:netplayer_mobile/funcs/Prefs.dart';
 
 class Mainview extends StatefulWidget {
   const Mainview({super.key});
@@ -15,6 +18,13 @@ class _MainviewState extends State<Mainview> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await Prefs().initPrefs(context);
+      await Localdialog().showLocalDialog(context, '测试标题', '测试内容');
+      setState(() {
+        loading=false;
+      });
+    });
   }
 
   @override
@@ -32,7 +42,12 @@ class _MainviewState extends State<Mainview> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text('加载中...')
+            LoadingAnimationWidget.beat(
+              color: Color.fromARGB(255, 0, 188, 212),
+              size: 30
+            ),
+            const SizedBox(height: 10,),
+            Text('加载中...',)
           ],
         )
       ),
