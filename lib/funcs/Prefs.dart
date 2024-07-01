@@ -4,7 +4,7 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/funcs/Operations.dart';
-import 'package:netplayer_mobile/variables/variables.dart';
+import 'package:netplayer_mobile/variables/Variables.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Prefs{
@@ -45,6 +45,7 @@ class Prefs{
         
       }
     }
+    // TODO 其他内容
     return;
   }
 }

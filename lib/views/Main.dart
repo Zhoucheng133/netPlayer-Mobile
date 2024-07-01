@@ -3,16 +3,18 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:netplayer_mobile/funcs/Prefs.dart';
-import 'package:netplayer_mobile/variables/variables.dart';
+import 'package:netplayer_mobile/variables/Variables.dart';
+import 'package:netplayer_mobile/views/Home.dart';
+import 'package:netplayer_mobile/views/Login.dart';
 
-class Mainview extends StatefulWidget {
-  const Mainview({super.key});
+class Main extends StatefulWidget {
+  const Main({super.key});
 
   @override
-  State<Mainview> createState() => _MainviewState();
+  State<Main> createState() => _MainState();
 }
 
-class _MainviewState extends State<Mainview> {
+class _MainState extends State<Main> {
 
   final Variables c = Get.put(Variables());
   bool loading=true;
@@ -25,7 +27,6 @@ class _MainviewState extends State<Mainview> {
       setState(() {
         loading=false;
       });
-      print(c.isLogin.value);
     });
   }
 
@@ -37,28 +38,23 @@ class _MainviewState extends State<Mainview> {
         systemNavigationBarColor: Colors.transparent,
       )
     );
-
-    return Scaffold(
-      body: loading ? Center(
+    return loading ? Scaffold(
+      body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             LoadingAnimationWidget.beat(
-              color: Color.fromARGB(255, 0, 188, 212),
+              color: c.color5,
               size: 30
             ),
             const SizedBox(height: 10,),
             Text('加载中...',)
           ],
-        )
-      ) : Obx(()=>
-        c.isLogin.value ? Center(
-          child: Text('主页'),
-        ):Center(
-          child: Text('登录'),
-        )
-      )
+        ),
+      ),
+    ) : Obx(()=>
+      c.isLogin.value ? Home() : Login()
     );
   }
 }

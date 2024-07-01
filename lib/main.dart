@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:netplayer_mobile/views/MainView.dart';
+import 'package:netplayer_mobile/views/Main.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,8 +19,8 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate
       ],
       supportedLocales: [
-        Locale('en', 'US'),
         Locale('zh', 'CN'),
+        Locale('en', 'US'),
       ],
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         textTheme: GoogleFonts.notoSansScTextTheme(),
         splashColor: Colors.transparent,
       ),
-      home: Mainview()
+      home: Main()
     );
   }
 }
