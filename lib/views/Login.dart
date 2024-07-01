@@ -1,3 +1,4 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/variables/Variables.dart';
@@ -24,8 +25,33 @@ class _LoginState extends State<Login> {
 
   bool tapLogin=false;
 
-  void loginController(BuildContext context){
-    // TODO 登录
+  Future<void> loginController(BuildContext context) async {
+    if(urlInput.text.isEmpty){
+      await showOkAlertDialog(
+        context: context,
+        title: '登录失败',
+        message: '没有填写服务器URL地址'
+      );
+      return;
+    }else if(usernameInput.text.isEmpty){
+      await showOkAlertDialog(
+        context: context,
+        title: '登录失败',
+        message: '没有填写用户名'
+      );
+    }else if(passwordInput.text.isEmpty){
+      await showOkAlertDialog(
+        context: context,
+        title: '登录失败',
+        message: '没有填写密码'
+      );
+    }else if(!urlInput.text.startsWith('http://') && !urlInput.text.startsWith('https://')){
+      await showOkAlertDialog(
+        context: context,
+        title: '登录失败',
+        message: 'URL地址不合法'
+      );
+    }
   }
 
   @override
@@ -97,6 +123,10 @@ class _LoginState extends State<Login> {
                               controller: urlInput,
                               decoration: InputDecoration(
                                 border: InputBorder.none,
+                                hintText: 'http(s)://',
+                                hintStyle: TextStyle(
+                                  color: Colors.grey[400],
+                                )
                               ),
                               autocorrect: false,
                               enableSuggestions: false,
