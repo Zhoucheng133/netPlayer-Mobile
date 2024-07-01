@@ -1,6 +1,7 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:netplayer_mobile/funcs/Operations.dart';
 import 'package:netplayer_mobile/variables/Variables.dart';
 
 class Login extends StatefulWidget {
@@ -39,17 +40,28 @@ class _LoginState extends State<Login> {
         title: '登录失败',
         message: '没有填写用户名'
       );
+      return;
     }else if(passwordInput.text.isEmpty){
       await showOkAlertDialog(
         context: context,
         title: '登录失败',
         message: '没有填写密码'
       );
+      return;
     }else if(!urlInput.text.startsWith('http://') && !urlInput.text.startsWith('https://')){
       await showOkAlertDialog(
         context: context,
         title: '登录失败',
         message: 'URL地址不合法'
+      );
+      return;
+    }
+    final rlt=await Operations().login(urlInput.text, usernameInput.text, password: passwordInput.text);
+    if(rlt['ok']==false){
+      await showOkAlertDialog(
+        context: context,
+        title: '登录失败',
+        message: rlt['data'],
       );
     }
   }

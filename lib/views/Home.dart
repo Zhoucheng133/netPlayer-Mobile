@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:netplayer_mobile/funcs/Operations.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -11,7 +12,14 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      body: Center(
+        child: TextButton(
+          onPressed: (){
+            Operations().logout();
+          }, 
+          child: Text('注销')
+        ),
+      ),
     );
   }
 }

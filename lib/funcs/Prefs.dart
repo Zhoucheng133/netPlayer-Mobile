@@ -32,12 +32,6 @@ class Prefs{
               title: '自动登录失败',
               message: rlt['data'],
             );
-          }else{
-            c.isLogin.value=true;
-            c.salt.value=salt;
-            c.username.value=username;
-            c.token.value=token;
-            c.url.value=url;
           }
           return;
         }

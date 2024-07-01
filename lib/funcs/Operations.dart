@@ -2,9 +2,15 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:crypto/crypto.dart';
+import 'package:get/get.dart';
 import 'package:netplayer_mobile/funcs/Requests.dart';
+import 'package:netplayer_mobile/variables/Variables.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Operations{
+
+  final Variables c = Get.put(Variables());
+
   String generateSalt() {
     const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     Random random = Random();
@@ -16,6 +22,14 @@ class Operations{
     }
 
     return result;
+  }
+
+  void logout(){
+    c.isLogin.value=false;
+    c.username.value='';
+    c.token.value='';
+    c.url.value='';
+    c.salt.value='';
   }
 
   Future<Map> login(String url, String username, {String? salt, String? token, String? password}) async {
@@ -32,18 +46,30 @@ class Operations{
         'data': '参数不正确'
       };
     }
-    final rlt=await requests.loginRequest(url, username, salt, token);
-    if(rlt.isEmpty){
+    var rlt=await requests.loginRequest(url, username, salt, token);
+    if(rlt.isEmpty || rlt['subsonic-response']==null){
       return {
         'ok': false,
         'data': '网络请求失败'
       };
-    }else if(rlt['status']=='failed'){
+    }else if(rlt['subsonic-response']['status']=='failed'){
       return {
         'ok': false,
         'data': '用户名或者密码有误',
       };
     }else{
+      c.isLogin.value=true;
+      c.salt.value=salt;
+      c.username.value=username;
+      c.token.value=token;
+      c.url.value=url;
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('userInfo', jsonEncode({
+        'username': username,
+        'url': url,
+        'salt': salt,
+        'token': token
+      }));
       return {
         'ok': true,
         'data': '',
