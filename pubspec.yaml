@@ -21,6 +21,7 @@ dependencies:
   get: ^4.6.6
   http: ^1.2.1
   crypto: ^3.0.3
+  adaptive_dialog: ^2.1.0
 
 dev_dependencies:
   flutter_test:
