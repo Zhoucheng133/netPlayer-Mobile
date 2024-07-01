@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:netplayer_mobile/funcs/LocalDialog.dart';
 import 'package:netplayer_mobile/funcs/Prefs.dart';
+import 'package:netplayer_mobile/variables/variables.dart';
 
 class Mainview extends StatefulWidget {
   const Mainview({super.key});
@@ -13,6 +14,7 @@ class Mainview extends StatefulWidget {
 
 class _MainviewState extends State<Mainview> {
 
+  final Variables c = Get.put(Variables());
   bool loading=true;
 
   @override
@@ -20,10 +22,10 @@ class _MainviewState extends State<Mainview> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await Prefs().initPrefs(context);
-      await Localdialog().showLocalDialog(context, '测试标题', '测试内容');
       setState(() {
         loading=false;
       });
+      print(c.isLogin.value);
     });
   }
 
@@ -37,7 +39,7 @@ class _MainviewState extends State<Mainview> {
     );
 
     return Scaffold(
-      body: Center(
+      body: loading ? Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -50,7 +52,13 @@ class _MainviewState extends State<Mainview> {
             Text('加载中...',)
           ],
         )
-      ),
+      ) : Obx(()=>
+        c.isLogin.value ? Center(
+          child: Text('主页'),
+        ):Center(
+          child: Text('登录'),
+        )
+      )
     );
   }
 }

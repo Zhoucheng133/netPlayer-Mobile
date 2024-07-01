@@ -1,11 +1,15 @@
 import 'dart:convert';
 
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:netplayer_mobile/funcs/LocalDialog.dart';
+import 'package:get/get.dart';
 import 'package:netplayer_mobile/funcs/Operations.dart';
+import 'package:netplayer_mobile/variables/variables.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Prefs{
+
+  final Variables c = Get.put(Variables());
   
   Future<void> initPrefs(BuildContext context) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -23,7 +27,17 @@ class Prefs{
         if(username!=null && salt!=null && token!=null && url!=null){
           Map rlt=await Operations().login(url, username, salt: salt, token: token);
           if(rlt['ok']==false){
-            Localdialog().showLocalDialog(context, '自动登录失败', rlt['data']);
+            await showOkAlertDialog(
+              context: context,
+              title: '自动登录失败',
+              message: rlt['data'],
+            );
+          }else{
+            c.isLogin.value=true;
+            c.salt.value=salt;
+            c.username.value=username;
+            c.token.value=token;
+            c.url.value=url;
           }
           return;
         }
