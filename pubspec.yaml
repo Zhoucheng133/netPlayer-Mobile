@@ -17,6 +17,10 @@ dependencies:
   google_fonts: ^6.2.1
   shared_preferences: ^2.2.3
   font_awesome_flutter: ^10.7.0
+  loading_animation_widget: ^1.2.1
+  get: ^4.6.6
+  http: ^1.2.1
+  crypto: ^3.0.3
 
 dev_dependencies:
   flutter_test:
