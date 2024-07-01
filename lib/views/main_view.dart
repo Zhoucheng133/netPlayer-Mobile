@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:netplayer_mobile/funcs/Prefs.dart';
-import 'package:netplayer_mobile/variables/Variables.dart';
-import 'package:netplayer_mobile/views/Home.dart';
-import 'package:netplayer_mobile/views/Login.dart';
+import 'package:netplayer_mobile/funcs/prefs.dart';
+import 'package:netplayer_mobile/variables/variables.dart';
+import 'package:netplayer_mobile/views/home.dart';
+import 'package:netplayer_mobile/views/login.dart';
 
 class Main extends StatefulWidget {
   const Main({super.key});
