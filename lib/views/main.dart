@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:netplayer_mobile/funcs/prefs.dart';
-import 'package:netplayer_mobile/variables/variable.dart';
+import 'package:netplayer_mobile/variables/variables.dart';
 import 'package:netplayer_mobile/views/home.dart';
 import 'package:netplayer_mobile/views/login.dart';
 

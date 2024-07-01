@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:crypto/crypto.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/funcs/requests.dart';
-import 'package:netplayer_mobile/variables/variable.dart';
+import 'package:netplayer_mobile/variables/variables.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Operations{

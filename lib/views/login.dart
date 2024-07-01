@@ -2,7 +2,7 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/funcs/operations.dart';
-import 'package:netplayer_mobile/variables/variable.dart';
+import 'package:netplayer_mobile/variables/variables.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
