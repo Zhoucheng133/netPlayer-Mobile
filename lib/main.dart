@@ -55,9 +55,6 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
       // 应用进入后台
       c.updateFronted(false);
     }
-    if (state == AppLifecycleState.detached) {
-      _audioHandler.pause();
-    }
   }
 
   @override
