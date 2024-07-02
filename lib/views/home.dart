@@ -46,7 +46,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(top: 20, left: 15, right: 15, bottom: 0),
+          padding: const EdgeInsets.only(top: 20, bottom: 0),
           child: Column(
             children: [
               Titlebar(),
@@ -68,9 +68,15 @@ class _HomeState extends State<Home> {
                   },
                   itemBuilder: (BuildContext context, int index){
                     if(index==0){
-                      return HomePage();
+                      return Padding(
+                        padding: const EdgeInsets.only(left: 15, right: 15),
+                        child: HomePage(),
+                      );
                     }
-                    return PlayPage();
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 15, right: 15),
+                      child: PlayPage(),
+                    );
                   },
                 )
               )

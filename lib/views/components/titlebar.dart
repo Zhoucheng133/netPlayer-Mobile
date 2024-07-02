@@ -18,74 +18,77 @@ class _TitlebarState extends State<Titlebar> {
   
   @override
   Widget build(BuildContext context) {
-    return Obx(()=>
-      Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  c.playPage.value ? '正在播放' : '主页',
-                  style: GoogleFonts.notoSansSc(
-                    fontSize: 25,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                    decoration: TextDecoration.none
+    return Padding(
+      padding: const EdgeInsets.only(left: 15, right: 15),
+      child: Obx(()=>
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    c.playPage.value ? '正在播放' : '主页',
+                    style: GoogleFonts.notoSansSc(
+                      fontSize: 35,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
+                      decoration: TextDecoration.none
+                    ),
+                  ),
+                  const SizedBox(height: 5,),
+                  Row(
+                    children: [
+                      const SizedBox(width: 2,),
+                      AnimatedContainer(
+                        duration: const Duration(milliseconds: 200),
+                        width: c.playPage.value ? 6 : 20,
+                        height: 6,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(3),
+                          color: c.playPage.value ? Colors.grey[400] : Colors.black,
+                        ),
+                      ),
+                      const SizedBox(width: 5,),
+                      AnimatedContainer(
+                        duration: const Duration(milliseconds: 200),
+                        width: c.playPage.value ? 20 : 6,
+                        height: 6,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(3),
+                          color: c.playPage.value ? Colors.black : Colors.grey[400],
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+            GestureDetector(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchPage()));
+                c.showPlayBar.value=false;
+              },
+              child: Container(
+                height: 34,
+                width: 34,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(17),
+                  color: Colors.black
+                ),
+                child: Center(
+                  child: FaIcon(
+                    FontAwesomeIcons.magnifyingGlass,
+                    color: Colors.white,
+                    size: 16,
                   ),
                 ),
-                const SizedBox(height: 5,),
-                Row(
-                  children: [
-                    const SizedBox(width: 2,),
-                    AnimatedContainer(
-                      duration: const Duration(milliseconds: 200),
-                      width: c.playPage.value ? 4 : 25,
-                      height: 4,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(2),
-                        color: c.playPage.value ? Colors.grey[400] : Colors.black,
-                      ),
-                    ),
-                    const SizedBox(width: 5,),
-                    AnimatedContainer(
-                      duration: const Duration(milliseconds: 200),
-                      width: c.playPage.value ? 25 : 4,
-                      height: 4,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(2),
-                        color: c.playPage.value ? Colors.black : Colors.grey[400],
-                      ),
-                    )
-                  ],
-                )
-              ],
-            ),
-          ),
-          GestureDetector(
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchPage()));
-              c.showPlayBar.value=false;
-            },
-            child: Container(
-              height: 34,
-              width: 34,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(17),
-                color: Colors.black
               ),
-              child: Center(
-                child: FaIcon(
-                  FontAwesomeIcons.magnifyingGlass,
-                  color: Colors.white,
-                  size: 16,
-                ),
-              ),
-            ),
-          )
-        ],
-      )
+            )
+          ],
+        )
+      ),
     );
   }
 }
