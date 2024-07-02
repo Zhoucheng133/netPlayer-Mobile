@@ -174,6 +174,14 @@ class _listContentViewState extends State<listContentView> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         elevation: 0,
+        leading: InkWell(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: Icon(Icons.arrow_back),
+        ),
         title: Text(widget.item["name"]),
         scrolledUnderElevation:0.0,
         backgroundColor: Colors.white,
