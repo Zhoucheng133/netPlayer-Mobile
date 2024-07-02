@@ -22,7 +22,7 @@ Future<void> main() async {
   _audioHandler = await AudioService.init(
     builder: () => MyAudioHandler(),
     config: AudioServiceConfig(
-      androidNotificationChannelId: 'com.mycompany.myapp.channel.audio',
+      androidNotificationChannelId: 'zhouc.netplayer.channel.audio',
       androidNotificationChannelName: 'Music playback',
     ),
   );
@@ -126,6 +126,12 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
   }
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        systemNavigationBarColor: Colors.transparent,
+      )
+    );
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       localizationsDelegates: [
