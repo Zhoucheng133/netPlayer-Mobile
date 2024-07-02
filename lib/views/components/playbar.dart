@@ -25,7 +25,7 @@ class _PlayBarState extends State<PlayBar> {
         child: Container(
           height: 80,
           decoration: BoxDecoration(
-            color: Colors.black,
+            color: Colors.grey[800],
             borderRadius: BorderRadius.circular(40)
           ),
         ),
