@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/functions/player.dart';
 import 'package:netplayer_mobile/para/para.dart';
 import 'package:netplayer_mobile/views/_mainView.dart';
@@ -123,6 +124,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
@@ -133,7 +135,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
         Locale('zh', 'CN'), // 中文简体
       ],
       theme: ThemeData(
-        fontFamily: "Noto",
+        textTheme: GoogleFonts.notoSansScTextTheme(),
         highlightColor: Colors.transparent,
         splashColor: Colors.transparent,
         useMaterial3: true,
