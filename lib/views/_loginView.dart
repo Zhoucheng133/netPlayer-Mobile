@@ -24,6 +24,10 @@ class _loginViewState extends State<loginView> {
   var usernameInput=TextEditingController();
   var passwordInput=TextEditingController();
 
+  FocusNode urlFocus=FocusNode();
+  FocusNode usernameFocus=FocusNode();
+  FocusNode passwordFocus=FocusNode();
+
   var tapLogin=false;
 
   void _showDialog(BuildContext context, String title, String content) {
@@ -166,11 +170,18 @@ class _loginViewState extends State<loginView> {
                         Expanded(
                           child: TextField(
                             controller: urlInput,
+                            focusNode: urlFocus,
                             decoration: InputDecoration(
                               border: InputBorder.none,
+                              hintText: 'http(s)://'
                             ),
                             autocorrect: false,
                             enableSuggestions: false,
+                            onEditingComplete: (){
+                              try {
+                                FocusScope.of(context).requestFocus(usernameFocus);
+                              } catch (_) {}
+                            },
                           )
                         )
                       ],
@@ -211,11 +222,17 @@ class _loginViewState extends State<loginView> {
                         Expanded(
                           child: TextField(
                             controller: usernameInput,
+                            focusNode: usernameFocus,
                             decoration: InputDecoration(
                               border: InputBorder.none,
                             ),
                             autocorrect: false,
                             enableSuggestions: false,
+                            onEditingComplete: (){
+                              try {
+                                FocusScope.of(context).requestFocus(passwordFocus);
+                              } catch (_) {}
+                            },
                           )
                         )
                       ],
@@ -256,12 +273,16 @@ class _loginViewState extends State<loginView> {
                         Expanded(
                           child: TextField(
                             controller: passwordInput,
+                            focusNode: passwordFocus,
                             obscureText: true,
                             decoration: InputDecoration(
                               border: InputBorder.none,
                             ),
                             autocorrect: false,
                             enableSuggestions: false,
+                            onEditingComplete: (){
+                              loginController(context);
+                            },
                           )
                         )
                       ],
