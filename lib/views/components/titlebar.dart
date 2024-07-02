@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/variables/variables.dart';
+import 'package:netplayer_mobile/views/pages/search_page.dart';
 
 class Titlebar extends StatefulWidget {
   const Titlebar({super.key});
@@ -62,19 +63,24 @@ class _TitlebarState extends State<Titlebar> {
               ],
             ),
           ),
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            height: 34,
-            width: 34,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(17),
-              color: Colors.black
-            ),
-            child: Center(
-              child: FaIcon(
-                FontAwesomeIcons.magnifyingGlass,
-                color: Colors.white,
-                size: 16,
+          GestureDetector(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchPage()));
+              c.showPlayBar.value=false;
+            },
+            child: Container(
+              height: 34,
+              width: 34,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(17),
+                color: Colors.black
+              ),
+              child: Center(
+                child: FaIcon(
+                  FontAwesomeIcons.magnifyingGlass,
+                  color: Colors.white,
+                  size: 16,
+                ),
               ),
             ),
           )
