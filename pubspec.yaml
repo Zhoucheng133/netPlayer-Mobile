@@ -22,6 +22,7 @@ dependencies:
   http: ^1.2.1
   crypto: ^3.0.3
   adaptive_dialog: ^2.1.0
+  card_swiper: ^3.0.1
 
 dev_dependencies:
   flutter_test:

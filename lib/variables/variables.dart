@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 class Variables extends GetxController{
+
+  // 用户登录信息
   RxBool isLogin=false.obs;
   RxString username=''.obs;
   RxString url=''.obs;
   RxString salt=''.obs;
   RxString token=''.obs;
+
+  // 当前页面
+  RxBool playPage=false.obs;
 
   // 颜色，从浅色->深色
   var color1=Color.fromARGB(255, 1, 87, 155);
