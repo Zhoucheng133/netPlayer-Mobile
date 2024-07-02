@@ -22,6 +22,7 @@ class _searchViewState extends State<searchView> {
   final Controller c = Get.put(Controller());
 
   var key=TextEditingController();
+  bool focus=false;
 
   List list=[];
 
@@ -35,6 +36,12 @@ class _searchViewState extends State<searchView> {
         key.text=c.searchKey.value;
       });
     }
+
+    textFocus.addListener((){
+      setState(() {
+        focus=textFocus.hasFocus;
+      });
+    });
   }
 
   Future<void> searchController(BuildContext context) async {
@@ -121,23 +128,30 @@ class _searchViewState extends State<searchView> {
                   _clearText();
                   textFocus.unfocus();
                 },
-                child: Text(
-                  "取消",
+                child: AnimatedDefaultTextStyle(
+                  duration: const Duration(milliseconds: 200),
                   style: TextStyle(
-                    fontSize: 16,
-                    color: textFocus.hasFocus ? Colors.blue : Colors.grey[400]
+                      fontSize: 16,
+                      color: textFocus.hasFocus ? c.mainColorStrang : Colors.grey[400]
+                  ),
+                  child: Text(
+                    "取消",
                   ),
                 ),
               ),
               Expanded(
                 child: Container(
-                  color: Colors.white,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
-                    child: Container(
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 200),
                       decoration: BoxDecoration(
                         color: Colors.grey[50],
-                        borderRadius: BorderRadius.circular(10)
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: focus ? c.mainColorStrang : Colors.grey[400]!,
+                          width: 2
+                        )
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(3.0),
@@ -147,23 +161,9 @@ class _searchViewState extends State<searchView> {
                             focusNode: textFocus,
                             textAlignVertical: TextAlignVertical.center,
                             decoration: InputDecoration(
-                              border: OutlineInputBorder(),
                               isCollapsed: true,
-                              contentPadding: EdgeInsets.fromLTRB(10, 10, 0, 10),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Color.fromARGB(100, 210, 210, 210),
-                                  width: 1,
-                                ),
-                                borderRadius: BorderRadius.circular(5)
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Color.fromARGB(50, 210, 210, 210),
-                                  width: 1,
-                                ),
-                                borderRadius: BorderRadius.circular(5)
-                              ),
+                              border: InputBorder.none,
+                              contentPadding: EdgeInsets.fromLTRB(8, 14, 0, 8),
                               suffixIcon: GestureDetector(
                                 onTap: (){
                                   _clearText();
