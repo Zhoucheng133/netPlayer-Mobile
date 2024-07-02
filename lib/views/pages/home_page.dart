@@ -13,17 +13,15 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Container(
-          color: Color.fromARGB(255, 248, 249, 255),
-          child: Center(
-            child: Text(
-              '主页'
-            ),
+    return Center(
+      child: Container(
+        color: Color.fromARGB(255, 248, 249, 255),
+        child: Center(
+          child: Text(
+            '主页'
           ),
-        )
-      ),
+        ),
+      )
     );
   }
 }

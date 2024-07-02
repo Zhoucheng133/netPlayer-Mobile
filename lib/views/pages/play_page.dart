@@ -10,12 +10,10 @@ class PlayPage extends StatefulWidget {
 class _PlayPageState extends State<PlayPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        color: Color.fromARGB(255, 248, 249, 255),
-        child: Center(
-          child: Text('Hello!'),
-        ),
+    return Container(
+      color: Color.fromARGB(255, 248, 249, 255),
+      child: Center(
+        child: Text('Hello!'),
       ),
     );
   }
