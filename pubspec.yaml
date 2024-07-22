@@ -14,6 +14,10 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   google_fonts: ^6.2.1
+  shared_preferences: ^2.2.3
+  get: ^4.6.6
+  http: ^1.2.2
+  adaptive_dialog: ^2.1.0
 
 dev_dependencies:
   flutter_test:
