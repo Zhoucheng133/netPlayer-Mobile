@@ -1,8 +1,12 @@
 import 'dart:math';
 
+import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/requests.dart';
+import 'package:netplayer_mobile/variables/user_var.dart';
 
 class Account{
+  final UserVar u = Get.put(UserVar());
+
   // 登录
   Future<Map> login(String url, String username, String token, String salt) async {
     var response=await httpRequest("$url/rest/ping.view?v=1.12.0&c=myapp&f=json&u=$username&t=$token&s=$salt");
@@ -40,7 +44,11 @@ class Account{
     return result;
   }
 
+  // 注销
   void logout(){
-
+    u.salt.value='';
+    u.token.value='';
+    u.url.value='';
+    u.username.value='';
   }
 }
