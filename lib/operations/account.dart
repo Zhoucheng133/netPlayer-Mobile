@@ -1,8 +1,12 @@
+import 'dart:math';
+
 import 'package:netplayer_mobile/operations/requests.dart';
 
 class Account{
+  // 登录
   Future<Map> login(String url, String username, String token, String salt) async {
     var response=await httpRequest("$url/rest/ping.view?v=1.12.0&c=myapp&f=json&u=$username&t=$token&s=$salt");
+    print(response);
     try {
       response=response["subsonic-response"];
     } catch (_) {
@@ -21,6 +25,20 @@ class Account{
       'ok': true,
       'data': ""
     };
+  }
+
+  // 生成随机salt
+  String generateRandomString(int length) {
+    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    Random random = Random();
+    String result = "";
+
+    for (int i = 0; i < length; i++) {
+      int randomIndex = random.nextInt(charset.length);
+      result += charset[randomIndex];
+    }
+
+    return result;
   }
 
   void logout(){

@@ -22,8 +22,7 @@ class _MainViewState extends State<MainView> {
   bool loading=true;
   late SharedPreferences prefs;
   Account account=Account();
-  final UserVar a = Get.put(UserVar());
-  bool loginOk=false;
+  final UserVar u = Get.put(UserVar());
 
   @override
   void initState() {
@@ -39,10 +38,10 @@ class _MainViewState extends State<MainView> {
     if(url!=null && username!=null && token!=null && salt!=null){
       var resp=await account.login(url, username, token, salt);
       if(resp['ok']){
-        a.username.value=username;
-        a.salt.value=salt;
-        a.url.value=url;
-        a.token.value=token;
+        u.username.value=username;
+        u.salt.value=salt;
+        u.url.value=url;
+        u.token.value=token;
       }else{
         WidgetsBinding.instance.addPostFrameCallback((_) {
           showOkAlertDialog(
@@ -79,7 +78,7 @@ class _MainViewState extends State<MainView> {
             const Text('加载中')
           ],
         ),
-      ) : loginOk ? const Home() : const Login(),
+      ) : Obx(()=> u.url.value.isEmpty ? const Login() : const Home() ),
     );
   }
 }
