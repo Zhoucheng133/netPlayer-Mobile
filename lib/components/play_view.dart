@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:netplayer_mobile/variables/len_var.dart';
 
 class PlayView extends StatefulWidget {
   const PlayView({super.key});
@@ -8,34 +10,26 @@ class PlayView extends StatefulWidget {
 }
 
 class _PlayViewState extends State<PlayView> {
-
-  bool onInit=true;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      setState(() {
-        onInit=false;
-      });
-    });
-  }
+  
+  final LenVar l = Get.put(LenVar());
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedPositioned(
-      duration: const Duration(milliseconds: 300),
-      // curve: Curves.easeInOut,
-      // bottom: 0,
-      bottom: onInit ? -MediaQuery.of(context).size.height : -MediaQuery.of(context).size.height+MediaQuery.of(context).padding.bottom+90,
-      left: 0,
-      right: 0,
-      child: Container(
-        height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
-          color: Colors.blue[800],
-          borderRadius: BorderRadius.circular(20)
-        ),
+    return Obx(()=>
+      AnimatedPositioned(
+        duration: const Duration(milliseconds: 300),
+        // curve: Curves.easeInOut,
+        // bottom: 0,
+        bottom: -MediaQuery.of(context).size.height+l.bottomLen.value+90,
+        left: 0,
+        right: 0,
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          decoration: BoxDecoration(
+            color: Colors.blue[800],
+            borderRadius: BorderRadius.circular(20)
+          ),
+        )
       )
     );
   }
