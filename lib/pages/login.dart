@@ -5,7 +5,6 @@ import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/account.dart';
-import 'package:netplayer_mobile/variables/static_color.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -30,11 +29,6 @@ class _LoginState extends State<Login> {
   FocusNode passwordFocus=FocusNode();
 
   var tapLogin=false;
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   void dispose() {
@@ -299,7 +293,7 @@ class _LoginState extends State<Login> {
                     width: 110,
                     height: 50,
                     decoration: BoxDecoration(
-                      color: tapLogin ? StaticColor().color6 : StaticColor().color4,
+                      color: tapLogin ? Colors.blue[700]: Colors.blue,
                       borderRadius: BorderRadius.circular(10)
                     ),
                     child: const Row(

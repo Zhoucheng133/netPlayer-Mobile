@@ -5,7 +5,6 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:netplayer_mobile/operations/account.dart';
 import 'package:netplayer_mobile/pages/home.dart';
 import 'package:netplayer_mobile/pages/login.dart';
-import 'package:netplayer_mobile/variables/static_color.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'variables/user_var.dart';
@@ -71,7 +70,7 @@ class _MainViewState extends State<MainView> {
           mainAxisSize: MainAxisSize.min,
           children: [
             LoadingAnimationWidget.beat(
-              color: StaticColor().color6, 
+              color: Colors.blue, 
               size: 30
             ),
             const SizedBox(height: 10,),
