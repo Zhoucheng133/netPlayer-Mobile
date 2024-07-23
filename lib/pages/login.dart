@@ -31,6 +31,20 @@ class _LoginState extends State<Login> {
 
   var tapLogin=false;
 
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    urlFocus.dispose();
+    usernameFocus.dispose();
+    passwordFocus.dispose();
+    super.dispose();
+  }
+
+
   Future<void> loginController(BuildContext context) async {
     if(urlInput.text.isEmpty){
       showOkAlertDialog(
@@ -89,6 +103,7 @@ class _LoginState extends State<Login> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           const Text(
             "登录到你的音乐服务器",
