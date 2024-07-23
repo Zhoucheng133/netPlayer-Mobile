@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:netplayer_mobile/operations/account.dart';
-import 'package:netplayer_mobile/pages/home.dart';
+import 'package:netplayer_mobile/pages/index.dart';
 import 'package:netplayer_mobile/pages/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,6 +22,7 @@ class _MainViewState extends State<MainView> {
   late SharedPreferences prefs;
   Account account=Account();
   final UserVar u = Get.put(UserVar());
+  bool isLogin=false;
 
   @override
   void initState() {
@@ -41,6 +42,9 @@ class _MainViewState extends State<MainView> {
         u.salt.value=salt;
         u.url.value=url;
         u.token.value=token;
+        setState(() {
+          isLogin=true;
+        });
       }else{
         WidgetsBinding.instance.addPostFrameCallback((_) {
           showOkAlertDialog(
@@ -77,7 +81,7 @@ class _MainViewState extends State<MainView> {
             const Text('加载中')
           ],
         ),
-      ) : Obx(()=> u.url.value.isEmpty ? const Login() : const Home() ),
+      ) : isLogin ? const Index() : const Login(),
     );
   }
 }
