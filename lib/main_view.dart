@@ -28,6 +28,17 @@ class _MainViewState extends State<MainView> {
   void initState() {
     super.initState();
     initPrefs();
+    ever(u.url, (val){
+      if(val.isEmpty){
+        setState(() {
+          isLogin=false;
+        });
+      }else{
+        setState(() {
+          isLogin=true;
+        });
+      }
+    });
   }
 
   Future<void> loginCheck() async {
@@ -42,9 +53,6 @@ class _MainViewState extends State<MainView> {
         u.salt.value=salt;
         u.url.value=url;
         u.token.value=token;
-        setState(() {
-          isLogin=true;
-        });
       }else{
         WidgetsBinding.instance.addPostFrameCallback((_) {
           showOkAlertDialog(
