@@ -23,12 +23,13 @@ class _MainViewState extends State<MainView> {
   Account account=Account();
   final UserVar u = Get.put(UserVar());
   bool isLogin=false;
+  late Worker accountListener;
 
   @override
   void initState() {
     super.initState();
     initPrefs();
-    ever(u.url, (val){
+    accountListener=ever(u.url, (val){
       if(val.isEmpty){
         setState(() {
           isLogin=false;
@@ -39,6 +40,12 @@ class _MainViewState extends State<MainView> {
         });
       }
     });
+  }
+
+  @override
+  void dispose() {
+    accountListener.dispose();
+    super.dispose();
   }
 
   Future<void> loginCheck() async {
