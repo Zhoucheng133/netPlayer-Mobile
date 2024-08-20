@@ -1,0 +1,37 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+
+import 'package:flutter/material.dart';
+import 'package:netplayer_mobile/pages/components/index_body_item.dart';
+
+class IndexBodyList extends StatefulWidget {
+  const IndexBodyList({super.key});
+
+  @override
+  State<IndexBodyList> createState() => _IndexBodyListState();
+}
+
+class _IndexBodyListState extends State<IndexBodyList> {
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: [
+        SizedBox(height: 10,),
+        Padding(
+          padding: const EdgeInsets.only(left: 20, top: 10, right: 20, bottom: 10),
+          child: SizedBox(
+            height: 200,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: [
+                IndexPinItem(icon: Icons.queue_music_rounded, label: '所有歌曲', bgColor: Colors.blue[300]!, contentColor: Colors.white,),
+                const SizedBox(width: 10,),
+                IndexPinItem(icon: Icons.favorite_rounded, label: '喜欢的歌曲', bgColor: Colors.red, contentColor: Colors.white,),
+                const SizedBox(width: 10,),
+              ],
+            )
+          ),
+        )
+      ],
+    );
+  }
+}

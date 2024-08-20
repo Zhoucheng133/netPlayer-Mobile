@@ -24,9 +24,8 @@ class _PlayViewState extends State<PlayView> {
         left: 0,
         right: 0,
         child: Container(
-          height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
-            color: Colors.blue[800],
+            color: Colors.red,
             borderRadius: BorderRadius.circular(20)
           ),
         )

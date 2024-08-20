@@ -36,7 +36,7 @@ class MainApp extends StatelessWidget {
       theme: ThemeData(
         textTheme: GoogleFonts.notoSansScTextTheme(),
         highlightColor: Colors.transparent,
-        splashColor: Colors.transparent,
+        // splashColor: Colors.transparent,
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
       ),
