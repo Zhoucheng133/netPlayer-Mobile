@@ -43,13 +43,13 @@ class _IndexBodyListState extends State<IndexBodyList> {
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
-                IndexPinItem(icon: Icons.queue_music_rounded, label: '所有歌曲', bgColor: Colors.blue[300]!, contentColor: Colors.white, func: () {  },),
+                IndexPinItem(icon: Icons.queue_music_rounded, label: '所有歌曲', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: () {  },),
                 const SizedBox(width: 10,),
-                IndexPinItem(icon: Icons.favorite_rounded, label: '喜欢的歌曲', bgColor: Colors.red, contentColor: Colors.white, func: () {  },),
+                IndexPinItem(icon: Icons.favorite_rounded, label: '喜欢的歌曲', bgColor: Colors.red[50]!, contentColor: Colors.red, func: () {  },),
                 const SizedBox(width: 10,),
-                IndexPinItem(icon: Icons.mic_rounded, label: '艺人', bgColor: Colors.blue[300]!, contentColor: Colors.white, func: () {  },),
+                IndexPinItem(icon: Icons.mic_rounded, label: '艺人', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: () {  },),
                 const SizedBox(width: 10,),
-                IndexPinItem(icon: Icons.album_rounded, label: '专辑', bgColor: Colors.blue[300]!, contentColor: Colors.white, func: () {  },),
+                IndexPinItem(icon: Icons.album_rounded, label: '专辑', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: () {  },),
               ],
             )
           ),

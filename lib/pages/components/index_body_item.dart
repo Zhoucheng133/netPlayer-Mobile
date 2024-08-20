@@ -77,7 +77,7 @@ class _IndexPinItemState extends State<IndexPinItem> {
               child: Icon(
                 widget.icon,
                 size: 30,
-                color: Colors.white,
+                color: widget.contentColor,
               ),
             ),
           ),
@@ -94,7 +94,7 @@ class _IndexPinItemState extends State<IndexPinItem> {
                 child: Text(
                   widget.label,
                   style: GoogleFonts.notoSansSc(
-                    color: Colors.white,
+                    color: widget.contentColor,
                     fontSize: 15
                   ),
                 ),
