@@ -137,14 +137,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.8"
-  dynamic_background:
-    dependency: "direct main"
-    description:
-      name: dynamic_background
-      sha256: e44b9af449a2c2878df8c101b66ec1083e72d9d07d119afc001e3f8ecf0fcc75
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.1.3"
   dynamic_color:
     dependency: transitive
     description:
