@@ -18,7 +18,7 @@ class _MenuItemState extends State<MenuItem> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
           widget.name,
@@ -51,8 +51,9 @@ class IndexPinItem extends StatefulWidget {
   final String label;
   final Color bgColor;
   final Color contentColor;
+  final VoidCallback func;
 
-  const IndexPinItem({super.key, required this.icon, required this.label, required this.bgColor, required this.contentColor});
+  const IndexPinItem({super.key, required this.icon, required this.label, required this.bgColor, required this.contentColor, required this.func});
 
   @override
   State<IndexPinItem> createState() => _IndexPinItemState();
@@ -75,6 +76,7 @@ class _IndexPinItemState extends State<IndexPinItem> {
             child: Center(
               child: Icon(
                 widget.icon,
+                size: 30,
                 color: Colors.white,
               ),
             ),

@@ -2,9 +2,11 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/pages/components/index_body_item.dart';
 import 'package:netplayer_mobile/pages/components/index_body_list.dart';
+import 'package:netplayer_mobile/variables/page_var.dart';
 
 class IndexBody extends StatefulWidget {
   const IndexBody({super.key});
@@ -15,7 +17,7 @@ class IndexBody extends StatefulWidget {
 
 class _IndexBodyState extends State<IndexBody> {
 
-  int index=0;
+  PageVar p=Get.put(PageVar());
 
   @override
   Widget build(BuildContext context) {
@@ -40,12 +42,14 @@ class _IndexBodyState extends State<IndexBody> {
                   ),
                 ),
                 SizedBox(height: 20,),
-                Row(
-                  children: [
-                    MenuItem(isSet: index==0, name: '固定项',),
-                    SizedBox(width: 30,),
-                    MenuItem(isSet: index==1, name: '歌单')
-                  ],
+                Obx(()=>
+                  Row(
+                    children: [
+                      MenuItem(isSet: p.index.value==0, name: '固定项',),
+                      SizedBox(width: 30,),
+                      MenuItem(isSet: p.index.value==1, name: '歌单')
+                    ],
+                  )
                 )
               ],
             ),

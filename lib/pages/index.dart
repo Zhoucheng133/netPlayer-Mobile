@@ -44,6 +44,7 @@ class _IndexState extends State<Index> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey[100],
+        scrolledUnderElevation:0.0,
         toolbarHeight: 70,
         leading: const Row(
           children: [
