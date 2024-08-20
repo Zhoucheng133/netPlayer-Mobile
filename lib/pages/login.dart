@@ -148,9 +148,12 @@ class _LoginState extends State<Login> {
                         child: TextField(
                           controller: urlInput,
                           focusNode: urlFocus,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: 'http(s)://'
+                            hintText: 'http(s)://',
+                            hintStyle: TextStyle(
+                              color: Colors.grey[400],
+                            )
                           ),
                           autocorrect: false,
                           enableSuggestions: false,
