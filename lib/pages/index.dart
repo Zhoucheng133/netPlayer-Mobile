@@ -3,10 +3,14 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/operations/account.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
-import 'package:netplayer_mobile/pages/components/index_body.dart';
+import 'package:netplayer_mobile/pages/all.dart';
+import 'package:netplayer_mobile/pages/components/index_item.dart';
 import 'package:netplayer_mobile/pages/components/playing_bar.dart';
+import 'package:netplayer_mobile/variables/ls_var.dart';
+// import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/variables/page_var.dart';
 
 class Index extends StatefulWidget {
@@ -22,44 +26,22 @@ class _IndexState extends State<Index> {
   int pageIndex=0;
   DataGet dataGet=DataGet();
   PageVar p=Get.put(PageVar());
-
-  late OverlayEntry overlayEntry;
-
-  void setOverlayPlayingBar(BuildContext context){
-    OverlayState overlayState = Overlay.of(context);
-    overlayEntry = OverlayEntry(
-      builder: (context) => Obx(()=>
-        AnimatedPositioned(
-          bottom: 0,
-          right: 0,
-          left: 0,
-          duration: Duration(milliseconds: 200),
-          curve: Curves.easeInOut,
-          child: AnimatedSwitcher(
-            duration: const Duration(milliseconds: 100),
-            child: p.showPlayingBar.value ? PlayingBar(key: Key("0"),) : Container(key: Key("1"),),
-          ) 
-        ),
-      )
-    );
-    overlayState.insert(overlayEntry);
-  }
-
-  void removeOverlayPlayingBar(){
-    overlayEntry.remove();
-  }
   
   @override
   void initState() {
     super.initState();
     dataGet.getPlayLists();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      setOverlayPlayingBar(context);
+    controller.addListener((){
+      if(controller.offset>200){
+        p.index.value=1;
+      }else{
+        p.index.value=0;
+      }
     });
   }
 
   Future<void> logout(BuildContext context) async {
-    p.showPlayingBar.value=false;
+    // p.showPlayingBar.value=false;
     final rlt=await showOkCancelAlertDialog (
       context: context,
       title: "注销",
@@ -69,9 +51,14 @@ class _IndexState extends State<Index> {
     );
     if(rlt==OkCancelResult.ok){
       account.logout();
-      removeOverlayPlayingBar();
     }
-    p.showPlayingBar.value=true;
+  }
+
+  ScrollController controller=ScrollController();
+  LsVar ls=Get.put(LsVar());
+
+  void jumpIndex(int index){
+
   }
 
   @override
@@ -146,7 +133,94 @@ class _IndexState extends State<Index> {
           SizedBox(width: 30,)
         ],
       ),
-      body: const IndexBody(),
+      body: Column(
+        children: [
+          Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.grey[100]
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 30, bottom: 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '主页',
+                    style: GoogleFonts.notoSansSc(
+                      fontSize: 35,
+                      fontWeight: FontWeight.w300,
+                      color: Colors.black
+                    ),
+                  ),
+                  SizedBox(height: 20,),
+                  Obx(()=>
+                    Row(
+                      children: [
+                        MenuItem(isSet: p.index.value==0, name: '固定项', func: ()=>jumpIndex(0),),
+                        SizedBox(width: 30,),
+                        MenuItem(isSet: p.index.value==1, name: '歌单', func: ()=>jumpIndex(1),)
+                      ],
+                    )
+                  )
+                ],
+              ),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20, top: 10, right: 20, bottom: 0),
+              child: ListView(
+                controller: controller,
+                children: [
+                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 200,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        IndexPinItem(icon: Icons.queue_music_rounded, label: '所有歌曲', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(All()),),
+                        const SizedBox(width: 10,),
+                        IndexPinItem(icon: Icons.favorite_rounded, label: '喜欢的歌曲', bgColor: Colors.red[50]!, contentColor: Colors.red, func: () {  },),
+                        const SizedBox(width: 10,),
+                        IndexPinItem(icon: Icons.mic_rounded, label: '艺人', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: () {  },),
+                        const SizedBox(width: 10,),
+                        IndexPinItem(icon: Icons.album_rounded, label: '专辑', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: () {  },),
+                      ],
+                    )
+                  ),
+                  SizedBox(height: 20,),
+                  Text(
+                    '歌单',
+                    style: GoogleFonts.notoSansSc(
+                      fontSize: 25,
+                      fontWeight: FontWeight.w300
+                    ),
+                  ),
+                  SizedBox(height: 10,),
+                  Obx(()=>
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: List.generate(ls.playList.length, (index){
+                        return Column(
+                          children: [
+                            PlayListItem(name: ls.playList[index]['name'], id: ls.playList[index]['id'], songCount: ls.playList[index]['songCount'], coverArt: ls.playList[index]['coverArt']),
+                            index != ls.playList.length - 1 ? SizedBox(height: 10) : Container()
+                          ],
+                        );
+                      }),
+                    )
+                  )
+                ],
+              ),
+            ),
+          ),
+          Hero(
+            tag: "playingbar",
+            child: PlayingBar()
+          )
+        ],
+      ),
     );
   }
 }

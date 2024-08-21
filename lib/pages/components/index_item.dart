@@ -9,8 +9,9 @@ class MenuItem extends StatefulWidget {
 
   final bool isSet;
   final String name;
+  final VoidCallback func;
 
-  const MenuItem({super.key, required this.isSet, required this.name});
+  const MenuItem({super.key, required this.isSet, required this.name, required this.func});
 
   @override
   State<MenuItem> createState() => _MenuItemState();
@@ -19,30 +20,35 @@ class MenuItem extends StatefulWidget {
 class _MenuItemState extends State<MenuItem> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text(
-          widget.name,
-          style: GoogleFonts.notoSansSc(
-            fontSize: 16,
-            color: widget.isSet ? Colors.black : Colors.grey[500],
-          ),
-        ),
-        SizedBox(height: 5,),
-        AnimatedOpacity(
-          opacity: widget.isSet ? 1 : 0,
-          duration: Duration(milliseconds: 200),
-          child: Container(
-            width: 30,
-            height: 4,
-            decoration: BoxDecoration(
-              color: Colors.blue,
-              borderRadius: BorderRadius.circular(2)
+    return GestureDetector(
+      onTap: (){
+        widget.func();
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            widget.name,
+            style: GoogleFonts.notoSansSc(
+              fontSize: 16,
+              color: widget.isSet ? Colors.black : Colors.grey[500],
             ),
           ),
-        )
-      ],
+          SizedBox(height: 5,),
+          AnimatedOpacity(
+            opacity: widget.isSet ? 1 : 0,
+            duration: Duration(milliseconds: 200),
+            child: Container(
+              width: 30,
+              height: 4,
+              decoration: BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.circular(2)
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

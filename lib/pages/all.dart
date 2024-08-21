@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/variables/page_var.dart';
 
 class All extends StatefulWidget {
@@ -26,13 +27,23 @@ class _AllState extends State<All> {
           icon: Icon(Icons.arrow_left)
         ),
       ),
-      body: Center(
-        child: TextButton(
-          onPressed: (){
-            p.showPlayingBar.value=!p.showPlayingBar.value;
-          }, 
-          child: Text("xxxx")
-        )
+      body: Column(
+        children: [
+          Expanded(
+            child: Center(
+              child: TextButton(
+                onPressed: (){
+                  p.showPlayingBar.value=!p.showPlayingBar.value;
+                }, 
+                child: Text("xxxx")
+              )
+            ),
+          ),
+          Hero(
+            tag: "playingbar",
+            child: PlayingBar()
+          )
+        ],
       ),
     );
   }
