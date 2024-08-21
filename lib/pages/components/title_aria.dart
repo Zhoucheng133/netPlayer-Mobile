@@ -28,7 +28,7 @@ class _TitleAriaState extends State<TitleAria> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '所有歌曲',
+              widget.title,
               style: GoogleFonts.notoSansSc(
                 fontSize: 35,
                 fontWeight: FontWeight.w300,
@@ -37,7 +37,7 @@ class _TitleAriaState extends State<TitleAria> {
             ),
             const SizedBox(height: 20,),
             Text(
-              "合计有",
+              widget.subtitle,
               style: GoogleFonts.notoSansSc(
                 fontSize: 16,
                 color: Colors.black,

@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/operations/account.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
+import 'package:netplayer_mobile/pages/about.dart';
 import 'package:netplayer_mobile/pages/all.dart';
 import 'package:netplayer_mobile/pages/components/index_item.dart';
 import 'package:netplayer_mobile/pages/components/playing_bar.dart';
@@ -97,7 +98,7 @@ class _IndexState extends State<Index> {
               ),
               PopupMenuItem(
                 onTap: (){
-                  // TODO 跳转到关于
+                  Get.to(About());
                 },
                 child: const Row(
                   children: [
