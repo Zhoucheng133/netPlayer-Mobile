@@ -1,10 +1,9 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/pages/components/title_aria.dart';
-import 'package:netplayer_mobile/variables/page_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -99,12 +98,12 @@ class _AboutState extends State<About> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Icon(
+                      children: const [
+                        Icon(
                           Icons.code_rounded,
                           size: 15,
                         ),
-                        const SizedBox(width: 5,),
+                        SizedBox(width: 5,),
                         Text('歌词API'),
                       ],
                     ),

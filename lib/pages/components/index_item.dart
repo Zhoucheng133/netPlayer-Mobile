@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:netplayer_mobile/pages/playlist.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
 
 class MenuItem extends StatefulWidget {
@@ -160,7 +161,7 @@ class _PlayListItemState extends State<PlayListItem> {
           Expanded(
             child: GestureDetector(
               onTap: (){
-                print("~");
+                Get.to(Playlist(id: widget.id));
               },
               child: Container(
                 color: Colors.transparent,
@@ -182,7 +183,7 @@ class _PlayListItemState extends State<PlayListItem> {
           ),
           GestureDetector(
             onTap: (){
-              print("...");
+              // TODO 歌单操作
             },
             child: Icon(Icons.more_vert_rounded)
           )

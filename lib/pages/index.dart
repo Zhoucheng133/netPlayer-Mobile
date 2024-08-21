@@ -7,9 +7,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/operations/account.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/pages/about.dart';
+import 'package:netplayer_mobile/pages/albums.dart';
 import 'package:netplayer_mobile/pages/all.dart';
+import 'package:netplayer_mobile/pages/artists.dart';
 import 'package:netplayer_mobile/pages/components/index_item.dart';
 import 'package:netplayer_mobile/pages/components/playing_bar.dart';
+import 'package:netplayer_mobile/pages/loved.dart';
+import 'package:netplayer_mobile/pages/settings.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
 // import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/variables/page_var.dart';
@@ -83,7 +87,7 @@ class _IndexState extends State<Index> {
             itemBuilder: (BuildContext context)=>[
               PopupMenuItem(
                 onTap: (){
-                  // TODO 跳转到设置
+                  Get.to(Settings());
                 },
                 child: const Row(
                   children: [
@@ -182,11 +186,11 @@ class _IndexState extends State<Index> {
                       children: [
                         IndexPinItem(icon: Icons.queue_music_rounded, label: '所有歌曲', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(All()),),
                         const SizedBox(width: 10,),
-                        IndexPinItem(icon: Icons.favorite_rounded, label: '喜欢的歌曲', bgColor: Colors.red[50]!, contentColor: Colors.red, func: () {  },),
+                        IndexPinItem(icon: Icons.favorite_rounded, label: '喜欢的歌曲', bgColor: Colors.red[50]!, contentColor: Colors.red, func: ()=>Get.to(Loved()),),
                         const SizedBox(width: 10,),
-                        IndexPinItem(icon: Icons.mic_rounded, label: '艺人', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: () {  },),
+                        IndexPinItem(icon: Icons.mic_rounded, label: '艺人', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(Artists()),),
                         const SizedBox(width: 10,),
-                        IndexPinItem(icon: Icons.album_rounded, label: '专辑', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: () {  },),
+                        IndexPinItem(icon: Icons.album_rounded, label: '专辑', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(Albums()),),
                       ],
                     )
                   ),
