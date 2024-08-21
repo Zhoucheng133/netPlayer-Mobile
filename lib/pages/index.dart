@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:netplayer_mobile/components/play_view.dart';
 import 'package:netplayer_mobile/operations/account.dart';
+import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/pages/components/index_body.dart';
 import 'package:netplayer_mobile/variables/len_var.dart';
 
@@ -18,6 +18,7 @@ class _IndexState extends State<Index> {
   late OverlayEntry entry;
   LenVar l=Get.put(LenVar());
   int pageIndex=0;
+  DataGet dataGet=DataGet();
 
   void removeOverlay(){
     entry.remove();
@@ -26,12 +27,7 @@ class _IndexState extends State<Index> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      entry=OverlayEntry(
-        builder: (BuildContext context) => const PlayView()
-      );
-      Overlay.of(context).insert(entry);
-    });
+    dataGet.getPlayLists();
   }
 
   void logout(){

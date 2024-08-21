@@ -106,3 +106,21 @@ class _IndexPinItemState extends State<IndexPinItem> {
     );
   }
 }
+
+class PlayListItem extends StatefulWidget {
+
+  final String name;
+  final String id;
+
+  const PlayListItem({super.key, required this.name, required this.id});
+
+  @override
+  State<PlayListItem> createState() => _PlayListItemState();
+}
+
+class _PlayListItemState extends State<PlayListItem> {
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}

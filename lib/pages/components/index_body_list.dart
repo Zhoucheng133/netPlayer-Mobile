@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/pages/components/index_body_item.dart';
+import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/page_var.dart';
 
 class IndexBodyList extends StatefulWidget {
@@ -17,6 +18,7 @@ class _IndexBodyListState extends State<IndexBodyList> {
 
   ScrollController controller=ScrollController();
   PageVar p=Get.put(PageVar());
+  LsVar ls=Get.put(LsVar());
 
   @override
   void initState() {
@@ -62,10 +64,12 @@ class _IndexBodyListState extends State<IndexBodyList> {
             ),
           ),
           SizedBox(height: 10,),
-          Column(
-            children: List.generate(100, (index){
-              return Text(index.toString());
-            }),
+          Obx(()=>
+            Column(
+              children: List.generate(ls.playList.length, (index){
+                return Text(ls.playList[index]['name']);
+              }),
+            )
           )
         ],
       ),
