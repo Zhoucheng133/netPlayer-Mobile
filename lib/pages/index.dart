@@ -1,12 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/account.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/pages/components/index_body.dart';
-import 'package:netplayer_mobile/variables/len_var.dart';
+import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 
 class Index extends StatefulWidget {
   const Index({super.key});
@@ -18,7 +16,6 @@ class Index extends StatefulWidget {
 class _IndexState extends State<Index> {
 
   Account account=Account();
-  LenVar l=Get.put(LenVar());
   int pageIndex=0;
   DataGet dataGet=DataGet();
 
@@ -28,19 +25,10 @@ class _IndexState extends State<Index> {
     OverlayState overlayState = Overlay.of(context);
     overlayEntry = OverlayEntry(
       builder: (context) => Positioned(
-        bottom: 50.0,
-        right: 10.0,
-        child: Material(
-          color: Colors.transparent,
-          child: Container(
-            padding: const EdgeInsets.all(8.0),
-            color: Colors.blueAccent,
-            child: const Text(
-              'This is an overlay',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        ),
+        bottom: 0,
+        right: 0,
+        left: 0,
+        child: PlayingBar()
       ),
     );
     overlayState.insert(overlayEntry);
@@ -91,12 +79,10 @@ class _IndexState extends State<Index> {
           SizedBox(width: 30,)
         ],
       ),
-      body: Obx(()=>
-        Padding(
-          padding: EdgeInsets.only(bottom: l.bottomLen.value),
-          child: const IndexBody()
-        ),
-      )
+      body: Padding(
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom+70),
+        child: const IndexBody()
+      ),
     );
   }
 }

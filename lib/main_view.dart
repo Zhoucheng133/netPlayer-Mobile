@@ -5,7 +5,6 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:netplayer_mobile/operations/account.dart';
 import 'package:netplayer_mobile/pages/index.dart';
 import 'package:netplayer_mobile/pages/login.dart';
-import 'package:netplayer_mobile/variables/len_var.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'variables/user_var.dart';
@@ -23,7 +22,6 @@ class _MainViewState extends State<MainView> {
   late SharedPreferences prefs;
   Account account=Account();
   final UserVar u = Get.put(UserVar());
-  final LenVar l = Get.put(LenVar());
   bool isLogin=false;
   late Worker accountListener;
 
@@ -41,10 +39,6 @@ class _MainViewState extends State<MainView> {
           isLogin=true;
         });
       }
-    });
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      l.bottomLen.value=MediaQuery.of(context).padding.bottom;
-      l.topLen.value=MediaQuery.of(context).padding.top;
     });
   }
 

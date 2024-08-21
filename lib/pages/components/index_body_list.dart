@@ -36,7 +36,7 @@ class _IndexBodyListState extends State<IndexBodyList> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 20, top: 10, right: 20, bottom: 10),
+      padding: const EdgeInsets.only(left: 20, top: 10, right: 20, bottom: 0),
       child: ListView(
         controller: controller,
         children: [
