@@ -72,7 +72,7 @@ class _IndexBodyListState extends State<IndexBodyList> {
                 return Column(
                   children: [
                     PlayListItem(name: ls.playList[index]['name'], id: ls.playList[index]['id'], songCount: ls.playList[index]['songCount'], coverArt: ls.playList[index]['coverArt']),
-                    if (index != ls.playList.length - 1) SizedBox(height: 10),
+                    index != ls.playList.length - 1 ? SizedBox(height: 10) : SizedBox( height: MediaQuery.of(context).padding.bottom+PageStatic().playbarHeight, ),
                   ],
                 );
               }),

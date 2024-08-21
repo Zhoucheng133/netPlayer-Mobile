@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/account.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/pages/components/index_body.dart';
@@ -19,18 +21,26 @@ class _IndexState extends State<Index> {
   Account account=Account();
   int pageIndex=0;
   DataGet dataGet=DataGet();
+  PageVar p=Get.put(PageVar());
 
   late OverlayEntry overlayEntry;
 
   void setOverlayPlayingBar(BuildContext context){
     OverlayState overlayState = Overlay.of(context);
     overlayEntry = OverlayEntry(
-      builder: (context) => Positioned(
-        bottom: 0,
-        right: 0,
-        left: 0,
-        child: PlayingBar()
-      ),
+      builder: (context) => Obx(()=>
+        AnimatedPositioned(
+          bottom: 0,
+          right: 0,
+          left: 0,
+          duration: Duration(milliseconds: 200),
+          curve: Curves.easeInOut,
+          child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 100),
+            child: p.showPlayingBar.value ? PlayingBar(key: Key("0"),) : Container(key: Key("1"),),
+          ) 
+        ),
+      )
     );
     overlayState.insert(overlayEntry);
   }
@@ -48,10 +58,20 @@ class _IndexState extends State<Index> {
     });
   }
 
-  void logout(){
-    // TODO 注销弹窗
-    account.logout();
-    removeOverlayPlayingBar();
+  Future<void> logout(BuildContext context) async {
+    p.showPlayingBar.value=false;
+    final rlt=await showOkCancelAlertDialog (
+      context: context,
+      title: "注销",
+      message: "确定要注销吗？这会返回到登录界面",
+      okLabel: "注销",
+      cancelLabel: "取消",
+    );
+    if(rlt==OkCancelResult.ok){
+      account.logout();
+      removeOverlayPlayingBar();
+    }
+    p.showPlayingBar.value=true;
   }
 
   @override
@@ -105,7 +125,7 @@ class _IndexState extends State<Index> {
               ),
               PopupMenuItem(
                 onTap: (){
-                  logout();
+                  logout(context);
                 },
                 child: const Row(
                   children: [
@@ -126,10 +146,7 @@ class _IndexState extends State<Index> {
           SizedBox(width: 30,)
         ],
       ),
-      body: Padding(
-        padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom+PageStatic().playbarHeight),
-        child: const IndexBody()
-      ),
+      body: const IndexBody(),
     );
   }
 }

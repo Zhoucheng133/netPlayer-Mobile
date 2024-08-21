@@ -152,23 +152,31 @@ class _PlayListItemState extends State<PlayListItem> {
           ),
           SizedBox(width: 10,),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  widget.name,
-                  style: TextStyle(
-                    overflow: TextOverflow.ellipsis,
-                  ),
+            child: GestureDetector(
+              onTap: (){
+                print("~");
+              },
+              child: Container(
+                color: Colors.transparent,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      widget.name,
+                      style: TextStyle(
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    Text("${widget.songCount}首")
+                  ],
                 ),
-                Text("${widget.songCount}首")
-              ],
+              ),
             )
           ),
           GestureDetector(
             onTap: (){
-              // TODO 显示歌单选项卡
+              print("...");
             },
             child: Icon(Icons.more_vert_rounded)
           )
