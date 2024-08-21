@@ -1,4 +1,7 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/account.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
@@ -15,24 +18,50 @@ class Index extends StatefulWidget {
 class _IndexState extends State<Index> {
 
   Account account=Account();
-  late OverlayEntry entry;
   LenVar l=Get.put(LenVar());
   int pageIndex=0;
   DataGet dataGet=DataGet();
 
-  void removeOverlay(){
-    entry.remove();
+  late OverlayEntry overlayEntry;
+
+  void setOverlayPlayingBar(BuildContext context){
+    OverlayState overlayState = Overlay.of(context);
+    overlayEntry = OverlayEntry(
+      builder: (context) => Positioned(
+        bottom: 50.0,
+        right: 10.0,
+        child: Material(
+          color: Colors.transparent,
+          child: Container(
+            padding: const EdgeInsets.all(8.0),
+            color: Colors.blueAccent,
+            child: const Text(
+              'This is an overlay',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ),
+      ),
+    );
+    overlayState.insert(overlayEntry);
   }
 
+  void removeOverlayPlayingBar(){
+    overlayEntry.remove();
+  }
+  
   @override
   void initState() {
     super.initState();
     dataGet.getPlayLists();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setOverlayPlayingBar(context);
+    });
   }
 
   void logout(){
     account.logout();
-    removeOverlay();
+    removeOverlayPlayingBar();
   }
 
   @override
@@ -50,9 +79,14 @@ class _IndexState extends State<Index> {
             ),
           ],
         ),
-        actions: const [
-          Icon(
-            Icons.more_vert_rounded
+        actions: [
+          GestureDetector(
+            onTap: (){
+              logout();
+            },
+            child: Icon(
+              Icons.more_vert_rounded
+            ),
           ),
           SizedBox(width: 30,)
         ],

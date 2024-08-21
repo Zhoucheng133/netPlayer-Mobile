@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:netplayer_mobile/pages/all.dart';
 import 'package:netplayer_mobile/pages/components/index_body_item.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/page_var.dart';
@@ -45,7 +46,7 @@ class _IndexBodyListState extends State<IndexBodyList> {
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
-                IndexPinItem(icon: Icons.queue_music_rounded, label: '所有歌曲', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: () {  },),
+                IndexPinItem(icon: Icons.queue_music_rounded, label: '所有歌曲', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(All()),),
                 const SizedBox(width: 10,),
                 IndexPinItem(icon: Icons.favorite_rounded, label: '喜欢的歌曲', bgColor: Colors.red[50]!, contentColor: Colors.red, func: () {  },),
                 const SizedBox(width: 10,),

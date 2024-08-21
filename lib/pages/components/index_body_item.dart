@@ -64,46 +64,51 @@ class IndexPinItem extends StatefulWidget {
 class _IndexPinItemState extends State<IndexPinItem> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 200,
-      width: 150,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: widget.bgColor,
-      ),
-      child: Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 20),
-            child: Center(
-              child: Icon(
-                widget.icon,
-                size: 30,
-                color: widget.contentColor,
-              ),
-            ),
-          ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              height: 50,
-              decoration: BoxDecoration(
-                color: Colors.white.withAlpha(80)
-              ),
+    return GestureDetector(
+      onTap: (){
+        widget.func();
+      },
+      child: Container(
+        height: 200,
+        width: 150,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: widget.bgColor,
+        ),
+        child: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20),
               child: Center(
-                child: Text(
-                  widget.label,
-                  style: GoogleFonts.notoSansSc(
-                    color: widget.contentColor,
-                    fontSize: 15
-                  ),
+                child: Icon(
+                  widget.icon,
+                  size: 30,
+                  color: widget.contentColor,
                 ),
               ),
+            ),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                height: 50,
+                decoration: BoxDecoration(
+                  color: Colors.white.withAlpha(80)
+                ),
+                child: Center(
+                  child: Text(
+                    widget.label,
+                    style: GoogleFonts.notoSansSc(
+                      color: widget.contentColor,
+                      fontSize: 15
+                    ),
+                  ),
+                ),
+              )
             )
-          )
-        ],
+          ],
+        ),
       ),
     );
   }
