@@ -20,27 +20,15 @@ class _AllState extends State<All> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: (){
-            Get.back();
-          }, 
-          icon: Icon(Icons.arrow_left)
-        ),
+        
       ),
       body: Column(
         children: [
           Expanded(
-            child: Center(
-              child: TextButton(
-                onPressed: (){
-                  p.showPlayingBar.value=!p.showPlayingBar.value;
-                }, 
-                child: Text("xxxx")
-              )
-            ),
+            child: Container(),
           ),
           Hero(
-            tag: "playingbar",
+            tag: 'playingbar', 
             child: PlayingBar()
           )
         ],
