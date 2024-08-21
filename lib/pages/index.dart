@@ -5,6 +5,7 @@ import 'package:netplayer_mobile/operations/account.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/pages/components/index_body.dart';
 import 'package:netplayer_mobile/pages/components/playing_bar.dart';
+import 'package:netplayer_mobile/variables/page_var.dart';
 
 class Index extends StatefulWidget {
   const Index({super.key});
@@ -80,7 +81,7 @@ class _IndexState extends State<Index> {
         ],
       ),
       body: Padding(
-        padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom+70),
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom+PageStatic().playbarHeight),
         child: const IndexBody()
       ),
     );

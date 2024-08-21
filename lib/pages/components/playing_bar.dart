@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:netplayer_mobile/variables/page_var.dart';
 
 class PlayingBar extends StatefulWidget {
   const PlayingBar({super.key});
@@ -24,13 +25,13 @@ class _PlayingBarState extends State<PlayingBar> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.blue[50],
+        color: Colors.grey[100],
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(15),
           topRight: Radius.circular(15)
         )
       ),
-      height: 70+MediaQuery.of(context).padding.bottom,
+      height: PageStatic().playbarHeight+MediaQuery.of(context).padding.bottom,
       child: Container()
     );
   }
