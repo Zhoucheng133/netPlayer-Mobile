@@ -21,6 +21,7 @@ dependencies:
   loading_animation_widget: ^1.2.1
   crypto: ^3.0.3
   url_launcher: ^6.3.0
+  font_awesome_flutter: ^10.7.0
 
 dev_dependencies:
   flutter_test:
