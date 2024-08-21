@@ -160,6 +160,12 @@ class _PlayListItemState extends State<PlayListItem> {
                 Text("${widget.songCount}首")
               ],
             )
+          ),
+          GestureDetector(
+            onTap: (){
+              // TODO 显示歌单选项卡
+            },
+            child: Icon(Icons.more_vert_rounded)
           )
         ],
       ),
