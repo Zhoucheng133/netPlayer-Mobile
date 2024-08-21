@@ -9,6 +9,7 @@ class DataGet{
   final LsVar ls=Get.put(LsVar());
 
   Future<void> getPlayLists() async {
+    // print("${u.url.value}/rest/getPlaylists?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}");
     final rlt=await httpRequest("${u.url.value}/rest/getPlaylists?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}");
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
       // TODO 请求失败提示

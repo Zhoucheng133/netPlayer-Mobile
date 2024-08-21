@@ -66,8 +66,14 @@ class _IndexBodyListState extends State<IndexBodyList> {
           SizedBox(height: 10,),
           Obx(()=>
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: List.generate(ls.playList.length, (index){
-                return Text(ls.playList[index]['name']);
+                return Column(
+                  children: [
+                    PlayListItem(name: ls.playList[index]['name'], id: ls.playList[index]['id'], songCount: ls.playList[index]['songCount'], coverArt: ls.playList[index]['coverArt']),
+                    if (index != ls.playList.length - 1) SizedBox(height: 10),
+                  ],
+                );
               }),
             )
           )

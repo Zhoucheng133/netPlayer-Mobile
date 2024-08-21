@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:netplayer_mobile/variables/user_var.dart';
 
 class MenuItem extends StatefulWidget {
 
@@ -111,16 +113,56 @@ class PlayListItem extends StatefulWidget {
 
   final String name;
   final String id;
+  final int songCount;
+  final String coverArt;
 
-  const PlayListItem({super.key, required this.name, required this.id});
+  const PlayListItem({super.key, required this.name, required this.id, required this.songCount, required this.coverArt});
 
   @override
   State<PlayListItem> createState() => _PlayListItemState();
 }
 
 class _PlayListItemState extends State<PlayListItem> {
+
+  final UserVar u = Get.put(UserVar());
+  
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return SizedBox(
+      height: 60,
+      child: Row(
+        children: [
+          Container(
+            height: 50,
+            width: 50,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(7),
+              image: DecorationImage(
+                image: NetworkImage(
+                  '${u.url.value}/rest/getCoverArt.view?u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&v=1.16.1&c=netPlayer&f=json&id=${widget.coverArt}',
+                ),
+                fit: BoxFit.cover,
+              )
+            ),
+          ),
+          SizedBox(width: 10,),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  widget.name,
+                  style: TextStyle(
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                Text("${widget.songCount}首")
+              ],
+            )
+          )
+        ],
+      ),
+    );
   }
 }
