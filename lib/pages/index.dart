@@ -49,6 +49,7 @@ class _IndexState extends State<Index> {
   }
 
   void logout(){
+    // TODO 注销弹窗
     account.logout();
     removeOverlayPlayingBar();
   }
@@ -69,11 +70,56 @@ class _IndexState extends State<Index> {
           ],
         ),
         actions: [
-          GestureDetector(
-            onTap: (){
-              logout();
-            },
-            child: Icon(
+          PopupMenuButton(
+            color: Colors.white,
+            itemBuilder: (BuildContext context)=>[
+              PopupMenuItem(
+                onTap: (){
+                  // TODO 跳转到设置
+                },
+                child: const Row(
+                  children: [
+                    Icon(
+                      Icons.settings_rounded,
+                      size: 20,
+                    ),
+                    SizedBox(width: 10,),
+                    Text('设置'),
+                  ],
+                )
+              ),
+              PopupMenuItem(
+                onTap: (){
+                  // TODO 跳转到关于
+                },
+                child: const Row(
+                  children: [
+                    Icon(
+                      Icons.info_rounded,
+                      size: 20,
+                    ),
+                    SizedBox(width: 10,),
+                    Text('关于'),
+                  ],
+                )
+              ),
+              PopupMenuItem(
+                onTap: (){
+                  logout();
+                },
+                child: const Row(
+                  children: [
+                    Icon(
+                      Icons.logout_rounded,
+                      size: 20,
+                    ),
+                    SizedBox(width: 10,),
+                    Text('注销'),
+                  ],
+                )
+              )
+            ],
+            child: const Icon(
               Icons.more_vert_rounded
             ),
           ),
