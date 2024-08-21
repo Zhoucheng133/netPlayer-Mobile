@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/pages/components/playing_bar.dart';
+import 'package:netplayer_mobile/pages/components/title_aria.dart';
 import 'package:netplayer_mobile/variables/page_var.dart';
 
 class All extends StatefulWidget {
@@ -20,10 +21,13 @@ class _AllState extends State<All> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        
+        backgroundColor: Colors.grey[100],
+        scrolledUnderElevation:0.0,
+        toolbarHeight: 70,
       ),
       body: Column(
         children: [
+          TitleAria(title: '所有歌曲', subtitle: '合计歌曲'),
           Expanded(
             child: Container(),
           ),
