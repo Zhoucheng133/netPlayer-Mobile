@@ -58,7 +58,7 @@ class _IndexState extends State<Index> {
   LsVar ls=Get.put(LsVar());
 
   void jumpIndex(int index){
-
+    controller.animateTo(index*230, duration: const Duration(milliseconds: 200), curve: Curves.easeInOut);
   }
 
   @override
