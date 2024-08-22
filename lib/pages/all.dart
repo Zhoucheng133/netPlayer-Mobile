@@ -23,8 +23,8 @@ class _AllState extends State<All> {
   bool showAppbarTitle=false;
   bool loading=true;
 
-  Future<void> getList() async {
-    final data=await DataGet().getAllSongs();
+  Future<void> getList(BuildContext context) async {
+    final data=await DataGet().getAll(context);
     setState(() {
       ls=data;
       loading=false;
@@ -34,7 +34,9 @@ class _AllState extends State<All> {
   @override
   void initState(){
     super.initState();
-    getList();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      getList(context);
+    });
     controller.addListener((){
       if(controller.offset>60){
         setState(() {

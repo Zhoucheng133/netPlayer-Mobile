@@ -35,7 +35,9 @@ class _IndexState extends State<Index> {
   @override
   void initState() {
     super.initState();
-    dataGet.getPlayLists();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      dataGet.getPlayLists(context);
+    });
     controller.addListener((){
       if(controller.offset>200){
         p.index.value=1;
