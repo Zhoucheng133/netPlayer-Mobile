@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/components/song_item.dart';
@@ -20,11 +21,13 @@ class _AllState extends State<All> {
   List ls=[];
   ScrollController controller=ScrollController();
   bool showAppbarTitle=false;
+  bool loading=true;
 
   Future<void> getList() async {
     final data=await DataGet().getAllSongs();
     setState(() {
       ls=data;
+      loading=false;
     });
   }
 
@@ -33,7 +36,6 @@ class _AllState extends State<All> {
     super.initState();
     getList();
     controller.addListener((){
-      // print(controller.offset);
       if(controller.offset>60){
         setState(() {
           showAppbarTitle=true;
@@ -68,19 +70,36 @@ class _AllState extends State<All> {
       body: Column(
         children: [
           Expanded(
-            child: ListView(
-              controller: controller,
-              children: [
-                TitleAria(title: '所有歌曲', subtitle: '${ls.length}首歌曲'),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
-                  child: Column(
-                    children: List.generate(ls.length, (index){
-                      return SongItem(item: ls[index], index: index);
-                    }),
-                  ),
-                )
-              ]
+            child: AnimatedSwitcher(
+              duration: Duration(milliseconds: 200),
+              child: loading ? Center(
+                key: Key("0"),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    LoadingAnimationWidget.beat(
+                      color: Colors.blue, 
+                      size: 30
+                    ),
+                    const SizedBox(height: 10,),
+                    const Text('加载中')
+                  ],
+                ),
+              ) : ListView(
+                key: Key("1"),
+                controller: controller,
+                children: [
+                  TitleAria(title: '所有歌曲', subtitle: '${ls.length}首歌曲'),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10, right: 10),
+                    child: Column(
+                      children: List.generate(ls.length, (index){
+                        return SongItem(item: ls[index], index: index);
+                      }),
+                    ),
+                  )
+                ]
+              ),
             ),
           ),
           Hero(
