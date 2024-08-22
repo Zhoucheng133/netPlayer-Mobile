@@ -5,6 +5,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:netplayer_mobile/operations/account.dart';
 import 'package:netplayer_mobile/pages/index.dart';
 import 'package:netplayer_mobile/pages/login.dart';
+import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'variables/user_var.dart';
@@ -22,6 +23,7 @@ class _MainViewState extends State<MainView> {
   late SharedPreferences prefs;
   Account account=Account();
   final UserVar u = Get.put(UserVar());
+  SettingsVar s=Get.put(SettingsVar());
   bool isLogin=false;
   late Worker accountListener;
 
@@ -49,6 +51,11 @@ class _MainViewState extends State<MainView> {
   }
 
   Future<void> loginCheck() async {
+    var autoLogin=prefs.getBool('autoLogin');
+    if(autoLogin==false){
+      s.autoLogin.value=false;
+      return;
+    }
     var url=prefs.getString('url');
     var username=prefs.getString('username');
     var token=prefs.getString('token');
@@ -71,6 +78,7 @@ class _MainViewState extends State<MainView> {
       }
     }
   }
+
 
   Future<void> initPrefs() async {
     prefs = await SharedPreferences.getInstance();

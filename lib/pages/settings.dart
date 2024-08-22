@@ -1,8 +1,10 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/pages/components/title_aria.dart';
+import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Settings extends StatefulWidget {
@@ -14,8 +16,7 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
 
-  bool enableAutoLogin=true;
-  bool savePlay=true;
+  SettingsVar s=Get.put(SettingsVar());
 
   @override
   Widget build(BuildContext context) {
@@ -46,16 +47,19 @@ class _SettingsState extends State<Settings> {
                             ),
                           ),
                         ),
-                        Switch(
-                          activeTrackColor: Colors.blue,
-                          value: enableAutoLogin, 
-                          onChanged: (val) async {
-                            setState(() {
-                              enableAutoLogin=val;
-                            });
-                            final SharedPreferences prefs = await SharedPreferences.getInstance();
-                            prefs.setBool('autoLogin', val);
-                          }
+                        Obx(()=>
+                          Switch(
+                            activeTrackColor: Colors.blue,
+                            value: s.autoLogin.value, 
+                            onChanged: (val) async {
+                              // setState(() {
+                              //   enableAutoLogin=val;
+                              // });
+                              s.autoLogin.value=val;
+                              final SharedPreferences prefs = await SharedPreferences.getInstance();
+                              prefs.setBool('autoLogin', val);
+                            }
+                          )
                         )
                       ],
                     ),
@@ -73,16 +77,16 @@ class _SettingsState extends State<Settings> {
                             ),
                           ),
                         ),
-                        Switch(
-                          activeTrackColor: Colors.blue,
-                          value: savePlay, 
-                          onChanged: (val) async {
-                            setState(() {
-                              savePlay=val;
-                            });
-                            final SharedPreferences prefs = await SharedPreferences.getInstance();
-                            prefs.setBool('savePlaty', val);
-                          }
+                        Obx(()=>
+                          Switch(
+                            activeTrackColor: Colors.blue,
+                            value: s.savePlay.value, 
+                            onChanged: (val) async {
+                              s.savePlay.value=val;
+                              final SharedPreferences prefs = await SharedPreferences.getInstance();
+                              prefs.setBool('savePlaty', val);
+                            }
+                          )
                         )
                       ],
                     ),
