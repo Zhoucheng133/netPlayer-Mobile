@@ -161,7 +161,7 @@ class _PlayListItemState extends State<PlayListItem> {
           Expanded(
             child: GestureDetector(
               onTap: (){
-                Get.to(()=>Playlist(id: widget.id));
+                Get.to(()=>Playlist(id: widget.id, name: widget.name,));
               },
               child: Container(
                 color: Colors.transparent,
