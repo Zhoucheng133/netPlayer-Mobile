@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SongItem extends StatefulWidget {
   final dynamic item;
@@ -30,11 +31,19 @@ class _SongItemState extends State<SongItem> {
               children: [
                 Text(
                   widget.item['title'],
-                  style: const TextStyle(
-                    overflow: TextOverflow.ellipsis
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.notoSansSc(
+                    fontSize: 16,
                   ),
                 ),
-                Text(widget.item['artist'])
+                Text(
+                  widget.item['artist'],
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.notoSansSc(
+                    fontSize: 12,
+                    color: Colors.grey[400]
+                  ),
+                )
               ],
             ),
           ),
