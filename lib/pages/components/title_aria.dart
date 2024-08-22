@@ -33,7 +33,7 @@ class _TitleAriaState extends State<TitleAria> {
               child: AutoSizeText(
                 widget.title,
                 maxFontSize: 35,
-                minFontSize: 20,
+                minFontSize: 25,
                 style: GoogleFonts.notoSansSc(
                   fontWeight: FontWeight.w300,
                   color: Colors.black,
@@ -47,7 +47,7 @@ class _TitleAriaState extends State<TitleAria> {
             Text(
               widget.subtitle,
               style: GoogleFonts.notoSansSc(
-                fontSize: 16,
+                fontSize: 14,
                 color: Colors.black,
               ),
               overflow: TextOverflow.fade,
