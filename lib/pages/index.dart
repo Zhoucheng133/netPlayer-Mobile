@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -90,7 +88,7 @@ class _IndexState extends State<Index> {
             itemBuilder: (BuildContext context)=>[
               PopupMenuItem(
                 onTap: (){
-                  Get.to(()=>Settings());
+                  Get.to(()=>const Settings());
                 },
                 child: const Row(
                   children: [
@@ -105,7 +103,7 @@ class _IndexState extends State<Index> {
               ),
               PopupMenuItem(
                 onTap: (){
-                  Get.to(()=>About());
+                  Get.to(()=>const About());
                 },
                 child: const Row(
                   children: [
@@ -138,7 +136,7 @@ class _IndexState extends State<Index> {
               Icons.more_vert_rounded
             ),
           ),
-          SizedBox(width: 30,)
+          const SizedBox(width: 30,)
         ],
       ),
       body: Column(
@@ -161,12 +159,12 @@ class _IndexState extends State<Index> {
                       color: Colors.black
                     ),
                   ),
-                  SizedBox(height: 20,),
+                  const SizedBox(height: 20,),
                   Obx(()=>
                     Row(
                       children: [
                         MenuItem(isSet: p.index.value==0, name: '固定项', func: ()=>jumpIndex(0),),
-                        SizedBox(width: 30,),
+                        const SizedBox(width: 30,),
                         MenuItem(isSet: p.index.value==1, name: '歌单', func: ()=>jumpIndex(1),)
                       ],
                     )
@@ -183,23 +181,23 @@ class _IndexState extends State<Index> {
                 child: ListView(
                   controller: controller,
                   children: [
-                    SizedBox(height: 10,),
+                    const SizedBox(height: 10,),
                     SizedBox(
                       height: 200,
                       child: ListView(
                         scrollDirection: Axis.horizontal,
                         children: [
-                          IndexPinItem(icon: Icons.queue_music_rounded, label: '所有歌曲', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>All()),),
+                          IndexPinItem(icon: Icons.queue_music_rounded, label: '所有歌曲', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>const All()),),
                           const SizedBox(width: 10,),
-                          IndexPinItem(icon: Icons.favorite_rounded, label: '喜欢的歌曲', bgColor: Colors.red[50]!, contentColor: Colors.red, func: ()=>Get.to(()=>Loved()),),
+                          IndexPinItem(icon: Icons.favorite_rounded, label: '喜欢的歌曲', bgColor: Colors.red[50]!, contentColor: Colors.red, func: ()=>Get.to(()=>const Loved()),),
                           const SizedBox(width: 10,),
-                          IndexPinItem(icon: Icons.mic_rounded, label: '艺人', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>Artists()),),
+                          IndexPinItem(icon: Icons.mic_rounded, label: '艺人', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>const Artists()),),
                           const SizedBox(width: 10,),
-                          IndexPinItem(icon: Icons.album_rounded, label: '专辑', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>Albums()),),
+                          IndexPinItem(icon: Icons.album_rounded, label: '专辑', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>const Albums()),),
                         ],
                       )
                     ),
-                    SizedBox(height: 20,),
+                    const SizedBox(height: 20,),
                     Text(
                       '歌单',
                       style: GoogleFonts.notoSansSc(
@@ -207,7 +205,7 @@ class _IndexState extends State<Index> {
                         fontWeight: FontWeight.w300
                       ),
                     ),
-                    SizedBox(height: 10,),
+                    const SizedBox(height: 10,),
                     Obx(()=>
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -215,7 +213,7 @@ class _IndexState extends State<Index> {
                           return Column(
                             children: [
                               PlayListItem(name: ls.playList[index]['name'], id: ls.playList[index]['id'], songCount: ls.playList[index]['songCount'], coverArt: ls.playList[index]['coverArt']),
-                              index != ls.playList.length - 1 ? SizedBox(height: 10) : Container()
+                              index != ls.playList.length - 1 ? const SizedBox(height: 10) : Container()
                             ],
                           );
                         }),
@@ -226,7 +224,7 @@ class _IndexState extends State<Index> {
               ),
             ),
           ),
-          Hero(
+          const Hero(
             tag: "playingbar",
             child: PlayingBar()
           )
