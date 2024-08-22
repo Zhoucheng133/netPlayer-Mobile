@@ -24,6 +24,7 @@ dependencies:
   audio_service: ^0.18.15
   scroll_to_index: ^3.0.1
   just_audio: ^0.9.37
+  auto_size_text: ^3.0.0
 
 dev_dependencies:
   flutter_test:
