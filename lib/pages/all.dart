@@ -8,6 +8,7 @@ import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/components/song_item.dart';
 import 'package:netplayer_mobile/pages/components/title_aria.dart';
 import 'package:netplayer_mobile/variables/page_var.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 
 class All extends StatefulWidget {
   const All({super.key});
@@ -19,7 +20,7 @@ class All extends StatefulWidget {
 class _AllState extends State<All> {
 
   List ls=[];
-  ScrollController controller=ScrollController();
+  AutoScrollController controller=AutoScrollController();
   bool showAppbarTitle=false;
   bool loading=true;
 
