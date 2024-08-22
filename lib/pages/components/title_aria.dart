@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -27,12 +28,19 @@ class _TitleAriaState extends State<TitleAria> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              widget.title,
-              style: GoogleFonts.notoSansSc(
-                fontSize: 35,
-                fontWeight: FontWeight.w300,
-                color: Colors.black
+            SizedBox(
+              height: 50,
+              child: AutoSizeText(
+                widget.title,
+                maxFontSize: 35,
+                minFontSize: 20,
+                style: GoogleFonts.notoSansSc(
+                  fontWeight: FontWeight.w300,
+                  color: Colors.black,
+                  fontSize: 35
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
             const SizedBox(height: 20,),
@@ -42,6 +50,7 @@ class _TitleAriaState extends State<TitleAria> {
                 fontSize: 16,
                 color: Colors.black,
               ),
+              overflow: TextOverflow.fade,
             ),
             const SizedBox(height: 10,),
           ],
