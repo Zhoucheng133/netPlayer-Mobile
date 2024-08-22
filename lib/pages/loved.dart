@@ -15,6 +15,7 @@ class _LovedState extends State<Loved> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.grey[100],
         scrolledUnderElevation:0.0,

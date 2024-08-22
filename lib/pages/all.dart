@@ -51,6 +51,7 @@ class _AllState extends State<All> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.grey[100],
         scrolledUnderElevation:0.0,
