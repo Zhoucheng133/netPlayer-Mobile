@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/operations/player_control.dart';
+import 'package:netplayer_mobile/variables/player_var.dart';
 
 class SongItem extends StatefulWidget {
   final dynamic item;
@@ -16,6 +18,16 @@ class SongItem extends StatefulWidget {
 }
 
 class _SongItemState extends State<SongItem> {
+
+  PlayerVar p=Get.put(PlayerVar());
+
+  bool playing(){
+    if(p.nowPlay['fromId']==widget.listId && p.nowPlay['playFrom']==widget.from && p.nowPlay['index']==widget.index){
+      return true;
+    }
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -30,46 +42,59 @@ class _SongItemState extends State<SongItem> {
           children: [
             SizedBox(
               width: 30,
-              child: Center(child: Text((widget.index+1).toString())),
+              child: Center(
+                child: Obx(()=>
+                  playing() ? const Icon(
+                    Icons.play_arrow_rounded,
+                    color: Colors.blue,
+                  ) : Text((widget.index+1).toString())
+                )
+              ),
             ),
             const SizedBox(width: 10,),
             Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.item['title'],
-                    overflow: TextOverflow.ellipsis,
-                    style: GoogleFonts.notoSansSc(
-                      fontSize: 16,
+              child: Obx(()=>
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.item['title'],
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.notoSansSc(
+                        fontSize: 16,
+                        fontWeight: playing() ? FontWeight.bold : FontWeight.normal,
+                        color: playing() ? Colors.blue : Colors.black
+                      ),
                     ),
-                  ),
-                  Text(
-                    widget.item['artist'],
-                    overflow: TextOverflow.ellipsis,
-                    style: GoogleFonts.notoSansSc(
-                      fontSize: 12,
-                      color: Colors.grey[400]
-                    ),
-                  )
-                ],
-              ),
+                    Text(
+                      widget.item['artist'],
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.notoSansSc(
+                        fontSize: 12,
+                        color: playing() ? Colors.blue : Colors.grey[400]
+                      ),
+                    )
+                  ],
+                ),
+              )
             ),
             const SizedBox(width: 10,),
             GestureDetector(
               onTap: (){
-                print("详细~~");
                 // TODO 歌曲详细
               },
               child: Container(
                 color: Colors.transparent,
                 width: 50,
-                child: const Center(
-                  child: Icon(
-                    Icons.more_vert_rounded,
-                    size: 20,
-                  ),
+                child: Center(
+                  child: Obx(()=>
+                    Icon(
+                      Icons.more_vert_rounded,
+                      size: 20,
+                      color: playing() ? Colors.blue : Colors.grey[400]
+                    ),
+                  )
                 ),
               ),
             )
