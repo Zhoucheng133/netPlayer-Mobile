@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/components/title_aria.dart';
 import 'package:netplayer_mobile/variables/page_var.dart';
@@ -15,6 +16,35 @@ class All extends StatefulWidget {
 
 class _AllState extends State<All> {
 
+  List ls=[];
+  ScrollController controller=ScrollController();
+  bool showAppbarTitle=false;
+
+  Future<void> getList() async {
+    final data=await DataGet().getAllSongs();
+    setState(() {
+      ls=data;
+    });
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    getList();
+    controller.addListener((){
+      // print(controller.offset);
+      if(controller.offset>60){
+        setState(() {
+          showAppbarTitle=true;
+        });
+      }else{
+        setState(() {
+          showAppbarTitle=false;
+        });
+      }
+    });
+  }
+
   PageVar p=Get.put(PageVar());
 
   @override
@@ -24,13 +54,66 @@ class _AllState extends State<All> {
         backgroundColor: Colors.grey[100],
         scrolledUnderElevation:0.0,
         toolbarHeight: 70,
+        title: Align(
+          alignment: Alignment.centerLeft,
+          child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 200),
+            child: showAppbarTitle ? Text('所有歌曲', key: Key("1"),) : null,
+          ),
+        ),
+        centerTitle: false,
       ),
       body: Column(
         children: [
           Expanded(
             child: ListView(
+              controller: controller,
               children: [
-                TitleAria(title: '所有歌曲', subtitle: '合计歌曲'),
+                TitleAria(title: '所有歌曲', subtitle: '${ls.length}首歌曲'),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  child: Column(
+                    children: List.generate(ls.length, (index){
+                      return SizedBox(
+                        height: 60,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 30,
+                              child: Center(child: Text((index+1).toString())),
+                            ),
+                            SizedBox(width: 10,),
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    ls[index]['title'],
+                                    style: TextStyle(
+                                      overflow: TextOverflow.ellipsis
+                                    ),
+                                  ),
+                                  Text(ls[index]['artist'])
+                                ],
+                              ),
+                            ),
+                            SizedBox(width: 10,),
+                            SizedBox(
+                              width: 50,
+                              child: Center(
+                                child: Icon(
+                                  Icons.more_vert_rounded
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      );
+                    }),
+                  ),
+                )
               ]
             ),
           ),
