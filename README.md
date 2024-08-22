@@ -1,6 +1,6 @@
 # netPlayer Mobile
 
-<img src="./_assets/icon.png" width="100px">
+<img src="./assets/icon.png" width="100px">
 
 ![Flutter](https://img.shields.io/badge/Flutter-3.16-blue?logo=Flutter)
 ![get](https://img.shields.io/badge/get-4.6.5-red)
@@ -47,9 +47,6 @@
 
 以下截图运行在iPhone13上，不同设备上运行效果可能略有不同
 
-<img src="./_assets/截图1.PNG" alt="netPlayer_Mobile_截图.jpg" width="200px" /><img src="./_assets/截图2.PNG" alt="netPlayer_Mobile_截图.jpg" width="200px" /><img src="./_assets/截图3.PNG" alt="netPlayer_Mobile_截图.jpg" width="200px" />
-<img src="./_assets/截图4.PNG" alt="netPlayer_Mobile_截图.jpg" width="200px" /><img src="./_assets/截图5.PNG" alt="netPlayer_Mobile_截图.jpg" width="200px" /><img src="./_assets/截图6.PNG" alt="netPlayer_Mobile_截图.jpg" width="200px" />
-<img src="./_assets/截图7.PNG" alt="netPlayer_Mobile_截图.jpg" width="200px" /><img src="./_assets/截图8.PNG" alt="netPlayer_Mobile_截图.jpg" width="200px" /><img src="./_assets/截图9.PNG" alt="netPlayer_Mobile_截图.jpg" width="200px" />
 
 ## 更新日志
 
