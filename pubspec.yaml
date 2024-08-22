@@ -10,7 +10,6 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.6
   flutter_native_splash: ^2.4.1
-  flutter_launcher_icons: ^0.13.1
   flutter_localizations:
     sdk: flutter
   google_fonts: ^6.2.1
@@ -39,9 +38,3 @@ flutter_native_splash:
   web: false
   color: "#ffffff"
   image: assets/icon.png
-
-flutter_launcher_icons:
-  android: "launcher_icon"
-  ios: true
-  image_path: "assets/icon.png"
-  min_sdk_android: 21
