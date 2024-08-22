@@ -18,6 +18,16 @@ class _PlayingBarState extends State<PlayingBar> {
     return Column(
       children: [
         GestureDetector(
+          onVerticalDragUpdate: (details) async {
+          if(details.delta.dy<-10){
+            Get.to(
+              ()=>Playing(),
+              transition: Transition.downToUp,
+              curve: Curves.easeInOut,
+              duration: const Duration(milliseconds: 400),
+            );
+          }
+        },
           onTap: (){
             Get.to(
               ()=>Playing(),
