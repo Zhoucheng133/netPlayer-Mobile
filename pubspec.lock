@@ -357,30 +357,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.9.0"
-  just_audio:
-    dependency: "direct main"
-    description:
-      name: just_audio
-      sha256: b7cb6bbf3750caa924d03f432ba401ec300fd90936b3f73a9b33d58b1e96286b
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.9.37"
-  just_audio_platform_interface:
-    dependency: transitive
-    description:
-      name: just_audio_platform_interface
-      sha256: "0243828cce503c8366cc2090cefb2b3c871aa8ed2f520670d76fd47aa1ab2790"
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "4.3.0"
-  just_audio_web:
-    dependency: transitive
-    description:
-      name: just_audio_web
-      sha256: "134356b0fe3d898293102b33b5fd618831ffdc72bb7a1b726140abdf22772b70"
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.4.9"
   leak_tracker:
     dependency: transitive
     description:
@@ -453,6 +429,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.8.0"
+  media_kit:
+    dependency: "direct main"
+    description:
+      name: media_kit
+      sha256: "8c7d9417bed724a3fcaadd91c722fea042737cafb153aa1f1e6461a0fee683a3"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.2"
   meta:
     dependency: transitive
     description:
@@ -549,6 +533,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.27.7"
+  safe_local_storage:
+    dependency: transitive
+    description:
+      name: safe_local_storage
+      sha256: ede4eb6cb7d88a116b3d3bf1df70790b9e2038bc37cb19112e381217c74d9440
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.2"
   scroll_to_index:
     dependency: "direct main"
     description:
@@ -714,6 +706,22 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.2.2"
+  universal_platform:
+    dependency: transitive
+    description:
+      name: universal_platform
+      sha256: "64e16458a0ea9b99260ceb5467a214c1f298d647c659af1bff6d3bf82536b1ec"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.1.0"
+  uri_parser:
+    dependency: transitive
+    description:
+      name: uri_parser
+      sha256: "6543c9fd86d2862fac55d800a43e67c0dcd1a41677cb69c2f8edfe73bbcf1835"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.2"
   url_launcher:
     dependency: "direct main"
     description:

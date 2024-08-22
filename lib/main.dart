@@ -1,13 +1,27 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:media_kit/media_kit.dart';
 import 'package:netplayer_mobile/main_view.dart';
+import 'package:netplayer_mobile/service/handler.dart';
+import 'package:netplayer_mobile/variables/player_var.dart';
 
-void main(){
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  MediaKit.ensureInitialized();
+  final PlayerVar p = Get.put(PlayerVar());
+  p.handler=await AudioService.init(
+    builder: () => Handler(),
+    config: const AudioServiceConfig(
+      androidNotificationChannelId: 'zhouc.netPlayer.channel.audio',
+      androidNotificationChannelName: 'Music playback',
+    ),
+  );
   runApp(const MainApp());
 }
 
