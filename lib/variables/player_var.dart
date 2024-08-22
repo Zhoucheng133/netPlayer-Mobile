@@ -24,6 +24,8 @@ class PlayerVar extends GetxController{
   RxList lyric=[].obs;
   // 当前歌词到多少行了
   RxInt lyricLine=0.obs;
+  // 正在播放
+  RxBool isPlay=false.obs;
 }
 
 class PlayerStatic{

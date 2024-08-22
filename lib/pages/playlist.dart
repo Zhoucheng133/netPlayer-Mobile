@@ -94,7 +94,7 @@ class _PlaylistState extends State<Playlist> {
                     padding: const EdgeInsets.only(left: 10, right: 10),
                     child: Column(
                       children: List.generate(ls.length, (index){
-                        return SongItem(item: ls[index], index: index);
+                        return SongItem(item: ls[index], index: index, ls: ls, from: 'playlist', listId: widget.id,);
                       }),
                     ),
                   )

@@ -6,14 +6,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:media_kit/media_kit.dart';
 import 'package:netplayer_mobile/main_view.dart';
 import 'package:netplayer_mobile/service/handler.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  MediaKit.ensureInitialized();
   final PlayerVar p = Get.put(PlayerVar());
   p.handler=await AudioService.init(
     builder: () => Handler(),

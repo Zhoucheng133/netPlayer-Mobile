@@ -4,13 +4,13 @@ import 'dart:math';
 
 import 'package:audio_service/audio_service.dart';
 import 'package:get/get.dart';
-import 'package:media_kit/media_kit.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
 
 class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
 
-  final player = Player();
+  final player = AudioPlayer();
   var playURL="";
   bool skipHandler=false;
   late MediaItem item;
@@ -19,7 +19,33 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
   final UserVar u = Get.put(UserVar());
 
   Handler(){
-    player.stream.position.listen((position) {
+    // player.stream.position.listen((position) {
+    //   var data=position.inMilliseconds;
+    //   p.playProgress.value=data;
+    //   if(p.lyric.isNotEmpty && p.lyric.length!=1){
+    //     for (var i = 0; i < p.lyric.length; i++) {
+    //       if(i==p.lyric.length-1){
+    //         p.lyricLine.value=p.lyric.length;
+    //         break;
+    //       }else if(i==0 && data<p.lyric[i]['time']){
+    //         // updateLyricLine(0);
+    //         p.lyricLine.value=0;
+    //         break;
+    //       }else if(data>=p.lyric[i]['time'] && data<p.lyric[i+1]['time']){
+    //         // updateLyricLine(i+1);
+    //         p.lyricLine.value=i+1;
+    //         break;
+    //       }
+    //     }
+    //   }else if(p.lyric.length==1){
+    //     // updateLyricLine(0);
+    //     p.lyricLine.value=0;
+    //   }
+    // });
+    player.positionStream.listen((position) {
+      // c.updateNowDuration(position.inSeconds);
+      // c.updateNowDurationInMc(position.inMilliseconds);
+      // print(c.nowDuration);
       var data=position.inMilliseconds;
       p.playProgress.value=data;
       if(p.lyric.isNotEmpty && p.lyric.length!=1){
@@ -42,8 +68,18 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
         p.lyricLine.value=0;
       }
     });
-    player.stream.completed.listen((state) {
-      if(state){
+
+    playbackState.add(playbackState.value.copyWith(
+      controls: [
+        MediaControl.skipToPrevious,
+        MediaControl.pause,
+        MediaControl.skipToNext,
+      ],
+      processingState: AudioProcessingState.loading,
+    ));
+    player.playerStateStream.listen((state) {
+      if(state.processingState == ProcessingState.completed) {
+        // print("complete");
         skipToNext();
       }
     });
@@ -74,8 +110,7 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
   Future<void> play() async {
     var url="${u.url.value}/rest/stream?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}";
     if(url!=playURL || skipHandler){
-      final media=Media(url);
-      await player.open(media);
+      await player.setUrl(url);
     }
     player.play();
     if(skipHandler){

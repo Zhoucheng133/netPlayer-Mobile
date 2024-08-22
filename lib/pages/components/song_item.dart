@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:netplayer_mobile/operations/player_control.dart';
 
 class SongItem extends StatefulWidget {
   final dynamic item;
   final int index;
+  final List ls;
+  final String from;
+  final String listId;
 
-  const SongItem({super.key, required this.item, required this.index});
+  const SongItem({super.key, required this.item, required this.index, required this.ls, required this.from, required this.listId});
 
   @override
   State<SongItem> createState() => _SongItemState();
@@ -16,8 +20,7 @@ class _SongItemState extends State<SongItem> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        print("播放~~");
-        // TODO 播放歌曲
+        PlayerControl().playSong(context, widget.item['id'], widget.item['title'], widget.item['artist'], widget.from, widget.item['duration'], widget.listId, widget.index, widget.ls, widget.item['album']);
       },
       child: Container(
         color: Colors.transparent,

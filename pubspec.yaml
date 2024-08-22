@@ -24,7 +24,7 @@ dependencies:
   font_awesome_flutter: ^10.7.0
   audio_service: ^0.18.15
   scroll_to_index: ^3.0.1
-  media_kit: ^1.0.2
+  just_audio: ^0.9.37
 
 dev_dependencies:
   flutter_test:
