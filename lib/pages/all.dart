@@ -27,9 +27,12 @@ class _AllState extends State<All> {
       ),
       body: Column(
         children: [
-          TitleAria(title: '所有歌曲', subtitle: '合计歌曲'),
           Expanded(
-            child: Container(),
+            child: ListView(
+              children: [
+                TitleAria(title: '所有歌曲', subtitle: '合计歌曲'),
+              ]
+            ),
           ),
           Hero(
             tag: 'playingbar', 

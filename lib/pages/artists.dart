@@ -23,9 +23,12 @@ class _ArtistsState extends State<Artists> {
       ),
       body: Column(
         children: [
-          TitleAria(title: '艺人', subtitle: '合计艺人'),
           Expanded(
-            child: Container(),
+            child: ListView(
+              children: [
+                TitleAria(title: '艺人', subtitle: 'xxx'),
+              ]
+            ),
           ),
           Hero(
             tag: 'playingbar', 

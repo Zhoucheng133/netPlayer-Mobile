@@ -23,9 +23,12 @@ class _AlbumsState extends State<Albums> {
       ),
       body: Column(
         children: [
-          TitleAria(title: '专辑', subtitle: '合计专辑'),
           Expanded(
-            child: Container(),
+            child: ListView(
+              children: [
+                TitleAria(title: '专辑', subtitle: 'xxx'),
+              ]
+            ),
           ),
           Hero(
             tag: 'playingbar', 

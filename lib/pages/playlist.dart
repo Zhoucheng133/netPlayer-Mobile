@@ -25,9 +25,12 @@ class _PlaylistState extends State<Playlist> {
       ),
       body: Column(
         children: [
-          TitleAria(title: '歌单', subtitle: '合计歌曲'),
           Expanded(
-            child: Container(),
+            child: ListView(
+              children: [
+                TitleAria(title: '歌单', subtitle: 'xxxx'),
+              ]
+            ),
           ),
           Hero(
             tag: 'playingbar', 

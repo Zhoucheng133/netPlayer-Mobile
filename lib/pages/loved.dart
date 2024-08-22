@@ -22,9 +22,12 @@ class _LovedState extends State<Loved> {
       ),
       body: Column(
         children: [
-          TitleAria(title: '喜欢的歌曲', subtitle: '合计歌曲'),
           Expanded(
-            child: Container(),
+            child: ListView(
+              children: [
+                TitleAria(title: '喜欢的歌曲', subtitle: 'xxxx'),
+              ]
+            ),
           ),
           Hero(
             tag: 'playingbar', 
