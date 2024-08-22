@@ -87,7 +87,7 @@ class _IndexState extends State<Index> {
             itemBuilder: (BuildContext context)=>[
               PopupMenuItem(
                 onTap: (){
-                  Get.to(Settings());
+                  Get.to(()=>Settings());
                 },
                 child: const Row(
                   children: [
@@ -102,7 +102,7 @@ class _IndexState extends State<Index> {
               ),
               PopupMenuItem(
                 onTap: (){
-                  Get.to(About());
+                  Get.to(()=>About());
                 },
                 child: const Row(
                   children: [
@@ -184,13 +184,13 @@ class _IndexState extends State<Index> {
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
-                        IndexPinItem(icon: Icons.queue_music_rounded, label: '所有歌曲', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(All()),),
+                        IndexPinItem(icon: Icons.queue_music_rounded, label: '所有歌曲', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>All()),),
                         const SizedBox(width: 10,),
-                        IndexPinItem(icon: Icons.favorite_rounded, label: '喜欢的歌曲', bgColor: Colors.red[50]!, contentColor: Colors.red, func: ()=>Get.to(Loved()),),
+                        IndexPinItem(icon: Icons.favorite_rounded, label: '喜欢的歌曲', bgColor: Colors.red[50]!, contentColor: Colors.red, func: ()=>Get.to(()=>Loved()),),
                         const SizedBox(width: 10,),
-                        IndexPinItem(icon: Icons.mic_rounded, label: '艺人', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(Artists()),),
+                        IndexPinItem(icon: Icons.mic_rounded, label: '艺人', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>Artists()),),
                         const SizedBox(width: 10,),
-                        IndexPinItem(icon: Icons.album_rounded, label: '专辑', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(Albums()),),
+                        IndexPinItem(icon: Icons.album_rounded, label: '专辑', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>Albums()),),
                       ],
                     )
                   ),
