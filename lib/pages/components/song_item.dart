@@ -1,0 +1,55 @@
+import 'package:flutter/material.dart';
+
+class SongItem extends StatefulWidget {
+  final dynamic item;
+  final int index;
+
+  const SongItem({super.key, required this.item, required this.index});
+
+  @override
+  State<SongItem> createState() => _SongItemState();
+}
+
+class _SongItemState extends State<SongItem> {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 60,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: 30,
+            child: Center(child: Text((widget.index+1).toString())),
+          ),
+          const SizedBox(width: 10,),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.item['title'],
+                  style: const TextStyle(
+                    overflow: TextOverflow.ellipsis
+                  ),
+                ),
+                Text(widget.item['artist'])
+              ],
+            ),
+          ),
+          const SizedBox(width: 10,),
+          const SizedBox(
+            width: 50,
+            child: Center(
+              child: Icon(
+                Icons.more_vert_rounded,
+                size: 20,
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}

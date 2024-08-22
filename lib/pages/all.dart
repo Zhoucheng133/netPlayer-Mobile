@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/pages/components/playing_bar.dart';
+import 'package:netplayer_mobile/pages/components/song_item.dart';
 import 'package:netplayer_mobile/pages/components/title_aria.dart';
 import 'package:netplayer_mobile/variables/page_var.dart';
 
@@ -74,43 +75,7 @@ class _AllState extends State<All> {
                   padding: const EdgeInsets.only(left: 10, right: 10),
                   child: Column(
                     children: List.generate(ls.length, (index){
-                      return SizedBox(
-                        height: 60,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              width: 30,
-                              child: Center(child: Text((index+1).toString())),
-                            ),
-                            SizedBox(width: 10,),
-                            Expanded(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    ls[index]['title'],
-                                    style: TextStyle(
-                                      overflow: TextOverflow.ellipsis
-                                    ),
-                                  ),
-                                  Text(ls[index]['artist'])
-                                ],
-                              ),
-                            ),
-                            SizedBox(width: 10,),
-                            SizedBox(
-                              width: 50,
-                              child: Center(
-                                child: Icon(
-                                  Icons.more_vert_rounded
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      );
+                      return SongItem(item: ls[index], index: index);
                     }),
                   ),
                 )
