@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/pages/components/title_aria.dart';
+import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
 
@@ -17,6 +18,16 @@ class _PlayingState extends State<Playing> {
 
   PlayerVar p=Get.put(PlayerVar());
   final UserVar u = Get.put(UserVar());
+  LsVar l=Get.put(LsVar());
+
+  bool isLoved(){
+    for (var val in l.loved) {
+      if(val["id"]==p.nowPlay['id']){
+        return true;
+      }
+    }
+    return false;
+  }
 
   void seekSong(val){
     if(p.nowPlay['id'].isEmpty){
@@ -159,6 +170,17 @@ class _PlayingState extends State<Playing> {
                     children: [
                       GestureDetector(
                         onTap: (){
+                          // TODO 切换喜欢
+                        },
+                        child: Icon(
+                          isLoved() ? Icons.favorite_rounded : Icons.favorite_border_outlined,
+                          color: isLoved() ? Colors.red :Colors.black,
+                          size: 22,
+                        ),
+                      ),
+                      const SizedBox(width: 35,),
+                      GestureDetector(
+                        onTap: (){
                           p.handler.skipToPrevious();
                         },
                         child: const Icon(
@@ -186,7 +208,7 @@ class _PlayingState extends State<Playing> {
                             color: Colors.white,
                             border: Border.all(
                               color: Colors.black,
-                              width: 2
+                              width: 3
                             )
                           ),
                           child: Icon(
@@ -201,9 +223,19 @@ class _PlayingState extends State<Playing> {
                         },
                         child: const Icon(
                           Icons.skip_next_rounded,
-                          size:30,
+                          size: 30,
                         ),
                       ),
+                      const SizedBox(width: 35,),
+                      GestureDetector(
+                        onTap: (){
+                          // TODO 更多操作
+                        },
+                        child: const Icon(
+                          Icons.more_horiz_rounded,
+                          size: 25,
+                        ),
+                      )
                     ],
                   ),
                 ),
