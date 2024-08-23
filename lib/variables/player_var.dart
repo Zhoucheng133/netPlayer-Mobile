@@ -2,8 +2,8 @@ import 'package:get/get.dart';
 class PlayerVar extends GetxController{
   RxMap<String, dynamic> nowPlay={
     'id': '',
-    'title': '',
-    'artist': '',
+    'title': '没有播放的歌曲',
+    'artist': '/',
     'playFrom': '',
     'duration': 0,  // 注意这里使用的是秒~1000ms
     'fromId': '',   // 如果不适用为空

@@ -118,6 +118,7 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
     }
     playURL=url;
     setMedia(true);
+    p.isPlay.value=true;
   }
 
   // 暂停
@@ -125,12 +126,14 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
   Future<void> pause() async {
     player.pause();
     setMedia(false);
+    p.isPlay.value=false;
   }
 
   // 停止播放
   @override
   Future<void> stop() async {
     player.stop();
+    p.isPlay.value=false;
   }
 
   // 跳转
