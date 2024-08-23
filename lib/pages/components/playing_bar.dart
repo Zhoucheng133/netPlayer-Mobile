@@ -84,6 +84,8 @@ class _PlayingBarState extends State<PlayingBar> {
                                 color: Colors.black,
                                 decoration: TextDecoration.none,
                               ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
                             Text(
                               p.nowPlay['artist'],
@@ -93,10 +95,13 @@ class _PlayingBarState extends State<PlayingBar> {
                                 color: Colors.grey[400],
                                 decoration: TextDecoration.none,
                               ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             )
                           ],
                         ),
                       ),
+                      SizedBox(width: 15,),
                       GestureDetector(
                         onTap: (){
                           if(p.nowPlay["id"].isNotEmpty){
