@@ -108,6 +108,9 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
   // 播放
   @override
   Future<void> play() async {
+    if(p.nowPlay["id"].isEmpty){
+      return;
+    }
     var url="${u.url.value}/rest/stream?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}";
     if(url!=playURL || skipHandler){
       await player.setUrl(url);
