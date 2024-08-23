@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -5,6 +7,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:netplayer_mobile/operations/account.dart';
 import 'package:netplayer_mobile/pages/index.dart';
 import 'package:netplayer_mobile/pages/login.dart';
+import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -26,6 +29,7 @@ class _MainViewState extends State<MainView> {
   SettingsVar s=Get.put(SettingsVar());
   bool isLogin=false;
   late Worker accountListener;
+  PlayerVar p=Get.put(PlayerVar());
 
   @override
   void initState() {
@@ -50,11 +54,11 @@ class _MainViewState extends State<MainView> {
     super.dispose();
   }
 
-  Future<void> loginCheck() async {
+  Future<bool> loginCheck() async {
     var autoLogin=prefs.getBool('autoLogin');
     if(autoLogin==false){
       s.autoLogin.value=false;
-      return;
+      return false;
     }
     var url=prefs.getString('url');
     var username=prefs.getString('username');
@@ -67,6 +71,7 @@ class _MainViewState extends State<MainView> {
         u.salt.value=salt;
         u.url.value=url;
         u.token.value=token;
+        return true;
       }else{
         WidgetsBinding.instance.addPostFrameCallback((_) {
           showOkAlertDialog(
@@ -75,14 +80,35 @@ class _MainViewState extends State<MainView> {
             message: resp['data']
           );
         });
+        return false;
       }
+    }
+    return false;
+  }
+
+  void nowPlaySet(){
+    var savePlay=prefs.getBool('savePlay');
+    if(savePlay==false){
+      s.savePlay.value=false;
+      return;
+    }
+    var nowPlay=prefs.getString('nowPlay');
+    if(nowPlay!=null){
+      Map<String, dynamic> decodedMap = jsonDecode(nowPlay);
+      Map<String, Object> tmpList=Map<String, Object>.from(decodedMap);
+      p.nowPlay.value=tmpList;
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        // TODO 检查顺序
+      });
     }
   }
 
 
   Future<void> initPrefs() async {
     prefs = await SharedPreferences.getInstance();
-    loginCheck();
+    if(await loginCheck()){
+      nowPlaySet();
+    }
     setState(() {
       loading=false;
     });

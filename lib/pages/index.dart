@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,6 +17,9 @@ import 'package:netplayer_mobile/pages/settings.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
 // import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/variables/page_var.dart';
+import 'package:netplayer_mobile/variables/player_var.dart';
+import 'package:netplayer_mobile/variables/settings_var.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Index extends StatefulWidget {
   const Index({super.key});
@@ -30,6 +35,8 @@ class _IndexState extends State<Index> {
   DataGet dataGet=DataGet();
   PageVar p=Get.put(PageVar());
   LsVar l=Get.put(LsVar());
+  PlayerVar pl=Get.put(PlayerVar());
+  SettingsVar s=Get.put(SettingsVar());
 
   Future<void> initGet(BuildContext context) async {
     if(context.mounted){
@@ -38,6 +45,17 @@ class _IndexState extends State<Index> {
     if(context.mounted){
       l.loved.value=await dataGet.getLoved(context);
     }
+  }
+
+  late Worker nowPlayListener;
+
+  Future<void> savePlay(dynamic val) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    try {
+      if(s.savePlay.value){
+        await prefs.setString('nowPlay', jsonEncode(val));
+      }
+    } catch (_) {}
   }
   
   @override
@@ -53,7 +71,18 @@ class _IndexState extends State<Index> {
         p.index.value=0;
       }
     });
+    nowPlayListener=ever(pl.nowPlay, (val){
+      savePlay(val);
+    });
   }
+
+  @override
+  void dispose(){
+    nowPlayListener.dispose();
+    super.dispose();
+  }
+
+  
 
   Future<void> logout(BuildContext context) async {
     // p.showPlayingBar.value=false;

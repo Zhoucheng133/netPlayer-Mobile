@@ -85,7 +85,7 @@ class _SettingsState extends State<Settings> {
                             onChanged: (val) async {
                               s.savePlay.value=val;
                               final SharedPreferences prefs = await SharedPreferences.getInstance();
-                              prefs.setBool('savePlaty', val);
+                              prefs.setBool('savePlay', val);
                             }
                           )
                         )
