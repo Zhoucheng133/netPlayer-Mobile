@@ -125,7 +125,8 @@ class _PlayingBarState extends State<PlayingBar> {
                             )
                           ),
                           child: Icon(
-                            p.isPlay.value ? Icons.pause_rounded : Icons.play_arrow_rounded
+                            p.isPlay.value ? Icons.pause_rounded : Icons.play_arrow_rounded,
+                            size: 18,
                           ),
                         ),
                       ),
