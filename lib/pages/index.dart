@@ -29,12 +29,22 @@ class _IndexState extends State<Index> {
   int pageIndex=0;
   DataGet dataGet=DataGet();
   PageVar p=Get.put(PageVar());
+  LsVar l=Get.put(LsVar());
+
+  Future<void> initGet(BuildContext context) async {
+    if(context.mounted){
+      await dataGet.getPlayLists(context);
+    }
+    if(context.mounted){
+      l.loved.value=await dataGet.getLoved(context);
+    }
+  }
   
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      dataGet.getPlayLists(context);
+      initGet(context);
     });
     controller.addListener((){
       if(controller.offset>200){
@@ -177,7 +187,7 @@ class _IndexState extends State<Index> {
             child: Padding(
               padding: const EdgeInsets.only(left: 20, top: 10, right: 20, bottom: 0),
               child: RefreshIndicator(
-                onRefresh: ()=>DataGet().getPlayLists(context),
+                onRefresh: ()=>initGet(context),
                 child: ListView(
                   controller: controller,
                   children: [
