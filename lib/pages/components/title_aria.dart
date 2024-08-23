@@ -24,7 +24,7 @@ class _TitleAriaState extends State<TitleAria> {
         color: Colors.grey[100]
       ),
       child: Padding(
-        padding: const EdgeInsets.only(left: 30, bottom: 0),
+        padding: const EdgeInsets.only(left: 30, bottom: 0, right: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

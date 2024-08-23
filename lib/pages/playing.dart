@@ -49,7 +49,6 @@ class _PlayingState extends State<Playing> {
                           width: MediaQuery.of(context).size.width-150,
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                              // image: AssetImage("assets/blank.jpg")
                               image: p.nowPlay['id'].isNotEmpty ? NetworkImage("${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}"):
                               const AssetImage("assets/blank.jpg")
                             )

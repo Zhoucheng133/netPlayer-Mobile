@@ -124,6 +124,9 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
   // 暂停
   @override
   Future<void> pause() async {
+    if(p.nowPlay["id"].isEmpty){
+      return;
+    }
     player.pause();
     setMedia(false);
     p.isPlay.value=false;
@@ -132,6 +135,9 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
   // 停止播放
   @override
   Future<void> stop() async {
+    if(p.nowPlay["id"].isEmpty){
+      return;
+    }
     player.stop();
     p.isPlay.value=false;
   }
@@ -139,6 +145,9 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
   // 跳转
   @override
   Future<void> seek(Duration position) async {
+    if(p.nowPlay["id"].isEmpty){
+      return;
+    }
     player.seek(position);
     setMedia(true);
   }
@@ -153,6 +162,9 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
   // 上一首
   @override
   Future<void> skipToPrevious() async {
+    if(p.nowPlay["id"].isEmpty){
+      return;
+    }
     if(p.fullRandom.value){
       // Operations().fullRandomPlay();
       // TODO 完全随机播放
@@ -187,12 +199,14 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
     }else{
       return index;
     }
-    
   }
 
   // 下一首
   @override
   Future<void> skipToNext() async {
+    if(p.nowPlay["id"].isEmpty){
+      return;
+    }
     if(p.fullRandom.value){
       // Operations().fullRandomPlay();
       // TODO 完全随机播放
