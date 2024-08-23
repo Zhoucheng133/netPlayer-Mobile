@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/operations/player_control.dart';
+import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 
 class SongItem extends StatefulWidget {
@@ -20,10 +21,20 @@ class SongItem extends StatefulWidget {
 class _SongItemState extends State<SongItem> {
 
   PlayerVar p=Get.put(PlayerVar());
+  LsVar l=Get.put(LsVar());
 
   bool playing(){
     if(p.nowPlay['fromId']==widget.listId && p.nowPlay['playFrom']==widget.from && p.nowPlay['index']==widget.index){
       return true;
+    }
+    return false;
+  }
+
+  bool isLoved(){
+    for (var val in l.loved) {
+      if(val["id"]==widget.item['id']){
+        return true;
+      }
     }
     return false;
   }
@@ -67,13 +78,27 @@ class _SongItemState extends State<SongItem> {
                         color: playing() ? Colors.blue : Colors.black
                       ),
                     ),
-                    Text(
-                      widget.item['artist'],
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.notoSansSc(
-                        fontSize: 12,
-                        color: playing() ? Colors.blue : Colors.grey[400]
-                      ),
+                    Row(
+                      children: [
+                        isLoved() ? const Padding(
+                          padding: EdgeInsets.only(right: 10),
+                          child: Icon(
+                            Icons.favorite_rounded,
+                            color: Colors.red,
+                            size: 15,
+                          ),
+                        ) : Container(),
+                        Expanded(
+                          child: Text(
+                            widget.item['artist'],
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.notoSansSc(
+                              fontSize: 12,
+                              color: playing() ? Colors.blue : Colors.grey[400]
+                            ),
+                          ),
+                        ),
+                      ],
                     )
                   ],
                 ),
