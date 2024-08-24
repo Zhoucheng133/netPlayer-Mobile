@@ -1,3 +1,4 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -228,8 +229,19 @@ class _PlayingState extends State<Playing> {
                       ),
                       const SizedBox(width: 35,),
                       GestureDetector(
-                        onTap: (){
+                        onTap: () async {
+                          var req=await showModalActionSheet(
+                            title: "更多操作",
+                            context: context,
+                            actions: [
+                              const SheetAction(label: '查看歌词', key: "lyric", icon: Icons.lyrics_rounded),
+                              const SheetAction(label: '播放顺序', key: "mode", icon: Icons.repeat_rounded),
+                              const SheetAction(label: "查看这个专辑", key: "album", icon: Icons.album_rounded),
+                              const SheetAction(label: "查看这个艺人", key: "artist", icon: Icons.mic_rounded),
+                            ]
+                          );
                           // TODO 更多操作
+                          print(req);
                         },
                         child: const Icon(
                           Icons.more_horiz_rounded,

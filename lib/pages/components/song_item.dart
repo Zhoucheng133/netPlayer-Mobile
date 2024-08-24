@@ -1,3 +1,4 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -106,8 +107,19 @@ class _SongItemState extends State<SongItem> {
             ),
             const SizedBox(width: 10,),
             GestureDetector(
-              onTap: (){
-                // TODO 歌曲详细
+              onTap: () async {
+                var req=await showModalActionSheet(
+                  title: "更多操作",
+                  context: context,
+                  actions: [
+                    const SheetAction(label: '添加到', key: "lyric"),
+                    const SheetAction(label: '播放顺序', key: "mode"),
+                    const SheetAction(label: "查看这个专辑", key: "album"),
+                    const SheetAction(label: "查看这个艺人", key: "artist"),
+                  ]
+                );
+                // TODO 更多操作
+                print(req);
               },
               child: Container(
                 color: Colors.transparent,

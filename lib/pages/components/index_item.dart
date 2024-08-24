@@ -1,8 +1,10 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/pages/playlist.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
 
@@ -137,6 +139,50 @@ class PlayListItem extends StatefulWidget {
 class _PlayListItemState extends State<PlayListItem> {
 
   final UserVar u = Get.put(UserVar());
+
+  Future<void> showAction(BuildContext context) async {
+    var req=await showModalActionSheet(
+      context: context,
+      title: widget.name,
+      actions: [
+        SheetAction(label: '重命名歌单', key: "rename", icon: Icons.edit_rounded),
+        SheetAction(label: '删除歌单', key: "del", icon: Icons.delete_rounded)
+      ]
+    );
+    if(req=="rename"){
+      if(context.mounted){
+        var newname=await showTextInputDialog(
+          context: context, 
+          textFields: [
+            DialogTextField(
+              hintText: "输入一个新的歌单名称"
+            )
+          ],
+          title: "重命名歌单",
+          okLabel: "完成",
+          cancelLabel: "取消"
+        );
+        if(newname!=null){
+          Operations().renamePlayList(widget.id, newname[0]);
+        }
+      }
+    }else if(req=="del"){
+      if(context.mounted){
+        var req=await showOkCancelAlertDialog(
+          context: context, 
+          title: "删除歌单",
+          message: "确定要删除这个歌单吗",
+          okLabel: "删除",
+          cancelLabel: "取消",
+        );
+        if(req==OkCancelResult.ok){
+          if(context.mounted){
+            Operations().delPlayList(widget.id, context);
+          }
+        }
+      }
+    }
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -182,9 +228,7 @@ class _PlayListItemState extends State<PlayListItem> {
             )
           ),
           GestureDetector(
-            onTap: (){
-              // TODO 歌单操作
-            },
+            onTap: ()=>showAction(context),
             child: Icon(Icons.more_vert_rounded)
           )
         ],
