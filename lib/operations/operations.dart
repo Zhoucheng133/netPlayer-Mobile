@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/operations/requests.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
+import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
 
 class Operations{
@@ -10,6 +11,7 @@ class Operations{
   DataGet dataGet=DataGet();
   UserVar u = Get.put(UserVar());
   LsVar l=Get.put(LsVar());
+  PlayerVar p=Get.put(PlayerVar());
 
   Future<void> renamePlayList(String id, String newname, BuildContext context) async {
     final rlt=await httpRequest("${u.url.value}/rest/updatePlaylist?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&playlistId=$id&name=$newname");
@@ -107,6 +109,9 @@ class Operations{
       }
       return false;
     }else{
+      if(p.nowPlay['playFrom']=="playlist" && p.nowPlay['index']==songIndex && p.nowPlay['fromId']==listId){
+        p.handler.stop();
+      }
       return true;
     }
   }

@@ -143,6 +143,18 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
     }
     player.stop();
     p.isPlay.value=false;
+    Map<String, Object> tmp={
+          'id': '',
+          'title': '',
+          'artist': '',
+          'playFrom': '',
+          'duration': 0,
+          'fromId': '',
+          'index': 0,
+          'album': '',
+          'list': [],
+        };
+    p.nowPlay.value=tmp;
   }
 
   // 跳转
