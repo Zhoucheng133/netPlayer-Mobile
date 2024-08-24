@@ -87,6 +87,7 @@ class _PlaylistState extends State<Playlist> {
                 ],
               ),
             ) : ListView(
+              key: Key("1"),
               controller: controller,
               children: [
                 TitleAria(title: widget.name, subtitle: '${ls.length}首歌曲'),

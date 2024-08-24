@@ -85,6 +85,7 @@ class _LovedState extends State<Loved> {
                   ],
                 ),
               ) :  ListView(
+                key: Key("1"),
                 controller: controller,
                 children: [
                   TitleAria(title: '喜欢的歌曲', subtitle: '${ls.length}首歌曲'),

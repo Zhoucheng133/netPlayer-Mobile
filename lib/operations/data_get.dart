@@ -102,7 +102,6 @@ class DataGet{
   }
 
   Future<List> getArtists(BuildContext context) async {
-    print('${u.url.value}/rest/getArtists?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}');
     final rlt=await httpRequest('${u.url.value}/rest/getArtists?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}');
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
       if(context.mounted){
@@ -124,4 +123,26 @@ class DataGet{
     return [];
   }
 
+  Future<List> getAlbums(BuildContext context) async {
+    final rlt=await httpRequest("${u.url.value}/rest/getAlbumList?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&type=newest&size=500");
+    if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
+      if(context.mounted){
+        errDialog("获取所有专辑失败", "请检查你的网络连接", context);
+      }
+      return [];
+    }else{
+      try {
+        if(rlt['subsonic-response']['albumList']['album']==null){
+          return [];
+        }else{
+          return rlt['subsonic-response']['albumList']['album'];
+        }
+      } catch (_) {
+        if(context.mounted){
+          errDialog("解析所有专辑失败", "请检查你的网络连接", context);
+        }
+        return [];
+      }
+    }
+  }
 }
