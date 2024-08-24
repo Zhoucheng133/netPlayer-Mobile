@@ -163,7 +163,9 @@ class _PlayListItemState extends State<PlayListItem> {
           cancelLabel: "取消"
         );
         if(newname!=null){
-          Operations().renamePlayList(widget.id, newname[0]);
+          if(context.mounted){
+            Operations().renamePlayList(widget.id, newname[0], context);
+          }
         }
       }
     }else if(req=="del"){

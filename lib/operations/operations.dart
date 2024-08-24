@@ -9,9 +9,19 @@ class Operations{
   DataGet dataGet=DataGet();
   final UserVar u = Get.put(UserVar());
 
-  bool renamePlayList(String id, String newname){
-    // TODO 重命名歌单
-    return true;
+  Future<void> renamePlayList(String id, String newname, BuildContext context) async {
+    final rlt=await httpRequest("${u.url.value}/rest/updatePlaylist?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&playlistId=$id&name=$newname");
+    if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
+      if(context.mounted){
+        dataGet.errDialog('重命名歌单失败', context);
+      }
+      return;
+    }else{
+      if(context.mounted){
+        dataGet.getPlayLists(context);
+      }
+    }
+    return;
   }
 
   Future<void> delPlayList(String id, BuildContext context) async {
