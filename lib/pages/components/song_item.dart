@@ -114,10 +114,12 @@ class _SongItemState extends State<SongItem> {
                   title: "更多操作",
                   context: context,
                   actions: [
-                    const SheetAction(label: '添加到', key: "lyric"),
-                    const SheetAction(label: '播放顺序', key: "mode"),
-                    const SheetAction(label: "查看这个专辑", key: "album"),
-                    const SheetAction(label: "查看这个艺人", key: "artist"),
+                    const SheetAction(label: '添加到歌单...', key: "lyric", icon: Icons.playlist_add_rounded),
+                    isLoved() ? const SheetAction(label: '取消喜欢', key: 'delove', icon: Icons.heart_broken_rounded) : 
+                    const SheetAction(label: '添加到喜欢', key: "love", icon: Icons.favorite_rounded),
+                    const SheetAction(label: "查看这个专辑", key: "album", icon: Icons.album_rounded),
+                    const SheetAction(label: "查看这个艺人", key: "artist", icon: Icons.mic_rounded),
+                    if(widget.listId.isNotEmpty) const SheetAction(label: "从歌单中移除", key: "delist", icon: Icons.playlist_remove_rounded, ),
                   ]
                 );
                 // TODO 更多操作
