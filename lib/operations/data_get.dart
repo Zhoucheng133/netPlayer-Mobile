@@ -101,4 +101,26 @@ class DataGet{
     return [];
   }
 
+  Future<List> getArtists(BuildContext context) async {
+    final rlt=await httpRequest('${u.url.value}/rest/getArtists?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}');
+    if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
+      if(context.mounted){
+        errDialog("获取所有艺人失败", "请检查你的网络连接", context);
+      }
+      return [];
+    }else{
+      try {
+        var list=[];
+        var tmp=rlt['subsonic-response']["artists"]["index"].map((item) => item['artist']).toList();
+        for(var i=0;i<tmp.length;i++){
+          for(var j=0;j<tmp[i].length;j++){
+            list.add(tmp[i][j]);
+          }
+        }
+        return list;
+      } catch (_) {}
+    }
+    return [];
+  }
+
 }
