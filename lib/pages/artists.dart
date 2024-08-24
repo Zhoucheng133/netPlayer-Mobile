@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
+import 'package:netplayer_mobile/pages/components/artist_item.dart';
 import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/components/title_aria.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
@@ -89,10 +90,14 @@ class _ArtistsState extends State<Artists> {
                 controller: controller,
                 children: [
                   TitleAria(title: '艺人', subtitle: '${ls.length}位艺人'),
-                  Column(
-                    children: List.generate(ls.length, (index){
-                      return Text(ls[index]['name']);
-                    }),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10, right: 10),
+                    child: Column(
+                      children: List.generate(ls.length, (index){
+                        // return Text(ls[index]['name']);
+                        return ArtistItem(index: index, item: ls[index]);
+                      }),
+                    ),
                   )
                 ]
               ),

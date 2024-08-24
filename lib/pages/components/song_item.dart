@@ -7,6 +7,8 @@ import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 
 class SongItem extends StatefulWidget {
+  // 调用时注意左右Padding 10
+
   final dynamic item;
   final int index;
   final List ls;
