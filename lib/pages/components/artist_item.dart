@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:netplayer_mobile/pages/artist_content.dart';
 
 class ArtistItem extends StatefulWidget {
   // 调用时注意左右Padding 10
@@ -18,7 +20,7 @@ class _ArtistItemState extends State<ArtistItem> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        // TODO 艺人详细
+        Get.to(()=>ArtistContent(id: widget.item['id'], artist: widget.item['name']));
       },
       child: Container(
         color: Colors.transparent,
