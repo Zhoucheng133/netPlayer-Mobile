@@ -119,7 +119,7 @@ class _SongItemState extends State<SongItem> {
                     const SheetAction(label: '添加到喜欢', key: "love", icon: Icons.favorite_rounded),
                     const SheetAction(label: "查看这个专辑", key: "album", icon: Icons.album_rounded),
                     const SheetAction(label: "查看这个艺人", key: "artist", icon: Icons.mic_rounded),
-                    if(widget.listId.isNotEmpty) const SheetAction(label: "从歌单中移除", key: "delist", icon: Icons.playlist_remove_rounded, ),
+                    if(widget.from=="playlist") const SheetAction(label: "从歌单中移除", key: "delist", icon: Icons.playlist_remove_rounded, ),
                   ]
                 );
                 // TODO 更多操作
