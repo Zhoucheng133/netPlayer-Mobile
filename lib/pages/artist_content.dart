@@ -26,7 +26,7 @@ class _ArtistContentState extends State<ArtistContent> {
   bool loading=true;
 
   Future<void> getList(BuildContext context) async {
-    final data=await DataGet().getAlbum(widget.id, context);
+    final data=await DataGet().getArtist(widget.id, context);
     setState(() {
       ls=data;
       loading=false;

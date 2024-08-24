@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:netplayer_mobile/pages/album_content.dart';
 
 class AlbumItem extends StatefulWidget {
 
@@ -19,7 +21,7 @@ class _AlbumItemState extends State<AlbumItem> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        // TODO 专辑详细
+        Get.to(() =>AlbumContent(album: widget.item['title'], id: widget.item['id']));
       },
       child: Container(
         color: Colors.transparent,
