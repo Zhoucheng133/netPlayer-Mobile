@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/operations/account.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
+import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/pages/about.dart';
 import 'package:netplayer_mobile/pages/albums.dart';
 import 'package:netplayer_mobile/pages/all.dart';
@@ -238,12 +239,45 @@ class _IndexState extends State<Index> {
                       )
                     ),
                     const SizedBox(height: 20,),
-                    Text(
-                      '歌单',
-                      style: GoogleFonts.notoSansSc(
-                        fontSize: 25,
-                        fontWeight: FontWeight.w300
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          '歌单',
+                          style: GoogleFonts.notoSansSc(
+                            fontSize: 25,
+                            fontWeight: FontWeight.w300
+                          ),
+                        ),
+                        const SizedBox(width: 10,),
+                        GestureDetector(
+                          onTap: () async {
+                            var rlt=await showTextInputDialog(
+                              context: context,
+                              title: "创建一个新的歌单",
+                              textFields: [
+                                const DialogTextField(
+                                  hintText: "新歌单名称"
+                                )
+                              ],
+                            );
+                            if(rlt!=null){
+                              // print(rlt[0]);
+                              if(context.mounted){
+                                Operations().newPlayList(rlt[0], context);
+                              }
+                            }
+                          },
+                          child: Container(
+                            color: Colors.transparent,
+                            height: 35,
+                            width: 35,
+                            child: const Icon(
+                              Icons.add_rounded
+                            ),
+                          ),
+                        )
+                      ],
                     ),
                     const SizedBox(height: 10,),
                     Obx(()=>

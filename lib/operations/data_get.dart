@@ -10,7 +10,7 @@ class DataGet{
   final UserVar u = Get.put(UserVar());
   final LsVar ls=Get.put(LsVar());
 
-  void errDialog(String title, BuildContext context){
+  void errDialog(String title, String msg, BuildContext context){
     showOkAlertDialog(
       context: context,
       title: title,
@@ -23,7 +23,7 @@ class DataGet{
     final rlt=await httpRequest("${u.url.value}/rest/getPlaylists?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}");
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
       if(context.mounted){
-        errDialog("获取所有歌单失败", context);
+        errDialog("获取所有歌单失败", "请检查你的网络连接", context);
       }
       return;
     }else{
@@ -31,7 +31,7 @@ class DataGet{
         ls.playList.value=rlt['subsonic-response']['playlists']['playlist'];
       } catch (_) {
         if(context.mounted){
-          errDialog("获取所有歌单失败", context);
+          errDialog("获取所有歌单失败", "请检查你的网络连接", context);
         }
       }
     }
@@ -41,7 +41,7 @@ class DataGet{
     final rlt=await httpRequest("${u.url.value}/rest/getRandomSongs?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&size=500");
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
       if(context.mounted){
-        errDialog("获取所有歌单失败", context);
+        errDialog("获取所有歌单失败", "请检查你的网络连接", context);
       }
       return [];
     }else{
@@ -55,7 +55,7 @@ class DataGet{
         return tmpList;
       } catch (_) {
         if(context.mounted){
-          errDialog("获取所有歌单失败", context);
+          errDialog("获取所有歌单失败","请检查你的网络连接", context);
         }
         return [];
       }
@@ -66,7 +66,7 @@ class DataGet{
     final rlt=await httpRequest("${u.url.value}/rest/getStarred?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}");
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
       if(context.mounted){
-        errDialog("获取所有歌单失败", context);
+        errDialog("获取所有歌单失败","请检查你的网络连接", context);
       }
       return [];
     }else{
@@ -79,7 +79,7 @@ class DataGet{
         }
       } catch (_) {
         if(context.mounted){
-          errDialog("获取所有歌单失败", context);
+          errDialog("获取所有歌单失败", "请检查你的网络连接", context);
         }
         return [];
       }
@@ -90,7 +90,7 @@ class DataGet{
     final rlt=await httpRequest("${u.url.value}/rest/getPlaylist?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=$id");
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
       if(context.mounted){
-        errDialog("获取歌单失败", context);
+        errDialog("获取歌单失败", "请检查你的网络连接", context);
       }
       return [];
     }else{
