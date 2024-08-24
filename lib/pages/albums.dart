@@ -62,7 +62,7 @@ class _AlbumsState extends State<Albums> {
           alignment: Alignment.centerLeft,
           child: AnimatedSwitcher(
             duration: const Duration(milliseconds: 200),
-            child: showAppbarTitle ? Text('所有专辑', key: Key("1"),) : null,
+            child: showAppbarTitle ? Text('专辑', key: Key("1"),) : null,
           ),
         ),
         centerTitle: false,
