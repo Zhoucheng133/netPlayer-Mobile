@@ -181,7 +181,7 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
     if(p.nowPlay["id"].isEmpty){
       return;
     }
-    if(p.fullRandom.value){
+    if(p.nowPlay['playFrom']=='fullRandom'){
       PlayerControl().shufflePlay();
       return;
     }
@@ -222,7 +222,7 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
     if(p.nowPlay["id"].isEmpty){
       return;
     }
-    if(p.fullRandom.value){
+    if(p.nowPlay['playFrom']=='fullRandom'){
       PlayerControl().shufflePlay();
       return;
     }

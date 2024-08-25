@@ -24,7 +24,6 @@ class PlayerControl{
     p.nowPlay.value=data;
     p.handler.play();
     p.isPlay.value=true;
-    p.fullRandom.value=false;
   }
 
   Future<void> shufflePlay() async {
@@ -48,6 +47,5 @@ class PlayerControl{
     p.nowPlay.value=rdSong;
     p.handler.play();
     p.isPlay.value=true;
-    p.fullRandom.value=true;
   }
 }
