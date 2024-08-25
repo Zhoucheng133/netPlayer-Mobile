@@ -162,7 +162,6 @@ class DataGet{
   }
 
   Future<List> getAlbum(String id, BuildContext context) async {
-    print("${u.url.value}/rest/getAlbum?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=$id");
     final rlt=await httpRequest("${u.url.value}/rest/getAlbum?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=$id");
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
       if(context.mounted){

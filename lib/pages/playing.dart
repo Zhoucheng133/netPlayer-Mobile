@@ -2,6 +2,7 @@ import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/pages/components/title_aria.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
@@ -170,7 +171,11 @@ class _PlayingState extends State<Playing> {
                     children: [
                       GestureDetector(
                         onTap: (){
-                          // TODO 切换喜欢
+                          if(isLoved()){
+                            Operations().delove(p.nowPlay['id'], context);
+                          }else{
+                            Operations().love(p.nowPlay['id'], context);
+                          }
                         },
                         child: Icon(
                           isLoved() ? Icons.favorite_rounded : Icons.favorite_border_outlined,
