@@ -235,82 +235,82 @@ class _IndexState extends State<Index> {
               padding: const EdgeInsets.only(left: 20, right: 20, bottom: 0),
               child: RefreshIndicator(
                 onRefresh: ()=>initGet(context),
-                child: ListView(
-                  controller: controller,
-                  children: [
-                    const SizedBox(height: 15,),
-                    SizedBox(
-                      height: 200,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                          IndexPinItem(icon: Icons.queue_music_rounded, label: '所有歌曲', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>const All()),),
-                          const SizedBox(width: 10,),
-                          IndexPinItem(icon: Icons.favorite_rounded, label: '喜欢的歌曲', bgColor: Colors.red[50]!, contentColor: Colors.red, func: ()=>Get.to(()=>const Loved()),),
-                          const SizedBox(width: 10,),
-                          IndexPinItem(icon: Icons.mic_rounded, label: '艺人', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>const Artists()),),
-                          const SizedBox(width: 10,),
-                          IndexPinItem(icon: Icons.album_rounded, label: '专辑', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>const Albums()),),
-                        ],
-                      )
-                    ),
-                    const SizedBox(height: 20,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          '歌单',
-                          style: GoogleFonts.notoSansSc(
-                            fontSize: 25,
-                            fontWeight: FontWeight.w300
-                          ),
-                        ),
-                        const SizedBox(width: 10,),
-                        GestureDetector(
-                          onTap: () async {
-                            var rlt=await showTextInputDialog(
-                              context: context,
-                              title: "创建一个新的歌单",
-                              textFields: [
-                                const DialogTextField(
-                                  hintText: "新歌单名称"
-                                )
-                              ],
-                            );
-                            if(rlt!=null){
-                              // print(rlt[0]);
-                              if(context.mounted){
-                                Operations().newPlayList(rlt[0], context);
-                              }
-                            }
-                          },
-                          child: Container(
-                            color: Colors.transparent,
-                            height: 35,
-                            width: 35,
-                            child: const Icon(
-                              Icons.add_rounded
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    const SizedBox(height: 10,),
-                    Obx(()=>
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: List.generate(ls.playList.length, (index){
-                          return Column(
+                child: Obx(()=>
+                  ListView.builder(
+                    itemCount: ls.playList.length+6,
+                    itemBuilder: (context, index){
+                      if(index==0){
+                        return const SizedBox(height: 15,);
+                      }else if(index==1){
+                        return SizedBox(
+                          height: 200,
+                          child: ListView(
+                            scrollDirection: Axis.horizontal,
                             children: [
-                              PlayListItem(name: ls.playList[index]['name'], id: ls.playList[index]['id'], songCount: ls.playList[index]['songCount'], coverArt: ls.playList[index]['coverArt']),
-                              index != ls.playList.length - 1 ? const SizedBox(height: 10) : Container()
+                              IndexPinItem(icon: Icons.queue_music_rounded, label: '所有歌曲', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>const All()),),
+                              const SizedBox(width: 10,),
+                              IndexPinItem(icon: Icons.favorite_rounded, label: '喜欢的歌曲', bgColor: Colors.red[50]!, contentColor: Colors.red, func: ()=>Get.to(()=>const Loved()),),
+                              const SizedBox(width: 10,),
+                              IndexPinItem(icon: Icons.mic_rounded, label: '艺人', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>const Artists()),),
+                              const SizedBox(width: 10,),
+                              IndexPinItem(icon: Icons.album_rounded, label: '专辑', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>const Albums()),),
                             ],
-                          );
-                        }),
-                      )
-                    )
-                  ],
-                ),
+                          )
+                        );
+                      }else if(index==2){
+                        return const SizedBox(height: 20,);
+                      }else if(index==3){
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              '歌单',
+                              style: GoogleFonts.notoSansSc(
+                                fontSize: 25,
+                                fontWeight: FontWeight.w300
+                              ),
+                            ),
+                            const SizedBox(width: 10,),
+                            GestureDetector(
+                              onTap: () async {
+                                var rlt=await showTextInputDialog(
+                                  context: context,
+                                  title: "创建一个新的歌单",
+                                  textFields: [
+                                    const DialogTextField(
+                                      hintText: "新歌单名称"
+                                    )
+                                  ],
+                                );
+                                if(rlt!=null){
+                                  // print(rlt[0]);
+                                  if(context.mounted){
+                                    Operations().newPlayList(rlt[0], context);
+                                  }
+                                }
+                              },
+                              child: Container(
+                                color: Colors.transparent,
+                                height: 35,
+                                width: 35,
+                                child: const Icon(
+                                  Icons.add_rounded
+                                ),
+                              ),
+                            )
+                          ],
+                        );
+                      }else if(index==4){
+                        return const SizedBox(height: 10,);
+                      }else if(index==ls.playList.length+5){
+                        return const SizedBox(height: 10,);
+                      }
+                      return Obx(()=>
+                        PlayListItem(name: ls.playList[index-5]['name'], id: ls.playList[index-5]['id'], songCount: ls.playList[index-5]['songCount'], coverArt: ls.playList[index-5]['coverArt'])
+                      );
+                    }
+                  ),
+                )
               ),
             ),
           ),

@@ -82,21 +82,22 @@ class _AlbumsState extends State<Albums> {
                     const Text('加载中')
                   ],
                 ),
-              ) :  ListView(
+              ):
+              ListView.builder(
                 key: const Key("1"),
                 controller: controller,
-                children: [
-                  TitleAria(title: '专辑', subtitle: '${ls.length}张专辑'),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10, right: 10),
-                    child: Column(
-                      children: List.generate(ls.length, (index){
-                        return AlbumItem(index: index, item: ls[index]);
-                      }),
-                    ),
-                  )
-                ]
-              ),
+                itemCount: ls.length + 1, // +1 是为了包括 `TitleAria`
+                itemBuilder: (context, index) {
+                  if(index==0){
+                    return TitleAria(title: '专辑', subtitle: '${ls.length}张专辑');
+                  }else{
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      child: AlbumItem(index: index-1, item: ls[index-1]),
+                    );
+                  }
+                }
+              )
             ),
           ),
           const Hero(

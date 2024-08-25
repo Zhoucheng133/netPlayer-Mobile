@@ -83,20 +83,31 @@ class _AlbumContentState extends State<AlbumContent> {
                   const Text('加载中')
                 ],
               ),
-            ) : ListView(
+            ) : ListView.builder(
               key: const Key("1"),
               controller: controller,
-              children: [
-                TitleAria(title: "专辑: ${widget.album}", subtitle: '${ls.length}首歌曲'),
-                Padding(
+              itemCount: ls.length + 1, // +1 是为了包括 `TitleAria`
+              itemBuilder: (context, index) {
+                if (index == 0) {
+                  // 第一个 item 是 `TitleAria`
+                  return TitleAria(
+                    title: "专辑: ${widget.album}",
+                    subtitle: '${ls.length}首歌曲',
+                  );
+                } else {
+                  // 其余的 items 是歌曲列表
+                  return Padding(
                     padding: const EdgeInsets.only(left: 10, right: 10),
-                    child: Column(
-                      children: List.generate(ls.length, (index){
-                        return SongItem(item: ls[index], index: index, ls: ls, from: 'album', listId: widget.id,);
-                      }),
+                    child: SongItem(
+                      item: ls[index - 1],
+                      index: index - 1,
+                      ls: ls,
+                      from: 'album',
+                      listId: widget.id,
                     ),
-                  )
-              ]
+                  );
+                }
+              },
             ),
           ),
           const Hero(

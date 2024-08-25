@@ -100,26 +100,39 @@ class _AllState extends State<All> {
                     const Text('加载中')
                   ],
                 ),
-              ) : ListView(
+              ) : 
+              ListView.builder(
                 key: const Key("1"),
                 controller: controller,
-                children: [
-                  TitleAria(title: '所有歌曲', subtitle: '${ls.length==500 ? ">${ls.length}" : ls.length}首歌曲'),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10, right: 10),
-                    child: Column(
-                      children: List.generate(ls.length, (index){
-                        return AutoScrollTag(
-                          controller: controller,
-                          index: index,
-                          key: ValueKey(index),
-                          child: SongItem(item: ls[index], index: index, ls: ls, from: 'all', listId: '',)
-                        );
-                      }),
-                    ),
-                  )
-                ]
+                itemCount: ls.length + 1, // +1 是为了包括 `TitleAria`
+                itemBuilder: (context, index) {
+                  if (index == 0) {
+                    // 第一个 item 是 `TitleAria`
+                    return TitleAria(
+                      title: '所有歌曲',
+                      subtitle: '${ls.length == 500 ? ">${ls.length}" : ls.length}首歌曲',
+                    );
+                  } else {
+                    // 其余的 items 是歌曲列表
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      child: AutoScrollTag(
+                        controller: controller,
+                        index: index - 1, // 由于 `TitleAria` 占用了第一个位置，所以要减 1
+                        key: ValueKey(index),
+                        child: SongItem(
+                          item: ls[index - 1],
+                          index: index - 1,
+                          ls: ls,
+                          from: 'all',
+                          listId: '',
+                        ),
+                      ),
+                    );
+                  }
+                },
               ),
+
             ),
           ),
           const Hero(

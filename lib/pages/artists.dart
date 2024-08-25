@@ -82,21 +82,28 @@ class _ArtistsState extends State<Artists> {
                     const Text('加载中')
                   ],
                 ),
-              ) : ListView(
+              ) : ListView.builder(
                 key: const Key("1"),
                 controller: controller,
-                children: [
-                  TitleAria(title: '艺人', subtitle: '${ls.length}位艺人'),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10, right: 10),
-                    child: Column(
-                      children: List.generate(ls.length, (index){
-                        // return Text(ls[index]['name']);
-                        return ArtistItem(index: index, item: ls[index]);
-                      }),
-                    ),
-                  )
-                ]
+                itemCount: ls.length + 1, // +1 是为了包括 `TitleAria`
+                itemBuilder: (context, index) {
+                  if (index == 0) {
+                    // 第一个 item 是 `TitleAria`
+                    return TitleAria(
+                      title: '艺人',
+                      subtitle: '${ls.length}位艺人',
+                    );
+                  } else {
+                    // 其余的 items 是艺人列表
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      child: ArtistItem(
+                        index: index - 1, // 由于 `TitleAria` 占用了第一个位置，所以要减 1
+                        item: ls[index - 1],
+                      ),
+                    );
+                  }
+                },
               ),
             ),
           ),
