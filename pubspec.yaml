@@ -26,6 +26,7 @@ dependencies:
   just_audio: ^0.9.37
   auto_size_text: ^3.0.0
   easy_debounce: ^2.0.3
+  audio_session: ^0.1.21
 
 dev_dependencies:
   flutter_test:

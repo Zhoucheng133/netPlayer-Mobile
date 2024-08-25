@@ -3,6 +3,7 @@
 import 'dart:math';
 
 import 'package:audio_service/audio_service.dart';
+import 'package:audio_session/audio_session.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:netplayer_mobile/operations/player_control.dart';
@@ -19,7 +20,41 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
   PlayerVar p=Get.put(PlayerVar());
   final UserVar u = Get.put(UserVar());
 
+  Future<void> initSession() async {
+    final session = await AudioSession.instance;
+    await session.configure(const AudioSessionConfiguration.music());
+    session.interruptionEventStream.listen((event) {
+      if (event.begin) {
+        switch (event.type) {
+          case AudioInterruptionType.duck:
+            player.setVolume(0.5);
+            // print("Duck!");
+            break;
+          case AudioInterruptionType.pause:
+          case AudioInterruptionType.unknown:
+            // print("pause Request");
+            pause();
+            break;
+        }
+      } else {
+        switch (event.type) {
+          case AudioInterruptionType.duck:
+            // The interruption ended and we should unduck.
+            player.setVolume(1);
+            break;
+          case AudioInterruptionType.pause:
+            play();
+          case AudioInterruptionType.unknown:
+            break;
+        }
+      }
+    });
+  }
+
   Handler(){
+
+    initSession();
+
     player.positionStream.listen((position) {
       var data=position.inMilliseconds;
       p.playProgress.value=data;
