@@ -73,17 +73,12 @@ class _AllState extends State<All> {
         centerTitle: false,
         actions: [
           IconButton(
-            onPressed: (){
-              if(pl.nowPlay['playFrom']=='all'){
-                controller.scrollToIndex(pl.nowPlay['index'], preferPosition: AutoScrollPosition.middle);
-              }
-            }, 
-            icon: Obx(()=>
-              Icon(
-                Icons.my_location_rounded,
-                size: 20,
-                color: pl.nowPlay['playFrom']=='all' ? Colors.black : Colors.grey[400],
-              )
+            onPressed: pl.nowPlay['playFrom']=='all' ? (){
+              controller.scrollToIndex(pl.nowPlay['index'], preferPosition: AutoScrollPosition.middle);
+            } : null,
+            icon: Icon(
+              Icons.my_location_rounded,
+              size: 20,
             )
           ),
           SizedBox(width: 10,)

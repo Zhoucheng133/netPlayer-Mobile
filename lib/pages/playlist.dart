@@ -75,17 +75,12 @@ class _PlaylistState extends State<Playlist> {
         centerTitle: false,
         actions: [
           IconButton(
-            onPressed: (){
-              if(pl.nowPlay['playFrom']=='playlist' && pl.nowPlay['fromId']==widget.id){
-                controller.scrollToIndex(pl.nowPlay['index'], preferPosition: AutoScrollPosition.middle);
-              }
-            }, 
-            icon: Obx(()=>
-              Icon(
-                Icons.my_location_rounded,
-                size: 20,
-                color: pl.nowPlay['playFrom']=='playlist' && pl.nowPlay['fromId']==widget.id ? Colors.black : Colors.grey[400],
-              )
+            onPressed: pl.nowPlay['playFrom']=='playlist' && pl.nowPlay['fromId']==widget.id ? (){
+              controller.scrollToIndex(pl.nowPlay['index'], preferPosition: AutoScrollPosition.middle);
+            } : null, 
+            icon: Icon(
+              Icons.my_location_rounded,
+              size: 20,
             )
           ),
           SizedBox(width: 10,)
