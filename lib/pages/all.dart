@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -67,7 +65,7 @@ class _AllState extends State<All> {
           alignment: Alignment.centerLeft,
           child: AnimatedSwitcher(
             duration: const Duration(milliseconds: 200),
-            child: showAppbarTitle ? Text('所有歌曲', key: Key("1"),) : null,
+            child: showAppbarTitle ? const Text('所有歌曲', key: Key("1"),) : null,
           ),
         ),
         centerTitle: false,
@@ -76,21 +74,21 @@ class _AllState extends State<All> {
             onPressed: pl.nowPlay['playFrom']=='all' ? (){
               controller.scrollToIndex(pl.nowPlay['index'], preferPosition: AutoScrollPosition.middle);
             } : null,
-            icon: Icon(
+            icon: const Icon(
               Icons.my_location_rounded,
               size: 20,
             )
           ),
-          SizedBox(width: 10,)
+          const SizedBox(width: 10,)
         ],
       ),
       body: Column(
         children: [
           Expanded(
             child: AnimatedSwitcher(
-              duration: Duration(milliseconds: 200),
+              duration: const Duration(milliseconds: 200),
               child: loading ? Center(
-                key: Key("0"),
+                key: const Key("0"),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -103,7 +101,7 @@ class _AllState extends State<All> {
                   ],
                 ),
               ) : ListView(
-                key: Key("1"),
+                key: const Key("1"),
                 controller: controller,
                 children: [
                   TitleAria(title: '所有歌曲', subtitle: '${ls.length==500 ? ">${ls.length}" : ls.length}首歌曲'),
@@ -124,7 +122,7 @@ class _AllState extends State<All> {
               ),
             ),
           ),
-          Hero(
+          const Hero(
             tag: 'playingbar', 
             child: PlayingBar()
           )

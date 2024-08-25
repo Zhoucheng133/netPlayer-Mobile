@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -34,13 +32,13 @@ class _AboutState extends State<About> {
                 Container(
                   width: 150,
                   height: 150,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/icon.png")
                     )
                   ),
                 ),
-                SizedBox(height: 10,),
+                const SizedBox(height: 10,),
                 Text(
                   'netPlayer Mobile',
                   style: GoogleFonts.notoSansSc(
@@ -49,7 +47,7 @@ class _AboutState extends State<About> {
                     fontSize: 25,
                   ),
                 ),
-                SizedBox(height: 10,),
+                const SizedBox(height: 10,),
                 Text(
                   PlayerStatic().version,
                   style: GoogleFonts.notoSansSc(
@@ -58,7 +56,7 @@ class _AboutState extends State<About> {
                     fontSize: 15,
                   ),
                 ),
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
                 GestureDetector(
                   onTap: (){
                     final url=Uri.parse('https://github.com/Zhoucheng133/netPlayer-Mobile');
@@ -94,12 +92,12 @@ class _AboutState extends State<About> {
                     final url=Uri.parse('https://lrclib.net/docs');
                     launchUrl(url);
                   },
-                  child: MouseRegion(
+                  child: const MouseRegion(
                     cursor: SystemMouseCursors.click,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: const [
+                      children: [
                         Icon(
                           Icons.code_rounded,
                           size: 15,

@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -29,7 +27,7 @@ class _PlayingBarState extends State<PlayingBar> {
             onVerticalDragUpdate: (details) async {
             if(details.delta.dy<-10){
               Get.to(
-                ()=>Playing(),
+                ()=>const Playing(),
                 transition: Transition.downToUp,
                 curve: Curves.easeInOut,
                 duration: const Duration(milliseconds: 400),
@@ -38,7 +36,7 @@ class _PlayingBarState extends State<PlayingBar> {
           },
             onTap: (){
               Get.to(
-                ()=>Playing(),
+                ()=>const Playing(),
                 transition: Transition.downToUp,
                 curve: Curves.easeInOut,
                 duration: const Duration(milliseconds: 400),
@@ -47,7 +45,7 @@ class _PlayingBarState extends State<PlayingBar> {
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.grey[100],
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(15),
                   topRight: Radius.circular(15)
                 )
@@ -70,7 +68,7 @@ class _PlayingBarState extends State<PlayingBar> {
                           )
                         ),
                       ),
-                      SizedBox(width: 10,),
+                      const SizedBox(width: 10,),
                       Expanded(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -101,7 +99,7 @@ class _PlayingBarState extends State<PlayingBar> {
                           ],
                         ),
                       ),
-                      SizedBox(width: 15,),
+                      const SizedBox(width: 15,),
                       GestureDetector(
                         onTap: (){
                           if(p.nowPlay["id"].isNotEmpty){
@@ -115,7 +113,7 @@ class _PlayingBarState extends State<PlayingBar> {
                         child: AnimatedContainer(
                           height: 40,
                           width: 40,
-                          duration: Duration(milliseconds: 200),
+                          duration: const Duration(milliseconds: 200),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
                             color: Colors.white,
@@ -130,12 +128,12 @@ class _PlayingBarState extends State<PlayingBar> {
                           ),
                         ),
                       ),
-                      SizedBox(width: 10,),
+                      const SizedBox(width: 10,),
                       GestureDetector(
                         onTap: (){
                           p.handler.skipToNext();
                         },
-                        child: Icon(Icons.skip_next_rounded),
+                        child: const Icon(Icons.skip_next_rounded),
                       )
                     ],
                   )

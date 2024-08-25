@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -37,10 +35,10 @@ class _MenuItemState extends State<MenuItem> {
               color: widget.isSet ? Colors.black : Colors.grey[500],
             ),
           ),
-          SizedBox(height: 5,),
+          const SizedBox(height: 5,),
           AnimatedOpacity(
             opacity: widget.isSet ? 1 : 0,
-            duration: Duration(milliseconds: 200),
+            duration: const Duration(milliseconds: 200),
             child: Container(
               width: 30,
               height: 4,
@@ -145,8 +143,8 @@ class _PlayListItemState extends State<PlayListItem> {
       context: context,
       title: widget.name,
       actions: [
-        SheetAction(label: '重命名歌单', key: "rename", icon: Icons.edit_rounded),
-        SheetAction(label: '删除歌单', key: "del", icon: Icons.delete_rounded)
+        const SheetAction(label: '重命名歌单', key: "rename", icon: Icons.edit_rounded),
+        const SheetAction(label: '删除歌单', key: "del", icon: Icons.delete_rounded)
       ]
     );
     if(req=="rename"){
@@ -154,7 +152,7 @@ class _PlayListItemState extends State<PlayListItem> {
         var newname=await showTextInputDialog(
           context: context, 
           textFields: [
-            DialogTextField(
+            const DialogTextField(
               hintText: "输入一个新的歌单名称"
             )
           ],
@@ -205,7 +203,7 @@ class _PlayListItemState extends State<PlayListItem> {
               )
             ),
           ),
-          SizedBox(width: 10,),
+          const SizedBox(width: 10,),
           Expanded(
             child: GestureDetector(
               onTap: (){
@@ -219,7 +217,7 @@ class _PlayListItemState extends State<PlayListItem> {
                   children: [
                     Text(
                       widget.name,
-                      style: TextStyle(
+                      style: const TextStyle(
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
@@ -231,7 +229,7 @@ class _PlayListItemState extends State<PlayListItem> {
           ),
           GestureDetector(
             onTap: ()=>showAction(context),
-            child: Icon(Icons.more_vert_rounded)
+            child: const Icon(Icons.more_vert_rounded)
           )
         ],
       ),

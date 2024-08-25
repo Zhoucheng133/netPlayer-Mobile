@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -69,7 +67,7 @@ class _PlaylistState extends State<Playlist> {
           alignment: Alignment.centerLeft,
           child: AnimatedSwitcher(
             duration: const Duration(milliseconds: 200),
-            child: showAppbarTitle ? Text(widget.name, key: Key("1"),) : null,
+            child: showAppbarTitle ? Text(widget.name, key: const Key("1"),) : null,
           ),
         ),
         centerTitle: false,
@@ -78,19 +76,19 @@ class _PlaylistState extends State<Playlist> {
             onPressed: pl.nowPlay['playFrom']=='playlist' && pl.nowPlay['fromId']==widget.id ? (){
               controller.scrollToIndex(pl.nowPlay['index'], preferPosition: AutoScrollPosition.middle);
             } : null, 
-            icon: Icon(
+            icon: const Icon(
               Icons.my_location_rounded,
               size: 20,
             )
           ),
-          SizedBox(width: 10,)
+          const SizedBox(width: 10,)
         ],
       ),
       body: Column(
         children: [
           Expanded(
             child: loading ? Center(
-              key: Key("0"),
+              key: const Key("0"),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -103,7 +101,7 @@ class _PlaylistState extends State<Playlist> {
                 ],
               ),
             ) : ListView(
-              key: Key("1"),
+              key: const Key("1"),
               controller: controller,
               children: [
                 TitleAria(title: widget.name, subtitle: '${ls.length}首歌曲'),
@@ -123,7 +121,7 @@ class _PlaylistState extends State<Playlist> {
               ]
             ),
           ),
-          Hero(
+          const Hero(
             tag: 'playingbar', 
             child: PlayingBar()
           )

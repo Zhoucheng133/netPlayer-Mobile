@@ -1,6 +1,3 @@
-
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
@@ -62,7 +59,7 @@ class _AlbumsState extends State<Albums> {
           alignment: Alignment.centerLeft,
           child: AnimatedSwitcher(
             duration: const Duration(milliseconds: 200),
-            child: showAppbarTitle ? Text('专辑', key: Key("1"),) : null,
+            child: showAppbarTitle ? const Text('专辑', key: Key("1"),) : null,
           ),
         ),
         centerTitle: false,
@@ -71,9 +68,9 @@ class _AlbumsState extends State<Albums> {
         children: [
           Expanded(
             child: AnimatedSwitcher(
-              duration: Duration(milliseconds: 200),
+              duration: const Duration(milliseconds: 200),
               child: loading ? Center(
-                key: Key("0"),
+                key: const Key("0"),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -86,7 +83,7 @@ class _AlbumsState extends State<Albums> {
                   ],
                 ),
               ) :  ListView(
-                key: Key("1"),
+                key: const Key("1"),
                 controller: controller,
                 children: [
                   TitleAria(title: '专辑', subtitle: '${ls.length}张专辑'),
@@ -102,7 +99,7 @@ class _AlbumsState extends State<Albums> {
               ),
             ),
           ),
-          Hero(
+          const Hero(
             tag: 'playingbar', 
             child: PlayingBar()
           )
