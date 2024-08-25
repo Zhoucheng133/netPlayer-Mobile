@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:netplayer_mobile/operations/requests.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
+import 'package:netplayer_mobile/variables/user_var.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 
 class PlayerControl{
   final PlayerVar p = Get.put(PlayerVar());
+  final UserVar u = Get.put(UserVar());
   // 播放歌曲
   Future<void> playSong(BuildContext context, String id, String title, String artist, String playFrom, int duration, String listId, int index, List list, String album) async {
     Map<String, Object> data={
@@ -21,10 +24,30 @@ class PlayerControl{
     p.nowPlay.value=data;
     p.handler.play();
     p.isPlay.value=true;
-    // if(p.fullRandom.value){
-    //   p.fullRandom.value=false;
-    //   final SharedPreferences prefs = await SharedPreferences.getInstance();
-    //   await prefs.setBool('fullRandom', false);
-    // }
+    p.fullRandom.value=false;
+  }
+
+  Future<void> shufflePlay() async {
+    final rlt=await httpRequest("${u.url.value}/rest/getRandomSongs?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&size=1");
+    if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
+      p.handler.stop();
+      return;
+    }
+    var tmp=rlt['subsonic-response']['randomSongs']['song'][0];
+    Map<String, Object> rdSong={
+      'id': tmp['id'],
+      'title': tmp['title'],
+      'artist': tmp['artist'],
+      'playFrom': 'fullRandom',
+      'duration': tmp['duration'],
+      'album': tmp['album'],
+      'fromId': '',
+      'index': 0,
+      'list': [],
+    };
+    p.nowPlay.value=rdSong;
+    p.handler.play();
+    p.isPlay.value=true;
+    p.fullRandom.value=true;
   }
 }

@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/operations/account.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
+import 'package:netplayer_mobile/operations/player_control.dart';
 import 'package:netplayer_mobile/pages/about.dart';
 import 'package:netplayer_mobile/pages/albums.dart';
 import 'package:netplayer_mobile/pages/all.dart';
@@ -16,7 +17,6 @@ import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/loved.dart';
 import 'package:netplayer_mobile/pages/settings.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
-// import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/variables/page_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
@@ -127,6 +127,21 @@ class _IndexState extends State<Index> {
           PopupMenuButton(
             color: Colors.white,
             itemBuilder: (BuildContext context)=>[
+              PopupMenuItem(
+                onTap: (){
+                  PlayerControl().shufflePlay();
+                },
+                child: const Row(
+                  children: [
+                    Icon(
+                      Icons.shuffle_rounded,
+                      size: 20,
+                    ),
+                    SizedBox(width: 10,),
+                    Text('随机播放所有歌曲'),
+                  ],
+                )
+              ),
               PopupMenuItem(
                 onTap: (){
                   Get.to(()=>const Settings());

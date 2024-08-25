@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:audio_service/audio_service.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:netplayer_mobile/operations/player_control.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
 
@@ -181,8 +182,7 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
       return;
     }
     if(p.fullRandom.value){
-      // Operations().fullRandomPlay();
-      // TODO 完全随机播放
+      PlayerControl().shufflePlay();
       return;
     }
     var tmpList=p.nowPlay.value;
@@ -223,8 +223,7 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
       return;
     }
     if(p.fullRandom.value){
-      // Operations().fullRandomPlay();
-      // TODO 完全随机播放
+      PlayerControl().shufflePlay();
       return;
     }
     Map<String, dynamic> tmpList=p.nowPlay.value;

@@ -235,6 +235,9 @@ class _PlayingState extends State<Playing> {
                       const SizedBox(width: 35,),
                       GestureDetector(
                         onTap: () async {
+                          if(p.fullRandom.value){
+                            return;
+                          }
                           var rlt=await showModalActionSheet(
                             context: context,
                             title: '播放顺序',
@@ -250,8 +253,9 @@ class _PlayingState extends State<Playing> {
                         },
                         child: Obx(()=>
                           Icon(
-                            p.playMode.value=='list' ? Icons.repeat_rounded : p.playMode.value=='random' ? Icons.shuffle_rounded : Icons.repeat_one_rounded,
+                            p.fullRandom.value ? Icons.shuffle_rounded : p.playMode.value=='list' ? Icons.repeat_rounded : p.playMode.value=='random' ? Icons.shuffle_rounded : Icons.repeat_one_rounded,
                             size: 25,
+                            color: p.fullRandom.value ? Colors.grey[400] : Colors.black,
                           ),
                         )
                       )
