@@ -232,13 +232,13 @@ class _IndexState extends State<Index> {
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(left: 20, top: 10, right: 20, bottom: 0),
+              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 0),
               child: RefreshIndicator(
                 onRefresh: ()=>initGet(context),
                 child: ListView(
                   controller: controller,
                   children: [
-                    const SizedBox(height: 10,),
+                    const SizedBox(height: 15,),
                     SizedBox(
                       height: 200,
                       child: ListView(
