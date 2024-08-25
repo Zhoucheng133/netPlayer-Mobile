@@ -55,6 +55,8 @@ class _PlayingState extends State<Playing> {
     return "$min:$formattedSec";
   }
 
+  bool showlyric=false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,6 +66,23 @@ class _PlayingState extends State<Playing> {
         scrolledUnderElevation:0.0,
         toolbarHeight: 70,
         automaticallyImplyLeading: false,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.swipe_down_alt,
+              color: Colors.grey[400],
+              size: 20,
+            ),
+            Text(
+              '下滑返回',
+              style: GoogleFonts.notoSansSc(
+                color: Colors.grey[400],
+                fontSize: 14
+              ),
+            )
+          ],
+        ),
       ),
       body: GestureDetector(
         onVerticalDragUpdate: (details) async {
@@ -77,84 +96,98 @@ class _PlayingState extends State<Playing> {
             children: [
               Obx(()=>TitleAria(title: "${p.nowPlay['title']}", subtitle: "${p.nowPlay['artist']}"),),
               Expanded(
-                child: Container(
-                  color: Colors.transparent,
-                  child: Obx(()=>
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: MediaQuery.of(context).size.width-150,
-                          width: MediaQuery.of(context).size.width-150,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: p.nowPlay['id'].isNotEmpty ? NetworkImage("${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}"):
-                              const AssetImage("assets/blank.jpg")
-                            )
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 30, right: 30, top: 40),
-                          child: Stack(
-                            children: [
-                              SliderTheme(
-                                data: SliderThemeData(
-                                  overlayColor: Colors.transparent,
-                                  overlayShape: const RoundSliderOverlayShape(overlayRadius: 0.0), // 取消波纹效果
-                                  activeTrackColor: Colors.black, // 设置已激活轨道的颜色
-                                  inactiveTrackColor: Colors.grey[200], 
-                                  trackHeight: 2,
-                                  thumbShape: const RoundSliderThumbShape(
-                                    enabledThumbRadius: 8,
-                                    pressedElevation: 0,
-                                    elevation: 1,
-                                    
-                                  ),
-                                  thumbColor: Colors.black
-                                ),
-                                child: Slider(
-                                  value: p.nowPlay['duration']==0 ? 0.0 : p.playProgress.value/1000/p.nowPlay["duration"]>1 ? 1.0 : p.playProgress.value/1000/p.nowPlay["duration"]<0 ? 0 : p.playProgress.value/1000/p.nowPlay["duration"], 
-                                  onChanged: (value){
-                                    seekSong(value);
-                                  }
-                                ),
+                child: GestureDetector(
+                  onTap: (){
+                    setState(() {
+                      showlyric=!showlyric;
+                    });
+                  },
+                  child: Container(
+                    color: Colors.transparent,
+                    child: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 200),
+                      child: showlyric ? Container(
+                        key: const Key("0"),
+                        color: Colors.white,
+                        // TODO 歌词显示在这里
+                      ) : Obx(()=>
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              height: MediaQuery.of(context).size.width-150,
+                              width: MediaQuery.of(context).size.width-150,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: p.nowPlay['id'].isNotEmpty ? NetworkImage("${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}"):
+                                  const AssetImage("assets/blank.jpg")
+                                )
                               ),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width - 60,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 20),
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      Obx(()=>
-                                        Text(
-                                          p.nowPlay['duration']==0 ? "" : convertDuration(p.playProgress.value~/1000),
-                                          style: GoogleFonts.notoSansSc(
-                                            fontSize: 12,
-                                            color: Colors.black
-                                          ),
-                                        )
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 30, right: 30, top: 40),
+                              child: Stack(
+                                children: [
+                                  SliderTheme(
+                                    data: SliderThemeData(
+                                      overlayColor: Colors.transparent,
+                                      overlayShape: const RoundSliderOverlayShape(overlayRadius: 0.0), // 取消波纹效果
+                                      activeTrackColor: Colors.black, // 设置已激活轨道的颜色
+                                      inactiveTrackColor: Colors.grey[200], 
+                                      trackHeight: 2,
+                                      thumbShape: const RoundSliderThumbShape(
+                                        enabledThumbRadius: 8,
+                                        pressedElevation: 0,
+                                        elevation: 1,
+                                        
                                       ),
-                                      Expanded(child: Container()),
-                                      Obx(()=>
-                                        Text(
-                                          p.nowPlay['duration']==0 ? "" : convertDuration(p.nowPlay['duration']),
-                                          style: GoogleFonts.notoSansSc(
-                                            fontSize: 12,
-                                            color: Colors.black
-                                          ),
-                                        )
-                                      )
-                                    ]
+                                      thumbColor: Colors.black
+                                    ),
+                                    child: Slider(
+                                      value: p.nowPlay['duration']==0 ? 0.0 : p.playProgress.value/1000/p.nowPlay["duration"]>1 ? 1.0 : p.playProgress.value/1000/p.nowPlay["duration"]<0 ? 0 : p.playProgress.value/1000/p.nowPlay["duration"], 
+                                      onChanged: (value){
+                                        seekSong(value);
+                                      }
+                                    ),
                                   ),
-                                ),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  )
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width - 60,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 20),
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Obx(()=>
+                                            Text(
+                                              p.nowPlay['duration']==0 ? "" : convertDuration(p.playProgress.value~/1000),
+                                              style: GoogleFonts.notoSansSc(
+                                                fontSize: 12,
+                                                color: Colors.black
+                                              ),
+                                            )
+                                          ),
+                                          Expanded(child: Container()),
+                                          Obx(()=>
+                                            Text(
+                                              p.nowPlay['duration']==0 ? "" : convertDuration(p.nowPlay['duration']),
+                                              style: GoogleFonts.notoSansSc(
+                                                fontSize: 12,
+                                                color: Colors.black
+                                              ),
+                                            )
+                                          )
+                                        ]
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                  ),
                 )
               ),
               Obx(()=>
