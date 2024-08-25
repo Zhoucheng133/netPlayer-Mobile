@@ -185,7 +185,7 @@ class _SongItemState extends State<SongItem> {
                     Icon(
                       Icons.more_vert_rounded,
                       size: 20,
-                      color: playing() ? Colors.blue : Colors.grey[400]
+                      color: playing() ? Colors.blue : Colors.black
                     ),
                   )
                 ),
