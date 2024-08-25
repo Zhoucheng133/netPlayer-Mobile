@@ -237,6 +237,7 @@ class _IndexState extends State<Index> {
                 onRefresh: ()=>initGet(context),
                 child: Obx(()=>
                   ListView.builder(
+                    controller: controller,
                     itemCount: ls.playList.length+6,
                     itemBuilder: (context, index){
                       if(index==0){
