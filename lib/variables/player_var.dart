@@ -17,6 +17,7 @@ class PlayerVar extends GetxController{
   // 播放模式, 可选值为: list, random, repeat
   RxString playMode='list'.obs;
   // 随机播放所有歌曲
+  // 弃用，通过p.nowPlay['playFrom']=='fullRandom'?来判定
   // RxBool fullRandom=false.obs;
   // 播放进度, 注意单位为毫秒~1000ms=1s
   RxInt playProgress=0.obs;
