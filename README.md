@@ -2,17 +2,22 @@
 
 <img src="./assets/icon.png" width="100px">
 
-![Flutter](https://img.shields.io/badge/Flutter-3.16-blue?logo=Flutter)
-![get](https://img.shields.io/badge/get-4.6.5-red)
-![audioservice](https://img.shields.io/badge/audio_service-0.18.10-green)
-![just_audio](https://img.shields.io/badge/just_audio-0.9.35-yellow)
-![http](https://img.shields.io/badge/http-1.1.0-orange)
-![shared_preferences](https://img.shields.io/badge/shared_preferences-2.2.0-lightgreen)
-![url_launcher](https://img.shields.io/badge/url_launcher-6.2.1-purple)
-![flutter_native_splash](https://img.shields.io/badge/flutter_native_splash-2.3.6-lightyellow)
-![package_info_plus](https://img.shields.io/badge/package_info_plus-4.2.0-pink)
-![crypto](https://img.shields.io/badge/crypto-3.0.3-lightblue)
-![scroll_to_index](https://img.shields.io/badge/scroll_to_index-3.0.1-green)
+![Flutter](https://img.shields.io/badge/Flutter-3.22-blue?logo=Flutter)
+![get](https://img.shields.io/badge/get-4.6.6-red)
+![google_fonts](https://img.shields.io/badge/google_fonts-6.2.1-green)
+![shared_preferences](https://img.shields.io/badge/shared_preferences-2.2.3-yellow)
+![http](https://img.shields.io/badge/http-1.2.2-orange)
+![adaptive_dialog](https://img.shields.io/badge/adaptive_dialog-2.1.0-lightgreen)
+![loading_animation_widget](https://img.shields.io/badge/loading_animation_widget-1.2.1-purple)
+![crypto](https://img.shields.io/badge/crypto-3.0.3-lightyellow)
+![url_launcher](https://img.shields.io/badge/url_launcher-6.3.0-pink)
+![font_awesome_flutter](https://img.shields.io/badge/font_awesome_flutter-10.7.0-lightblue)
+![audio_service](https://img.shields.io/badge/audio_service-0.18.15-green)
+![scroll_to_index](https://img.shields.io/badge/scroll_to_index-3.0.1-yellow)
+![just_audio](https://img.shields.io/badge/just_audio-0.9.37-orange)
+![auto_size_text](https://img.shields.io/badge/auto_size_text-3.0.0-lightgreen)
+![easy_debounce](https://img.shields.io/badge/easy_debounce-2.0.3-purple)
+![audio_session](https://img.shields.io/badge/audio_session-2.0.3-lightyellow)
 
 ![License](https://img.shields.io/badge/License-MIT-dark_green)
 
@@ -22,11 +27,13 @@
 
 **支持Android设备和iOS设备**
 
-经过测试的平台：iPhone13 & 小米5X
+经过测试的平台：小米5X
 
 （`apk`安装包见`Release`，iOS设备请自行下载源码安装）
 
-**受限于Subsonic API，“所有歌曲”只能显示500首（随机的500首歌曲排序展示），如果你要随机播放所有的歌曲，可以点击所有歌曲页面右上角的随机播放按钮**
+**受限于Subsonic API，“所有歌曲”和“专辑”只能显示500首/张（随机的500首歌曲排序展示），如果你要随机播放所有的歌曲，可以点击主页右上角更多-随机播放所有歌曲**
+
+**如果你已经安装了v1.x版本的netPlayer Mobile，那么请在升级到v2.0.0或更新版本时卸载旧版本**
 
 ## 在你的设备上配置netPlayer Mobile
 
@@ -34,7 +41,7 @@
 
 - 如果你需要在Android设备上运行或者调试，需要安装Android Studio和Gradle
 - 如果你需要在iOS设备上运行或者调试，需要使用Mac，并且安装Xcode<sup>*</sup>
-- 安装Flutter，安装步骤见[Flutter - 开始使用](https://flutter.cn/docs/get-started/install)，本项目使用的Flutter版本为`3.19`
+- 安装Flutter，安装步骤见[Flutter - 开始使用](https://flutter.cn/docs/get-started/install)，本项目使用的Flutter版本为`3.22`
 - 建议使用Visual Studio Code打开项目
   - 在Visual Studio Code的右下角找到`Device`按钮（也有可能显示为可用的设备），选择目标设备或者模拟器
   - 在`运行和调试`面板选择`Debug`，`Profile`或者`Release`<sup>**</sup>，详细的区别见[Flutter官网](https://docs.flutter.dev/testing/build-modes)
@@ -45,10 +52,28 @@
 
 ## 截图
 
-以下截图运行在iPhone13上，不同设备上运行效果可能略有不同
+以下截图运行在模拟机上，不同设备上运行效果可能略有不同
 
+<img src="demo/1.png" alt="netPlayer_Mobile_截图.jpg" width="200px" /><img src="demo/2.png" alt="netPlayer_Mobile_截图.jpg" width="200px" /><img src="demo/3.png" alt="netPlayer_Mobile_截图.jpg" width="200px" />
+
+<img src="demo/4.png" alt="netPlayer_Mobile_截图.jpg" width="200px" /><img src="demo/5.png" alt="netPlayer_Mobile_截图.jpg" width="200px" /><img src="demo/6.png" alt="netPlayer_Mobile_截图.jpg" width="200px" />
+
+<img src="demo/7.png" alt="netPlayer_Mobile_截图.jpg" width="200px" /><img src="demo/8.png" alt="netPlayer_Mobile_截图.jpg" width="200px" /><img src="demo/9.png" alt="netPlayer_Mobile_截图.jpg" width="200px" />
 
 ## 更新日志
+
+### 2.0.0 (Beta) (2024/8/25)
+- 重构了所有界面
+- 添加歌单缩略图
+- 添加更新音乐库后自动重新排序
+- 改进了歌词显示的效果
+- 改进拖动时间轴的响应
+- 提升运行效率和网络请求效率
+- ❌**当前版本**没有搜索功能，仍在开发中
+- ⚠️这是一个Beta版本，可能会有一些问题
+
+<details>
+<summary>过往的版本</summary>
 
 ### 1.6.4 (iOS & Android) (2024/7/3)
 - 大幅缩小了app体积
@@ -58,9 +83,6 @@
 - 改进了搜索界面
 - 改进了一些UI反馈
 - 修改了app id （如果你从旧版本更新，可能需要卸载老版本）
-
-<details>
-<summary>过往的版本</summary>
 
 ### 1.6.3 (iOS & Android, 仅Android的更新) (2024/5/13)
 - 修复新版本Android系统无法使用http连接的问题
