@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:netplayer_mobile/operations/account.dart';
+import 'package:netplayer_mobile/operations/play_check.dart';
 import 'package:netplayer_mobile/pages/index.dart';
 import 'package:netplayer_mobile/pages/login.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
@@ -98,7 +99,7 @@ class _MainViewState extends State<MainView> {
       Map<String, Object> tmpList=Map<String, Object>.from(decodedMap);
       p.nowPlay.value=tmpList;
       WidgetsBinding.instance.addPostFrameCallback((_) async {
-        // TODO 检查顺序
+        PlayCheck().check(context);
       });
     }
   }

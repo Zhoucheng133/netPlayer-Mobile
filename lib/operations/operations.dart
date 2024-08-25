@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
+import 'package:netplayer_mobile/operations/play_check.dart';
 import 'package:netplayer_mobile/operations/requests.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
@@ -70,6 +71,9 @@ class Operations{
       if(context.mounted){
         l.loved.value=await dataGet.getLoved(context);
       }
+      if(context.mounted){
+        PlayCheck().check(context);
+      }
     }
   }
 
@@ -83,6 +87,9 @@ class Operations{
     }else{
       if(context.mounted){
         l.loved.value=await dataGet.getLoved(context);
+      }
+      if(context.mounted){
+        PlayCheck().check(context);
       }
     }
   }
@@ -98,6 +105,9 @@ class Operations{
       if(context.mounted){
         dataGet.getPlayLists(context);
       }
+      if(context.mounted){
+        PlayCheck().check(context);
+      }
     }
   }
 
@@ -109,8 +119,8 @@ class Operations{
       }
       return false;
     }else{
-      if(p.nowPlay['playFrom']=="playlist" && p.nowPlay['index']==songIndex && p.nowPlay['fromId']==listId){
-        p.handler.stop();
+      if(context.mounted){
+        PlayCheck().check(context);
       }
       return true;
     }
