@@ -111,7 +111,7 @@ class _AllState extends State<All> {
                 key: Key("1"),
                 controller: controller,
                 children: [
-                  TitleAria(title: '所有歌曲', subtitle: '${ls.length}首歌曲'),
+                  TitleAria(title: '所有歌曲', subtitle: '${ls.length==500 ? ">${ls.length}" : ls.length}首歌曲'),
                   Padding(
                     padding: const EdgeInsets.only(left: 10, right: 10),
                     child: Column(
