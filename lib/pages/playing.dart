@@ -8,6 +8,7 @@ import 'package:netplayer_mobile/pages/components/title_aria.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 
 class Playing extends StatefulWidget {
   const Playing({super.key});
@@ -17,7 +18,6 @@ class Playing extends StatefulWidget {
 }
 
 class _PlayingState extends State<Playing> {
-
   PlayerVar p=Get.put(PlayerVar());
   final UserVar u = Get.put(UserVar());
   LsVar l=Get.put(LsVar());
@@ -56,6 +56,41 @@ class _PlayingState extends State<Playing> {
   }
 
   bool showlyric=false;
+  late Worker lyricLineListener;
+
+  bool playedLyric(index){
+    if(p.lyric.length==1){
+      return true;
+    }
+    bool flag=false;
+    try {
+      flag=p.playProgress.value>=p.lyric[index]['time'] && p.playProgress<p.lyric[index+1]['time'];
+    } catch (e) {
+      flag=false;
+    }
+    return flag;
+  }
+
+  late Size lyricSize;
+
+
+  @override
+  void initState() {
+    super.initState();
+    scrollLyric();
+    lyricLineListener=ever(p.lyricLine, (val){
+      scrollLyric();
+    });
+  }
+
+  void scrollLyric(){
+    if(p.lyricLine.value==0){
+      return;
+    }
+    controller.scrollToIndex(p.lyricLine.value-1, preferPosition: AutoScrollPosition.middle);
+  }
+
+  AutoScrollController controller=AutoScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -100,6 +135,7 @@ class _PlayingState extends State<Playing> {
                   onTap: (){
                     setState(() {
                       showlyric=!showlyric;
+                      scrollLyric();
                     });
                   },
                   child: Container(
@@ -109,7 +145,43 @@ class _PlayingState extends State<Playing> {
                       child: showlyric ? Container(
                         key: const Key("0"),
                         color: Colors.white,
-                        // TODO 歌词显示在这里
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 30, right: 30),
+                          child: LayoutBuilder(
+                            builder: (context, constraints) {
+                              final double topBottomHeight = constraints.maxHeight / 2;
+                              return Obx(()=>
+                                ListView.builder(
+                                  controller: controller,
+                                  itemCount: p.lyric.length,
+                                  itemBuilder: (BuildContext context, int index)=>Column(
+                                    children: [
+                                      index==0 ?  SizedBox(height: topBottomHeight-10,) :Container(),
+                                      Obx(() => 
+                                        AutoScrollTag(
+                                          key: ValueKey(index), 
+                                          controller: controller, 
+                                          index: index,
+                                          child: Text(
+                                            p.lyric[index]['content'],
+                                            textAlign: TextAlign.center,
+                                            style: GoogleFonts.notoSansSc(
+                                              fontSize: playedLyric(index) ? 20 : 16,
+                                              height: 2.6,
+                                              color: playedLyric(index) ? Colors.blue:Colors.grey[400],
+                                              fontWeight: playedLyric(index) ? FontWeight.bold: FontWeight.normal,
+                                            ),
+                                          ),
+                                        )
+                                      ),
+                                        index==p.lyric.length-1 ? SizedBox(height: topBottomHeight-10,) : Container(),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            }
+                          ),
+                        ),
                       ) : Obx(()=>
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,

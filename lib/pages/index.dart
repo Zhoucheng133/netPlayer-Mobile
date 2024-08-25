@@ -74,6 +74,7 @@ class _IndexState extends State<Index> {
     });
     nowPlayListener=ever(pl.nowPlay, (val){
       savePlay(val);
+      Operations().getLyric(val);
     });
   }
 

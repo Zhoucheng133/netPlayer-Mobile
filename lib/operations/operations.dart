@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
@@ -123,6 +125,55 @@ class Operations{
         PlayCheck().check(context);
       }
       return true;
+    }
+  }
+
+  int timeToMilliseconds(timeString) {
+    List<String> parts = timeString.split(':');
+    int minutes = int.parse(parts[0]);
+    List<String> secondsParts = parts[1].split('.');
+    int seconds = int.parse(secondsParts[0]);
+    int milliseconds = int.parse(secondsParts[1]);
+
+    // 将分钟、秒和毫秒转换为总毫秒数
+    return (minutes * 60 * 1000) + (seconds * 1000) + milliseconds;
+  }
+
+  Future<void> getLyric(dynamic val) async {
+    p.lyricLine.value=0;
+    if(val['id']!=''){
+      p.lyric.value=[
+        {
+          'time': 0,
+          'content': "正在查找歌词...",
+        }
+      ];
+    }
+    final title=p.nowPlay['title'];
+    final album=p.nowPlay['album'];
+    final artist=p.nowPlay['artist'];
+    final duration=p.nowPlay['duration'];
+    final rlt= await httpRequest('https://lrclib.net/api/get?artist_name=$artist&track_name=$title&album_name=$album&duration=$duration');
+    var response=rlt['syncedLyrics']??"";
+    if(response==''){
+      p.lyric.value=[
+        {
+          'time': 0,
+          'content': '没有找到歌词',
+        }
+      ];
+    }else{
+      List lyricCovert=[];
+      List<String> lines = LineSplitter.split(response).toList();
+      for(String line in lines){
+        int pos1=line.indexOf("[");
+        int pos2=line.indexOf("]");
+        lyricCovert.add({
+          'time': timeToMilliseconds(line.substring(pos1+1, pos2)),
+          'content': line.substring(pos2 + 1).trim(),
+        });
+      }
+      p.lyric.value=lyricCovert;
     }
   }
 }
