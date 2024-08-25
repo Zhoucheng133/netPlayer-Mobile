@@ -277,6 +277,9 @@ class _PlayingState extends State<Playing> {
                     children: [
                       GestureDetector(
                         onTap: (){
+                          if(p.nowPlay['id']==''){
+                            return;
+                          }
                           if(isLoved()){
                             Operations().delove(p.nowPlay['id'], context);
                           }else{
