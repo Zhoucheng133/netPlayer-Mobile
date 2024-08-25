@@ -1,3 +1,4 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -233,13 +234,26 @@ class _PlayingState extends State<Playing> {
                       ),
                       const SizedBox(width: 35,),
                       GestureDetector(
-                        onTap: () {
-                          
+                        onTap: () async {
+                          var rlt=await showModalActionSheet(
+                            context: context,
+                            title: '播放顺序',
+                            actions: [
+                              const SheetAction(label: '列表播放', key: "list", icon: Icons.repeat_rounded),
+                              const SheetAction(label: '随机播放', key: "random", icon: Icons.shuffle_rounded),
+                              const SheetAction(label: '单曲循环', key: 'loop', icon: Icons.repeat_one_rounded)
+                            ]
+                          );
+                          if(rlt!=null){
+                            p.playMode.value=rlt;
+                          }
                         },
-                        child: const Icon(
-                          Icons.repeat_rounded,
-                          size: 25,
-                        ),
+                        child: Obx(()=>
+                          Icon(
+                            p.playMode.value=='list' ? Icons.repeat_rounded : p.playMode.value=='random' ? Icons.shuffle_rounded : Icons.repeat_one_rounded,
+                            size: 25,
+                          ),
+                        )
                       )
                     ],
                   ),
