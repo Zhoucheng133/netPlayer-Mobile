@@ -2,10 +2,12 @@ import 'dart:math';
 
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/requests.dart';
+import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
 
 class Account{
   final UserVar u = Get.put(UserVar());
+  PlayerVar p=Get.put(PlayerVar());
 
   // 登录
   Future<Map> login(String url, String username, String token, String salt) async {
@@ -50,5 +52,6 @@ class Account{
     u.token.value='';
     u.url.value='';
     u.username.value='';
+    p.handler.stop();
   }
 }
