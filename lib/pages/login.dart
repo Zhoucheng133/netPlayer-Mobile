@@ -4,6 +4,7 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/operations/account.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -136,9 +137,9 @@ class _LoginState extends State<Login> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       "服务器的URL地址",
-                      style: TextStyle(
+                      style: GoogleFonts.notoSansSc(
                         color: Colors.grey,
                       ),
                     ),
@@ -191,9 +192,9 @@ class _LoginState extends State<Login> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       "用户名",
-                      style: TextStyle(
+                      style: GoogleFonts.notoSansSc(
                         color: Colors.grey,
                       ),
                     ),
@@ -242,9 +243,9 @@ class _LoginState extends State<Login> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       "密码",
-                      style: TextStyle(
+                      style: GoogleFonts.notoSansSc(
                         color: Colors.grey,
                       ),
                     ),
