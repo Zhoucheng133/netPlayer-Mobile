@@ -100,37 +100,30 @@ class _LovedState extends State<Loved> {
                     const Text('加载中')
                   ],
                 ),
-              ) :  ListView.builder(
-                key: const Key("1"),
+              ) : 
+              CustomScrollView(
+                key: const Key('1'),
                 controller: controller,
-                itemCount: ls.length + 1, // +1 是为了包括 `TitleAria`
-                itemBuilder: (context, index) {
-                  if (index == 0) {
-                    // 第一个 item 是 `TitleAria`
-                    return TitleAria(
-                      title: '喜欢的歌曲',
-                      subtitle: '${ls.length}首歌曲',
-                    );
-                  } else {
-                    // 其余的 items 是歌曲列表
-                    return Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: AutoScrollTag(
-                        key: ValueKey(index - 1), // 使用 index - 1 作为 key，保持一致性
-                        index: index - 1, // 由于 `TitleAria` 占用了第一个位置，所以要减 1
-                        controller: controller,
-                        child: SongItem(
-                          item: ls[index - 1],
-                          index: index - 1,
-                          ls: ls,
-                          from: 'loved',
-                          listId: '',
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: TitleAria(title: '喜欢的歌曲', subtitle: '${ls.length}首歌曲', ),
+                  ),
+                  SliverList.builder(
+                    itemCount: ls.length,
+                    itemBuilder: (context, index){
+                      return Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        child: AutoScrollTag(
+                          key: ValueKey(index),
+                          index: index,
+                          controller: controller,
+                          child: SongItem(item: ls[index], index: index, ls: ls, from: 'loved', listId: '',),
                         ),
-                      ),
-                    );
-                  }
-                },
-              ),
+                      );
+                    }
+                  )
+                ],
+              )
             ),
           ),
           const Hero(

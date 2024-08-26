@@ -70,45 +70,41 @@ class _AlbumContentState extends State<AlbumContent> {
       body: Column(
         children: [
           Expanded(
-            child: loading ? Center(
-              key: const Key("0"),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  LoadingAnimationWidget.beat(
-                    color: Colors.blue, 
-                    size: 30
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 200),
+              child: loading ? Center(
+                key: const Key("0"),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    LoadingAnimationWidget.beat(
+                      color: Colors.blue, 
+                      size: 30
+                    ),
+                    const SizedBox(height: 10,),
+                    const Text('加载中')
+                  ],
+                ),
+              ) : 
+              CustomScrollView(
+                key: const Key("1"),
+                controller: controller,
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: TitleAria(title: "专辑: ${widget.album}", subtitle: '${ls.length}首歌曲',),
                   ),
-                  const SizedBox(height: 10,),
-                  const Text('加载中')
+                  SliverList.builder(
+                    itemCount: ls.length,
+                    itemBuilder: (context, index){
+                      return Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        child: SongItem(item: ls[index], index: index, ls: ls, from: 'album', listId: widget.id,),
+                      );
+                    }
+                  )
                 ],
               ),
-            ) : ListView.builder(
-              key: const Key("1"),
-              controller: controller,
-              itemCount: ls.length + 1, // +1 是为了包括 `TitleAria`
-              itemBuilder: (context, index) {
-                if (index == 0) {
-                  // 第一个 item 是 `TitleAria`
-                  return TitleAria(
-                    title: "专辑: ${widget.album}",
-                    subtitle: '${ls.length}首歌曲',
-                  );
-                } else {
-                  // 其余的 items 是歌曲列表
-                  return Padding(
-                    padding: const EdgeInsets.only(left: 10, right: 10),
-                    child: SongItem(
-                      item: ls[index - 1],
-                      index: index - 1,
-                      ls: ls,
-                      from: 'album',
-                      listId: widget.id,
-                    ),
-                  );
-                }
-              },
-            ),
+            )
           ),
           const Hero(
             tag: 'playingbar', 

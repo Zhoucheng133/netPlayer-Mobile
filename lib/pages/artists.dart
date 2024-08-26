@@ -82,29 +82,25 @@ class _ArtistsState extends State<Artists> {
                     const Text('加载中')
                   ],
                 ),
-              ) : ListView.builder(
+              ) : 
+              CustomScrollView(
                 key: const Key("1"),
                 controller: controller,
-                itemCount: ls.length + 1, // +1 是为了包括 `TitleAria`
-                itemBuilder: (context, index) {
-                  if (index == 0) {
-                    // 第一个 item 是 `TitleAria`
-                    return TitleAria(
-                      title: '艺人',
-                      subtitle: '${ls.length}位艺人',
-                    );
-                  } else {
-                    // 其余的 items 是艺人列表
-                    return Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: ArtistItem(
-                        index: index - 1, // 由于 `TitleAria` 占用了第一个位置，所以要减 1
-                        item: ls[index - 1],
-                      ),
-                    );
-                  }
-                },
-              ),
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: TitleAria(title: '艺人', subtitle: '${ls.length}位艺人',),
+                  ),
+                  SliverList.builder(
+                    itemCount: ls.length,
+                    itemBuilder: (context ,index){
+                      return Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        child: ArtistItem(index: index, item: ls[index], ),
+                      );
+                    }
+                  )
+                ],
+              )
             ),
           ),
           const Hero(

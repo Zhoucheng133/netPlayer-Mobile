@@ -104,15 +104,14 @@ class _AllState extends State<All> {
                 ),
               ) : 
               CustomScrollView(
+                key: const Key("1"),
                 controller: controller,
                 slivers: [
                   SliverToBoxAdapter(
-                    child: TitleAria(
-                      title: '所有歌曲',
-                      subtitle: '${ls.length == 500 ? ">${ls.length}" : ls.length}首歌曲',
-                    ),
+                    child: TitleAria(title: '所有歌曲', subtitle: '${ls.length == 500 ? ">${ls.length}" : ls.length}首歌曲',),
                   ),
                   SliverList.builder(
+                    itemCount: ls.length,
                     itemBuilder: (context, index){
                       return Padding(
                         padding: const EdgeInsets.only(left: 10, right: 10),
@@ -120,13 +119,7 @@ class _AllState extends State<All> {
                           controller: controller,
                           index: index,
                           key: ValueKey(index),
-                          child: SongItem(
-                            item: ls[index ],
-                            index: index,
-                            ls: ls,
-                            from: 'all',
-                            listId: '',
-                          ),
+                          child: SongItem(item: ls[index], index: index, ls: ls, from: 'all', listId: '', ),
                         ),
                       );
                     },
