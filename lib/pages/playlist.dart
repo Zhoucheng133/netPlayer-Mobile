@@ -72,14 +72,16 @@ class _PlaylistState extends State<Playlist> {
         ),
         centerTitle: false,
         actions: [
-          IconButton(
-            onPressed: pl.nowPlay['playFrom']=='playlist' && pl.nowPlay['fromId']==widget.id ? (){
-              controller.scrollToIndex(pl.nowPlay['index'], preferPosition: AutoScrollPosition.middle);
-            } : null, 
-            icon: const Icon(
-              Icons.my_location_rounded,
-              size: 20,
-            )
+          Obx(()=>
+            IconButton(
+              onPressed: pl.nowPlay['playFrom']=='playlist' && pl.nowPlay['fromId']==widget.id ? (){
+                controller.scrollToIndex(pl.nowPlay['index'], preferPosition: AutoScrollPosition.middle);
+              } : null, 
+              icon: const Icon(
+                Icons.my_location_rounded,
+                size: 20,
+              )
+            ),
           ),
           const SizedBox(width: 10,)
         ],
