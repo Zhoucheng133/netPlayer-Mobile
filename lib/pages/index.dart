@@ -15,6 +15,7 @@ import 'package:netplayer_mobile/pages/artists.dart';
 import 'package:netplayer_mobile/pages/components/index_item.dart';
 import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/loved.dart';
+import 'package:netplayer_mobile/pages/search.dart';
 import 'package:netplayer_mobile/pages/settings.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/page_var.dart';
@@ -116,11 +117,16 @@ class _IndexState extends State<Index> {
         backgroundColor: Colors.grey[100],
         scrolledUnderElevation:0.0,
         toolbarHeight: 70,
-        leading: const Row(
+        leading: Row(
           children: [
-            SizedBox(width: 30,),
-            Icon(
-              Icons.search_rounded
+            Expanded(child: Container()),
+            IconButton(
+              onPressed: (){
+                Get.to(()=>const Search());
+              }, 
+              icon: const Icon(
+                Icons.search_rounded
+              ),
             ),
           ],
         ),
@@ -193,7 +199,7 @@ class _IndexState extends State<Index> {
               Icons.more_vert_rounded
             ),
           ),
-          const SizedBox(width: 30,)
+          const SizedBox(width: 25,)
         ],
       ),
       body: Column(
