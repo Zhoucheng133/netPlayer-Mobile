@@ -236,14 +236,14 @@ class _IndexState extends State<Index> {
               child: RefreshIndicator(
                 onRefresh: ()=>initGet(context),
                 child: Obx(()=>
-                  ListView.builder(
+                  CustomScrollView(
                     controller: controller,
-                    itemCount: ls.playList.length+6,
-                    itemBuilder: (context, index){
-                      if(index==0){
-                        return const SizedBox(height: 15,);
-                      }else if(index==1){
-                        return SizedBox(
+                    slivers: [
+                      const SliverToBoxAdapter(
+                        child: SizedBox(height: 15,),
+                      ),
+                      SliverToBoxAdapter(
+                        child: SizedBox(
                           height: 200,
                           child: ListView(
                             scrollDirection: Axis.horizontal,
@@ -256,12 +256,14 @@ class _IndexState extends State<Index> {
                               const SizedBox(width: 10,),
                               IndexPinItem(icon: Icons.album_rounded, label: '专辑', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>const Albums()),),
                             ],
-                          )
-                        );
-                      }else if(index==2){
-                        return const SizedBox(height: 20,);
-                      }else if(index==3){
-                        return Row(
+                          ),
+                        )
+                      ),
+                      const SliverToBoxAdapter(
+                        child: SizedBox(height: 20,),
+                      ),
+                      SliverToBoxAdapter(
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
@@ -300,17 +302,22 @@ class _IndexState extends State<Index> {
                               ),
                             )
                           ],
-                        );
-                      }else if(index==4){
-                        return const SizedBox(height: 10,);
-                      }else if(index==ls.playList.length+5){
-                        return const SizedBox(height: 10,);
-                      }
-                      return Obx(()=>
-                        PlayListItem(name: ls.playList[index-5]['name'], id: ls.playList[index-5]['id'], songCount: ls.playList[index-5]['songCount'], coverArt: ls.playList[index-5]['coverArt'])
-                      );
-                    }
-                  ),
+                        ),
+                      ),
+                      const SliverToBoxAdapter(
+                        child: SizedBox(height: 10,),
+                      ),
+                      SliverList.builder(
+                        itemCount: ls.playList.length,
+                        itemBuilder: (context, index){
+                          return PlayListItem(name: ls.playList[index]['name'], id: ls.playList[index]['id'], songCount: ls.playList[index]['songCount'], coverArt: ls.playList[index]['coverArt']);
+                        }
+                      ),
+                      const SliverToBoxAdapter(
+                        child: SizedBox(height: 10,),
+                      ),
+                    ],
+                  )
                 )
               ),
             ),
