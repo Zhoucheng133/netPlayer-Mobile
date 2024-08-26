@@ -25,15 +25,15 @@ class _PlayingBarState extends State<PlayingBar> {
         children: [
           GestureDetector(
             onVerticalDragUpdate: (details) async {
-            if(details.delta.dy<-10){
-              Get.to(
-                ()=>const Playing(),
-                transition: Transition.downToUp,
-                curve: Curves.easeInOut,
-                duration: const Duration(milliseconds: 400),
-              );
-            }
-          },
+              if(details.delta.dy<-10){
+                Get.to(
+                  ()=>const Playing(),
+                  transition: Transition.downToUp,
+                  curve: Curves.easeInOut,
+                  duration: const Duration(milliseconds: 400),
+                );
+              }
+            },
             onTap: (){
               Get.to(
                 ()=>const Playing(),
