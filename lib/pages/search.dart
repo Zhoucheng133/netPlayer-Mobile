@@ -1,3 +1,4 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/pages/components/album_item.dart';
@@ -34,7 +35,16 @@ class _SearchState extends State<Search> {
 
   Future<void> searchHandler(BuildContext context) async {
     Map data=await Operations().search(textController.text, context);
-    if(data.isNotEmpty){
+    if(data['songs'].isEmpty && data['albums'].isEmpty && data['artists'].isEmpty){
+      if(context.mounted){
+        showOkAlertDialog(
+          context: context,
+          okLabel: "好的",
+          title: "没有搜索到任何内容",
+          message: "请尝试换一个关键词"
+        );
+      }
+    }else{
       setState(() {
         ls=data;
       });
