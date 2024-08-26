@@ -176,4 +176,23 @@ class Operations{
       p.lyric.value=lyricCovert;
     }
   }
+
+  Future<Map> search(String val, BuildContext context) async {
+    final rlt= await httpRequest("${u.url.value}/rest/search2?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&query=$val");
+    if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
+      if(context.mounted){
+        dataGet.errDialog('搜索失败', "请检查你的网络连接", context);
+      }
+      return {};
+    }else{
+      try {
+        return {
+          "songs": rlt["subsonic-response"]["searchResult2"]["song"]??[],
+          "albums": rlt["subsonic-response"]["searchResult2"]["album"]??[],
+          "artists": rlt["subsonic-response"]["searchResult2"]["artist"]??[]
+        };
+      } catch (_) {}
+      return {};
+    }
+  }
 }

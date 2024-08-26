@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:netplayer_mobile/operations/operations.dart';
+import 'package:netplayer_mobile/pages/components/album_item.dart';
+import 'package:netplayer_mobile/pages/components/artist_item.dart';
+import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/components/search_box.dart';
+import 'package:netplayer_mobile/pages/components/song_item.dart';
 import 'package:netplayer_mobile/pages/components/title_aria.dart';
 
 class Search extends StatefulWidget {
@@ -15,12 +20,25 @@ class _SearchState extends State<Search> {
   FocusNode focus=FocusNode();
   ScrollController controller=ScrollController();
   bool showAppbarTitle=false;
-  List ls=[];
+  Map ls={
+    "songs": [],
+    "albums": [],
+    "artists": []
+  };
   String mode='song';
   void changeMode(val){
     setState(() {
       mode=val;
     });
+  }
+
+  Future<void> searchHandler(BuildContext context) async {
+    Map data=await Operations().search(textController.text, context);
+    if(data.isNotEmpty){
+      setState(() {
+        ls=data;
+      });
+    }
   }
 
   @override
@@ -43,6 +61,7 @@ class _SearchState extends State<Search> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.grey[100],
         scrolledUnderElevation:0.0,
@@ -56,26 +75,58 @@ class _SearchState extends State<Search> {
         ),
         centerTitle: false,
       ),
-      body: CustomScrollView(
-        controller: controller,
-        slivers: [
-          SliverToBoxAdapter(
-            child: SearchTitleArea(mode: mode, changeMode: (val)=>changeMode(val))
-          ),
-          SliverPersistentHeader(
-            pinned: true,
-            delegate: SearchBox(
-              (context)=>SearchInput(
-                textController: textController, focus: focus, search: (){}, mode: mode,
+      body: Column(
+        children: [
+          Expanded(
+            child: Container(
+              color: Colors.white,
+              child: CustomScrollView(
+                controller: controller,
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: SearchTitleArea(mode: mode, changeMode: (val)=>changeMode(val))
+                  ),
+                  SliverPersistentHeader(
+                    pinned: true,
+                    delegate: SearchBox(
+                      (context)=>SearchInput(
+                        textController: textController, focus: focus, search: ()=>searchHandler(context), mode: mode,
+                      ),
+                    ),
+                  ),
+                  mode=='song' ? SliverList.builder(
+                    itemCount: ls['songs'].length,
+                    itemBuilder: (context, index){
+                      return Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        child: SongItem(item: ls['songs'][index], index: index, ls: ls['songs'], from: 'search', listId: textController.text, ),
+                      );
+                    }
+                  ) : mode=='album' ? SliverList.builder(
+                    itemCount: ls['albums'].length,
+                    itemBuilder: (context, index){
+                      return Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        child: AlbumItem(index: index, item: ls['albums'][index]),
+                      );
+                    }
+                  ) :  SliverList.builder(
+                    itemCount: ls['artists'].length,
+                    itemBuilder: (context, index){
+                      return Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        child: ArtistItem(index: index, item: ls['artists'][index]),
+                      );
+                    }
+                  )
+                ],
               ),
             ),
           ),
-          SliverList.builder(
-            itemCount: 100,
-            itemBuilder: (context, index){
-              return Text(index.toString());
-            }
-          ),
+          const Hero(
+            tag: 'playingbar', 
+            child: PlayingBar()
+          )
         ],
       ),
     );
