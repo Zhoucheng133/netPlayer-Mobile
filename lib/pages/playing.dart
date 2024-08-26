@@ -174,7 +174,7 @@ class _PlayingState extends State<Playing> {
                                           ),
                                         )
                                       ),
-                                        index==p.lyric.length-1 ? SizedBox(height: topBottomHeight-10,) : Container(),
+                                      index==p.lyric.length-1 ? SizedBox(height: topBottomHeight-10,) : Container(),
                                     ],
                                   ),
                                 ),
