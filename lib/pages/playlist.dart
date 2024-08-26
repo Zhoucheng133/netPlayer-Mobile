@@ -30,7 +30,12 @@ class _PlaylistState extends State<Playlist> {
     final data=await DataGet().getPlayList(context, widget.id);
     setState(() {
       ls=data;
-      loading=false;
+      // loading=false;
+    });
+    Future.delayed(const Duration(milliseconds: 200), (){
+      setState(() {
+        loading=false;
+      });
     });
   }
 

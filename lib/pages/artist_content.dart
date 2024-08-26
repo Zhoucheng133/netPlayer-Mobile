@@ -27,7 +27,12 @@ class _ArtistContentState extends State<ArtistContent> {
     final data=await DataGet().getArtist(widget.id, context);
     setState(() {
       ls=data;
-      loading=false;
+      // loading=false;
+    });
+    Future.delayed(const Duration(milliseconds: 200), (){
+      setState(() {
+        loading=false;
+      });
     });
   }
 

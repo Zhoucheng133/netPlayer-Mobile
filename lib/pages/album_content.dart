@@ -27,7 +27,12 @@ class _AlbumContentState extends State<AlbumContent> {
     final data=await DataGet().getAlbum(widget.id, context);
     setState(() {
       ls=data;
-      loading=false;
+      // loading=false;
+    });
+    Future.delayed(const Duration(milliseconds: 200), (){
+      setState(() {
+        loading=false;
+      });
     });
   }
 

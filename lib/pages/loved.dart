@@ -26,7 +26,12 @@ class _LovedState extends State<Loved> {
     final data=await DataGet().getLoved(context);
     setState(() {
       ls=data;
-      loading=false;
+      // loading=false;
+    });
+    Future.delayed(const Duration(milliseconds: 200), (){
+      setState(() {
+        loading=false;
+      });
     });
   }
 

@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:netplayer_mobile/operations/account.dart';
 import 'package:netplayer_mobile/operations/play_check.dart';
 import 'package:netplayer_mobile/pages/index.dart';
@@ -122,19 +121,11 @@ class _MainViewState extends State<MainView> {
       resizeToAvoidBottomInset: u.url.value.isEmpty,
       body: AnimatedSwitcher(
         duration: const Duration(milliseconds: 200),
-        child: loading ? Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              LoadingAnimationWidget.beat(
-                color: Colors.blue, 
-                size: 30
-              ),
-              const SizedBox(height: 10,),
-              const Text('加载中')
-            ],
-          ),
-        ) : isLogin ? const Index() : const Login(),
+        child: loading ? Container(
+          key: const ValueKey<int>(0),
+          color: Colors.white,
+        ) :
+        isLogin ? const Index(key: ValueKey<int>(1),) : const Login(key: ValueKey<int>(2),),
       ),
     );
   }

@@ -24,7 +24,12 @@ class _ArtistsState extends State<Artists> {
     final data=await DataGet().getArtists(context);
     setState(() {
       ls=data;
-      loading=false;
+      // loading=false;
+    });
+    Future.delayed(const Duration(milliseconds: 200), (){
+      setState(() {
+        loading=false;
+      });
     });
   }
 

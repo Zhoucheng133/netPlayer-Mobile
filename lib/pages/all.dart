@@ -27,7 +27,12 @@ class _AllState extends State<All> {
     final data=await DataGet().getAll(context);
     setState(() {
       ls=data;
-      loading=false;
+      // loading=false;
+    });
+    Future.delayed(const Duration(milliseconds: 200), (){
+      setState(() {
+        loading=false;
+      });
     });
   }
 

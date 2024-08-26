@@ -24,7 +24,12 @@ class _AlbumsState extends State<Albums> {
     final data=await DataGet().getAlbums(context);
     setState(() {
       ls=data;
-      loading=false;
+      // loading=false;
+    });
+    Future.delayed(const Duration(milliseconds: 200), (){
+      setState(() {
+        loading=false;
+      });
     });
   }
 
