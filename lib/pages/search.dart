@@ -16,6 +16,12 @@ class _SearchState extends State<Search> {
   ScrollController controller=ScrollController();
   bool showAppbarTitle=false;
   List ls=[];
+  String mode='song';
+  void changeMode(val){
+    setState(() {
+      mode=val;
+    });
+  }
 
   @override
   void initState() {
@@ -53,14 +59,14 @@ class _SearchState extends State<Search> {
       body: CustomScrollView(
         controller: controller,
         slivers: [
-          const SliverToBoxAdapter(
-            child: TitleAria(title: '搜索', subtitle: "")
+          SliverToBoxAdapter(
+            child: SearchTitleArea(mode: mode, changeMode: (val)=>changeMode(val))
           ),
           SliverPersistentHeader(
             pinned: true,
             delegate: SearchBox(
               (context)=>SearchInput(
-                textController: textController, focus: focus, search: (){},
+                textController: textController, focus: focus, search: (){}, mode: mode,
               ),
             ),
           ),

@@ -20,7 +20,7 @@ class SearchBox extends SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
-    return false;
+    return true;
   }
 
 }
@@ -30,7 +30,8 @@ class SearchInput extends StatefulWidget {
   final TextEditingController textController;
   final FocusNode focus;
   final VoidCallback search;
-  const SearchInput({super.key, required this.textController, required this.focus, required this.search});
+  final String mode;
+  const SearchInput({super.key, required this.textController, required this.focus, required this.search, required this.mode});
 
   @override
   State<SearchInput> createState() => _SearchInputState();
@@ -65,7 +66,7 @@ class _SearchInputState extends State<SearchInput> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '搜索歌曲，专辑或艺人',
+                      '搜索${widget.mode=="song" ? "歌曲": widget.mode=="album" ? "专辑": "艺人"}',
                       style: GoogleFonts.notoSansSc(
                         color: Colors.grey,
                       ),
