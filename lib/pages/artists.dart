@@ -98,10 +98,7 @@ class _ArtistsState extends State<Artists> {
                   SliverList.builder(
                     itemCount: ls.length,
                     itemBuilder: (context ,index){
-                      return Padding(
-                        padding: const EdgeInsets.only(left: 10, right: 10),
-                        child: ArtistItem(index: index, item: ls[index], ),
-                      );
+                      return ArtistItem(index: index, item: ls[index], );
                     }
                   )
                 ],

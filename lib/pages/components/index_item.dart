@@ -71,50 +71,55 @@ class IndexPinItem extends StatefulWidget {
 class _IndexPinItemState extends State<IndexPinItem> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: (){
-        widget.func();
-      },
-      child: Container(
-        height: 200,
-        width: 150,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: widget.bgColor,
-        ),
-        child: Stack(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 20),
-              child: Center(
-                child: Icon(
-                  widget.icon,
-                  size: 30,
-                  color: widget.contentColor,
-                ),
-              ),
-            ),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.white.withAlpha(80)
-                ),
+    return Ink(
+      decoration: BoxDecoration(
+        color: widget.bgColor,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: InkWell(
+        onTap: (){
+          widget.func();
+        },
+        child: Container(
+          height: 200,
+          width: 150,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 20),
                 child: Center(
-                  child: Text(
-                    widget.label,
-                    style: GoogleFonts.notoSansSc(
-                      color: widget.contentColor,
-                      fontSize: 15
-                    ),
+                  child: Icon(
+                    widget.icon,
+                    size: 30,
+                    color: widget.contentColor,
                   ),
                 ),
+              ),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withAlpha(80)
+                  ),
+                  child: Center(
+                    child: Text(
+                      widget.label,
+                      style: GoogleFonts.notoSansSc(
+                        color: widget.contentColor,
+                        fontSize: 15
+                      ),
+                    ),
+                  ),
+                )
               )
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -186,52 +191,58 @@ class _PlayListItemState extends State<PlayListItem> {
   
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 60,
-      child: Row(
-        children: [
-          Container(
-            height: 50,
-            width: 50,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(7),
-              image: DecorationImage(
-                image: NetworkImage(
-                  '${u.url.value}/rest/getCoverArt.view?u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&v=1.16.1&c=netPlayer&f=json&id=${widget.coverArt}',
-                ),
-                fit: BoxFit.cover,
-              )
-            ),
-          ),
-          const SizedBox(width: 10,),
-          Expanded(
-            child: GestureDetector(
-              onTap: (){
-                Get.to(()=>Playlist(id: widget.id, name: widget.name,));
-              },
-              child: Container(
-                color: Colors.transparent,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      widget.name,
-                      style: const TextStyle(
-                        overflow: TextOverflow.ellipsis,
-                      ),
+    return InkWell(
+      onTap: (){
+        Get.to(()=>Playlist(id: widget.id, name: widget.name,));
+      },
+      child: SizedBox(
+        height: 60,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20, right: 10),
+          child: Row(
+            children: [
+              Container(
+                height: 50,
+                width: 50,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(7),
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      '${u.url.value}/rest/getCoverArt.view?u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&v=1.16.1&c=netPlayer&f=json&id=${widget.coverArt}',
                     ),
-                    Text("${widget.songCount}首")
-                  ],
+                    fit: BoxFit.cover,
+                  )
                 ),
               ),
-            )
+              const SizedBox(width: 10,),
+              Expanded(
+                child: Container(
+                  color: Colors.transparent,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        widget.name,
+                        style: const TextStyle(
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      Text("${widget.songCount}首")
+                    ],
+                  ),
+                )
+              ),
+              IconButton(
+                onPressed: ()=>showAction(context), 
+                icon: const Icon(
+                  Icons.more_vert_rounded,
+                  size: 20,
+                )
+              )
+            ],
           ),
-          GestureDetector(
-            onTap: ()=>showAction(context),
-            child: const Icon(Icons.more_vert_rounded)
-          )
-        ],
+        ),
       ),
     );
   }

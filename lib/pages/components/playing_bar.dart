@@ -52,7 +52,7 @@ class _PlayingBarState extends State<PlayingBar> {
               ),
               height: PageStatic().playbarHeight.toDouble(),
               child: Padding(
-                padding: const EdgeInsets.only(left: 10, right: 20),
+                padding: const EdgeInsets.only(left: 10, right: 10),
                 child: Obx(()=>
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -128,12 +128,12 @@ class _PlayingBarState extends State<PlayingBar> {
                           ),
                         ),
                       ),
-                      const SizedBox(width: 10,),
-                      GestureDetector(
-                        onTap: (){
+                      const SizedBox(width: 5,),
+                      IconButton(
+                        onPressed: (){
                           p.handler.skipToNext();
                         },
-                        child: const Icon(Icons.skip_next_rounded),
+                        icon: const Icon(Icons.skip_next_rounded),
                       )
                     ],
                   )

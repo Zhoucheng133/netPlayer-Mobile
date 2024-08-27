@@ -120,14 +120,11 @@ class _PlaylistState extends State<Playlist> {
                   SliverList.builder(
                     itemCount: ls.length,
                     itemBuilder: (context, index){
-                      return Padding(
-                        padding: const EdgeInsets.only(left: 10, right: 10),
-                        child: AutoScrollTag(
-                          key: ValueKey(index),
-                          index: index,
-                          controller: controller,
-                          child: SongItem(item: ls[index], index: index, ls: ls, from: 'playlist', listId: widget.id, refresh: () => getList(context),),
-                        ),
+                      return AutoScrollTag(
+                        key: ValueKey(index),
+                        index: index,
+                        controller: controller,
+                        child: SongItem(item: ls[index], index: index, ls: ls, from: 'playlist', listId: widget.id, refresh: () => getList(context),),
                       );
                     }
                   )

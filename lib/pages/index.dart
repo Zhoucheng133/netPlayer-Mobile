@@ -199,38 +199,40 @@ class _IndexState extends State<Index> {
             ),
           ),
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 0),
-              child: RefreshIndicator(
-                onRefresh: ()=>initGet(context),
-                child: Obx(()=>
-                  CustomScrollView(
-                    controller: controller,
-                    slivers: [
-                      const SliverToBoxAdapter(
-                        child: SizedBox(height: 15,),
-                      ),
-                      SliverToBoxAdapter(
-                        child: SizedBox(
-                          height: 200,
-                          child: ListView(
-                            scrollDirection: Axis.horizontal,
-                            children: [
-                              IndexPinItem(icon: Icons.queue_music_rounded, label: '所有歌曲', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>const All()),),
-                              const SizedBox(width: 10,),
-                              IndexPinItem(icon: Icons.favorite_rounded, label: '喜欢的歌曲', bgColor: Colors.red[50]!, contentColor: Colors.red, func: ()=>Get.to(()=>const Loved()),),
-                              const SizedBox(width: 10,),
-                              IndexPinItem(icon: Icons.mic_rounded, label: '艺人', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>const Artists()),),
-                              const SizedBox(width: 10,),
-                              IndexPinItem(icon: Icons.album_rounded, label: '专辑', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>const Albums()),),
-                            ],
-                          ),
-                        )
-                      ),
-                      const SliverToBoxAdapter(
-                        child: SizedBox(height: 20,),
-                      ),
-                      SliverToBoxAdapter(
+            child: RefreshIndicator(
+              onRefresh: ()=>initGet(context),
+              child: Obx(()=>
+                CustomScrollView(
+                  controller: controller,
+                  slivers: [
+                    const SliverToBoxAdapter(
+                      child: SizedBox(height: 15,),
+                    ),
+                    SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 200,
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: [
+                            const SizedBox(width: 20,),
+                            IndexPinItem(icon: Icons.queue_music_rounded, label: '所有歌曲', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>const All()),),
+                            const SizedBox(width: 10,),
+                            IndexPinItem(icon: Icons.favorite_rounded, label: '喜欢的歌曲', bgColor: Colors.red[50]!, contentColor: Colors.red, func: ()=>Get.to(()=>const Loved()),),
+                            const SizedBox(width: 10,),
+                            IndexPinItem(icon: Icons.mic_rounded, label: '艺人', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>const Artists()),),
+                            const SizedBox(width: 10,),
+                            IndexPinItem(icon: Icons.album_rounded, label: '专辑', bgColor: Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>const Albums()),),
+                            const SizedBox(width: 20,),
+                          ],
+                        ),
+                      )
+                    ),
+                    const SliverToBoxAdapter(
+                      child: SizedBox(height: 20,),
+                    ),
+                    SliverToBoxAdapter(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20, right: 20),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -242,8 +244,8 @@ class _IndexState extends State<Index> {
                               ),
                             ),
                             const SizedBox(width: 10,),
-                            GestureDetector(
-                              onTap: () async {
+                            IconButton(
+                              onPressed: () async {
                                 var rlt=await showTextInputDialog(
                                   context: context,
                                   title: "创建一个新的歌单",
@@ -259,35 +261,28 @@ class _IndexState extends State<Index> {
                                     Operations().newPlayList(rlt[0], context);
                                   }
                                 }
-                              },
-                              child: Container(
-                                color: Colors.transparent,
-                                height: 35,
-                                width: 35,
-                                child: const Icon(
-                                  Icons.add_rounded
-                                ),
-                              ),
+                              }, 
+                              icon: const Icon(Icons.add_rounded)
                             )
                           ],
                         ),
                       ),
-                      const SliverToBoxAdapter(
-                        child: SizedBox(height: 10,),
-                      ),
-                      SliverList.builder(
-                        itemCount: ls.playList.length,
-                        itemBuilder: (context, index){
-                          return PlayListItem(name: ls.playList[index]['name'], id: ls.playList[index]['id'], songCount: ls.playList[index]['songCount'], coverArt: ls.playList[index]['coverArt']);
-                        }
-                      ),
-                      const SliverToBoxAdapter(
-                        child: SizedBox(height: 10,),
-                      ),
-                    ],
-                  )
+                    ),
+                    const SliverToBoxAdapter(
+                      child: SizedBox(height: 10,),
+                    ),
+                    SliverList.builder(
+                      itemCount: ls.playList.length,
+                      itemBuilder: (context, index){
+                        return PlayListItem(name: ls.playList[index]['name'], id: ls.playList[index]['id'], songCount: ls.playList[index]['songCount'], coverArt: ls.playList[index]['coverArt']);
+                      }
+                    ),
+                    const SliverToBoxAdapter(
+                      child: SizedBox(height: 10,),
+                    ),
+                  ],
                 )
-              ),
+              )
             ),
           ),
           const Hero(

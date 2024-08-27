@@ -275,8 +275,8 @@ class _PlayingState extends State<Playing> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      GestureDetector(
-                        onTap: (){
+                      IconButton(
+                        onPressed: (){
                           if(p.nowPlay['id']==''){
                             return;
                           }
@@ -286,23 +286,23 @@ class _PlayingState extends State<Playing> {
                             Operations().love(p.nowPlay['id'], context);
                           }
                         },
-                        child: Icon(
+                        icon: Icon(
                           isLoved() ? Icons.favorite_rounded : Icons.favorite_border_outlined,
                           color: isLoved() ? Colors.red :Colors.black,
                           size: 22,
                         ),
                       ),
-                      const SizedBox(width: 35,),
-                      GestureDetector(
-                        onTap: (){
+                      const SizedBox(width: 10,),
+                      IconButton(
+                        onPressed: (){
                           p.handler.skipToPrevious();
                         },
-                        child: const Icon(
+                        icon: const Icon(
                           Icons.skip_previous_rounded,
                           size:30,
                         ),
                       ),
-                      const SizedBox(width: 20,),
+                      const SizedBox(width: 15,),
                       GestureDetector(
                         onTap: (){
                           if(p.nowPlay["id"].isNotEmpty){
@@ -330,19 +330,19 @@ class _PlayingState extends State<Playing> {
                           ),
                         ),
                       ),
-                      const SizedBox(width: 20,),
-                      GestureDetector(
-                        onTap: (){
+                      const SizedBox(width: 15,),
+                      IconButton(
+                        onPressed: (){
                           p.handler.skipToNext();
                         },
-                        child: const Icon(
+                        icon: const Icon(
                           Icons.skip_next_rounded,
                           size: 30,
                         ),
                       ),
-                      const SizedBox(width: 35,),
-                      GestureDetector(
-                        onTap: () async {
+                      const SizedBox(width: 10,),
+                      IconButton(
+                        onPressed: () async {
                           if(p.nowPlay['playFrom']=='fullRandom'){
                             return;
                           }
@@ -359,7 +359,7 @@ class _PlayingState extends State<Playing> {
                             p.playMode.value=rlt;
                           }
                         },
-                        child: Obx(()=>
+                        icon: Obx(()=>
                           Icon(
                             p.nowPlay['playFrom']=='fullRandom' ? Icons.shuffle_rounded : p.playMode.value=='list' ? Icons.repeat_rounded : p.playMode.value=='random' ? Icons.shuffle_rounded : Icons.repeat_one_rounded,
                             size: 25,

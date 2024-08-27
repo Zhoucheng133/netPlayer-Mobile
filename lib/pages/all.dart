@@ -118,14 +118,11 @@ class _AllState extends State<All> {
                   SliverList.builder(
                     itemCount: ls.length,
                     itemBuilder: (context, index){
-                      return Padding(
-                        padding: const EdgeInsets.only(left: 10, right: 10),
-                        child: AutoScrollTag(
-                          controller: controller,
-                          index: index,
-                          key: ValueKey(index),
-                          child: SongItem(item: ls[index], index: index, ls: ls, from: 'all', listId: '', ),
-                        ),
+                      return AutoScrollTag(
+                        controller: controller,
+                        index: index,
+                        key: ValueKey(index),
+                        child: SongItem(item: ls[index], index: index, ls: ls, from: 'all', listId: '', ),
                       );
                     },
                   )

@@ -71,6 +71,7 @@ class _SearchState extends State<Search> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.grey[100],
@@ -88,49 +89,37 @@ class _SearchState extends State<Search> {
       body: Column(
         children: [
           Expanded(
-            child: Container(
-              color: Colors.white,
-              child: CustomScrollView(
-                controller: controller,
-                slivers: [
-                  SliverToBoxAdapter(
-                    child: SearchTitleArea(mode: mode, changeMode: (val)=>changeMode(val))
-                  ),
-                  SliverPersistentHeader(
-                    pinned: true,
-                    delegate: SearchBox(
-                      (context)=>SearchInput(
-                        textController: textController, focus: focus, search: ()=>searchHandler(context), mode: mode,
-                      ),
+            child: CustomScrollView(
+              controller: controller,
+              slivers: [
+                SliverToBoxAdapter(
+                  child: SearchTitleArea(mode: mode, changeMode: (val)=>changeMode(val))
+                ),
+                SliverPersistentHeader(
+                  pinned: true,
+                  delegate: SearchBox(
+                    (context)=>SearchInput(
+                      textController: textController, focus: focus, search: ()=>searchHandler(context), mode: mode,
                     ),
                   ),
-                  mode=='song' ? SliverList.builder(
-                    itemCount: ls['songs'].length,
-                    itemBuilder: (context, index){
-                      return Padding(
-                        padding: const EdgeInsets.only(left: 10, right: 10),
-                        child: SongItem(item: ls['songs'][index], index: index, ls: ls['songs'], from: 'search', listId: textController.text, ),
-                      );
-                    }
-                  ) : mode=='album' ? SliverList.builder(
-                    itemCount: ls['albums'].length,
-                    itemBuilder: (context, index){
-                      return Padding(
-                        padding: const EdgeInsets.only(left: 10, right: 10),
-                        child: AlbumItem(index: index, item: ls['albums'][index]),
-                      );
-                    }
-                  ) :  SliverList.builder(
-                    itemCount: ls['artists'].length,
-                    itemBuilder: (context, index){
-                      return Padding(
-                        padding: const EdgeInsets.only(left: 10, right: 10),
-                        child: ArtistItem(index: index, item: ls['artists'][index]),
-                      );
-                    }
-                  )
-                ],
-              ),
+                ),
+                mode=='song' ? SliverList.builder(
+                  itemCount: ls['songs'].length,
+                  itemBuilder: (context, index){
+                    return SongItem(item: ls['songs'][index], index: index, ls: ls['songs'], from: 'search', listId: textController.text, );
+                  }
+                ) : mode=='album' ? SliverList.builder(
+                  itemCount: ls['albums'].length,
+                  itemBuilder: (context, index){
+                    return AlbumItem(index: index, item: ls['albums'][index]);
+                  }
+                ) :  SliverList.builder(
+                  itemCount: ls['artists'].length,
+                  itemBuilder: (context, index){
+                    return ArtistItem(index: index, item: ls['artists'][index]);
+                  }
+                )
+              ],
             ),
           ),
           const Hero(
