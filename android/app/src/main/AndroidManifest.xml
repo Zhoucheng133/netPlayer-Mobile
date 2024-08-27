@@ -10,6 +10,7 @@
         android:label="netPlayer Mobile"
         android:name="${applicationName}"
         android:usesCleartextTraffic="true"
+        android:screenOrientation="portrait"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name="com.ryanheise.audioservice.AudioServiceActivity"
