@@ -10,6 +10,10 @@ import 'package:netplayer_mobile/variables/player_var.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown
+  ]);
   final PlayerVar p = Get.put(PlayerVar());
   p.handler=await AudioService.init(
     builder: () => Handler(),
