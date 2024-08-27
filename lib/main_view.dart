@@ -117,7 +117,7 @@ class _MainViewState extends State<MainView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey[50],
       resizeToAvoidBottomInset: u.url.value.isEmpty,
       body: AnimatedSwitcher(
         duration: const Duration(milliseconds: 200),
