@@ -50,6 +50,10 @@ class MainApp extends StatelessWidget {
         // splashColor: Colors.transparent,
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        dialogBackgroundColor: Colors.grey[50],
+        bottomSheetTheme: BottomSheetThemeData(
+          backgroundColor: Colors.grey[50],
+        )
       ),
       home: const MainView()
     );

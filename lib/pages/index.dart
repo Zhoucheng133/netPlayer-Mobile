@@ -131,75 +131,37 @@ class _IndexState extends State<Index> {
           ],
         ),
         actions: [
-          PopupMenuButton(
-            color: Colors.white,
-            itemBuilder: (BuildContext context)=>[
-              PopupMenuItem(
-                onTap: (){
+          IconButton(
+            onPressed: () async {
+              final rlt=await showModalActionSheet(
+                context: context,
+                title: '更多...',
+                actions: [
+                  const SheetAction(label: '随机播放所有歌曲', icon: Icons.shuffle_rounded, key: 'shuffle'),
+                  const SheetAction(label: '设置', icon: Icons.settings_rounded, key: 'settings'),
+                  const SheetAction(label: '关于', icon: Icons.info_rounded, key: 'about'),
+                  const SheetAction(label: '注销', icon: Icons.logout_rounded, key: 'logout'),
+                ]
+              );
+              if(rlt!=null){
+                if(rlt=='shuffle'){
                   PlayerControl().shufflePlay();
-                },
-                child: const Row(
-                  children: [
-                    Icon(
-                      Icons.shuffle_rounded,
-                      size: 20,
-                    ),
-                    SizedBox(width: 10,),
-                    Text('随机播放所有歌曲'),
-                  ],
-                )
-              ),
-              PopupMenuItem(
-                onTap: (){
+                }else if(rlt=='settings'){
                   Get.to(()=>const Settings());
-                },
-                child: const Row(
-                  children: [
-                    Icon(
-                      Icons.settings_rounded,
-                      size: 20,
-                    ),
-                    SizedBox(width: 10,),
-                    Text('设置'),
-                  ],
-                )
-              ),
-              PopupMenuItem(
-                onTap: (){
+                }else if(rlt=='about'){
                   Get.to(()=>const About());
-                },
-                child: const Row(
-                  children: [
-                    Icon(
-                      Icons.info_rounded,
-                      size: 20,
-                    ),
-                    SizedBox(width: 10,),
-                    Text('关于'),
-                  ],
-                )
-              ),
-              PopupMenuItem(
-                onTap: (){
-                  logout(context);
-                },
-                child: const Row(
-                  children: [
-                    Icon(
-                      Icons.logout_rounded,
-                      size: 20,
-                    ),
-                    SizedBox(width: 10,),
-                    Text('注销'),
-                  ],
-                )
-              )
-            ],
-            child: const Icon(
-              Icons.more_vert_rounded
-            ),
+                }else if(rlt=='logout'){
+                  if(context.mounted){
+                    logout(context);
+                  }
+                }
+              }
+            }, 
+            icon: const Icon(
+              Icons.more_vert_rounded,
+            )
           ),
-          const SizedBox(width: 25,)
+          const SizedBox(width: 10,)
         ],
       ),
       body: Column(
