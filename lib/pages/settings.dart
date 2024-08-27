@@ -4,6 +4,7 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/pages/components/title_aria.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:path_provider/path_provider.dart';
@@ -20,6 +21,7 @@ class _SettingsState extends State<Settings> {
 
   SettingsVar s=Get.put(SettingsVar());
   int cacheSize=0;
+  bool loading=false;
 
   @override
   void initState(){
@@ -156,6 +158,22 @@ class _SettingsState extends State<Settings> {
                       color: Colors.grey[400]
                     ),
                   ),
+                ),
+                ListTile(
+                  onTap: () async {
+                    setState(() {
+                      loading=true;
+                    });
+                    await Operations().refreshLibrary(context);
+                    setState(() {
+                      loading=false;
+                    });
+                  },
+                  title: Text('更新音乐库', style: GoogleFonts.notoSansSc(),),
+                  trailing: loading ? Transform.scale(
+                    scale: 0.6,
+                    child: const CircularProgressIndicator()
+                  ) : null,
                 )
               ],
             )

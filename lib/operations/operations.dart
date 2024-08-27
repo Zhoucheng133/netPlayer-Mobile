@@ -20,7 +20,7 @@ class Operations{
     final rlt=await httpRequest("${u.url.value}/rest/updatePlaylist?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&playlistId=$id&name=$newname");
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
       if(context.mounted){
-        dataGet.errDialog('重命名歌单失败', "请检查你的网络连接", context);
+        dataGet.dialog('重命名歌单失败', "请检查你的网络连接", context);
       }
       return;
     }else{
@@ -35,7 +35,7 @@ class Operations{
     final rlt=await httpRequest("${u.url.value}/rest/deletePlaylist?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=$id");
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
       if(context.mounted){
-        dataGet.errDialog('删除歌单失败', "请检查你的网络连接", context);
+        dataGet.dialog('删除歌单失败', "请检查你的网络连接", context);
       }
       return;
     }else{
@@ -47,13 +47,13 @@ class Operations{
 
   Future<void> newPlayList(String name, BuildContext context) async {
     if(name.isEmpty){
-      dataGet.errDialog('创建歌单失败', '歌单名称不能为空', context);
+      dataGet.dialog('创建歌单失败', '歌单名称不能为空', context);
       return;
     }
     final rlt=await httpRequest("${u.url.value}/rest/createPlaylist?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&name=$name");
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
       if(context.mounted){
-        dataGet.errDialog('创建歌单失败', "请检查你的网络连接", context);
+        dataGet.dialog('创建歌单失败', "请检查你的网络连接", context);
       }
     }else{
       if(context.mounted){
@@ -66,7 +66,7 @@ class Operations{
     final rlt=await httpRequest("${u.url.value}/rest/star?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=$id");
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
       if(context.mounted){
-        dataGet.errDialog('喜欢歌曲失败', "请检查你的网络连接", context);
+        dataGet.dialog('喜欢歌曲失败', "请检查你的网络连接", context);
       }
       return;
     }else{
@@ -83,7 +83,7 @@ class Operations{
     final rlt=await httpRequest("${u.url.value}/rest/unstar?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=$id");
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
       if(context.mounted){
-        dataGet.errDialog('取消喜欢歌曲失败', "请检查你的网络连接", context);
+        dataGet.dialog('取消喜欢歌曲失败', "请检查你的网络连接", context);
       }
       return;
     }else{
@@ -100,7 +100,7 @@ class Operations{
     final rlt=await httpRequest("${u.url.value}/rest/updatePlaylist?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&playlistId=$listId&songIdToAdd=$songId");
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
       if(context.mounted){
-        dataGet.errDialog('添加到歌单失败', "请检查你的网络连接", context);
+        dataGet.dialog('添加到歌单失败', "请检查你的网络连接", context);
       }
       return;
     }else{
@@ -117,7 +117,7 @@ class Operations{
     final rlt=await httpRequest("${u.url.value}/rest/updatePlaylist?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&playlistId=$listId&songIndexToRemove=$songIndex");
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
       if(context.mounted){
-        dataGet.errDialog('从歌单中删除失败', "请检查你的网络连接", context);
+        dataGet.dialog('从歌单中删除失败', "请检查你的网络连接", context);
       }
       return false;
     }else{
@@ -181,7 +181,7 @@ class Operations{
     final rlt= await httpRequest("${u.url.value}/rest/search2?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&query=$val");
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
       if(context.mounted){
-        dataGet.errDialog('搜索失败', "请检查你的网络连接", context);
+        dataGet.dialog('搜索失败', "请检查你的网络连接", context);
       }
       return {};
     }else{
@@ -193,6 +193,19 @@ class Operations{
         };
       } catch (_) {}
       return {};
+    }
+  }
+
+  Future<void> refreshLibrary(BuildContext context) async {
+    final rlt= await httpRequest("${u.url.value}/rest/startScan?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}");
+    if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
+      if(context.mounted){
+        dataGet.dialog('更新失败', "请检查你的网络连接", context);
+      }
+      return;
+    }
+    if(context.mounted){
+      dataGet.dialog('更新成功', "已经请求扫描了全部的音乐库文件", context);
     }
   }
 }
