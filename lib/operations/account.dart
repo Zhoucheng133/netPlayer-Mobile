@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/requests.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Account{
   final UserVar u = Get.put(UserVar());
@@ -47,11 +48,13 @@ class Account{
   }
 
   // 注销
-  void logout(){
+  Future<void> logout() async {
     u.salt.value='';
     u.token.value='';
     u.url.value='';
     u.username.value='';
     p.handler.stop();
+    final prefs = await SharedPreferences.getInstance();
+    prefs.clear();
   }
 }
