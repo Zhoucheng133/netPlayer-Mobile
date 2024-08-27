@@ -1,8 +1,12 @@
+import 'dart:io';
+
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/pages/components/title_aria.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Settings extends StatefulWidget {
@@ -15,6 +19,60 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
 
   SettingsVar s=Get.put(SettingsVar());
+  int cacheSize=0;
+
+  @override
+  void initState(){
+    super.initState();
+    getCacheSize();
+  }
+
+  String sizeConvert(int bytes) {
+    if (bytes < 1024) {
+      return '$bytes B';
+    } else if (bytes < 1048576) {
+      return '${(bytes / 1024).toStringAsFixed(2)} KB';
+    } else if (bytes < 1073741824) {
+      return '${(bytes / 1048576).toStringAsFixed(2)} MB';
+    } else {
+      return '${(bytes / 1073741824).toStringAsFixed(2)} GB';
+    }
+  }
+
+  Future<int> getDirectorySize(Directory path) async {
+    int size = 0;
+    for (var entity in path.listSync(recursive: true)) {
+      if (entity is File) {
+        size += entity.lengthSync();
+      }
+    }
+    return size;
+  }
+
+  Future<void> getCacheSize() async {
+    try {
+      final Directory tempDir = await getTemporaryDirectory();
+      var size = await getDirectorySize(tempDir);
+      setState(() {
+        cacheSize=size;
+      });
+    } catch (_) {
+      setState(() {
+        cacheSize=0;
+      });
+    }
+  }
+
+  Future<void> clearController() async {
+    final cacheDir = await getTemporaryDirectory();
+    if (cacheDir.existsSync()) {
+      try {
+        cacheDir.deleteSync(recursive: true);
+      } catch (_) {}
+    }
+    getCacheSize();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -29,69 +87,77 @@ class _SettingsState extends State<Settings> {
         children: [
           const TitleAria(title: '设置', subtitle: ' '),
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              child: ListView(
-                children: [
-                  SizedBox(
-                    height: 60,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            '自动登录',
-                            style: GoogleFonts.notoSansSc(
-                              fontSize: 18
-                            ),
-                          ),
-                        ),
-                        Obx(()=>
-                          Switch(
-                            activeTrackColor: Colors.blue,
-                            value: s.autoLogin.value, 
-                            onChanged: (val) async {
-                              // setState(() {
-                              //   enableAutoLogin=val;
-                              // });
-                              s.autoLogin.value=val;
-                              final SharedPreferences prefs = await SharedPreferences.getInstance();
-                              prefs.setBool('autoLogin', val);
-                            }
-                          )
-                        )
-                      ],
+            child: ListView(
+              children: [
+                ListTile(
+                  title: Text(
+                    '自动登录',
+                    style: GoogleFonts.notoSansSc(
+                      // fontSize: 18
                     ),
                   ),
-                  SizedBox(
-                    height: 60,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            '保存上次播放位置',
-                            style: GoogleFonts.notoSansSc(
-                              fontSize: 18
-                            ),
-                          ),
-                        ),
-                        Obx(()=>
-                          Switch(
-                            activeTrackColor: Colors.blue,
-                            value: s.savePlay.value, 
-                            onChanged: (val) async {
-                              s.savePlay.value=val;
-                              final SharedPreferences prefs = await SharedPreferences.getInstance();
-                              prefs.setBool('savePlay', val);
-                            }
-                          )
-                        )
-                      ],
+                  trailing: Obx(()=>
+                    Switch(
+                      activeTrackColor: Colors.blue,
+                      value: s.autoLogin.value, 
+                      onChanged: (val) async {
+                        // setState(() {
+                        //   enableAutoLogin=val;
+                        // });
+                        s.autoLogin.value=val;
+                        final SharedPreferences prefs = await SharedPreferences.getInstance();
+                        prefs.setBool('autoLogin', val);
+                      }
+                    )
+                  ),
+                ),
+                ListTile(
+                  title: Text(
+                    '保存上次播放位置',
+                    style: GoogleFonts.notoSansSc(
+                      // fontSize: 18
                     ),
-                  )
-                ],
-              ),
+                  ),
+                  trailing: Obx(()=>
+                    Switch(
+                      activeTrackColor: Colors.blue,
+                      value: s.savePlay.value, 
+                      onChanged: (val) async {
+                        s.savePlay.value=val;
+                        final SharedPreferences prefs = await SharedPreferences.getInstance();
+                        prefs.setBool('savePlay', val);
+                      }
+                    )
+                  ),
+                ),
+                ListTile(
+                  onTap: () async {
+                    final rlt=await showOkCancelAlertDialog(
+                      context: context,
+                      okLabel: "继续",
+                      title: "清理缓存",
+                      message: "这不会影响你的使用",
+                      cancelLabel: "取消"
+                    );
+                    if(rlt==OkCancelResult.ok){
+                      clearController();
+                    }
+                  },
+                  title: Text(
+                    '清理缓存',
+                    style: GoogleFonts.notoSansSc(
+                      // fontSize: 18
+                    ),
+                  ),
+                  trailing: Text(
+                    sizeConvert(cacheSize),
+                    style: GoogleFonts.notoSansSc(
+                      fontSize: 12,
+                      color: Colors.grey[400]
+                    ),
+                  ),
+                )
+              ],
             )
           ),
         ],
