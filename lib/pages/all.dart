@@ -130,10 +130,7 @@ class _AllState extends State<All> {
               )
             ),
           ),
-          const Hero(
-            tag: 'playingbar', 
-            child: PlayingBar()
-          )
+          const PlayingBar()
         ],
       ),
     );

@@ -122,10 +122,7 @@ class _SearchState extends State<Search> {
               ],
             ),
           ),
-          const Hero(
-            tag: 'playingbar', 
-            child: PlayingBar()
-          )
+          const PlayingBar()
         ],
       ),
     );

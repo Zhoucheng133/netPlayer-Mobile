@@ -105,10 +105,7 @@ class _ArtistsState extends State<Artists> {
               )
             ),
           ),
-          const Hero(
-            tag: 'playingbar', 
-            child: PlayingBar()
-          )
+          const PlayingBar()
         ],
       ),
     );

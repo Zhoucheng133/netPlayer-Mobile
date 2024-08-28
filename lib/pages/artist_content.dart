@@ -108,10 +108,7 @@ class _ArtistContentState extends State<ArtistContent> {
               )
             ),
           ),
-          const Hero(
-            tag: 'playingbar', 
-            child: PlayingBar()
-          )
+          const PlayingBar()
         ],
       ),
     );

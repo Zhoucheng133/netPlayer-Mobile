@@ -83,6 +83,14 @@ class _PlayingState extends State<Playing> {
     });
   }
 
+  @override
+  void dispose(){
+    Future.microtask(() {
+      p.switchHero.value = false;
+    });
+    super.dispose();
+  }
+
   void scrollLyric(){
     if(p.lyricLine.value==0){
       return;
@@ -186,14 +194,17 @@ class _PlayingState extends State<Playing> {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
-                              height: MediaQuery.of(context).size.width-150,
-                              width: MediaQuery.of(context).size.width-150,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: p.nowPlay['id'].isNotEmpty ? NetworkImage("${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}"):
-                                  const AssetImage("assets/blank.jpg")
-                                )
+                            Hero(
+                              tag: 'cover',
+                              child: Container(
+                                height: MediaQuery.of(context).size.width-150,
+                                width: MediaQuery.of(context).size.width-150,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: p.nowPlay['id'].isNotEmpty ? NetworkImage("${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}"):
+                                    const AssetImage("assets/blank.jpg")
+                                  )
+                                ),
                               ),
                             ),
                             Padding(

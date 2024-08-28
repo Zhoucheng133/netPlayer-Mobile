@@ -285,10 +285,7 @@ class _IndexState extends State<Index> {
               )
             ),
           ),
-          const Hero(
-            tag: "playingbar",
-            child: PlayingBar()
-          )
+          const PlayingBar()
         ],
       ),
     );

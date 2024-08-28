@@ -128,10 +128,7 @@ class _LovedState extends State<Loved> {
               )
             ),
           ),
-          const Hero(
-            tag: 'playingbar', 
-            child: PlayingBar()
-          )
+          const PlayingBar()
         ],
       ),
     );

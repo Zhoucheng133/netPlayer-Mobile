@@ -105,10 +105,7 @@ class _AlbumsState extends State<Albums> {
               )
             ),
           ),
-          const Hero(
-            tag: 'playingbar', 
-            child: PlayingBar()
-          )
+          const PlayingBar()
         ],
       ),
     );

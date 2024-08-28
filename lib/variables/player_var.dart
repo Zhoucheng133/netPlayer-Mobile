@@ -27,6 +27,7 @@ class PlayerVar extends GetxController{
   RxInt lyricLine=0.obs;
   // 正在播放
   RxBool isPlay=false.obs;
+  RxBool switchHero=false.obs;
 }
 
 class PlayerStatic{
