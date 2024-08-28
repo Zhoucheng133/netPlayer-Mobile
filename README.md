@@ -18,6 +18,7 @@
 ![auto_size_text](https://img.shields.io/badge/auto_size_text-3.0.0-lightgreen)
 ![easy_debounce](https://img.shields.io/badge/easy_debounce-2.0.3-purple)
 ![audio_session](https://img.shields.io/badge/audio_session-2.0.3-lightyellow)
+![path_provider](https://img.shields.io/badge/path_provider-2.1.4-pink)
 
 ![License](https://img.shields.io/badge/License-MIT-dark_green)
 
@@ -62,7 +63,7 @@
 
 ## 更新日志
 
-### 2.0.2
+### 2.0.2 (2024/8/28)
 - 添加清理缓存的功能
 - 添加更新音乐库的功能
 - 改进交互的反馈
