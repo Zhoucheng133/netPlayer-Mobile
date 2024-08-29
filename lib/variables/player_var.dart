@@ -28,6 +28,8 @@ class PlayerVar extends GetxController{
   // 正在播放
   RxBool isPlay=false.obs;
   RxBool switchHero=false.obs;
+
+  RxBool onSeek=false.obs;
 }
 
 class PlayerStatic{

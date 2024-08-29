@@ -1,5 +1,4 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,21 +30,22 @@ class _PlayingState extends State<Playing> {
     return false;
   }
 
-  void seekSong(val){
+  void seekChange(val){
     if(p.nowPlay['id'].isEmpty){
       return;
     }
     p.handler.pause();
     int progress=(p.nowPlay['duration']*1000*val).toInt();
     p.playProgress.value=progress;
-    EasyDebounce.debounce(
-      'slider',
-      const Duration(milliseconds: 50),
-      () {
-        p.handler.seek(Duration(milliseconds: p.playProgress.value));
-        p.handler.play();
-      }
-    );
+  }
+
+  Future<void> seekSong(val) async {
+    if(p.nowPlay['id'].isEmpty){
+      return;
+    }
+    int progress=(p.nowPlay['duration']*1000*val).toInt();
+    p.playProgress.value=progress;
+    await p.handler.seek(Duration(milliseconds: p.playProgress.value));
   }
 
   String convertDuration(int time){
@@ -229,8 +229,11 @@ class _PlayingState extends State<Playing> {
                                     child: Slider(
                                       value: p.nowPlay['duration']==0 ? 0.0 : p.playProgress.value/1000/p.nowPlay["duration"]>1 ? 1.0 : p.playProgress.value/1000/p.nowPlay["duration"]<0 ? 0 : p.playProgress.value/1000/p.nowPlay["duration"], 
                                       onChanged: (value){
+                                        seekChange(value);
+                                      },
+                                      onChangeEnd: (value){
                                         seekSong(value);
-                                      }
+                                      },
                                     ),
                                   ),
                                   SizedBox(
