@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,7 +19,6 @@ import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/page_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Index extends StatefulWidget {
   const Index({super.key});
@@ -48,17 +45,6 @@ class _IndexState extends State<Index> {
       l.loved.value=await dataGet.getLoved(context);
     }
   }
-
-  late Worker nowPlayListener;
-
-  Future<void> savePlay(dynamic val) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    try {
-      if(s.savePlay.value){
-        await prefs.setString('nowPlay', jsonEncode(val));
-      }
-    } catch (_) {}
-  }
   
   @override
   void initState() {
@@ -73,15 +59,10 @@ class _IndexState extends State<Index> {
         p.index.value=0;
       }
     });
-    nowPlayListener=ever(pl.nowPlay, (val){
-      savePlay(val);
-      Operations().getLyric(val);
-    });
   }
 
   @override
   void dispose(){
-    nowPlayListener.dispose();
     super.dispose();
   }
 

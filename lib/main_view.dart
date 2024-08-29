@@ -4,6 +4,7 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/account.dart';
+import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/operations/play_check.dart';
 import 'package:netplayer_mobile/pages/index.dart';
 import 'package:netplayer_mobile/pages/login.dart';
@@ -30,6 +31,16 @@ class _MainViewState extends State<MainView> {
   bool isLogin=false;
   late Worker accountListener;
   PlayerVar p=Get.put(PlayerVar());
+  late Worker nowPlayListener;
+
+  Future<void> savePlay(dynamic val) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    try {
+      if(s.savePlay.value){
+        await prefs.setString('nowPlay', jsonEncode(val));
+      }
+    } catch (_) {}
+  }
 
   @override
   void initState() {
@@ -46,11 +57,22 @@ class _MainViewState extends State<MainView> {
         });
       }
     });
+    nowPlayListener=ever(p.nowPlay, (val){
+      savePlay(val);
+      p.lyric.value=[
+        {
+          'time': 0,
+          'content': '查找歌词中...',
+        }
+      ];
+      Operations().getLyric();
+    });
   }
 
   @override
   void dispose() {
     accountListener.dispose();
+    nowPlayListener.dispose();
     super.dispose();
   }
 

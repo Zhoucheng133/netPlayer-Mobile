@@ -138,7 +138,7 @@ class Operations{
     return (minutes * 60 * 1000) + (seconds * 1000) + milliseconds;
   }
 
-  Future<void> getLyric(dynamic val) async {
+  Future<void> getLyric() async {
     LyricGet().getLyric();
   }
 
