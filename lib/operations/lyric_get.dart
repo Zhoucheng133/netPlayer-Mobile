@@ -58,7 +58,7 @@ class LyricGet{
       });
     }
     p.lyric.value=lyricCovert;
-    print("from lrclib");
+    // print("from lrclib");
     return true;
   }
 
@@ -115,7 +115,8 @@ class LyricGet{
         'content': content,
       });
     }
-    print("from网易云");
+    p.lyric.value=lyricCovert;
+    // print("from网易云");
     return true;
   }
 }
