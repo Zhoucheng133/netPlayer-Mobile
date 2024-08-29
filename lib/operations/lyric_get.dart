@@ -27,7 +27,7 @@ class LyricGet{
         p.lyric.value=[
           {
             'time': 0,
-            'content': 'noLyric'.tr,
+            'content': '没有歌词',
           }
         ];
       }
