@@ -115,6 +115,7 @@ class LyricGet{
         'content': content,
       });
     }
+    lyricCovert.sort((a, b)=>a['time'].compareTo(b['time']));
     p.lyric.value=lyricCovert;
     // print("from网易云");
     return true;
