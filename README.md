@@ -228,10 +228,10 @@
 
 </details>
 
-## Subsonic API
+## 一些API
 
-[关于所有的API点此](http://www.subsonic.org/pages/api.jsp)
+[Subsonic API](http://www.subsonic.org/pages/api.jsp)
 
-## 歌词API
+[lrclib API](https://lrclib.net/docs)
 
-[关于歌词的API点此](https://lrclib.net/docs)
+网易云音乐
