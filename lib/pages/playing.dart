@@ -174,8 +174,8 @@ class _PlayingState extends State<Playing> {
                                             p.lyric[index]['content'],
                                             textAlign: TextAlign.center,
                                             style: GoogleFonts.notoSansSc(
-                                              fontSize: playedLyric(index) ? 20 : 16,
-                                              height: 2.6,
+                                              fontSize: 18,
+                                              height: 2.5,
                                               color: playedLyric(index) ? Colors.blue:Colors.grey[400],
                                               fontWeight: playedLyric(index) ? FontWeight.bold: FontWeight.normal,
                                             ),
