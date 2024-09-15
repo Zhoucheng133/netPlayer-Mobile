@@ -89,22 +89,25 @@ class _ArtistsState extends State<Artists> {
                   ],
                 ),
               ) : 
-              CupertinoScrollbar(
-                controller: controller,
-                child: CustomScrollView(
-                  key: const Key("1"),
+              RefreshIndicator(
+                onRefresh: () => getList(context),
+                child: CupertinoScrollbar(
                   controller: controller,
-                  slivers: [
-                    SliverToBoxAdapter(
-                      child: TitleAria(title: '艺人', subtitle: '${ls.length}位艺人',),
-                    ),
-                    SliverList.builder(
-                      itemCount: ls.length,
-                      itemBuilder: (context ,index){
-                        return ArtistItem(index: index, item: ls[index], );
-                      }
-                    )
-                  ],
+                  child: CustomScrollView(
+                    key: const Key("1"),
+                    controller: controller,
+                    slivers: [
+                      SliverToBoxAdapter(
+                        child: TitleAria(title: '艺人', subtitle: '${ls.length}位艺人',),
+                      ),
+                      SliverList.builder(
+                        itemCount: ls.length,
+                        itemBuilder: (context ,index){
+                          return ArtistItem(index: index, item: ls[index], );
+                        }
+                      )
+                    ],
+                  ),
                 ),
               )
             ),

@@ -109,27 +109,30 @@ class _AllState extends State<All> {
                   ],
                 ),
               ) : 
-              CupertinoScrollbar(
-                controller: controller,
-                child: CustomScrollView(
-                  key: const Key("1"),
+              RefreshIndicator(
+                onRefresh: () => getList(context),
+                child: CupertinoScrollbar(
                   controller: controller,
-                  slivers: [
-                    SliverToBoxAdapter(
-                      child: TitleAria(title: '所有歌曲', subtitle: '${ls.length == 500 ? ">${ls.length}" : ls.length}首歌曲',),
-                    ),
-                    SliverList.builder(
-                      itemCount: ls.length,
-                      itemBuilder: (context, index){
-                        return AutoScrollTag(
-                          controller: controller,
-                          index: index,
-                          key: ValueKey(index),
-                          child: SongItem(item: ls[index], index: index, ls: ls, from: 'all', listId: '', ),
-                        );
-                      },
-                    )
-                  ],
+                  child: CustomScrollView(
+                    key: const Key("1"),
+                    controller: controller,
+                    slivers: [
+                      SliverToBoxAdapter(
+                        child: TitleAria(title: '所有歌曲', subtitle: '${ls.length == 500 ? ">${ls.length}" : ls.length}首歌曲',),
+                      ),
+                      SliverList.builder(
+                        itemCount: ls.length,
+                        itemBuilder: (context, index){
+                          return AutoScrollTag(
+                            controller: controller,
+                            index: index,
+                            key: ValueKey(index),
+                            child: SongItem(item: ls[index], index: index, ls: ls, from: 'all', listId: '', ),
+                          );
+                        },
+                      )
+                    ],
+                  ),
                 ),
               )
             ),

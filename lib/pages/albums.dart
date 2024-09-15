@@ -89,22 +89,25 @@ class _AlbumsState extends State<Albums> {
                   ],
                 ),
               ):
-              CupertinoScrollbar(
-                controller: controller,
-                child: CustomScrollView(
-                  key: const Key("1"),
+              RefreshIndicator(
+                onRefresh: () => getList(context),
+                child: CupertinoScrollbar(
                   controller: controller,
-                  slivers: [
-                    SliverToBoxAdapter(
-                      child: TitleAria(title: '专辑', subtitle: '${ls.length}张专辑'),
-                    ),
-                    SliverList.builder(
-                      itemCount: ls.length,
-                      itemBuilder: (context, index){
-                        return AlbumItem(index: index, item: ls[index]);
-                      }
-                    )
-                  ],
+                  child: CustomScrollView(
+                    key: const Key("1"),
+                    controller: controller,
+                    slivers: [
+                      SliverToBoxAdapter(
+                        child: TitleAria(title: '专辑', subtitle: '${ls.length}张专辑'),
+                      ),
+                      SliverList.builder(
+                        itemCount: ls.length,
+                        itemBuilder: (context, index){
+                          return AlbumItem(index: index, item: ls[index]);
+                        }
+                      )
+                    ],
+                  ),
                 ),
               )
             ),
