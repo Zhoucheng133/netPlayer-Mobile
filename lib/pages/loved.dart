@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -106,25 +107,28 @@ class _LovedState extends State<Loved> {
                   ],
                 ),
               ) : 
-              CustomScrollView(
-                key: const Key('1'),
+              CupertinoScrollbar(
                 controller: controller,
-                slivers: [
-                  SliverToBoxAdapter(
-                    child: TitleAria(title: '喜欢的歌曲', subtitle: '${ls.length}首歌曲', ),
-                  ),
-                  SliverList.builder(
-                    itemCount: ls.length,
-                    itemBuilder: (context, index){
-                      return AutoScrollTag(
-                        key: ValueKey(index),
-                        index: index,
-                        controller: controller,
-                        child: SongItem(item: ls[index], index: index, ls: ls, from: 'loved', listId: '',),
-                      );
-                    }
-                  )
-                ],
+                child: CustomScrollView(
+                  key: const Key('1'),
+                  controller: controller,
+                  slivers: [
+                    SliverToBoxAdapter(
+                      child: TitleAria(title: '喜欢的歌曲', subtitle: '${ls.length}首歌曲', ),
+                    ),
+                    SliverList.builder(
+                      itemCount: ls.length,
+                      itemBuilder: (context, index){
+                        return AutoScrollTag(
+                          key: ValueKey(index),
+                          index: index,
+                          controller: controller,
+                          child: SongItem(item: ls[index], index: index, ls: ls, from: 'loved', listId: '',),
+                        );
+                      }
+                    )
+                  ],
+                ),
               )
             ),
           ),

@@ -1,4 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/pages/components/album_item.dart';
@@ -89,37 +90,40 @@ class _SearchState extends State<Search> {
       body: Column(
         children: [
           Expanded(
-            child: CustomScrollView(
+            child: CupertinoScrollbar(
               controller: controller,
-              slivers: [
-                SliverToBoxAdapter(
-                  child: SearchTitleArea(mode: mode, changeMode: (val)=>changeMode(val))
-                ),
-                SliverPersistentHeader(
-                  pinned: true,
-                  delegate: SearchBox(
-                    (context)=>SearchInput(
-                      textController: textController, focus: focus, search: ()=>searchHandler(context), mode: mode,
+              child: CustomScrollView(
+                controller: controller,
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: SearchTitleArea(mode: mode, changeMode: (val)=>changeMode(val))
+                  ),
+                  SliverPersistentHeader(
+                    pinned: true,
+                    delegate: SearchBox(
+                      (context)=>SearchInput(
+                        textController: textController, focus: focus, search: ()=>searchHandler(context), mode: mode,
+                      ),
                     ),
                   ),
-                ),
-                mode=='song' ? SliverList.builder(
-                  itemCount: ls['songs'].length,
-                  itemBuilder: (context, index){
-                    return SongItem(item: ls['songs'][index], index: index, ls: ls['songs'], from: 'search', listId: textController.text, );
-                  }
-                ) : mode=='album' ? SliverList.builder(
-                  itemCount: ls['albums'].length,
-                  itemBuilder: (context, index){
-                    return AlbumItem(index: index, item: ls['albums'][index]);
-                  }
-                ) :  SliverList.builder(
-                  itemCount: ls['artists'].length,
-                  itemBuilder: (context, index){
-                    return ArtistItem(index: index, item: ls['artists'][index]);
-                  }
-                )
-              ],
+                  mode=='song' ? SliverList.builder(
+                    itemCount: ls['songs'].length,
+                    itemBuilder: (context, index){
+                      return SongItem(item: ls['songs'][index], index: index, ls: ls['songs'], from: 'search', listId: textController.text, );
+                    }
+                  ) : mode=='album' ? SliverList.builder(
+                    itemCount: ls['albums'].length,
+                    itemBuilder: (context, index){
+                      return AlbumItem(index: index, item: ls['albums'][index]);
+                    }
+                  ) :  SliverList.builder(
+                    itemCount: ls['artists'].length,
+                    itemBuilder: (context, index){
+                      return ArtistItem(index: index, item: ls['artists'][index]);
+                    }
+                  )
+                ],
+              ),
             ),
           ),
           const PlayingBar()

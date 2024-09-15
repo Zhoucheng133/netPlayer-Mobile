@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
@@ -91,20 +92,23 @@ class _AlbumContentState extends State<AlbumContent> {
                   ],
                 ),
               ) : 
-              CustomScrollView(
-                key: const Key("1"),
+              CupertinoScrollbar(
                 controller: controller,
-                slivers: [
-                  SliverToBoxAdapter(
-                    child: TitleAria(title: "专辑: ${widget.album}", subtitle: '${ls.length}首歌曲',),
-                  ),
-                  SliverList.builder(
-                    itemCount: ls.length,
-                    itemBuilder: (context, index){
-                      return SongItem(item: ls[index], index: index, ls: ls, from: 'album', listId: widget.id,);
-                    }
-                  )
-                ],
+                child: CustomScrollView(
+                  key: const Key("1"),
+                  controller: controller,
+                  slivers: [
+                    SliverToBoxAdapter(
+                      child: TitleAria(title: "专辑: ${widget.album}", subtitle: '${ls.length}首歌曲',),
+                    ),
+                    SliverList.builder(
+                      itemCount: ls.length,
+                      itemBuilder: (context, index){
+                        return SongItem(item: ls[index], index: index, ls: ls, from: 'album', listId: widget.id,);
+                      }
+                    )
+                  ],
+                ),
               ),
             )
           ),
