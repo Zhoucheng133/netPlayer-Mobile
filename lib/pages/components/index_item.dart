@@ -157,8 +157,8 @@ class _PlayListItemState extends State<PlayListItem> {
         var newname=await showTextInputDialog(
           context: context, 
           textFields: [
-            const DialogTextField(
-              hintText: "输入一个新的歌单名称"
+            DialogTextField(
+              hintText: widget.name
             )
           ],
           title: "重命名歌单",
