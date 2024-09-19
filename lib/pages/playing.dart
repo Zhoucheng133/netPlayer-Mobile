@@ -20,6 +20,7 @@ class _PlayingState extends State<Playing> {
   PlayerVar p=Get.put(PlayerVar());
   final UserVar u = Get.put(UserVar());
   LsVar l=Get.put(LsVar());
+  final Operations operations=Operations();
 
   bool isLoved(){
     for (var val in l.loved) {
@@ -293,22 +294,48 @@ class _PlayingState extends State<Playing> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             IconButton(
-                              onPressed: (){
-                                if(p.nowPlay['id']==''){
+                              onPressed: () async {
+                                if(p.nowPlay['playFrom']=='fullRandom'){
                                   return;
                                 }
-                                if(isLoved()){
-                                  Operations().delove(p.nowPlay['id'], context);
-                                }else{
-                                  Operations().love(p.nowPlay['id'], context);
+                                var rlt=await showModalActionSheet(
+                                  context: context,
+                                  title: '播放顺序',
+                                  actions: [
+                                    const SheetAction(label: '列表播放', key: "list", icon: Icons.repeat_rounded),
+                                    const SheetAction(label: '随机播放', key: "random", icon: Icons.shuffle_rounded),
+                                    const SheetAction(label: '单曲循环', key: 'loop', icon: Icons.repeat_one_rounded)
+                                  ]
+                                );
+                                if(rlt!=null){
+                                  p.playMode.value=rlt;
                                 }
                               },
-                              icon: Icon(
-                                isLoved() ? Icons.favorite_rounded : Icons.favorite_border_outlined,
-                                color: isLoved() ? Colors.red :Colors.black,
-                                size: 22,
-                              ),
+                              icon: Obx(()=>
+                                Icon(
+                                  p.nowPlay['playFrom']=='fullRandom' ? Icons.shuffle_rounded : p.playMode.value=='list' ? Icons.repeat_rounded : p.playMode.value=='random' ? Icons.shuffle_rounded : Icons.repeat_one_rounded,
+                                  size: 25,
+                                  color: p.nowPlay['playFrom']=='fullRandom' ? Colors.grey[400] : Colors.black,
+                                ),
+                              )
                             ),
+                            // IconButton(
+                            //   onPressed: (){
+                            //     if(p.nowPlay['id']==''){
+                            //       return;
+                            //     }
+                            //     if(isLoved()){
+                            //       Operations().delove(p.nowPlay['id'], context);
+                            //     }else{
+                            //       Operations().love(p.nowPlay['id'], context);
+                            //     }
+                            //   },
+                            //   icon: Icon(
+                            //     isLoved() ? Icons.favorite_rounded : Icons.favorite_border_outlined,
+                            //     color: isLoved() ? Colors.red :Colors.black,
+                            //     size: 22,
+                            //   ),
+                            // ),
                             const SizedBox(width: 10,),
                             IconButton(
                               onPressed: (){
@@ -360,30 +387,51 @@ class _PlayingState extends State<Playing> {
                             const SizedBox(width: 10,),
                             IconButton(
                               onPressed: () async {
-                                if(p.nowPlay['playFrom']=='fullRandom'){
-                                  return;
-                                }
                                 var rlt=await showModalActionSheet(
                                   context: context,
-                                  title: '播放顺序',
+                                  title: "更多操作",
                                   actions: [
-                                    const SheetAction(label: '列表播放', key: "list", icon: Icons.repeat_rounded),
-                                    const SheetAction(label: '随机播放', key: "random", icon: Icons.shuffle_rounded),
-                                    const SheetAction(label: '单曲循环', key: 'loop', icon: Icons.repeat_one_rounded)
+                                    isLoved() ?const SheetAction(label: '从喜欢中移除', key: 'delove', icon: Icons.heart_broken_rounded) : 
+                                    const SheetAction(label: '添加到喜欢', key: 'love', icon: Icons.favorite_rounded),
+                                    const SheetAction(label: '添加到...', key: 'add', icon: Icons.playlist_add_rounded),
+                                    SheetAction(label: showlyric ? '隐藏歌词' : '查看歌词', key: 'lyric', icon: Icons.lyrics_rounded),
                                   ]
                                 );
-                                if(rlt!=null){
-                                  p.playMode.value=rlt;
+                                if(rlt!=null && context.mounted){
+                                  if(rlt=='delove'){
+                                    operations.delove(p.nowPlay['id'], context);
+                                  }else if(rlt=='love'){
+                                    operations.love(p.nowPlay['id'], context);
+                                  }else if(rlt=='lyric'){
+                                    setState(() {
+                                      showlyric=!showlyric;
+                                    });
+                                  }else if(rlt=='add'){
+                                    var listId = await showConfirmationDialog(
+                                      context: context, 
+                                      title: '添加到歌单',
+                                      okLabel: "添加",
+                                      cancelLabel: "取消",
+                                      actions: List.generate(l.playList.length, (index){
+                                        return AlertDialogAction(
+                                          key: l.playList[index]['id'],
+                                          label: l.playList[index]['name']
+                                        );
+                                      })
+                                    );
+                                    // print(listId);
+                                    if(listId!=null){
+                                      if(context.mounted){
+                                        operations.addToList(p.nowPlay['id'], listId, context);
+                                      }
+                                    }
+                                  }
                                 }
-                              },
-                              icon: Obx(()=>
-                                Icon(
-                                  p.nowPlay['playFrom']=='fullRandom' ? Icons.shuffle_rounded : p.playMode.value=='list' ? Icons.repeat_rounded : p.playMode.value=='random' ? Icons.shuffle_rounded : Icons.repeat_one_rounded,
-                                  size: 25,
-                                  color: p.nowPlay['playFrom']=='fullRandom' ? Colors.grey[400] : Colors.black,
-                                ),
+                              }, 
+                              icon: const Icon(
+                                Icons.more_horiz_rounded,
                               )
-                            )
+                            ),
                           ],
                         ),
                       ),
