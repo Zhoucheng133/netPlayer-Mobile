@@ -176,4 +176,19 @@ class DataGet{
       return [];
     }
   }
+
+  Future<Map> getSong(String id, BuildContext context) async {
+    final rlt=await httpRequest("${u.url.value}/rest/getSong?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=$id");
+    if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
+      if(context.mounted){
+        dialog("获取专辑信息失败", "请检查你的网络连接", context);
+      }
+      return {};
+    }else{
+      try {
+        return rlt['subsonic-response']['song'];
+      } catch (_) {}
+      return {};
+    }
+  }
 }
