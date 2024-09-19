@@ -154,7 +154,7 @@ class _PlayingState extends State<Playing> {
                         key: const Key("0"),
                         color: Colors.white,
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 30, right: 30),
+                          padding: const EdgeInsets.only(left: 30, right: 30, top: 30, bottom: 30),
                           child: LayoutBuilder(
                             builder: (context, constraints) {
                               final double topBottomHeight = constraints.maxHeight / 2;
@@ -207,68 +207,6 @@ class _PlayingState extends State<Playing> {
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 30, right: 30, top: 40),
-                              child: Stack(
-                                children: [
-                                  SliderTheme(
-                                    data: SliderThemeData(
-                                      overlayColor: Colors.transparent,
-                                      overlayShape: const RoundSliderOverlayShape(overlayRadius: 0.0), // 取消波纹效果
-                                      activeTrackColor: Colors.black, // 设置已激活轨道的颜色
-                                      inactiveTrackColor: Colors.grey[200], 
-                                      trackHeight: 2,
-                                      thumbShape: const RoundSliderThumbShape(
-                                        enabledThumbRadius: 8,
-                                        pressedElevation: 0,
-                                        elevation: 1,
-                                        
-                                      ),
-                                      thumbColor: Colors.black
-                                    ),
-                                    child: Slider(
-                                      value: p.nowPlay['duration']==0 ? 0.0 : p.playProgress.value/1000/p.nowPlay["duration"]>1 ? 1.0 : p.playProgress.value/1000/p.nowPlay["duration"]<0 ? 0 : p.playProgress.value/1000/p.nowPlay["duration"], 
-                                      onChanged: (value){
-                                        seekChange(value);
-                                      },
-                                      onChangeEnd: (value){
-                                        seekSong(value);
-                                      },
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: MediaQuery.of(context).size.width - 60,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top: 20),
-                                      child: Row(
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: [
-                                          Obx(()=>
-                                            Text(
-                                              p.nowPlay['duration']==0 ? "" : convertDuration(p.playProgress.value~/1000),
-                                              style: GoogleFonts.notoSansSc(
-                                                fontSize: 12,
-                                                color: Colors.black
-                                              ),
-                                            )
-                                          ),
-                                          Expanded(child: Container()),
-                                          Obx(()=>
-                                            Text(
-                                              p.nowPlay['duration']==0 ? "" : convertDuration(p.nowPlay['duration']),
-                                              style: GoogleFonts.notoSansSc(
-                                                fontSize: 12,
-                                                color: Colors.black
-                                              ),
-                                            )
-                                          )
-                                        ]
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            )
                           ],
                         ),
                       ),
@@ -278,109 +216,178 @@ class _PlayingState extends State<Playing> {
               ),
               Obx(()=>
                 Container(
-                  height: 120+MediaQuery.of(context).padding.bottom,
+                  height: 180,
                   decoration: BoxDecoration(
                     color: Colors.grey[100],
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10)
-                    )
+                    borderRadius: BorderRadius.circular(20),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  child: Column(
                     children: [
-                      IconButton(
-                        onPressed: (){
-                          if(p.nowPlay['id']==''){
-                            return;
-                          }
-                          if(isLoved()){
-                            Operations().delove(p.nowPlay['id'], context);
-                          }else{
-                            Operations().love(p.nowPlay['id'], context);
-                          }
-                        },
-                        icon: Icon(
-                          isLoved() ? Icons.favorite_rounded : Icons.favorite_border_outlined,
-                          color: isLoved() ? Colors.red :Colors.black,
-                          size: 22,
-                        ),
+                      const SizedBox(height: 20,),
+                      Stack(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 40, right: 40),
+                            child: SliderTheme(
+                              data: SliderThemeData(
+                                overlayColor: Colors.transparent,
+                                overlayShape: const RoundSliderOverlayShape(overlayRadius: 0.0), // 取消波纹效果
+                                activeTrackColor: Colors.black,
+                                inactiveTrackColor: Colors.grey[300], 
+                                trackHeight: 2,
+                                thumbShape: const RoundSliderThumbShape(
+                                  enabledThumbRadius: 8,
+                                  pressedElevation: 0,
+                                  elevation: 1,
+                                ),
+                                thumbColor: Colors.black
+                              ),
+                              child: Slider(
+                                value: p.nowPlay['duration']==0 ? 0.0 : p.playProgress.value/1000/p.nowPlay["duration"]>1 ? 1.0 : p.playProgress.value/1000/p.nowPlay["duration"]<0 ? 0 : p.playProgress.value/1000/p.nowPlay["duration"], 
+                                onChanged: (value){
+                                  seekChange(value);
+                                },
+                                onChangeEnd: (value){
+                                  seekSong(value);
+                                },
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 40, right: 40),
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width - 80,
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 20),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Obx(()=>
+                                      Text(
+                                        p.nowPlay['duration']==0 ? "" : convertDuration(p.playProgress.value~/1000),
+                                        style: GoogleFonts.notoSansSc(
+                                          fontSize: 12,
+                                          color: Colors.black
+                                        ),
+                                      )
+                                    ),
+                                    Expanded(child: Container()),
+                                    Obx(()=>
+                                      Text(
+                                        p.nowPlay['duration']==0 ? "" : convertDuration(p.nowPlay['duration']),
+                                        style: GoogleFonts.notoSansSc(
+                                          fontSize: 12,
+                                          color: Colors.black
+                                        ),
+                                      )
+                                    )
+                                  ]
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
                       ),
-                      const SizedBox(width: 10,),
-                      IconButton(
-                        onPressed: (){
-                          p.handler.skipToPrevious();
-                        },
-                        icon: const Icon(
-                          Icons.skip_previous_rounded,
-                          size:30,
-                        ),
-                      ),
-                      const SizedBox(width: 15,),
-                      GestureDetector(
-                        onTap: (){
-                          if(p.nowPlay["id"].isNotEmpty){
-                            if(p.isPlay.value){
-                              p.handler.pause();
-                            }else{
-                              p.handler.play();
-                            }
-                          }
-                        },
-                        child: AnimatedContainer(
-                          height: 60,
-                          width: 60,
-                          duration: const Duration(milliseconds: 200),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Colors.white,
-                            border: Border.all(
-                              color: Colors.black,
-                              width: 3
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            IconButton(
+                              onPressed: (){
+                                if(p.nowPlay['id']==''){
+                                  return;
+                                }
+                                if(isLoved()){
+                                  Operations().delove(p.nowPlay['id'], context);
+                                }else{
+                                  Operations().love(p.nowPlay['id'], context);
+                                }
+                              },
+                              icon: Icon(
+                                isLoved() ? Icons.favorite_rounded : Icons.favorite_border_outlined,
+                                color: isLoved() ? Colors.red :Colors.black,
+                                size: 22,
+                              ),
+                            ),
+                            const SizedBox(width: 10,),
+                            IconButton(
+                              onPressed: (){
+                                p.handler.skipToPrevious();
+                              },
+                              icon: const Icon(
+                                Icons.skip_previous_rounded,
+                                size:30,
+                              ),
+                            ),
+                            const SizedBox(width: 15,),
+                            GestureDetector(
+                              onTap: (){
+                                if(p.nowPlay["id"].isNotEmpty){
+                                  if(p.isPlay.value){
+                                    p.handler.pause();
+                                  }else{
+                                    p.handler.play();
+                                  }
+                                }
+                              },
+                              child: AnimatedContainer(
+                                height: 60,
+                                width: 60,
+                                duration: const Duration(milliseconds: 200),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  color: Colors.white,
+                                  border: Border.all(
+                                    color: Colors.black,
+                                    width: 3
+                                  )
+                                ),
+                                child: Icon(
+                                  p.isPlay.value ? Icons.pause_rounded : Icons.play_arrow_rounded
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 15,),
+                            IconButton(
+                              onPressed: (){
+                                p.handler.skipToNext();
+                              },
+                              icon: const Icon(
+                                Icons.skip_next_rounded,
+                                size: 30,
+                              ),
+                            ),
+                            const SizedBox(width: 10,),
+                            IconButton(
+                              onPressed: () async {
+                                if(p.nowPlay['playFrom']=='fullRandom'){
+                                  return;
+                                }
+                                var rlt=await showModalActionSheet(
+                                  context: context,
+                                  title: '播放顺序',
+                                  actions: [
+                                    const SheetAction(label: '列表播放', key: "list", icon: Icons.repeat_rounded),
+                                    const SheetAction(label: '随机播放', key: "random", icon: Icons.shuffle_rounded),
+                                    const SheetAction(label: '单曲循环', key: 'loop', icon: Icons.repeat_one_rounded)
+                                  ]
+                                );
+                                if(rlt!=null){
+                                  p.playMode.value=rlt;
+                                }
+                              },
+                              icon: Obx(()=>
+                                Icon(
+                                  p.nowPlay['playFrom']=='fullRandom' ? Icons.shuffle_rounded : p.playMode.value=='list' ? Icons.repeat_rounded : p.playMode.value=='random' ? Icons.shuffle_rounded : Icons.repeat_one_rounded,
+                                  size: 25,
+                                  color: p.nowPlay['playFrom']=='fullRandom' ? Colors.grey[400] : Colors.black,
+                                ),
+                              )
                             )
-                          ),
-                          child: Icon(
-                            p.isPlay.value ? Icons.pause_rounded : Icons.play_arrow_rounded
-                          ),
+                          ],
                         ),
                       ),
-                      const SizedBox(width: 15,),
-                      IconButton(
-                        onPressed: (){
-                          p.handler.skipToNext();
-                        },
-                        icon: const Icon(
-                          Icons.skip_next_rounded,
-                          size: 30,
-                        ),
-                      ),
-                      const SizedBox(width: 10,),
-                      IconButton(
-                        onPressed: () async {
-                          if(p.nowPlay['playFrom']=='fullRandom'){
-                            return;
-                          }
-                          var rlt=await showModalActionSheet(
-                            context: context,
-                            title: '播放顺序',
-                            actions: [
-                              const SheetAction(label: '列表播放', key: "list", icon: Icons.repeat_rounded),
-                              const SheetAction(label: '随机播放', key: "random", icon: Icons.shuffle_rounded),
-                              const SheetAction(label: '单曲循环', key: 'loop', icon: Icons.repeat_one_rounded)
-                            ]
-                          );
-                          if(rlt!=null){
-                            p.playMode.value=rlt;
-                          }
-                        },
-                        icon: Obx(()=>
-                          Icon(
-                            p.nowPlay['playFrom']=='fullRandom' ? Icons.shuffle_rounded : p.playMode.value=='list' ? Icons.repeat_rounded : p.playMode.value=='random' ? Icons.shuffle_rounded : Icons.repeat_one_rounded,
-                            size: 25,
-                            color: p.nowPlay['playFrom']=='fullRandom' ? Colors.grey[400] : Colors.black,
-                          ),
-                        )
-                      )
+                      const SizedBox(height: 20,),
                     ],
                   ),
                 ),
