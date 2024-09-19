@@ -415,10 +415,14 @@ class _PlayingState extends State<Playing> {
                                     }
                                   }else if(rlt=='album'){
                                     final data=await DataGet().getSong(p.nowPlay['id'], context);
-                                    Get.off(()=>AlbumContent(album: data['album'], id: data['albumId']));
+                                    if(data['album']!=null && data['albumId']!=null){
+                                      Get.off(()=>AlbumContent(album: data['album'], id: data['albumId']));
+                                    }
                                   }else if(rlt=='artist'){
                                     final data=await DataGet().getSong(p.nowPlay['id'], context);
-                                    Get.off(()=>ArtistContent(id: data['artistId'], artist: data['artist']));
+                                    if(data['artistId']!=null && data['artist']!=null){
+                                      Get.off(()=>ArtistContent(id: data['artistId'], artist: data['artist']));
+                                    }
                                   }
                                 }
                               }, 
