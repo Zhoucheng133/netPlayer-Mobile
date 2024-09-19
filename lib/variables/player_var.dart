@@ -33,5 +33,5 @@ class PlayerVar extends GetxController{
 }
 
 class PlayerStatic{
-  String version='v2.0.4';
+  String version='v2.0.5';
 }
