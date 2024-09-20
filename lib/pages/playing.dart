@@ -158,7 +158,7 @@ class _PlayingState extends State<Playing> {
                         key: const Key("0"),
                         color: Colors.white,
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 30, right: 30, top: 30, bottom: 30),
+                          padding: const EdgeInsets.only(left: 30, right: 30, top: 0, bottom: 0),
                           child: LayoutBuilder(
                             builder: (context, constraints) {
                               final double topBottomHeight = constraints.maxHeight / 2;
