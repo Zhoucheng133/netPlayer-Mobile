@@ -108,29 +108,32 @@ class _PlayingState extends State<Playing> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.grey[100],
-        scrolledUnderElevation:0.0,
-        toolbarHeight: 70,
-        automaticallyImplyLeading: false,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.swipe_down_alt,
-              color: Colors.grey[400],
-              size: 20,
-            ),
-            Text(
-              '下滑返回',
-              style: GoogleFonts.notoSansSc(
-                color: Colors.grey[400],
-                fontSize: 14
-              ),
-            )
-          ],
-        ),
-      ),
+      // appBar: PreferredSize(
+      //   preferredSize: Size.fromHeight(10),
+      //   child: AppBar(
+      //     backgroundColor: Colors.grey[100],
+      //     scrolledUnderElevation:0.0,
+      //     toolbarHeight: 70,
+      //     automaticallyImplyLeading: false,
+      //     title: Row(
+      //       mainAxisAlignment: MainAxisAlignment.center,
+      //       children: [
+      //         Icon(
+      //           Icons.swipe_down_alt,
+      //           color: Colors.grey[400],
+      //           size: 20,
+      //         ),
+      //         Text(
+      //           '下滑返回',
+      //           style: GoogleFonts.notoSansSc(
+      //             color: Colors.grey[400],
+      //             fontSize: 14
+      //           ),
+      //         )
+      //       ],
+      //     ),
+      //   ),
+      // ),
       body: GestureDetector(
         onVerticalDragUpdate: (details) async {
           if(details.delta.dy>10){
@@ -141,6 +144,33 @@ class _PlayingState extends State<Playing> {
           color: Colors.white,
           child: Column(
             children: [
+              Container(
+                color: Colors.grey[100],
+                height: MediaQuery.of(context).padding.top,
+              ),
+              Container(
+                color: Colors.grey[100],
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 5, bottom: 5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.swipe_down_alt,
+                        color: Colors.grey[400],
+                        size: 20,
+                      ),
+                      Text(
+                        '下滑返回',
+                        style: GoogleFonts.notoSansSc(
+                          color: Colors.grey[400],
+                          fontSize: 14
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
               Obx(()=>TitleAria(title: "${p.nowPlay['title']}", subtitle: "${p.nowPlay['artist']}"),),
               Expanded(
                 child: GestureDetector(
