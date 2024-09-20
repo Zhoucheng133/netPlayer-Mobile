@@ -169,7 +169,7 @@ class _SettingsState extends State<Settings> {
                       loading=false;
                     });
                   },
-                  title: Text('更新音乐库', style: GoogleFonts.notoSansSc(),),
+                  title: Text('重新扫描音乐库', style: GoogleFonts.notoSansSc(),),
                   trailing: loading ? Transform.scale(
                     scale: 0.6,
                     child: const CircularProgressIndicator()
