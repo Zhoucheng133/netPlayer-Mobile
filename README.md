@@ -2,24 +2,6 @@
 
 <img src="./assets/icon.png" width="100px">
 
-![Flutter](https://img.shields.io/badge/Flutter-3.22-blue?logo=Flutter)
-![get](https://img.shields.io/badge/get-4.6.6-red)
-![google_fonts](https://img.shields.io/badge/google_fonts-6.2.1-green)
-![shared_preferences](https://img.shields.io/badge/shared_preferences-2.2.3-yellow)
-![http](https://img.shields.io/badge/http-1.2.2-orange)
-![adaptive_dialog](https://img.shields.io/badge/adaptive_dialog-2.1.0-lightgreen)
-![loading_animation_widget](https://img.shields.io/badge/loading_animation_widget-1.2.1-purple)
-![crypto](https://img.shields.io/badge/crypto-3.0.3-lightyellow)
-![url_launcher](https://img.shields.io/badge/url_launcher-6.3.0-pink)
-![font_awesome_flutter](https://img.shields.io/badge/font_awesome_flutter-10.7.0-lightblue)
-![audio_service](https://img.shields.io/badge/audio_service-0.18.15-green)
-![scroll_to_index](https://img.shields.io/badge/scroll_to_index-3.0.1-yellow)
-![just_audio](https://img.shields.io/badge/just_audio-0.9.37-orange)
-![auto_size_text](https://img.shields.io/badge/auto_size_text-3.0.0-lightgreen)
-![easy_debounce](https://img.shields.io/badge/easy_debounce-2.0.3-purple)
-![audio_session](https://img.shields.io/badge/audio_session-2.0.3-lightyellow)
-![path_provider](https://img.shields.io/badge/path_provider-2.1.4-pink)
-
 ![License](https://img.shields.io/badge/License-MIT-dark_green)
 
 **基于Subsonic API的移动端播放器**
