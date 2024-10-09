@@ -28,6 +28,7 @@ dependencies:
   audio_session: ^0.1.21
   path_provider: ^2.1.4
   dropdown_button2: ^2.3.9
+  connectivity_plus: ^6.0.5
 
 dev_dependencies:
   flutter_test:
