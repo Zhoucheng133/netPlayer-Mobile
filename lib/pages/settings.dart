@@ -75,6 +75,15 @@ class _SettingsState extends State<Settings> {
     getCacheSize();
   }
 
+  String qualityText(){
+    String text='';
+    if(s.quality.value.cellularOnly){
+      text+='仅移动网络: ';
+    }
+    text+=s.quality.value.quality==0 ? '原始' : '${s.quality.value.quality.toString()} Kbps';
+    return text;
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -130,6 +139,24 @@ class _SettingsState extends State<Settings> {
                         prefs.setBool('savePlay', val);
                       }
                     )
+                  ),
+                ),
+                ListTile(
+                  onTap: (){
+                    
+                  },
+                  title: Text(
+                    '播放音质',
+                    style: GoogleFonts.notoSansSc(),
+                  ),
+                  trailing: Obx(()=>
+                    Text(
+                      qualityText(),
+                      style: GoogleFonts.notoSansSc(
+                        fontSize: 12,
+                        color: Colors.grey[400]
+                      ),
+                    ),
                   ),
                 ),
                 ListTile(
