@@ -128,7 +128,10 @@ void showQualityDialog(BuildContext context){
             s.quality.refresh();
             Navigator.pop(context);
             final SharedPreferences prefs = await SharedPreferences.getInstance();
-            await prefs.setString('quality', jsonEncode(s.quality.value));
+            await prefs.setString('quality', jsonEncode({
+              'cellularOnly': s.quality.value.cellularOnly,
+              'quality': s.quality.value.quality,
+            }));
           }, 
           child: const Text('完成')
         )
