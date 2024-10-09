@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/account.dart';
@@ -73,6 +75,7 @@ class _MainViewState extends State<MainView> {
   void dispose() {
     accountListener.dispose();
     nowPlayListener.dispose();
+    subscription.cancel();
     super.dispose();
   }
 
@@ -135,13 +138,47 @@ class _MainViewState extends State<MainView> {
     }
   }
 
+  final Connectivity connectivity = Connectivity();
+
+  Future<void> networkSet() async {
+    var connectivityResult = await connectivity.checkConnectivity();
+    // print(connectivityResult);
+    if(connectivityResult.contains(ConnectivityResult.mobile)){
+      s.wifi.value=false;
+      s.wifi.refresh();
+    }
+
+    // connectivity.onConnectivityChanged.listen((List<ConnectivityResult> result){
+    //   print(connectivityResult);
+    //   if(connectivityResult.contains(ConnectivityResult.mobile)){
+    //     s.wifi.value=false;
+    //     s.wifi.refresh();
+    //   }else{
+    //     s.wifi.value=true;
+    //     s.wifi.refresh();
+    //   }
+    // });
+  }
+
+  late StreamSubscription<List<ConnectivityResult>> subscription;
+
 
   Future<void> initPrefs() async {
     prefs = await SharedPreferences.getInstance();
     if(await loginCheck()){
       nowPlaySet();
-      qualitySet();
     }
+    qualitySet();
+    subscription = Connectivity().onConnectivityChanged.listen((List<ConnectivityResult> result) {
+      if(result.contains(ConnectivityResult.mobile)){
+        s.wifi.value=false;
+        s.wifi.refresh();
+      }else{
+        s.wifi.value=true;
+        s.wifi.refresh();
+      }
+    });
+    networkSet();
     setState(() {
       loading=false;
     });

@@ -214,7 +214,7 @@ class _SettingsState extends State<Settings> {
                     scale: 0.6,
                     child: const CircularProgressIndicator()
                   ) : null,
-                )
+                ),
               ],
             )
           ),
