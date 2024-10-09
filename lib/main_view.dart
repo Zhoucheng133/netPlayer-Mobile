@@ -147,17 +147,6 @@ class _MainViewState extends State<MainView> {
       s.wifi.value=false;
       s.wifi.refresh();
     }
-
-    // connectivity.onConnectivityChanged.listen((List<ConnectivityResult> result){
-    //   print(connectivityResult);
-    //   if(connectivityResult.contains(ConnectivityResult.mobile)){
-    //     s.wifi.value=false;
-    //     s.wifi.refresh();
-    //   }else{
-    //     s.wifi.value=true;
-    //     s.wifi.refresh();
-    //   }
-    // });
   }
 
   late StreamSubscription<List<ConnectivityResult>> subscription;
