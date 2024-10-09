@@ -125,11 +125,22 @@ class _MainViewState extends State<MainView> {
     }
   }
 
+  void qualitySet(){
+    var quality=prefs.getString('quality');
+    // print(quality);
+    if(quality!=null){
+      final qualityJson=jsonDecode(quality);
+      s.quality.value.cellularOnly=qualityJson['cellularOnly'];
+      s.quality.value.quality=qualityJson['quality'];
+    }
+  }
+
 
   Future<void> initPrefs() async {
     prefs = await SharedPreferences.getInstance();
     if(await loginCheck()){
       nowPlaySet();
+      qualitySet();
     }
     setState(() {
       loading=false;
