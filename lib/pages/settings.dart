@@ -1,10 +1,12 @@
 import 'dart:io';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
+import 'package:netplayer_mobile/pages/components/quality_dialog.dart';
 import 'package:netplayer_mobile/pages/components/title_aria.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:path_provider/path_provider.dart';
@@ -84,6 +86,40 @@ class _SettingsState extends State<Settings> {
     return text;
   }
 
+  void showQualityDialog(BuildContext context){
+    showDialog(
+      context: context,
+      builder: (context)=>AlertDialog(
+        title: const Text('修改音质'),
+        content: StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState)=>const QualityDialog()
+        ),
+        actions: [
+          TextButton(
+            onPressed: (){
+              Navigator.pop(context);
+            }, 
+            child: const Text('完成')
+          )
+        ],
+      )
+    );
+  }
+
+  Future<void> showQualityWarning(BuildContext context) async {
+    final rlt=await showOkCancelAlertDialog(
+      context: context,
+      title: '注意!',
+      message: '如果指定非原始音质，会导致无法使用时间轴定位歌曲!',
+      okLabel: '继续'
+    );
+    if(rlt==OkCancelResult.ok){
+      if(context.mounted){
+        showQualityDialog(context);
+      }
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -142,9 +178,7 @@ class _SettingsState extends State<Settings> {
                   ),
                 ),
                 ListTile(
-                  onTap: (){
-                    
-                  },
+                  onTap: ()=>showQualityWarning(context),
                   title: Text(
                     '播放音质',
                     style: GoogleFonts.notoSansSc(),
