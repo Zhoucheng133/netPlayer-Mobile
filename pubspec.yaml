@@ -27,6 +27,7 @@ dependencies:
   auto_size_text: ^3.0.0
   audio_session: ^0.1.21
   path_provider: ^2.1.4
+  dropdown_button2: ^2.3.9
 
 dev_dependencies:
   flutter_test:
