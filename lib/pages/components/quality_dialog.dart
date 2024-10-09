@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void showQualityDialog(BuildContext context){
   final s=Get.put(SettingsVar());
@@ -120,10 +123,12 @@ void showQualityDialog(BuildContext context){
       ),
       actions: [
         TextButton(
-          onPressed: (){
+          onPressed: () async {
             s.quality.value=local;
             s.quality.refresh();
             Navigator.pop(context);
+            final SharedPreferences prefs = await SharedPreferences.getInstance();
+            await prefs.setString('quality', jsonEncode(s.quality.value));
           }, 
           child: const Text('完成')
         )
