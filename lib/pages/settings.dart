@@ -86,26 +86,6 @@ class _SettingsState extends State<Settings> {
     return text;
   }
 
-  void showQualityDialog(BuildContext context){
-    showDialog(
-      context: context,
-      builder: (context)=>AlertDialog(
-        title: const Text('修改音质'),
-        content: StatefulBuilder(
-          builder: (BuildContext context, StateSetter setState)=>const QualityDialog()
-        ),
-        actions: [
-          TextButton(
-            onPressed: (){
-              Navigator.pop(context);
-            }, 
-            child: const Text('完成')
-          )
-        ],
-      )
-    );
-  }
-
   Future<void> showQualityWarning(BuildContext context) async {
     final rlt=await showOkCancelAlertDialog(
       context: context,

@@ -3,15 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 
-class QualityDialog extends StatefulWidget {
-  const QualityDialog({super.key});
-
-  @override
-  State<QualityDialog> createState() => _QualityDialogState();
-}
-
-class _QualityDialogState extends State<QualityDialog> {
-
+void showQualityDialog(BuildContext context){
   final s=Get.put(SettingsVar());
 
   final List<String> types=[
@@ -30,88 +22,112 @@ class _QualityDialogState extends State<QualityDialog> {
     '320Kbps'
   ];
 
-  @override
-  Widget build(BuildContext context) {
-    return Obx(()=>
-      Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          DropdownButtonHideUnderline(
-            child: DropdownButton2(
-              isExpanded: true,
-              value: s.quality.value.cellularOnly ? '仅移动网络' : '移动网络和无线网络',
-              items: types.map((String item) => DropdownMenuItem<String>(
-                value: item,
-                child: Text(
-                  item,
-                  style: const TextStyle(
-                    fontSize: 14,
+  CustomQuality local=s.quality.value;
+
+  showDialog(
+    context: context,
+    builder: (context)=>AlertDialog(
+      title: const Text('修改音质'),
+      content: StatefulBuilder(
+        builder: (BuildContext context, StateSetter setState)=>Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            DropdownButtonHideUnderline(
+              child: DropdownButton2(
+                isExpanded: true,
+                value: local.cellularOnly ? '仅移动网络' : '移动网络和无线网络',
+                items: types.map((String item) => DropdownMenuItem<String>(
+                  value: item,
+                  child: Text(
+                    item,
+                    style: const TextStyle(
+                      fontSize: 14,
+                    ),
                   ),
-                ),
-              ))
-              .toList(),
-              onChanged: (val){
-                if(val=='移动网络和无线网络'){
-                  s.quality.value.cellularOnly=false;
-                  s.quality.refresh();
-                }else{
-                  if(s.quality.value.quality==0){
-                    s.quality.value.quality=320;
+                ))
+                .toList(),
+                onChanged: (val){
+                  if(val=='移动网络和无线网络'){
+                    setState(() {
+                      local.cellularOnly=false;
+                    });
+                  }else{
+                    if(local.quality==0){
+                      setState(() {
+                        local.quality=320;
+                      });
+                    }
+                    setState(() {
+                      local.cellularOnly=true;
+                    });
                   }
-                  s.quality.value.cellularOnly=true;
-                  s.quality.refresh();
-                }
-              },
-              dropdownStyleData: const DropdownStyleData(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                )
+                },
+                dropdownStyleData: const DropdownStyleData(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                  )
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: 15,),
-          DropdownButtonHideUnderline(
-            child: DropdownButton2(
-              isExpanded: true,
-              value: s.quality.value.quality==0 ? '原始' : s.quality.value.quality==320 ? '320Kbps' : '128Kbps',
-              items: s.quality.value.cellularOnly ? qualities.map((String item) => DropdownMenuItem<String>(
-                value: item,
-                child: Text(
-                  item,
-                  style: const TextStyle(
-                    fontSize: 14,
+            const SizedBox(height: 15,),
+            DropdownButtonHideUnderline(
+              child: DropdownButton2(
+                isExpanded: true,
+                value: local.quality==0 ? '原始' : local.quality==320 ? '320Kbps' : '128Kbps',
+                items: local.cellularOnly ? qualities.map((String item) => DropdownMenuItem<String>(
+                  value: item,
+                  child: Text(
+                    item,
+                    style: const TextStyle(
+                      fontSize: 14,
+                    ),
                   ),
-                ),
-              ))
-              .toList() : qualitiesAll.map((String item) => DropdownMenuItem<String>(
-                value: item,
-                child: Text(
-                  item,
-                  style: const TextStyle(
-                    fontSize: 14,
+                ))
+                .toList() : qualitiesAll.map((String item) => DropdownMenuItem<String>(
+                  value: item,
+                  child: Text(
+                    item,
+                    style: const TextStyle(
+                      fontSize: 14,
+                    ),
                   ),
+                ))
+                .toList(),
+                onChanged: (val){
+                  if(val=='原始'){
+                    setState(() {
+                      local.quality=0;
+                    });
+                  }else if(val=='128Kbps'){
+                    setState(() {
+                      local.quality=128;
+                    });
+                  }else{
+                    setState(() {
+                      local.quality=320;
+                    });
+                  }
+                },
+                dropdownStyleData: const DropdownStyleData(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                  )
                 ),
-              ))
-              .toList(),
-              onChanged: (val){
-                if(val=='原始'){
-                  s.quality.value.quality=0;
-                }else if(val=='128Kbps'){
-                  s.quality.value.quality=128;
-                }else{
-                  s.quality.value.quality=320;
-                }
-                s.quality.refresh();
-              },
-              dropdownStyleData: const DropdownStyleData(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                )
               ),
-            ),
-          )
-        ],
-      )
-    );
-  }
+            )
+          ],
+        )
+      ),
+      actions: [
+        TextButton(
+          onPressed: (){
+            s.quality.value=local;
+            s.quality.refresh();
+            Navigator.pop(context);
+          }, 
+          child: const Text('完成')
+        )
+      ],
+    )
+  );
 }
