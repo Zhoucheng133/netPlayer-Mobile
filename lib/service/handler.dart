@@ -7,12 +7,16 @@ import 'package:audio_session/audio_session.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:netplayer_mobile/operations/player_control.dart';
+import 'package:netplayer_mobile/operations/seek_check.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
+import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
 
 class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
 
   final player = AudioPlayer();
+  final seekCheck=SeekCheck();
+  final s=Get.put(SettingsVar());
   var playURL="";
   bool skipHandler=false;
   late MediaItem item;
@@ -123,7 +127,9 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
     if(p.nowPlay["id"].isEmpty){
       return;
     }
-    var url="${u.url.value}/rest/stream?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}";
+    // var url="${u.url.value}/rest/stream?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}";
+    var url=seekCheck.enableSeek() ? "${u.url.value}/rest/stream?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}"
+    : "${u.url.value}/rest/stream?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}&maxBitRate=${s.quality.value.quality}&format=mp3";
     if(url!=playURL || skipHandler){
       await player.setUrl(url);
     }
