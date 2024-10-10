@@ -5,9 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
+import 'package:netplayer_mobile/operations/requests.dart';
+import 'package:netplayer_mobile/pages/components/dev_tool.dart';
 import 'package:netplayer_mobile/pages/components/quality_dialog.dart';
 import 'package:netplayer_mobile/pages/components/title_aria.dart';
+import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
+import 'package:netplayer_mobile/variables/user_var.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -23,6 +27,8 @@ class _SettingsState extends State<Settings> {
   SettingsVar s=Get.put(SettingsVar());
   int cacheSize=0;
   bool loading=false;
+  UserVar u = Get.put(UserVar());
+  PlayerVar p=Get.put(PlayerVar());
 
   @override
   void initState(){
@@ -89,7 +95,7 @@ class _SettingsState extends State<Settings> {
     final rlt=await showOkCancelAlertDialog(
       context: context,
       title: '注意!',
-      message: '如果指定非原始音质，第一次播放可能会导致无法使用时间轴定位歌曲!',
+      message: '如果指定非原始音质，第一次播放可能会导致无法使用时间轴定位歌曲，对于FLAC格式的歌曲第一次播放若比特率过高可能导致无法播放的问题',
       okLabel: '继续'
     );
     if(rlt==OkCancelResult.ok){
@@ -215,6 +221,33 @@ class _SettingsState extends State<Settings> {
                     child: const CircularProgressIndicator()
                   ) : null,
                 ),
+                ListTile(
+                  title: Text('开发者工具', style: GoogleFonts.notoSansSc(),),
+                  onTap: () async {
+                    if(p.nowPlay['id']==''){
+                      return;
+                    }
+                    final data=await httpRequest("${u.url.value}/rest/getSong?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay['id']}");
+                    // print(data);
+                    if(context.mounted){
+                      showDialog(
+                        context: context, 
+                        builder: (context)=>AlertDialog(
+                          title: const Text('开发者工具'),
+                          content: DevTool(data: data,),
+                          actions: [
+                            TextButton(
+                              onPressed: (){
+                                Navigator.pop(context);
+                              }, 
+                              child: const Text('完成')
+                            )
+                          ],
+                        )
+                      );
+                    }
+                  },
+                )
               ],
             )
           ),
