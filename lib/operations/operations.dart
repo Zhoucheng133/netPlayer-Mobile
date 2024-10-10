@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
@@ -169,8 +171,24 @@ class Operations{
       }
       return;
     }
+    Completer<void> completer = Completer<void>();
+    late Timer timer;
+    final url="${u.url.value}/rest/getScanStatus?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}";
+    timer = Timer.periodic(const Duration(milliseconds: 300), (t) async {
+      final status= await httpRequest(url);
+      if(status.isEmpty || rlt['subsonic-response']['status']!='ok' || rlt['subsonic-response']['scanStatus']['scanning']==false){
+        timer.cancel();
+        completer.complete();
+      }
+    });
     if(context.mounted){
-      dataGet.dialog('更新成功', "已经请求扫描了全部的音乐库文件", context);
+      dataGet.dialog('扫描完成', "已经扫描了全部的音乐库文件", context);
+      Future.delayed(const Duration(milliseconds: 200), (){
+        if(context.mounted){
+          PlayCheck().check(context);
+        }
+      });
     }
+    
   }
 }

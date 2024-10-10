@@ -89,7 +89,7 @@ class _SettingsState extends State<Settings> {
     final rlt=await showOkCancelAlertDialog(
       context: context,
       title: '注意!',
-      message: '如果指定非原始音质，会导致无法使用时间轴定位歌曲!',
+      message: '如果指定非原始音质，第一次播放可能会导致无法使用时间轴定位歌曲!',
       okLabel: '继续'
     );
     if(rlt==OkCancelResult.ok){
