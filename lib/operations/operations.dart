@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/operations/lyric_get.dart';
 import 'package:netplayer_mobile/operations/play_check.dart';
@@ -190,5 +191,53 @@ class Operations{
       });
     }
     
+  }
+
+  void resizeFont(BuildContext context){
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return SizedBox(
+          height: MediaQuery.of(context).padding.bottom+160,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 30, right: 30),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  onPressed: (){
+                    if(p.fontSize.value>10){
+                      p.fontSize.value-=1;
+                    }
+                  }, 
+                  iconSize: 30,
+                  icon: const Icon(Icons.remove_rounded)
+                ),
+                const SizedBox(width: 20,),
+                Obx(()=>
+                  Text(
+                    p.fontSize.toString(),
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.notoSansSc(
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 20,),
+                IconButton(
+                  onPressed: (){
+                    if(p.fontSize.value<25){
+                      p.fontSize.value+=1;
+                    }
+                  }, 
+                  iconSize: 30,
+                  icon: const Icon(Icons.add_rounded)
+                ),
+              ],
+            ),
+          )
+        );
+      },
+    );
   }
 }

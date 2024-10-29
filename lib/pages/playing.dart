@@ -182,7 +182,7 @@ class _PlayingState extends State<Playing> {
                                             p.lyric[index]['content'],
                                             textAlign: TextAlign.center,
                                             style: GoogleFonts.notoSansSc(
-                                              fontSize: 18,
+                                              fontSize: p.fontSize.value.toDouble(),
                                               height: 2.5,
                                               color: playedLyric(index) ? Colors.blue:Colors.grey[400],
                                               fontWeight: playedLyric(index) ? FontWeight.bold: FontWeight.normal,
@@ -387,6 +387,7 @@ class _PlayingState extends State<Playing> {
                                     const SheetAction(label: '添加到喜欢', key: 'love', icon: Icons.favorite_rounded),
                                     const SheetAction(label: '添加到...', key: 'add', icon: Icons.playlist_add_rounded),
                                     SheetAction(label: showlyric ? '隐藏歌词' : '查看歌词', key: 'lyric', icon: Icons.lyrics_rounded),
+                                    const SheetAction(label: '歌词大小', key: 'font', icon: Icons.text_fields_rounded),
                                   ]
                                 );
                                 if(rlt!=null && context.mounted){
@@ -397,6 +398,7 @@ class _PlayingState extends State<Playing> {
                                   }else if(rlt=='lyric'){
                                     setState(() {
                                       showlyric=!showlyric;
+                                      scrollLyric();
                                     });
                                   }else if(rlt=='add'){
                                     var listId = await showConfirmationDialog(
@@ -411,7 +413,6 @@ class _PlayingState extends State<Playing> {
                                         );
                                       })
                                     );
-                                    // print(listId);
                                     if(listId!=null){
                                       if(context.mounted){
                                         operations.addToList(p.nowPlay['id'], listId, context);
@@ -427,6 +428,14 @@ class _PlayingState extends State<Playing> {
                                     if(data['artistId']!=null && data['artist']!=null){
                                       Get.off(()=>ArtistContent(id: data['artistId'], artist: data['artist']));
                                     }
+                                  }else if(rlt=='font'){
+                                    if(!showlyric){
+                                      setState(() {
+                                        showlyric=true;
+                                        scrollLyric();
+                                      });
+                                    }
+                                    operations.resizeFont(context);
                                   }
                                 }
                               }, 
