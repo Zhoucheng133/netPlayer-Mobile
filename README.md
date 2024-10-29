@@ -55,12 +55,15 @@
 
 ## 更新日志
 
-### 2.0.6 (2024/10/10)
-- 添加设置音质的功能 ([#5](https://github.com/Zhoucheng133/netPlayer-Mobile/issues/5))
-- 修复扫描音乐库的一个问题
+### 2.0.7
+- 修复从菜单进入歌词页没有自动滚动的问题
 
 <details>
 <summary>过往的版本</summary>
+
+### 2.0.6 (2024/10/10)
+- 添加设置音质的功能 ([#5](https://github.com/Zhoucheng133/netPlayer-Mobile/issues/5))
+- 修复扫描音乐库的一个问题
 
 ### 2.0.5 (2024/9/20)
 - 添加从播放页查看专辑/艺人详细页
