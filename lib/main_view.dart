@@ -130,7 +130,6 @@ class _MainViewState extends State<MainView> {
 
   void qualitySet(){
     var quality=prefs.getString('quality');
-    // print(quality);
     if(quality!=null){
       final qualityJson=jsonDecode(quality);
       s.quality.value.cellularOnly=qualityJson['cellularOnly'];
@@ -173,7 +172,7 @@ class _MainViewState extends State<MainView> {
         s.wifi.refresh();
       }
     });
-    networkSet();
+    await networkSet();
     initLyric();
     setState(() {
       loading=false;
