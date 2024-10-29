@@ -10,6 +10,7 @@ import 'package:netplayer_mobile/operations/requests.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Operations{
 
@@ -193,51 +194,56 @@ class Operations{
     
   }
 
-  void resizeFont(BuildContext context){
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return SizedBox(
-          height: MediaQuery.of(context).padding.bottom+160,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 30, right: 30),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                  onPressed: (){
-                    if(p.fontSize.value>10){
-                      p.fontSize.value-=1;
-                    }
-                  }, 
-                  iconSize: 30,
-                  icon: const Icon(Icons.remove_rounded)
-                ),
-                const SizedBox(width: 20,),
-                Obx(()=>
-                  Text(
-                    p.fontSize.toString(),
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.notoSansSc(
-                      fontSize: 20,
+  Future<void> resizeFont(BuildContext context) async {
+    final prefs = await SharedPreferences.getInstance();
+    if(context.mounted){
+      showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return SizedBox(
+            height: MediaQuery.of(context).padding.bottom+160,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 30, right: 30),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    onPressed: (){
+                      if(p.fontSize.value>10){
+                        p.fontSize.value-=1;
+                        prefs.setInt('fontSize', p.fontSize.value);
+                      }
+                    }, 
+                    iconSize: 30,
+                    icon: const Icon(Icons.remove_rounded)
+                  ),
+                  const SizedBox(width: 20,),
+                  Obx(()=>
+                    Text(
+                      p.fontSize.toString(),
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.notoSansSc(
+                        fontSize: 20,
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(width: 20,),
-                IconButton(
-                  onPressed: (){
-                    if(p.fontSize.value<25){
-                      p.fontSize.value+=1;
-                    }
-                  }, 
-                  iconSize: 30,
-                  icon: const Icon(Icons.add_rounded)
-                ),
-              ],
-            ),
-          )
-        );
-      },
-    );
+                  const SizedBox(width: 20,),
+                  IconButton(
+                    onPressed: (){
+                      if(p.fontSize.value<25){
+                        p.fontSize.value+=1;
+                        prefs.setInt('fontSize', p.fontSize.value);
+                      }
+                    }, 
+                    iconSize: 30,
+                    icon: const Icon(Icons.add_rounded)
+                  ),
+                ],
+              ),
+            )
+          );
+        },
+      );
+    }
   }
 }

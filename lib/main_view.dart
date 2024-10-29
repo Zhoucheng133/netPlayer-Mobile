@@ -151,6 +151,12 @@ class _MainViewState extends State<MainView> {
 
   late StreamSubscription<List<ConnectivityResult>> subscription;
 
+  void initLyric(){
+    final fontSize=prefs.getInt('fontSize');
+    if(fontSize!=null){
+      p.fontSize.value=fontSize;
+    }
+  }
 
   Future<void> initPrefs() async {
     prefs = await SharedPreferences.getInstance();
@@ -168,6 +174,7 @@ class _MainViewState extends State<MainView> {
       }
     });
     networkSet();
+    initLyric();
     setState(() {
       loading=false;
     });
