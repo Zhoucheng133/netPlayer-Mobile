@@ -167,7 +167,18 @@ class _PlayingState extends State<Playing> {
                             builder: (context, constraints) {
                               final double topBottomHeight = constraints.maxHeight / 2;
                               return Obx(()=>
-                                ListView.builder(
+                                p.lyric.length==1 ? Center(
+                                  child: Text(
+                                    p.lyric[0]['content'],
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.notoSansSc(
+                                      fontSize: p.fontSize.value.toDouble(),
+                                      height: 2.5,
+                                      color: playedLyric(0) ? Colors.blue:Colors.grey[400],
+                                      fontWeight: playedLyric(0) ? FontWeight.bold: FontWeight.normal,
+                                    ),
+                                  ),
+                                ) : ListView.builder(
                                   controller: controller,
                                   itemCount: p.lyric.length,
                                   itemBuilder: (BuildContext context, int index)=>Column(
