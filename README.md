@@ -55,13 +55,16 @@
 
 ## 更新日志
 
+### 2.0.8 (2024/11/5)
+- 改进歌词匹配逻辑
+
+<details>
+<summary>过往的版本</summary>
+
 ### 2.0.7 (2024/10/29)
 - 添加修改歌词字体大小的功能
 - 修复从菜单进入歌词页没有自动滚动的问题
 - 简化定位歌曲逻辑
-
-<details>
-<summary>过往的版本</summary>
 
 ### 2.0.6 (2024/10/10)
 - 添加设置音质的功能 ([#5](https://github.com/Zhoucheng133/netPlayer-Mobile/issues/5))
