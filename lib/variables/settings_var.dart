@@ -22,5 +22,5 @@ class SettingsVar extends GetxController{
   RxBool autoLogin=true.obs;
   RxBool wifi=true.obs;
   var quality=CustomQuality().obs;
-  var progressStyle=ProgressStyle.background.obs;
+  var progressStyle=ProgressStyle.ring.obs;
 }
