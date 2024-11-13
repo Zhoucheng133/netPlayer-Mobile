@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/pages/playing.dart';
 import 'package:netplayer_mobile/variables/page_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
+import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
 
 class PlaybarContent extends StatefulWidget {
@@ -17,6 +18,7 @@ class _PlaybarContentState extends State<PlaybarContent> {
 
   PlayerVar p=Get.put(PlayerVar());
   final UserVar u = Get.put(UserVar());
+  final s=Get.put(SettingsVar());
 
   void toPlaying(){
     p.switchHero.value=true;
@@ -34,14 +36,14 @@ class _PlaybarContentState extends State<PlaybarContent> {
       color: Colors.grey[100],
       child: Stack(
         children: [
-          Positioned(
-            child: Obx(()=>
-              Container(
+          Obx(()=>
+            s.progressStyle.value==ProgressStyle.background ? Positioned(
+              child: Container(
                 height: PageStatic().playbarHeight.toDouble()+MediaQuery.of(context).padding.bottom,
                 width: MediaQuery.of(context).size.width*(p.nowPlay['duration']==0 ? 0.0 : p.playProgress.value/1000/p.nowPlay["duration"]>1 ? 1.0 : p.playProgress.value/1000/p.nowPlay["duration"]<0 ? 0 : p.playProgress.value/1000/p.nowPlay["duration"]),
                 color: Colors.blue[50]!.withAlpha(170),
               )
-            )
+            ) : Container(),
           ),
           Column(
             children: [
@@ -131,22 +133,40 @@ class _PlaybarContentState extends State<PlaybarContent> {
                                 }
                               }
                             },
-                            child: AnimatedContainer(
-                              height: 40,
-                              width: 40,
-                              duration: const Duration(milliseconds: 200),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                color: Colors.white,
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 2
-                                )
-                              ),
-                              child: Icon(
-                                p.isPlay.value ? Icons.pause_rounded : Icons.play_arrow_rounded,
-                                size: 18,
-                              ),
+                            child: Stack(
+                              children: [
+                                Center(
+                                  child: Container(
+                                    height: 42,
+                                    width: 42,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25),
+                                      color: Colors.white,
+                                      border: s.progressStyle.value!=ProgressStyle.ring ? Border.all(
+                                        color: Colors.black,
+                                        width: 2
+                                      ) : null
+                                    ),
+                                    child: Center(
+                                      child: Icon(
+                                        p.isPlay.value ? Icons.pause_rounded : Icons.play_arrow_rounded,
+                                        size: 18,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                s.progressStyle.value==ProgressStyle.ring ?Center(
+                                  child: SizedBox(
+                                    width: 42,
+                                    height: 42,
+                                    child: CircularProgressIndicator(
+                                      value: (p.nowPlay['duration']==0 ? 0.0 : p.playProgress.value/1000/p.nowPlay["duration"]>1 ? 1.0 : p.playProgress.value/1000/p.nowPlay["duration"]<0 ? 0 : p.playProgress.value/1000/p.nowPlay["duration"]),
+                                      color: Colors.grey[800],
+                                      strokeWidth: 3,
+                                    ),
+                                  ),
+                                ) : Container()
+                              ],
                             ),
                           ),
                           const SizedBox(width: 5,),
