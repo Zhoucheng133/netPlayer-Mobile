@@ -35,10 +35,12 @@ class _PlaybarContentState extends State<PlaybarContent> {
       child: Stack(
         children: [
           Positioned(
-            child: Container(
-              height: PageStatic().playbarHeight.toDouble()+MediaQuery.of(context).padding.bottom,
-              width: MediaQuery.of(context).size.width-300,
-              color: Colors.blue[50]!.withAlpha(170),
+            child: Obx(()=>
+              Container(
+                height: PageStatic().playbarHeight.toDouble()+MediaQuery.of(context).padding.bottom,
+                width: MediaQuery.of(context).size.width*(p.nowPlay['duration']==0 ? 0.0 : p.playProgress.value/1000/p.nowPlay["duration"]>1 ? 1.0 : p.playProgress.value/1000/p.nowPlay["duration"]<0 ? 0 : p.playProgress.value/1000/p.nowPlay["duration"]),
+                color: Colors.blue[50]!.withAlpha(170),
+              )
             )
           ),
           Column(
