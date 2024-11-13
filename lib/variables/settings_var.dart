@@ -11,9 +11,16 @@ class CustomQuality{
   }
 }
 
+enum ProgressStyle{
+  off,
+  ring,
+  background,
+}
+
 class SettingsVar extends GetxController{
   RxBool savePlay=true.obs;
   RxBool autoLogin=true.obs;
   RxBool wifi=true.obs;
   var quality=CustomQuality().obs;
+  var progressStyle=ProgressStyle.background.obs;
 }

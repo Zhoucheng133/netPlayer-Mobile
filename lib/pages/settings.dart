@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/operations/requests.dart';
 import 'package:netplayer_mobile/pages/components/dev_tool.dart';
+import 'package:netplayer_mobile/pages/components/progress_dialog.dart';
 import 'package:netplayer_mobile/pages/components/quality_dialog.dart';
 import 'package:netplayer_mobile/pages/components/title_aria.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
@@ -96,13 +97,23 @@ class _SettingsState extends State<Settings> {
       context: context,
       title: '注意!',
       message: '如果指定非原始音质，第一次播放可能会导致无法使用时间轴定位歌曲\n对于FLAC格式的高码率歌曲第一次播可能没有声音(取决于音乐服务器的转码速度)',
-      okLabel: '继续'
+      okLabel: '继续',
+      cancelLabel: '取消'
     );
     if(rlt==OkCancelResult.ok){
       if(context.mounted){
         showQualityDialog(context);
       }
     }
+  }
+
+  String progresStyle(){
+    if(s.progressStyle.value==ProgressStyle.off){
+      return '关闭';
+    }else if(s.progressStyle.value==ProgressStyle.ring){
+      return '环状';
+    }
+    return '背景色';
   }
 
 
@@ -171,6 +182,22 @@ class _SettingsState extends State<Settings> {
                   trailing: Obx(()=>
                     Text(
                       qualityText(),
+                      style: GoogleFonts.notoSansSc(
+                        fontSize: 12,
+                        color: Colors.grey[400]
+                      ),
+                    ),
+                  ),
+                ),
+                ListTile(
+                  onTap: ()=>showProgressDialog(context),
+                  title: Text(
+                    '播放栏显示进度',
+                    style: GoogleFonts.notoSansSc(),
+                  ),
+                  trailing: Obx(()=>
+                    Text(
+                      progresStyle(),
                       style: GoogleFonts.notoSansSc(
                         fontSize: 12,
                         color: Colors.grey[400]
