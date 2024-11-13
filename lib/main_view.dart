@@ -157,12 +157,20 @@ class _MainViewState extends State<MainView> {
     }
   }
 
+  void progressSet(){
+    final style=prefs.getInt('progressStyle');
+    if(style!=null){
+      s.progressStyle.value=ProgressStyle.values[style];
+    }
+  }
+
   Future<void> initPrefs() async {
     prefs = await SharedPreferences.getInstance();
     if(await loginCheck()){
       nowPlaySet();
     }
     qualitySet();
+    progressSet();
     subscription = Connectivity().onConnectivityChanged.listen((List<ConnectivityResult> result) {
       if(result.contains(ConnectivityResult.mobile)){
         s.wifi.value=false;
