@@ -161,53 +161,68 @@ class _PlayingState extends State<Playing> {
                       child: showlyric ? Container(
                         key: const Key("0"),
                         color: Colors.white,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 30, right: 30, top: 0, bottom: 0),
-                          child: LayoutBuilder(
-                            builder: (context, constraints) {
-                              final double topBottomHeight = constraints.maxHeight / 2;
-                              return Obx(()=>
-                                p.lyric.length==1 ? Center(
-                                  child: Text(
-                                    p.lyric[0]['content'],
-                                    textAlign: TextAlign.center,
-                                    style: GoogleFonts.notoSansSc(
-                                      fontSize: p.fontSize.value.toDouble(),
-                                      height: 2.5,
-                                      color: playedLyric(0) ? Colors.blue:Colors.grey[400],
-                                      fontWeight: playedLyric(0) ? FontWeight.bold: FontWeight.normal,
-                                    ),
-                                  ),
-                                ) : ListView.builder(
-                                  controller: controller,
-                                  itemCount: p.lyric.length,
-                                  itemBuilder: (BuildContext context, int index)=>Column(
-                                    children: [
-                                      index==0 ?  SizedBox(height: topBottomHeight-10,) :Container(),
-                                      Obx(() => 
-                                        AutoScrollTag(
-                                          key: ValueKey(index), 
-                                          controller: controller, 
-                                          index: index,
-                                          child: Text(
-                                            p.lyric[index]['content'],
-                                            textAlign: TextAlign.center,
-                                            style: GoogleFonts.notoSansSc(
-                                              fontSize: p.fontSize.value.toDouble(),
-                                              height: 2.5,
-                                              color: playedLyric(index) ? Colors.blue:Colors.grey[400],
-                                              fontWeight: playedLyric(index) ? FontWeight.bold: FontWeight.normal,
-                                            ),
-                                          ),
-                                        )
+                        child: Stack(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 30, right: 30, top: 0, bottom: 0),
+                              child: LayoutBuilder(
+                                builder: (context, constraints) {
+                                  final double topBottomHeight = constraints.maxHeight / 2;
+                                  return Obx(()=>
+                                    p.lyric.length==1 ? Center(
+                                      child: Text(
+                                        p.lyric[0]['content'],
+                                        textAlign: TextAlign.center,
+                                        style: GoogleFonts.notoSansSc(
+                                          fontSize: p.fontSize.value.toDouble(),
+                                          height: 2.5,
+                                          color: playedLyric(0) ? Colors.blue:Colors.grey[400],
+                                          fontWeight: playedLyric(0) ? FontWeight.bold: FontWeight.normal,
+                                        ),
                                       ),
-                                      index==p.lyric.length-1 ? SizedBox(height: topBottomHeight-10,) : Container(),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            }
-                          ),
+                                    ) : ListView.builder(
+                                      controller: controller,
+                                      itemCount: p.lyric.length,
+                                      itemBuilder: (BuildContext context, int index)=>Column(
+                                        children: [
+                                          index==0 ?  SizedBox(height: topBottomHeight-10,) :Container(),
+                                          Obx(() => 
+                                            AutoScrollTag(
+                                              key: ValueKey(index), 
+                                              controller: controller, 
+                                              index: index,
+                                              child: Text(
+                                                p.lyric[index]['content'],
+                                                textAlign: TextAlign.center,
+                                                style: GoogleFonts.notoSansSc(
+                                                  fontSize: p.fontSize.value.toDouble(),
+                                                  height: 2.5,
+                                                  color: playedLyric(index) ? Colors.blue:Colors.grey[400],
+                                                  fontWeight: playedLyric(index) ? FontWeight.bold: FontWeight.normal,
+                                                ),
+                                              ),
+                                            )
+                                          ),
+                                          index==p.lyric.length-1 ? SizedBox(height: topBottomHeight-10,) : Container(),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                }
+                              ),
+                            ),
+                            Positioned(
+                              right: 20,
+                              bottom: 10,
+                              child: IconButton(
+                                onPressed: ()=>operations.resizeFont(context), 
+                                icon: Icon(
+                                  Icons.text_fields_rounded,
+                                  color: Colors.grey[500],
+                                )
+                              ),
+                            )
+                          ],
                         ),
                       ) : Obx(()=>
                         Column(
