@@ -86,28 +86,6 @@ class _AboutState extends State<About> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 15,),
-                GestureDetector(
-                  onTap: (){
-                    final url=Uri.parse('https://lrclib.net/docs');
-                    launchUrl(url);
-                  },
-                  child: const MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.code_rounded,
-                          size: 15,
-                        ),
-                        SizedBox(width: 5,),
-                        Text('歌词API'),
-                      ],
-                    ),
-                  ),
-                )
               ],
             ),
           ),
