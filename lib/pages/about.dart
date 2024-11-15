@@ -62,29 +62,40 @@ class _AboutState extends State<About> {
                     final url=Uri.parse('https://github.com/Zhoucheng133/netPlayer-Mobile');
                     launchUrl(url);
                   },
-                  child: MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const FaIcon(
-                          FontAwesomeIcons.github,
-                          size: 15,
-                        ),
-                        const SizedBox(width: 5,),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 2),
-                          child: Text(
-                            '本项目地址',
-                            style: GoogleFonts.notoSansSc(
-                              fontSize: 13,
-                            ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const FaIcon(
+                        FontAwesomeIcons.github,
+                        size: 15,
+                      ),
+                      const SizedBox(width: 5,),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 2),
+                        child: Text(
+                          '本项目地址',
+                          style: GoogleFonts.notoSansSc(
+                            fontSize: 13,
                           ),
-                        )
-                      ],
-                    ),
+                        ),
+                      ),
+                    ],
                   ),
+                ),
+                const SizedBox(height: 10,),
+                GestureDetector(
+                  onTap: ()=>showLicensePage(context: context),
+                  child: const Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      FaIcon(
+                        FontAwesomeIcons.certificate,
+                        size: 15,
+                      ),
+                      SizedBox(width: 5,),
+                      Text('许可证')
+                    ],
+                  )
                 ),
               ],
             ),
