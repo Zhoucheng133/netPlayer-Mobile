@@ -36,7 +36,7 @@ class _MainViewState extends State<MainView> {
   late Worker nowPlayListener;
 
   Future<void> savePlay(dynamic val) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs = await SharedPreferences.getInstance();
     try {
       if(s.savePlay.value){
         await prefs.setString('nowPlay', jsonEncode(val));
@@ -125,6 +125,16 @@ class _MainViewState extends State<MainView> {
       WidgetsBinding.instance.addPostFrameCallback((_) async {
         PlayCheck().check(context);
       });
+      try {
+        if(tmpList['playFrom']=='fullRandom'){
+          p.playMode.value='random';
+        }else{
+          final mode=prefs.getString('playMode');
+          if(mode!=null){
+            p.playMode.value=mode;
+          }
+        }
+      } catch (_) {}
     }
   }
 
@@ -141,7 +151,6 @@ class _MainViewState extends State<MainView> {
 
   Future<void> networkSet() async {
     var connectivityResult = await connectivity.checkConnectivity();
-    // print(connectivityResult);
     if(connectivityResult.contains(ConnectivityResult.mobile)){
       s.wifi.value=false;
       s.wifi.refresh();
@@ -168,9 +177,10 @@ class _MainViewState extends State<MainView> {
     prefs = await SharedPreferences.getInstance();
     if(await loginCheck()){
       nowPlaySet();
+      qualitySet();
+      progressSet();
+      initLyric();
     }
-    qualitySet();
-    progressSet();
     subscription = Connectivity().onConnectivityChanged.listen((List<ConnectivityResult> result) {
       if(result.contains(ConnectivityResult.mobile)){
         s.wifi.value=false;
@@ -181,7 +191,6 @@ class _MainViewState extends State<MainView> {
       }
     });
     await networkSet();
-    initLyric();
     setState(() {
       loading=false;
     });

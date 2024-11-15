@@ -342,6 +342,8 @@ class _PlayingState extends State<Playing> {
                                 );
                                 if(rlt!=null){
                                   p.playMode.value=rlt;
+                                  var prefs = await SharedPreferences.getInstance();
+                                  prefs.setString('playMode', rlt);
                                 }
                               },
                               icon: Obx(()=>
