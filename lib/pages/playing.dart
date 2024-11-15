@@ -11,6 +11,7 @@ import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Playing extends StatefulWidget {
   const Playing({super.key});
@@ -69,8 +70,12 @@ class _PlayingState extends State<Playing> {
     bool flag=false;
     try {
       flag=p.playProgress.value>=p.lyric[index]['time'] && p.playProgress<p.lyric[index+1]['time'];
-    } catch (e) {
-      flag=false;
+    } catch (_) {
+      if(p.lyric.length==index+1 && p.playProgress.value>=p.lyric[index]['time']){
+        flag=true;
+      }else{
+        flag=false;
+      }
     }
     return flag;
   }
