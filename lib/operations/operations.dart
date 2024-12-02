@@ -18,6 +18,7 @@ class Operations{
   UserVar u = Get.put(UserVar());
   LsVar l=Get.put(LsVar());
   PlayerVar p=Get.put(PlayerVar());
+  LyricGet lyricGet=LyricGet();
 
   Future<void> renamePlayList(String id, String newname, BuildContext context) async {
     final rlt=await httpRequest("${u.url.value}/rest/updatePlaylist?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&playlistId=$id&name=$newname");
@@ -143,7 +144,7 @@ class Operations{
   }
 
   Future<void> getLyric() async {
-    LyricGet().getLyric();
+    lyricGet.getLyric();
   }
 
   Future<Map> search(String val, BuildContext context) async {

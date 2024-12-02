@@ -34,6 +34,7 @@ class _MainViewState extends State<MainView> {
   late Worker accountListener;
   PlayerVar p=Get.put(PlayerVar());
   late Worker nowPlayListener;
+  Operations operations=Operations();
 
   Future<void> savePlay(dynamic val) async {
     prefs = await SharedPreferences.getInstance();
@@ -67,7 +68,7 @@ class _MainViewState extends State<MainView> {
           'content': '查找歌词中...',
         }
       ];
-      Operations().getLyric();
+      operations.getLyric();
     });
   }
 
