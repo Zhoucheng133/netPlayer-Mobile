@@ -1,3 +1,4 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,8 +9,9 @@ class TitleAria extends StatefulWidget {
 
   final String title;
   final String subtitle;
+  final bool? showWarning;
 
-  const TitleAria({super.key, required this.title, required this.subtitle});
+  const TitleAria({super.key, required this.title, required this.subtitle, this.showWarning});
 
   @override
   State<TitleAria> createState() => _TitleAriaState();
@@ -44,13 +46,36 @@ class _TitleAriaState extends State<TitleAria> {
               ),
             ),
             const SizedBox(height: 20,),
-            Text(
-              widget.subtitle,
-              style: GoogleFonts.notoSansSc(
-                fontSize: 14,
-                color: Colors.black,
-              ),
-              overflow: TextOverflow.fade,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  widget.subtitle,
+                  style: GoogleFonts.notoSansSc(
+                    fontSize: 14,
+                    color: Colors.black,
+                  ),
+                  overflow: TextOverflow.fade,
+                ),
+                widget.showWarning==true ? Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: GestureDetector(
+                    onTap: (){
+                      showOkAlertDialog(
+                        context: context,
+                        title: "歌曲数量可能超过500首",
+                        message: "Subsonic API支持的最大歌曲数量为500首\n你可以在首页-更多-随机播放所有歌曲，此功能不受数量限制",
+                        okLabel: "好的"
+                      );
+                    }, 
+                    child: const Icon(
+                      Icons.warning_rounded,
+                      size: 20,
+                    ),
+                  )
+                ) : Container()
+              ],
             ),
             const SizedBox(height: 10,),
           ],
