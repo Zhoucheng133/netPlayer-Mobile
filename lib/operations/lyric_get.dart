@@ -9,7 +9,6 @@ class LyricGet{
 
   final p=Get.put(PlayerVar());
 
-  String? preId;
 
   // 时间戳转换成毫秒
   int timeToMilliseconds(timeString) {
@@ -24,17 +23,8 @@ class LyricGet{
   }
 
   Future<void> getLyric() async {
-    
-    if(preId!=null && p.nowPlay['id']==preId){
-      return;
-    }
 
-    if(p.nowPlay['id']!=null && p.nowPlay['id'].isNotEmpty){
-      preId=p.nowPlay['id'];
-    }
-
-    print("get!");
-    
+    // print("get!");
 
     if(!(await netease())){
       if(!(await lrclib())){

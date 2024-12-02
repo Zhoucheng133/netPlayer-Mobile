@@ -35,6 +35,7 @@ class _MainViewState extends State<MainView> {
   PlayerVar p=Get.put(PlayerVar());
   late Worker nowPlayListener;
   Operations operations=Operations();
+  String? preId;
 
   Future<void> savePlay(dynamic val) async {
     prefs = await SharedPreferences.getInstance();
@@ -61,6 +62,15 @@ class _MainViewState extends State<MainView> {
       }
     });
     nowPlayListener=ever(p.nowPlay, (val){
+
+      if(preId!=null && p.nowPlay['id']==preId){
+        return;
+      }
+
+      if(p.nowPlay['id']!=null && p.nowPlay['id'].isNotEmpty){
+        preId=p.nowPlay['id'];
+      }
+
       savePlay(val);
       p.lyric.value=[
         {
