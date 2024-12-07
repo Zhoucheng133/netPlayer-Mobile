@@ -71,11 +71,10 @@ class IndexPinItem extends StatefulWidget {
 class _IndexPinItemState extends State<IndexPinItem> {
   @override
   Widget build(BuildContext context) {
-    return Ink(
-      decoration: BoxDecoration(
-        color: widget.bgColor,
-        borderRadius: BorderRadius.circular(10),
-      ),
+    return Material(
+      borderRadius: BorderRadius.circular(10),
+      clipBehavior: Clip.antiAlias,
+      color: widget.bgColor,
       child: InkWell(
         onTap: (){
           widget.func();
