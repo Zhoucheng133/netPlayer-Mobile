@@ -13,6 +13,7 @@ import 'package:netplayer_mobile/pages/artists.dart';
 import 'package:netplayer_mobile/pages/components/index_item.dart';
 import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/loved.dart';
+import 'package:netplayer_mobile/pages/remote.dart';
 import 'package:netplayer_mobile/pages/search.dart';
 import 'package:netplayer_mobile/pages/settings.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
@@ -120,6 +121,7 @@ class _IndexState extends State<Index> {
                 actions: [
                   const SheetAction(label: '随机播放所有歌曲', icon: Icons.shuffle_rounded, key: 'shuffle'),
                   const SheetAction(label: '设置', icon: Icons.settings_rounded, key: 'settings'),
+                  const SheetAction(label: '远程控制', icon: Icons.settings_remote, key: 'remote'),
                   const SheetAction(label: '关于', icon: Icons.info_rounded, key: 'about'),
                   const SheetAction(label: '注销', icon: Icons.logout_rounded, key: 'logout'),
                 ]
@@ -135,6 +137,8 @@ class _IndexState extends State<Index> {
                   if(context.mounted){
                     logout(context);
                   }
+                }else if(rlt=='remote'){
+                  Get.to(()=>const Remote());
                 }
               }
             }, 
