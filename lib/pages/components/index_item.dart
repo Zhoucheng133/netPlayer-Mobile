@@ -79,12 +79,9 @@ class _IndexPinItemState extends State<IndexPinItem> {
         onTap: (){
           widget.func();
         },
-        child: Container(
+        child: SizedBox(
           height: 200,
           width: 150,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-          ),
           child: Stack(
             children: [
               Padding(
