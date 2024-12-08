@@ -277,11 +277,10 @@ class _LoginState extends State<Login> {
             child: Row(
               children: [
                 Expanded(child: Container()),
-                Ink(
-                  decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                Material(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(10),
+                  clipBehavior: Clip.antiAlias,
                   child: InkWell(
                     onTap: (){
                       loginController(context);
