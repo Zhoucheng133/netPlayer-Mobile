@@ -27,6 +27,7 @@ class _RemoteContentState extends State<RemoteContent> {
       final msg=json.decode(message);
       r.wsData.value.updateAll(msg['title'], msg['cover'], msg['line'], msg['fullLyric'],  msg['isPlay'], msg['mode'], msg['lyric']);
       r.wsData.refresh();
+      // print("update!");
     });
   }
 
