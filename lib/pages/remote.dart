@@ -24,6 +24,13 @@ class _RemoteState extends State<Remote> {
   final r=Get.put(RemoteVar());
 
   Future<void> init() async {
+    if(r.socket!=null){
+      r.isRegister.value=true;
+      setState(() {
+        isLoading=false;
+      });
+      return;
+    }
     prefs=await SharedPreferences.getInstance();
     final url=prefs.getString('remote');
     if(url!=null && url.startsWith("ws://")){
@@ -46,6 +53,14 @@ class _RemoteState extends State<Remote> {
   void initState() {
     super.initState();
     init();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    try {
+      r.socket!.close();
+    } catch (_) {}
   }
 
   @override
