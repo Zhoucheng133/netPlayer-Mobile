@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/variables/remote_var.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RemoteRegister extends StatefulWidget {
   const RemoteRegister({super.key});
@@ -52,18 +53,15 @@ class _RemoteRegisterState extends State<RemoteRegister> {
         FocusScope.of(context).requestFocus(urlFocus);
       }
     }else{
+      SharedPreferences prefs=await SharedPreferences.getInstance();
       r.isRegister.value=true;
+      prefs.setString('remote', url.text);
     }
   }
 
   TextEditingController url=TextEditingController();
   FocusNode urlFocus=FocusNode();
   final RemoteVar r=Get.find();
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   void dispose() {

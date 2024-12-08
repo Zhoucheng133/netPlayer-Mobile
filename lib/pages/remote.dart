@@ -32,8 +32,8 @@ class _RemoteState extends State<Remote> {
           const Duration(seconds: 2),
         );
         await r.socket!.close();
+        r.isRegister.value=true;
       } catch (_) {
-        print("??");
         r.socket=null;
       }
     }
@@ -67,11 +67,12 @@ class _RemoteState extends State<Remote> {
               child: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 300),
                 child: isLoading ? Center(
+                  key: const Key("loading"),
                   child: LoadingAnimationWidget.beat(
                     color: Colors.blue, 
                     size: 30
                   ),
-                ) : r.isRegister.value ? const RemoteContent() : const RemoteRegister()
+                ) : r.isRegister.value ? const RemoteContent(key: Key('content'),) : const RemoteRegister(key: Key('register'),)
               )
             )
           ],
