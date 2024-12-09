@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/variables/remote_var.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RemoteContent extends StatefulWidget {
@@ -18,6 +19,7 @@ class _RemoteContentState extends State<RemoteContent> {
 
   final RemoteVar r=Get.find();
   late SharedPreferences prefs;
+  AutoScrollController controller=AutoScrollController();
 
   void listener(){
     final command=json.encode({
@@ -28,7 +30,7 @@ class _RemoteContentState extends State<RemoteContent> {
       final msg=json.decode(message);
       r.wsData.value.updateAll(msg['title'], msg['artist'], msg['cover'], msg['line'], msg['fullLyric'],  msg['isPlay'], msg['mode'], msg['lyric']);
       r.wsData.refresh();
-      // print("update!");
+      scrollLyric();
     });
   }
 
@@ -52,6 +54,20 @@ class _RemoteContentState extends State<RemoteContent> {
   void initState() {
     super.initState();
     init();
+  }
+
+  bool playedLyric(int line){
+    if(r.wsData.value.fullLyric.length==1){
+      return true;
+    }
+    return line==r.wsData.value.line-1;
+  }
+
+  void scrollLyric(){
+    if(r.wsData.value.line==0){
+      return;
+    }
+    controller.scrollToIndex(r.wsData.value.line-1, preferPosition: AutoScrollPosition.middle);
   }
 
   @override
@@ -97,6 +113,43 @@ class _RemoteContentState extends State<RemoteContent> {
                 )
               ]
             ),
+          ),
+          Expanded(
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final double topBottomHeight = constraints.maxHeight / 2;
+                return Align(
+                  alignment: Alignment.center,
+                  child: ListView.builder(
+                    controller: controller,
+                    itemCount: r.wsData.value.fullLyric.length,
+                    itemBuilder: (context, index)=>Column(
+                      children: [
+                        index==0 ?  SizedBox(height: topBottomHeight-10,) :Container(),
+                        Obx(() => 
+                          AutoScrollTag(
+                            key: ValueKey(index), 
+                            controller: controller, 
+                            index: index,
+                            child: Text(
+                              r.wsData.value.fullLyric[index]['content'],
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.notoSansSc(
+                                fontSize: 18,
+                                height: 2.5,
+                                color: playedLyric(index) ? Colors.blue:Colors.grey[400],
+                                fontWeight: playedLyric(index) ? FontWeight.bold: FontWeight.normal,
+                              ),
+                            ),
+                          )
+                        ),
+                        index==r.wsData.value.fullLyric.length-1 ? SizedBox(height: topBottomHeight-10,) : Container(),
+                      ],
+                    ),
+                  )
+                );
+              }
+            )
           )
         ],
       )
