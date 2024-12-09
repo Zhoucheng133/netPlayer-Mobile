@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/variables/remote_var.dart';
@@ -112,7 +114,7 @@ class _RemoteContentState extends State<RemoteContent> {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: r.wsData.value.cover.startsWith("http") ? Image.network(r.wsData.value.cover, width: 70,) : Image.asset('assets/blank.jpg', width: 70,)
+                  child: r.wsData.value.cover.startsWith("http") ? Image.network(r.wsData.value.cover, width: 70, height: 70,) : Image.asset('assets/blank.jpg', width: 70, height: 70,)
                 ),
                 const SizedBox(width: 10,),
                 Expanded(
@@ -139,6 +141,29 @@ class _RemoteContentState extends State<RemoteContent> {
                       ),
                     ],
                   ),
+                ),
+                IconButton(
+                  onPressed: () async {
+                    final rlt=await showOkCancelAlertDialog(
+                      context: context,
+                      title: "关闭连接",
+                      message: "这会回到连接页面",
+                      okLabel: "继续",
+                      cancelLabel: "取消"
+                    );
+                    if(rlt==OkCancelResult.ok){
+                      try {
+                        r.socket!.close();
+                        r.url.value="";
+                        prefs.remove('remote');
+                        r.isRegister.value=false;
+                      } catch (_) {}
+                    }
+                  }, 
+                  icon: const FaIcon(
+                    FontAwesomeIcons.rightFromBracket,
+                    size: 20,
+                  )
                 )
               ]
             ),
