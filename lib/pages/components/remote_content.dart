@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/variables/remote_var.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -25,7 +26,7 @@ class _RemoteContentState extends State<RemoteContent> {
     r.socket!.add(command);
     r.socket!.listen((message){
       final msg=json.decode(message);
-      r.wsData.value.updateAll(msg['title'], msg['cover'], msg['line'], msg['fullLyric'],  msg['isPlay'], msg['mode'], msg['lyric']);
+      r.wsData.value.updateAll(msg['title'], msg['artist'], msg['cover'], msg['line'], msg['fullLyric'],  msg['isPlay'], msg['mode'], msg['lyric']);
       r.wsData.refresh();
       // print("update!");
     });
@@ -57,11 +58,46 @@ class _RemoteContentState extends State<RemoteContent> {
   Widget build(BuildContext context) {
     return Obx(()=>
       Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text("标题: ${r.wsData.value.title}"),
-          Text("行数: ${r.wsData.value.line.toString()}"),
-          Text("播放: ${r.wsData.value.isPlay.toString()}"),
-          Text("歌词: ${r.wsData.value.lyric}"),
+          const SizedBox(height: 10,),
+          Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20),
+            child: Row(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: r.wsData.value.cover.startsWith("http") ? Image.network(r.wsData.value.cover, width: 70,) : Image.asset('assets/blank.jpg', width: 70,)
+                ),
+                const SizedBox(width: 10,),
+                Expanded(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        r.wsData.value.title,
+                        style: GoogleFonts.notoSansSc(
+                          fontSize: 16,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Text(
+                        r.wsData.value.artist,
+                        style: GoogleFonts.notoSansSc(
+                          color: Colors.grey[500]
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                )
+              ]
+            ),
+          )
         ],
       )
     );
