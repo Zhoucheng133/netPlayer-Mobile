@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/variables/remote_var.dart';
@@ -129,44 +130,62 @@ class _RemoteRegisterState extends State<RemoteRegister> {
         const SizedBox(height: 20,),
         SizedBox(
           width: 280,
-          child: Align(
-            alignment: Alignment.centerRight,
-            child: Material(
-              color: Colors.blue,
-              borderRadius: BorderRadius.circular(10),
-              clipBehavior: Clip.antiAlias,
-              child: InkWell(
-                onTap: (){
-                  connect(context);
-                },
-                child: Container(
-                  width: 110,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10)
-                  ),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(width: 10,),
-                      Text(
-                        "连接",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              IconButton(
+                tooltip: "帮助",
+                onPressed: (){
+                  showOkAlertDialog(
+                    context: context,
+                    title: "连接到桌面版netPlayer",
+                    message: "你可以在这里连接到桌面版本的netPlayer并进行远程控制\n至少需要v3.3.0版本的桌面netPlayer，并且确保打开WebSocket功能",
+                    okLabel: "好的"
+                  );
+                }, 
+                icon: const FaIcon(
+                  FontAwesomeIcons.question,
+                  size: 16,
+                )
+              ),
+              const SizedBox(width: 10,),
+              Material(
+                color: Colors.blue,
+                borderRadius: BorderRadius.circular(10),
+                clipBehavior: Clip.antiAlias,
+                child: InkWell(
+                  onTap: (){
+                    connect(context);
+                  },
+                  child: Container(
+                    width: 110,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10)
+                    ),
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(width: 10,),
+                        Text(
+                          "连接",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold
+                          ),
                         ),
-                      ),
-                      Icon(
-                        Icons.chevron_right_rounded,
-                        color: Colors.white,
-                        size: 30,
-                      )
-                    ],
-                  )
+                        Icon(
+                          Icons.chevron_right_rounded,
+                          color: Colors.white,
+                          size: 30,
+                        )
+                      ],
+                    )
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
         )
       ],
