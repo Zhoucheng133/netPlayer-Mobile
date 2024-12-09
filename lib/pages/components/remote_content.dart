@@ -70,6 +70,35 @@ class _RemoteContentState extends State<RemoteContent> {
     controller.scrollToIndex(r.wsData.value.line-1, preferPosition: AutoScrollPosition.middle);
   }
 
+  void skipForward(){
+    final command=json.encode({
+      "command": "forw"
+    });
+    try {
+      r.socket!.add(command);
+    } catch (_) {}
+  }
+  
+  void toggle(){
+    final command=json.encode({
+      "command": r.wsData.value.isPlay ? 'pause': 'play'
+    });
+    try {
+      r.socket!.add(command);
+    } catch (_) {}
+    r.wsData.value.isPlay=!r.wsData.value.isPlay;
+    r.wsData.refresh();
+  }
+
+  void skipNext(){
+    final command=json.encode({
+      "command": "skip"
+    });
+    try {
+      r.socket!.add(command);
+    } catch (_) {}
+  }
+
   @override
   Widget build(BuildContext context) {
     return Obx(()=>
@@ -114,42 +143,101 @@ class _RemoteContentState extends State<RemoteContent> {
               ]
             ),
           ),
+          const SizedBox(height: 10,),
           Expanded(
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                final double topBottomHeight = constraints.maxHeight / 2;
-                return Align(
-                  alignment: Alignment.center,
-                  child: ListView.builder(
-                    controller: controller,
-                    itemCount: r.wsData.value.fullLyric.length,
-                    itemBuilder: (context, index)=>Column(
-                      children: [
-                        index==0 ?  SizedBox(height: topBottomHeight-10,) :Container(),
-                        Obx(() => 
-                          AutoScrollTag(
-                            key: ValueKey(index), 
-                            controller: controller, 
-                            index: index,
-                            child: Text(
-                              r.wsData.value.fullLyric[index]['content'],
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.notoSansSc(
-                                fontSize: 18,
-                                height: 2.5,
-                                color: playedLyric(index) ? Colors.blue:Colors.grey[400],
-                                fontWeight: playedLyric(index) ? FontWeight.bold: FontWeight.normal,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  final double topBottomHeight = constraints.maxHeight / 2;
+                  return Align(
+                    alignment: Alignment.center,
+                    child: ListView.builder(
+                      controller: controller,
+                      itemCount: r.wsData.value.fullLyric.length,
+                      itemBuilder: (context, index)=>Column(
+                        children: [
+                          index==0 ?  SizedBox(height: topBottomHeight-10,) :Container(),
+                          Obx(() => 
+                            AutoScrollTag(
+                              key: ValueKey(index), 
+                              controller: controller, 
+                              index: index,
+                              child: Text(
+                                r.wsData.value.fullLyric[index]['content'],
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.notoSansSc(
+                                  fontSize: 18,
+                                  height: 2.5,
+                                  color: playedLyric(index) ? Colors.blue:Colors.grey[400],
+                                  fontWeight: playedLyric(index) ? FontWeight.bold: FontWeight.normal,
+                                ),
                               ),
-                            ),
-                          )
-                        ),
-                        index==r.wsData.value.fullLyric.length-1 ? SizedBox(height: topBottomHeight-10,) : Container(),
-                      ],
-                    ),
-                  )
-                );
-              }
+                            )
+                          ),
+                          index==r.wsData.value.fullLyric.length-1 ? SizedBox(height: topBottomHeight-10,) : Container(),
+                        ],
+                      ),
+                    )
+                  );
+                }
+              ),
             )
+          ),
+          Container(
+            height: 140,
+            decoration: BoxDecoration(
+              color: Colors.grey[100],
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20)
+              )
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  onPressed: ()=>skipForward(),
+                  icon: const Icon(
+                    Icons.skip_previous_rounded,
+                    size:30,
+                  ),
+                ),
+                const SizedBox(width: 15,),
+                GestureDetector(
+                  onTap: ()=>toggle(),
+                  child: AnimatedContainer(
+                    height: 60,
+                    width: 60,
+                    duration: const Duration(milliseconds: 200),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: Colors.white,
+                      border: Border.all(
+                        color: Colors.black,
+                        width: 3
+                      )
+                    ),
+                    child: Icon(
+                      r.wsData.value.isPlay ? Icons.pause_rounded : Icons.play_arrow_rounded
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 15,),
+                IconButton(
+                  onPressed: ()=>skipNext(),
+                  icon: const Icon(
+                    Icons.skip_next_rounded,
+                    size: 30,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            color: Colors.grey[100],
+            height: MediaQuery.of(context).padding.bottom,
+            width: double.infinity,
           )
         ],
       )
