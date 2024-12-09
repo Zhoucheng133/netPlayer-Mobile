@@ -258,7 +258,10 @@ class _PlayingState extends State<Playing> {
                   height: 180,
                   decoration: BoxDecoration(
                     color: Colors.grey[100],
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20)
+                    )
                   ),
                   child: Column(
                     children: [
