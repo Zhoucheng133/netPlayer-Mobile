@@ -10,9 +10,11 @@ class WsData{
   bool isPlay=false;
   String mode="";
   String lyric="";
+  String artist="";
 
   void updateAll(
     String title,
+    String artist,
     String cover,
     int line,
     List fullLyric,
@@ -21,6 +23,7 @@ class WsData{
     String lyric,
   ) {
     this.title = title;
+    this.artist=artist;
     this.cover = cover;
     this.line = line;
     this.fullLyric = fullLyric;
