@@ -143,6 +143,7 @@ class _RemoteContentState extends State<RemoteContent> {
                   ),
                 ),
                 IconButton(
+                  tooltip: '关闭连接',
                   onPressed: () async {
                     final rlt=await showOkCancelAlertDialog(
                       context: context,
