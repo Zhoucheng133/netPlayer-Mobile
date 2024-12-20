@@ -97,6 +97,7 @@ class _PlayingState extends State<Playing> {
     Future.microtask(() {
       p.switchHero.value = false;
     });
+    controller.dispose();
     super.dispose();
   }
 
