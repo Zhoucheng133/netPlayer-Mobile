@@ -86,10 +86,13 @@ class _PlayingState extends State<Playing> {
   @override
   void initState() {
     super.initState();
-    scrollLyric();
-    lyricLineListener=ever(p.lyricLine, (val){
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       scrollLyric();
+      lyricLineListener=ever(p.lyricLine, (val){
+        scrollLyric();
+      });
     });
+    
   }
 
   @override
@@ -102,10 +105,16 @@ class _PlayingState extends State<Playing> {
   }
 
   void scrollLyric(){
-    if(p.lyricLine.value==0){
-      return;
-    }
-    controller.scrollToIndex(p.lyricLine.value-1, preferPosition: AutoScrollPosition.middle);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!controller.hasClients || !showlyric || p.lyric.length==1) {
+        return;
+      }
+      if(p.lyricLine.value==0){
+        controller.animateTo(0, duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
+        return;
+      }
+      controller.scrollToIndex(p.lyricLine.value-1, preferPosition: AutoScrollPosition.middle);
+    });
   }
 
   AutoScrollController controller=AutoScrollController();
@@ -157,7 +166,9 @@ class _PlayingState extends State<Playing> {
                   onTap: (){
                     setState(() {
                       showlyric=!showlyric;
-                      scrollLyric();
+                      if(showlyric){
+                        scrollLyric();
+                      }
                     });
                   },
                   child: Container(
