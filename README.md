@@ -28,6 +28,37 @@
 > [!TIP]
 > 在播放页面可以点击封面来查看歌词，同理点击歌词可以隐藏歌词
 
+## 截图
+
+以下截图运行在模拟机上，不同设备上运行效果可能略有不同
+
+<img src="demo/1.png" alt="netPlayer_Mobile_截图.jpg" width="200px" /><img src="demo/2.png" alt="netPlayer_Mobile_截图.jpg" width="200px" /><img src="demo/3.png" alt="netPlayer_Mobile_截图.jpg" width="200px" />
+
+<img src="demo/4.png" alt="netPlayer_Mobile_截图.jpg" width="200px" /><img src="demo/5.png" alt="netPlayer_Mobile_截图.jpg" width="200px" /><img src="demo/6.png" alt="netPlayer_Mobile_截图.jpg" width="200px" />
+
+<img src="demo/7.png" alt="netPlayer_Mobile_截图.jpg" width="200px" /><img src="demo/8.png" alt="netPlayer_Mobile_截图.jpg" width="200px" /><img src="demo/9.png" alt="netPlayer_Mobile_截图.jpg" width="200px" />
+
+## 常见问题
+
+### 无法连接到音乐服务器:
+
+> 你需要先检查你的客户端设备是否可以直接打开音乐库网页，很大概率是服务器防火墙或者设置问题  
+> 另外务必检查地址，http和https
+
+### 所有歌曲显示不全:
+
+> Subsonic音乐库的API并不支持查看所有的歌曲，因此至多只能显示500首歌曲 但是你可以通过完全随机播放来随机播放所有的歌曲，不受歌曲数量显示
+
+### 没有找到歌词:
+
+> 歌词API见文末，没有找到歌词就是字面意思
+> 歌词的内容取决于歌曲标题、所属专辑、艺人和歌曲长度
+
+### 没有封面 (或者是默认封面):
+
+> 歌曲的封面来自你上传的音频文件，如果音频文件没有内嵌封面则会显示默认封面  
+> 另外经过测试部分编码的音频文件内嵌封面加载存在异常（或加载时间过长），可能会导致崩溃，因此也会显示默认封面
+
 ## 在你的设备上配置netPlayer Mobile
 
 ### 环境配置
@@ -43,24 +74,17 @@
 
 <sup>**</sup>注意，模拟器无法使用`Release`模式，实体iPhone无法使用`Debug`模式
 
-## 截图
-
-以下截图运行在模拟机上，不同设备上运行效果可能略有不同
-
-<img src="demo/1.png" alt="netPlayer_Mobile_截图.jpg" width="200px" /><img src="demo/2.png" alt="netPlayer_Mobile_截图.jpg" width="200px" /><img src="demo/3.png" alt="netPlayer_Mobile_截图.jpg" width="200px" />
-
-<img src="demo/4.png" alt="netPlayer_Mobile_截图.jpg" width="200px" /><img src="demo/5.png" alt="netPlayer_Mobile_截图.jpg" width="200px" /><img src="demo/6.png" alt="netPlayer_Mobile_截图.jpg" width="200px" />
-
-<img src="demo/7.png" alt="netPlayer_Mobile_截图.jpg" width="200px" /><img src="demo/8.png" alt="netPlayer_Mobile_截图.jpg" width="200px" /><img src="demo/9.png" alt="netPlayer_Mobile_截图.jpg" width="200px" />
-
 ## 更新日志
+
+### 2.1.2
+- 修复获取封面图片崩溃的问题
+
+<details>
+<summary>过往的版本</summary>
 
 ### 2.1.1 (2024/12/20)
 - 修复调整进度条歌词没有滚动的问题
 - 提升了一些运行速度
-
-<details>
-<summary>过往的版本</summary>
 
 ### 2.1.0 (2024/12/10)
 - 添加远程控制的功能
