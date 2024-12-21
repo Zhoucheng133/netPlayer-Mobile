@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:get/get.dart';
 class PlayerVar extends GetxController{
   RxMap<String, dynamic> nowPlay={
@@ -31,6 +33,8 @@ class PlayerVar extends GetxController{
 
   // 歌词字体大小
   RxInt fontSize=18.obs;
+
+  var coverFuture = Rx<Uint8List?>(null);
 }
 
 class PlayerStatic{

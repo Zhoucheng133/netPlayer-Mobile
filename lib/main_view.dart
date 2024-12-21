@@ -6,6 +6,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/account.dart';
+import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/operations/play_check.dart';
 import 'package:netplayer_mobile/pages/index.dart';
@@ -36,6 +37,7 @@ class _MainViewState extends State<MainView> {
   late Worker nowPlayListener;
   Operations operations=Operations();
   String? preId;
+  final d=DataGet();
 
   Future<void> savePlay(dynamic val) async {
     prefs = await SharedPreferences.getInstance();
@@ -44,6 +46,10 @@ class _MainViewState extends State<MainView> {
         await prefs.setString('nowPlay', jsonEncode(val));
       }
     } catch (_) {}
+  }
+
+  Future<void> updateCover() async {
+    p.coverFuture.value=await d.fetchCover();
   }
 
   @override
@@ -66,6 +72,8 @@ class _MainViewState extends State<MainView> {
       if(preId!=null && p.nowPlay['id']==preId){
         return;
       }
+
+      updateCover();
 
       if(p.nowPlay['id']!=null && p.nowPlay['id'].isNotEmpty){
         preId=p.nowPlay['id'];

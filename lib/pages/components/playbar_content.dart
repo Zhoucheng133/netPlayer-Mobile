@@ -69,27 +69,35 @@ class _PlaybarContentState extends State<PlaybarContent> {
                         children: [
                           p.switchHero.value ? Hero(
                             tag: 'cover',
-                            child: Container(
+                            child: SizedBox(
                               height: 50,
                               width: 50,
-                              decoration: BoxDecoration(
+                              child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
-                                image: DecorationImage(
-                                  image: p.nowPlay['id'].isNotEmpty ? NetworkImage("${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}"):
-                                  const AssetImage("assets/blank.jpg")
-                                )
-                              ),
-                            ),
-                          ) : Container(
-                            height: 50,
-                            width: 50,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              image: DecorationImage(
-                                image: p.nowPlay['id'].isNotEmpty ? NetworkImage("${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}"):
-                                const AssetImage("assets/blank.jpg")
+                                clipBehavior: Clip.antiAlias,
+                                child: p.coverFuture.value==null ? Image.asset(
+                                  "assets/blank.jpg",
+                                  fit: BoxFit.contain,
+                                ) : Image.memory(
+                                  p.coverFuture.value!,
+                                  fit: BoxFit.contain,
+                                ),
                               )
                             ),
+                          ) : SizedBox(
+                            height: 50,
+                            width: 50,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              clipBehavior: Clip.antiAlias,
+                              child: p.coverFuture.value==null ? Image.asset(
+                                "assets/blank.jpg",
+                                fit: BoxFit.contain,
+                              ) : Image.memory(
+                                p.coverFuture.value!,
+                                fit: BoxFit.contain,
+                              ),
+                            )
                           ),
                           const SizedBox(width: 10,),
                           Expanded(
