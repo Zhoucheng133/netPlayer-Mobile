@@ -24,7 +24,7 @@ class _PlaybarContentState extends State<PlaybarContent> {
     p.switchHero.value=true;
     Get.to(
       ()=>const Playing(),
-      transition: Transition.downToUp,
+      // transition: Transition.downToUp,
       curve: Curves.easeInOut,
       duration: const Duration(milliseconds: 400),
     );
