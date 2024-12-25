@@ -106,16 +106,23 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
       artist: p.nowPlay["artist"],
       artUri: Uri.parse("${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}"),
       album: p.nowPlay["album"],
+      duration: Duration(seconds: p.nowPlay['duration']),
     );
     mediaItem.add(item);
 
-    playbackState.add(playbackState.value.copyWith(
+    playbackState.add(PlaybackState(
       playing: isPlay,
       controls: [
         MediaControl.skipToPrevious,
         isPlay ? MediaControl.pause : MediaControl.play,
         MediaControl.skipToNext,
       ],
+      updatePosition: Duration(milliseconds: p.playProgress.value),
+      systemActions: const {
+        MediaAction.seek,
+        MediaAction.seekForward,
+        MediaAction.seekBackward,
+      },
     ));
   }
 
