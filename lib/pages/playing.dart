@@ -350,6 +350,11 @@ class _PlayingState extends State<Playing> {
                             IconButton(
                               onPressed: () async {
                                 if(p.nowPlay['playFrom']=='fullRandom'){
+                                  showOkAlertDialog(
+                                    context: context,
+                                    title: "播放模式不可用",
+                                    message: "当前处于完全随机播放模式"
+                                  );
                                   return;
                                 }
                                 var rlt=await showModalActionSheet(
