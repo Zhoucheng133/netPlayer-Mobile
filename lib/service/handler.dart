@@ -83,14 +83,14 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
       }
     });
 
-    playbackState.add(playbackState.value.copyWith(
-      controls: [
-        MediaControl.skipToPrevious,
-        MediaControl.pause,
-        MediaControl.skipToNext,
-      ],
-      processingState: AudioProcessingState.loading,
-    ));
+    // playbackState.add(playbackState.value.copyWith(
+    //   controls: [
+    //     MediaControl.skipToPrevious,
+    //     MediaControl.pause,
+    //     MediaControl.skipToNext,
+    //   ],
+    //   processingState: AudioProcessingState.loading,
+    // ));
     player.playerStateStream.listen((state) {
       if(state.processingState == ProcessingState.completed) {
         // print("complete");
@@ -100,16 +100,6 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
   }
 
   void setMedia(bool isPlay){
-    item=MediaItem(
-      id: p.nowPlay["id"],
-      title: p.nowPlay["title"],
-      artist: p.nowPlay["artist"],
-      artUri: Uri.parse("${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}"),
-      album: p.nowPlay["album"],
-      duration: Duration(seconds: p.nowPlay['duration']),
-    );
-    mediaItem.add(item);
-
     playbackState.add(PlaybackState(
       playing: isPlay,
       controls: [
@@ -124,6 +114,15 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
         MediaAction.seekBackward,
       },
     ));
+    item=MediaItem(
+      id: p.nowPlay["id"],
+      title: p.nowPlay["title"],
+      artist: p.nowPlay["artist"],
+      artUri: Uri.parse("${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}"),
+      album: p.nowPlay["album"],
+      duration: Duration(seconds: p.nowPlay['duration']),
+    );
+    mediaItem.add(item);
   }
 
   // 播放
