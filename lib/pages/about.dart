@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/pages/components/title_aria.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class About extends StatefulWidget {
@@ -12,6 +13,22 @@ class About extends StatefulWidget {
 }
 
 class _AboutState extends State<About> {
+
+  String version="";
+
+  Future<void> initVersion() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    setState(() {
+      version=packageInfo.version;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initVersion();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +65,7 @@ class _AboutState extends State<About> {
                 ),
                 const SizedBox(height: 10,),
                 Text(
-                  PlayerStatic().version,
+                  "v$version",
                   style: GoogleFonts.notoSansSc(
                     fontWeight: FontWeight.w300,
                     color: Colors.grey[600],
