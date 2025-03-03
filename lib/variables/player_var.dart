@@ -36,7 +36,3 @@ class PlayerVar extends GetxController{
 
   var coverFuture = Rx<Uint8List?>(null);
 }
-
-class PlayerStatic{
-  String version='v2.1.2';
-}
