@@ -6,7 +6,7 @@ import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/pages/album_content.dart';
 import 'package:netplayer_mobile/pages/artist_content.dart';
-import 'package:netplayer_mobile/pages/components/title_aria.dart';
+import 'package:netplayer_mobile/pages/components/title_area.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
@@ -119,6 +119,14 @@ class _PlayingState extends State<Playing> {
 
   AutoScrollController controller=AutoScrollController();
 
+  void titleTapHandler(BuildContext context){
+    print("!");
+  }
+
+  void subtitleTapHandler(BuildContext context){
+    print("!!");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -160,7 +168,7 @@ class _PlayingState extends State<Playing> {
                   ),
                 ),
               ),
-              Obx(()=>TitleArea(title: "${p.nowPlay['title']}", subtitle: "${p.nowPlay['artist']}"),),
+              Obx(()=>TitleArea(title: "${p.nowPlay['title']}", subtitle: "${p.nowPlay['artist']}", titleOnTap: ()=>titleTapHandler(context), subtitleOnTap: ()=>subtitleTapHandler(context),),),
               Expanded(
                 child: GestureDetector(
                   onTap: (){

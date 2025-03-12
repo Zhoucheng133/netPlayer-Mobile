@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:netplayer_mobile/pages/components/remote_content.dart';
 import 'package:netplayer_mobile/pages/components/remote_register.dart';
-import 'package:netplayer_mobile/pages/components/title_aria.dart';
+import 'package:netplayer_mobile/pages/components/title_area.dart';
 import 'package:netplayer_mobile/variables/remote_var.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

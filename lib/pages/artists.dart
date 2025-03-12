@@ -4,7 +4,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/pages/components/artist_item.dart';
 import 'package:netplayer_mobile/pages/components/playing_bar.dart';
-import 'package:netplayer_mobile/pages/components/title_aria.dart';
+import 'package:netplayer_mobile/pages/components/title_area.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
 class Artists extends StatefulWidget {

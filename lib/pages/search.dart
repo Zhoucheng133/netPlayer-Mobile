@@ -7,7 +7,7 @@ import 'package:netplayer_mobile/pages/components/artist_item.dart';
 import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/components/search_box.dart';
 import 'package:netplayer_mobile/pages/components/song_item.dart';
-import 'package:netplayer_mobile/pages/components/title_aria.dart';
+import 'package:netplayer_mobile/pages/components/title_area.dart';
 
 class Search extends StatefulWidget {
   const Search({super.key});

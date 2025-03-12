@@ -10,8 +10,10 @@ class TitleArea extends StatefulWidget {
   final String title;
   final String subtitle;
   final bool? showWarning;
+  final VoidCallback? titleOnTap;
+  final VoidCallback? subtitleOnTap;
 
-  const TitleArea({super.key, required this.title, required this.subtitle, this.showWarning});
+  const TitleArea({super.key, required this.title, required this.subtitle, this.showWarning, this.titleOnTap, this.subtitleOnTap});
 
   @override
   State<TitleArea> createState() => _TitleAreaState();
@@ -32,17 +34,24 @@ class _TitleAreaState extends State<TitleArea> {
           children: [
             SizedBox(
               height: 50,
-              child: AutoSizeText(
-                widget.title,
-                maxFontSize: 35,
-                minFontSize: 25,
-                style: GoogleFonts.notoSansSc(
-                  fontWeight: FontWeight.w300,
-                  color: Colors.black,
-                  fontSize: 35
+              child: GestureDetector(
+                onTap: (){
+                  if(widget.titleOnTap!=null){
+                    widget.titleOnTap!();
+                  }
+                },
+                child: AutoSizeText(
+                  widget.title,
+                  maxFontSize: 35,
+                  minFontSize: 25,
+                  style: GoogleFonts.notoSansSc(
+                    fontWeight: FontWeight.w300,
+                    color: Colors.black,
+                    fontSize: 35
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
               ),
             ),
             const SizedBox(height: 20,),
@@ -50,13 +59,20 @@ class _TitleAreaState extends State<TitleArea> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                  widget.subtitle,
-                  style: GoogleFonts.notoSansSc(
-                    fontSize: 14,
-                    color: Colors.black,
+                GestureDetector(
+                  onTap: (){
+                    if(widget.subtitleOnTap!=null){
+                      widget.subtitleOnTap!();
+                    }
+                  },
+                  child: Text(
+                    widget.subtitle,
+                    style: GoogleFonts.notoSansSc(
+                      fontSize: 14,
+                      color: Colors.black,
+                    ),
+                    overflow: TextOverflow.fade,
                   ),
-                  overflow: TextOverflow.fade,
                 ),
                 widget.showWarning==true ? Padding(
                   padding: const EdgeInsets.only(left: 10),

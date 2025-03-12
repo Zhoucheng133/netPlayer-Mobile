@@ -9,7 +9,7 @@ import 'package:netplayer_mobile/operations/requests.dart';
 import 'package:netplayer_mobile/pages/components/dev_tool.dart';
 import 'package:netplayer_mobile/pages/components/progress_dialog.dart';
 import 'package:netplayer_mobile/pages/components/quality_dialog.dart';
-import 'package:netplayer_mobile/pages/components/title_aria.dart';
+import 'package:netplayer_mobile/pages/components/title_area.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
