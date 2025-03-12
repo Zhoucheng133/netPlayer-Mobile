@@ -35,11 +35,7 @@ class _TitleAreaState extends State<TitleArea> {
             SizedBox(
               height: 50,
               child: GestureDetector(
-                onTap: (){
-                  if(widget.titleOnTap!=null){
-                    widget.titleOnTap!();
-                  }
-                },
+                onTap: widget.titleOnTap,
                 child: AutoSizeText(
                   widget.title,
                   maxFontSize: 35,
@@ -60,11 +56,7 @@ class _TitleAreaState extends State<TitleArea> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 GestureDetector(
-                  onTap: (){
-                    if(widget.subtitleOnTap!=null){
-                      widget.subtitleOnTap!();
-                    }
-                  },
+                  onTap: widget.subtitleOnTap,
                   child: Text(
                     widget.subtitle,
                     style: GoogleFonts.notoSansSc(
