@@ -1,4 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -119,12 +120,46 @@ class _PlayingState extends State<Playing> {
 
   AutoScrollController controller=AutoScrollController();
 
-  void titleTapHandler(BuildContext context){
-    print("!");
+  Future<void> titleTapHandler(BuildContext context) async {
+    final rlt=await showModalActionSheet(
+      context: context,
+      title: "歌曲标题操作",
+      actions: [
+        const SheetAction(label: '复制标题名称', key: 'copy', icon: Icons.copy_rounded),
+        const SheetAction(label: '查看歌曲专辑', key: 'album', icon: Icons.album_rounded)
+      ]
+    );
+    if(rlt!=null && context.mounted){
+      if(rlt=='album'){
+        final data=await DataGet().getSong(p.nowPlay['id'], context);
+        if(data['album']!=null && data['albumId']!=null){
+          Get.off(()=>AlbumContent(album: data['album'], id: data['albumId']));
+        }
+      }else if(rlt=='copy'){
+        FlutterClipboard.copy(p.nowPlay['title']);
+      }
+    }
   }
 
-  void subtitleTapHandler(BuildContext context){
-    print("!!");
+  Future<void> subtitleTapHandler(BuildContext context) async {
+    final rlt=await showModalActionSheet(
+      context: context,
+      title: "歌曲艺人操作",
+      actions: [
+        const SheetAction(label: '复制艺人名称', key: 'copy', icon: Icons.copy_rounded),
+        const SheetAction(label: '查看艺人', key: 'artist', icon: Icons.mic_rounded)
+      ]
+    );
+    if(rlt!=null){
+      if(rlt=='artist' && context.mounted){
+        final data=await DataGet().getSong(p.nowPlay['id'], context);
+        if(data['artistId']!=null && data['artist']!=null){
+          Get.off(()=>ArtistContent(id: data['artistId'], artist: data['artist']));
+        }
+      }else if(rlt=='copy'){
+        FlutterClipboard.copy(p.nowPlay['artist']);
+      }
+    }
   }
 
   @override
