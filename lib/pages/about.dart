@@ -40,7 +40,7 @@ class _AboutState extends State<About> {
       ),
       body: Column(
         children: [
-          const TitleAria(title: '关于', subtitle: ' '),
+          const TitleArea(title: '关于', subtitle: ' '),
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

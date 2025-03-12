@@ -160,7 +160,7 @@ class _PlayingState extends State<Playing> {
                   ),
                 ),
               ),
-              Obx(()=>TitleAria(title: "${p.nowPlay['title']}", subtitle: "${p.nowPlay['artist']}"),),
+              Obx(()=>TitleArea(title: "${p.nowPlay['title']}", subtitle: "${p.nowPlay['artist']}"),),
               Expanded(
                 child: GestureDetector(
                   onTap: (){

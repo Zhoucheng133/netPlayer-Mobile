@@ -3,7 +3,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class TitleAria extends StatefulWidget {
+class TitleArea extends StatefulWidget {
 
   // 注意将AppBar高度设置为70
 
@@ -11,13 +11,13 @@ class TitleAria extends StatefulWidget {
   final String subtitle;
   final bool? showWarning;
 
-  const TitleAria({super.key, required this.title, required this.subtitle, this.showWarning});
+  const TitleArea({super.key, required this.title, required this.subtitle, this.showWarning});
 
   @override
-  State<TitleAria> createState() => _TitleAriaState();
+  State<TitleArea> createState() => _TitleAreaState();
 }
 
-class _TitleAriaState extends State<TitleAria> {
+class _TitleAreaState extends State<TitleArea> {
   @override
   Widget build(BuildContext context) {
     return Container(

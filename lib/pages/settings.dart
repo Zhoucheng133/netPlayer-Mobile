@@ -128,7 +128,7 @@ class _SettingsState extends State<Settings> {
       ),
       body: Column(
         children: [
-          const TitleAria(title: '设置', subtitle: ' '),
+          const TitleArea(title: '设置', subtitle: ' '),
           Expanded(
             child: ListView(
               children: [

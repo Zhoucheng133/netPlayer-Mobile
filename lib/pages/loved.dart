@@ -116,7 +116,7 @@ class _LovedState extends State<Loved> {
                     controller: controller,
                     slivers: [
                       SliverToBoxAdapter(
-                        child: TitleAria(title: '喜欢的歌曲', subtitle: '${ls.length}首歌曲', ),
+                        child: TitleArea(title: '喜欢的歌曲', subtitle: '${ls.length}首歌曲', ),
                       ),
                       SliverList.builder(
                         itemCount: ls.length,

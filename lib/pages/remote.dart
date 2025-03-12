@@ -77,7 +77,7 @@ class _RemoteState extends State<Remote> {
         ),
         body: Column(
           children: [
-            const TitleAria(title: '远程控制', subtitle: '',),
+            const TitleArea(title: '远程控制', subtitle: '',),
             Expanded(
               child: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 300),

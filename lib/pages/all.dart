@@ -118,7 +118,7 @@ class _AllState extends State<All> {
                     controller: controller,
                     slivers: [
                       SliverToBoxAdapter(
-                        child: TitleAria(title: '所有歌曲', subtitle: '${ls.length >= 500 ? "> ${ls.length}" : ls.length}首歌曲', showWarning: ls.length >= 500,),
+                        child: TitleArea(title: '所有歌曲', subtitle: '${ls.length >= 500 ? "> ${ls.length}" : ls.length}首歌曲', showWarning: ls.length >= 500,),
                       ),
                       SliverList.builder(
                         itemCount: ls.length,

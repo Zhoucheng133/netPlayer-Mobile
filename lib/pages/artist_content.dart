@@ -99,7 +99,7 @@ class _ArtistContentState extends State<ArtistContent> {
                   controller: controller,
                   slivers: [
                     SliverToBoxAdapter(
-                      child: TitleAria(title: '艺人: ${widget.artist}', subtitle: '${ls.length}张专辑',),
+                      child: TitleArea(title: '艺人: ${widget.artist}', subtitle: '${ls.length}张专辑',),
                     ),
                     SliverList.builder(
                       itemCount: ls.length,

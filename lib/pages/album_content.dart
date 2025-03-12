@@ -99,7 +99,7 @@ class _AlbumContentState extends State<AlbumContent> {
                   controller: controller,
                   slivers: [
                     SliverToBoxAdapter(
-                      child: TitleAria(title: "专辑: ${widget.album}", subtitle: '${ls.length}首歌曲',),
+                      child: TitleArea(title: "专辑: ${widget.album}", subtitle: '${ls.length}首歌曲',),
                     ),
                     SliverList.builder(
                       itemCount: ls.length,

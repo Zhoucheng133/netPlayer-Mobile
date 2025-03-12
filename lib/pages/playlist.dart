@@ -120,7 +120,7 @@ class _PlaylistState extends State<Playlist> {
                     controller: controller,
                     slivers: [
                       SliverToBoxAdapter(
-                        child: TitleAria(title: widget.name, subtitle: '${ls.length}首歌曲',),
+                        child: TitleArea(title: widget.name, subtitle: '${ls.length}首歌曲',),
                       ),
                       SliverList.builder(
                         itemCount: ls.length,
