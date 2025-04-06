@@ -157,9 +157,7 @@ class _SettingsState extends State<Settings> {
                 ListTile(
                   title: Text(
                     '保存上次播放位置',
-                    style: GoogleFonts.notoSansSc(
-                      // fontSize: 18
-                    ),
+                    style: GoogleFonts.notoSansSc(),
                   ),
                   trailing: Obx(()=>
                     Switch(
@@ -170,6 +168,22 @@ class _SettingsState extends State<Settings> {
                         final SharedPreferences prefs = await SharedPreferences.getInstance();
                         prefs.setBool('savePlay', val);
                       }
+                    )
+                  ),
+                ),
+                ListTile(
+                  onTap: ()=>s.showDarkModeDialog(context),
+                  title: Text(
+                    '深色模式',
+                    style: GoogleFonts.notoSans(),
+                  ),
+                  trailing: Obx(()=>
+                    Text(
+                      s.autoDark.value ? '自动' : s.darkMode.value ? '开启' : '关闭',
+                      style: GoogleFonts.notoSansSc(
+                        fontSize: 12,
+                        color: Colors.grey[400]
+                      ),
                     )
                   ),
                 ),
