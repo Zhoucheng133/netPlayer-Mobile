@@ -27,6 +27,11 @@ class SettingsVar extends GetxController{
   var quality=CustomQuality().obs;
   var progressStyle=ProgressStyle.ring.obs;
 
+  final bgColor1=const Color.fromARGB(255, 50, 50, 50);
+  final bgColor2=const Color.fromARGB(255, 60, 60, 60);
+  final bgColor3=const Color.fromARGB(255, 80, 80, 80);
+
+
   RxBool darkMode=false.obs;
   RxBool autoDark=true.obs;
 

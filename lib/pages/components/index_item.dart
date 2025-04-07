@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/pages/playlist.dart';
+import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
 
 class MenuItem extends StatefulWidget {
@@ -19,6 +20,9 @@ class MenuItem extends StatefulWidget {
 }
 
 class _MenuItemState extends State<MenuItem> {
+
+  SettingsVar s=Get.find();
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -28,11 +32,13 @@ class _MenuItemState extends State<MenuItem> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
-            widget.name,
-            style: GoogleFonts.notoSansSc(
-              fontSize: 16,
-              color: widget.isSet ? Colors.black : Colors.grey[500],
+          Obx(()=>
+            Text(
+              widget.name,
+              style: GoogleFonts.notoSansSc(
+                fontSize: 16,
+                color: s.darkMode.value ? widget.isSet ? Colors.white : Colors.grey[500] : widget.isSet ? Colors.black : Colors.grey[500]
+              ),
             ),
           ),
           const SizedBox(height: 5,),
@@ -69,6 +75,9 @@ class IndexPinItem extends StatefulWidget {
 }
 
 class _IndexPinItemState extends State<IndexPinItem> {
+
+  SettingsVar s=Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -98,17 +107,19 @@ class _IndexPinItemState extends State<IndexPinItem> {
                 bottom: 0,
                 left: 0,
                 right: 0,
-                child: Container(
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Colors.white.withAlpha(80)
-                  ),
-                  child: Center(
-                    child: Text(
-                      widget.label,
-                      style: GoogleFonts.notoSansSc(
-                        color: widget.contentColor,
-                        fontSize: 15
+                child: Obx(()=>
+                  Container(
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: s.darkMode.value ? Colors.black.withAlpha(80) : Colors.white.withAlpha(80)
+                    ),
+                    child: Center(
+                      child: Text(
+                        widget.label,
+                        style: GoogleFonts.notoSansSc(
+                          color: widget.contentColor,
+                          fontSize: 15
+                        ),
                       ),
                     ),
                   ),

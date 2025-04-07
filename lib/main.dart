@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/main_view.dart';
 import 'package:netplayer_mobile/service/handler.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
+import 'package:netplayer_mobile/variables/settings_var.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,8 +26,16 @@ Future<void> main() async {
   runApp(const MainApp());
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
   const MainApp({super.key});
+
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
+
+  final SettingsVar s=Get.put(SettingsVar());
 
   @override
   Widget build(BuildContext context) {
@@ -37,29 +46,43 @@ class MainApp extends StatelessWidget {
       statusBarColor: Colors.transparent,
       systemNavigationBarColor: Colors.transparent,
     ));
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate
-      ],
-      supportedLocales: const [
-        Locale('en', 'US'),
-        Locale('zh', 'CN'),
-      ],
-      theme: ThemeData(
-        textTheme: GoogleFonts.notoSansScTextTheme(),
-        highlightColor: Colors.transparent,
-        // splashColor: Colors.transparent,
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        dialogBackgroundColor: Colors.grey[50],
-        bottomSheetTheme: BottomSheetThemeData(
-          backgroundColor: Colors.grey[50],
-        )
-      ),
-      home: const MainView()
+    return Obx(()=>
+      GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate
+        ],
+        supportedLocales: const [
+          Locale('en', 'US'),
+          Locale('zh', 'CN'),
+        ],
+        theme: s.darkMode.value ? ThemeData.dark().copyWith(
+          textTheme: GoogleFonts.notoSansScTextTheme().apply(
+            bodyColor: Colors.white,
+            displayColor: Colors.white, 
+          ),
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.blue,
+            brightness: Brightness.dark,
+          ),
+          dialogBackgroundColor: Colors.grey[50],
+          bottomSheetTheme: BottomSheetThemeData(
+            backgroundColor: Colors.grey[50],
+          )
+        ) : ThemeData(
+          textTheme: GoogleFonts.notoSansScTextTheme(),
+          highlightColor: Colors.transparent,
+          useMaterial3: true,
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+          dialogBackgroundColor: Colors.grey[50],
+          bottomSheetTheme: BottomSheetThemeData(
+            backgroundColor: Colors.grey[50],
+          )
+        ),
+        home: const MainView()
+      )
     );
   }
 }
