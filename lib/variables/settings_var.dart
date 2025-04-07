@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomQuality{
   bool cellularOnly=false;
@@ -81,6 +82,25 @@ class SettingsVar extends GetxController{
             ],
           )
         ),
+        actions: [
+          TextButton(
+            onPressed: (){
+              darkMode.value=tmpDarkMode;
+              autoDark.value=tmpAutoDark;
+              Navigator.pop(context);
+            }, 
+            child: const Text('取消')
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              Navigator.pop(context);
+              final prefs=await SharedPreferences.getInstance();
+              prefs.setBool('autoDark', autoDark.value);
+              prefs.setBool('darkMode', darkMode.value);
+            }, 
+            child: const Text('完成')
+          )
+        ],
       )
     );
   }
