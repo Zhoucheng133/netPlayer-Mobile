@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -36,85 +37,89 @@ void showQualityDialog(BuildContext context){
           mainAxisSize: MainAxisSize.min,
           children: [
             DropdownButtonHideUnderline(
-              child: DropdownButton2(
-                isExpanded: true,
-                value: local.cellularOnly ? '仅移动网络' : '移动网络和无线网络',
-                items: types.map((String item) => DropdownMenuItem<String>(
-                  value: item,
-                  child: Text(
-                    item,
-                    style: const TextStyle(
-                      fontSize: 14,
+              child: Obx(()=>
+                DropdownButton2(
+                  isExpanded: true,
+                  value: local.cellularOnly ? '仅移动网络' : '移动网络和无线网络',
+                  items: types.map((String item) => DropdownMenuItem<String>(
+                    value: item,
+                    child: Text(
+                      item,
+                      style: GoogleFonts.notoSans(
+                        fontSize: 14,
+                      ),
                     ),
-                  ),
-                ))
-                .toList(),
-                onChanged: (val){
-                  if(val=='移动网络和无线网络'){
-                    setState(() {
-                      local.cellularOnly=false;
-                    });
-                  }else{
-                    if(local.quality==0){
+                  ))
+                  .toList(),
+                  onChanged: (val){
+                    if(val=='移动网络和无线网络'){
                       setState(() {
-                        local.quality=320;
+                        local.cellularOnly=false;
+                      });
+                    }else{
+                      if(local.quality==0){
+                        setState(() {
+                          local.quality=320;
+                        });
+                      }
+                      setState(() {
+                        local.cellularOnly=true;
                       });
                     }
-                    setState(() {
-                      local.cellularOnly=true;
-                    });
-                  }
-                },
-                dropdownStyleData: const DropdownStyleData(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                  )
+                  },
+                  dropdownStyleData: DropdownStyleData(
+                    decoration: BoxDecoration(
+                      color: s.darkMode.value ? s.bgColor1 : Colors.white,
+                    )
+                  ),
                 ),
               ),
             ),
             const SizedBox(height: 15,),
             DropdownButtonHideUnderline(
-              child: DropdownButton2(
-                isExpanded: true,
-                value: local.quality==0 ? '原始' : local.quality==320 ? '320Kbps' : '128Kbps',
-                items: local.cellularOnly ? qualities.map((String item) => DropdownMenuItem<String>(
-                  value: item,
-                  child: Text(
-                    item,
-                    style: const TextStyle(
-                      fontSize: 14,
+              child: Obx(()=>
+                DropdownButton2(
+                  isExpanded: true,
+                  value: local.quality==0 ? '原始' : local.quality==320 ? '320Kbps' : '128Kbps',
+                  items: local.cellularOnly ? qualities.map((String item) => DropdownMenuItem<String>(
+                    value: item,
+                    child: Text(
+                      item,
+                      style: const TextStyle(
+                        fontSize: 14,
+                      ),
                     ),
-                  ),
-                ))
-                .toList() : qualitiesAll.map((String item) => DropdownMenuItem<String>(
-                  value: item,
-                  child: Text(
-                    item,
-                    style: const TextStyle(
-                      fontSize: 14,
+                  ))
+                  .toList() : qualitiesAll.map((String item) => DropdownMenuItem<String>(
+                    value: item,
+                    child: Text(
+                      item,
+                      style: const TextStyle(
+                        fontSize: 14,
+                      ),
                     ),
+                  ))
+                  .toList(),
+                  onChanged: (val){
+                    if(val=='原始'){
+                      setState(() {
+                        local.quality=0;
+                      });
+                    }else if(val=='128Kbps'){
+                      setState(() {
+                        local.quality=128;
+                      });
+                    }else{
+                      setState(() {
+                        local.quality=320;
+                      });
+                    }
+                  },
+                  dropdownStyleData: DropdownStyleData(
+                    decoration: BoxDecoration(
+                      color: s.darkMode.value ? s.bgColor1 : Colors.white,
+                    )
                   ),
-                ))
-                .toList(),
-                onChanged: (val){
-                  if(val=='原始'){
-                    setState(() {
-                      local.quality=0;
-                    });
-                  }else if(val=='128Kbps'){
-                    setState(() {
-                      local.quality=128;
-                    });
-                  }else{
-                    setState(() {
-                      local.quality=320;
-                    });
-                  }
-                },
-                dropdownStyleData: const DropdownStyleData(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                  )
                 ),
               ),
             )

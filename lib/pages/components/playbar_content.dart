@@ -18,7 +18,6 @@ class _PlaybarContentState extends State<PlaybarContent> {
 
   PlayerVar p=Get.put(PlayerVar());
   final UserVar u = Get.put(UserVar());
-  // final s=Get.put(SettingsVar());
   SettingsVar s=Get.find();
 
   void toPlaying(){

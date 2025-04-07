@@ -67,10 +67,6 @@ class _MainAppState extends State<MainApp> {
             seedColor: Colors.blue,
             brightness: Brightness.dark,
           ),
-          dialogBackgroundColor: Colors.grey[50],
-          bottomSheetTheme: BottomSheetThemeData(
-            backgroundColor: Colors.grey[50],
-          )
         ) : ThemeData(
           textTheme: GoogleFonts.notoSansScTextTheme(),
           highlightColor: Colors.transparent,

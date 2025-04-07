@@ -8,6 +8,7 @@ import 'package:netplayer_mobile/pages/components/remote_content.dart';
 import 'package:netplayer_mobile/pages/components/remote_register.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
 import 'package:netplayer_mobile/variables/remote_var.dart';
+import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Remote extends StatefulWidget {
@@ -63,14 +64,16 @@ class _RemoteState extends State<Remote> {
     } catch (_) {}
   }
 
+  SettingsVar s=Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Obx(()=>
       Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: s.darkMode.value ? s.bgColor2 : Colors.white,
         resizeToAvoidBottomInset: !r.isRegister.value,
         appBar: AppBar(
-          backgroundColor: Colors.grey[100],
+          backgroundColor: s.darkMode.value ? s.bgColor1 : Colors.grey[100],
           scrolledUnderElevation:0.0,
           toolbarHeight: 70,
           centerTitle: false,

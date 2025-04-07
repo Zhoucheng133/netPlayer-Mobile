@@ -6,7 +6,7 @@ import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void showProgressDialog(BuildContext context){
-  final s=Get.put(SettingsVar());
+  SettingsVar s=Get.find();
   final List<String> types=[
     '关闭',
     '环状',
@@ -14,6 +14,7 @@ void showProgressDialog(BuildContext context){
   ];
 
   var style=s.progressStyle.value.index;
+  
 
   showDialog(
     context: context, 
@@ -45,9 +46,9 @@ void showProgressDialog(BuildContext context){
                 }
               }
             },
-            dropdownStyleData: const DropdownStyleData(
+            dropdownStyleData: DropdownStyleData(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: s.darkMode.value ? s.bgColor1 : Colors.white,
               )
             ),
           ),

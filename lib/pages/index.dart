@@ -93,7 +93,7 @@ class _IndexState extends State<Index> {
   Widget build(BuildContext context) {
     return Obx(()=>
       Scaffold(
-        backgroundColor: s.darkMode.value ? s.bgColor3 : Colors.white,
+        backgroundColor: s.darkMode.value ? s.bgColor2 : Colors.white,
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: s.darkMode.value ? s.bgColor1 : Colors.grey[100],

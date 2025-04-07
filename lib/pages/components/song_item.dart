@@ -8,6 +8,7 @@ import 'package:netplayer_mobile/pages/album_content.dart';
 import 'package:netplayer_mobile/pages/artist_content.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
+import 'package:netplayer_mobile/variables/settings_var.dart';
 
 class SongItem extends StatefulWidget {
 
@@ -28,6 +29,7 @@ class _SongItemState extends State<SongItem> {
 
   PlayerVar p=Get.put(PlayerVar());
   LsVar l=Get.put(LsVar());
+  SettingsVar s=Get.find();
 
   bool playing(){
     if(p.nowPlay['fromId']==widget.listId && p.nowPlay['playFrom']==widget.from && p.nowPlay['index']==widget.index){
@@ -83,7 +85,7 @@ class _SongItemState extends State<SongItem> {
                         style: GoogleFonts.notoSansSc(
                           fontSize: 16,
                           fontWeight: playing() ? FontWeight.bold : FontWeight.normal,
-                          color: playing() ? Colors.blue : Colors.black
+                          color: playing() ? Colors.blue : s.darkMode.value ? Colors.white : Colors.black
                         ),
                       ),
                       Row(
@@ -178,10 +180,12 @@ class _SongItemState extends State<SongItem> {
                     }
                   }
                 },
-                icon: Icon(
-                  Icons.more_vert_rounded,
-                  color: playing() ? Colors.blue : Colors.black,
-                  size: 20,
+                icon: Obx(()=>
+                  Icon(
+                    Icons.more_vert_rounded,
+                    color: s.darkMode.value ? playing() ? Colors.blue : Colors.white : playing() ? Colors.blue : Colors.black,
+                    size: 20,
+                  ),
                 ),
               )
             ],

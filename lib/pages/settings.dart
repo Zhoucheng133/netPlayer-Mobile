@@ -119,180 +119,182 @@ class _SettingsState extends State<Settings> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.grey[100],
-        scrolledUnderElevation:0.0,
-        toolbarHeight: 70,
-      ),
-      body: Column(
-        children: [
-          const TitleArea(title: '设置', subtitle: ' '),
-          Expanded(
-            child: ListView(
-              children: [
-                ListTile(
-                  title: Text(
-                    '自动登录',
-                    style: GoogleFonts.notoSansSc(
-                      // fontSize: 18
-                    ),
-                  ),
-                  trailing: Obx(()=>
-                    Switch(
-                      activeTrackColor: Colors.blue,
-                      value: s.autoLogin.value, 
-                      onChanged: (val) async {
-                        // setState(() {
-                        //   enableAutoLogin=val;
-                        // });
-                        s.autoLogin.value=val;
-                        final SharedPreferences prefs = await SharedPreferences.getInstance();
-                        prefs.setBool('autoLogin', val);
-                      }
-                    )
-                  ),
-                ),
-                ListTile(
-                  title: Text(
-                    '保存上次播放位置',
-                    style: GoogleFonts.notoSansSc(),
-                  ),
-                  trailing: Obx(()=>
-                    Switch(
-                      activeTrackColor: Colors.blue,
-                      value: s.savePlay.value, 
-                      onChanged: (val) async {
-                        s.savePlay.value=val;
-                        final SharedPreferences prefs = await SharedPreferences.getInstance();
-                        prefs.setBool('savePlay', val);
-                      }
-                    )
-                  ),
-                ),
-                ListTile(
-                  onTap: ()=>s.showDarkModeDialog(context),
-                  title: Text(
-                    '深色模式',
-                    style: GoogleFonts.notoSans(),
-                  ),
-                  trailing: Obx(()=>
-                    Text(
-                      s.autoDark.value ? '自动' : s.darkMode.value ? '开启' : '关闭',
+    return Obx(()=>
+      Scaffold(
+        backgroundColor: s.darkMode.value ? s.bgColor2 : Colors.white,
+        appBar: AppBar(
+          backgroundColor: s.darkMode.value ? s.bgColor1 : Colors.grey[100],
+          scrolledUnderElevation:0.0,
+          toolbarHeight: 70,
+        ),
+        body: Column(
+          children: [
+            const TitleArea(title: '设置', subtitle: ' '),
+            Expanded(
+              child: ListView(
+                children: [
+                  ListTile(
+                    title: Text(
+                      '自动登录',
                       style: GoogleFonts.notoSansSc(
-                        fontSize: 12,
-                        color: Colors.grey[400]
-                      ),
-                    )
-                  ),
-                ),
-                ListTile(
-                  onTap: ()=>showQualityWarning(context),
-                  title: Text(
-                    '播放音质',
-                    style: GoogleFonts.notoSansSc(),
-                  ),
-                  trailing: Obx(()=>
-                    Text(
-                      qualityText(),
-                      style: GoogleFonts.notoSansSc(
-                        fontSize: 12,
-                        color: Colors.grey[400]
+                        // fontSize: 18
                       ),
                     ),
+                    trailing: Obx(()=>
+                      Switch(
+                        activeTrackColor: Colors.blue,
+                        value: s.autoLogin.value, 
+                        onChanged: (val) async {
+                          // setState(() {
+                          //   enableAutoLogin=val;
+                          // });
+                          s.autoLogin.value=val;
+                          final SharedPreferences prefs = await SharedPreferences.getInstance();
+                          prefs.setBool('autoLogin', val);
+                        }
+                      )
+                    ),
                   ),
-                ),
-                ListTile(
-                  onTap: ()=>showProgressDialog(context),
-                  title: Text(
-                    '播放栏显示进度',
-                    style: GoogleFonts.notoSansSc(),
+                  ListTile(
+                    title: Text(
+                      '保存上次播放位置',
+                      style: GoogleFonts.notoSansSc(),
+                    ),
+                    trailing: Obx(()=>
+                      Switch(
+                        activeTrackColor: Colors.blue,
+                        value: s.savePlay.value, 
+                        onChanged: (val) async {
+                          s.savePlay.value=val;
+                          final SharedPreferences prefs = await SharedPreferences.getInstance();
+                          prefs.setBool('savePlay', val);
+                        }
+                      )
+                    ),
                   ),
-                  trailing: Obx(()=>
-                    Text(
-                      progresStyle(),
-                      style: GoogleFonts.notoSansSc(
-                        fontSize: 12,
-                        color: Colors.grey[400]
+                  ListTile(
+                    onTap: ()=>s.showDarkModeDialog(context),
+                    title: Text(
+                      '深色模式',
+                      style: GoogleFonts.notoSans(),
+                    ),
+                    trailing: Obx(()=>
+                      Text(
+                        s.autoDark.value ? '自动' : s.darkMode.value ? '开启' : '关闭',
+                        style: GoogleFonts.notoSansSc(
+                          fontSize: 12,
+                          color: Colors.grey[400]
+                        ),
+                      )
+                    ),
+                  ),
+                  ListTile(
+                    onTap: ()=>showQualityWarning(context),
+                    title: Text(
+                      '播放音质',
+                      style: GoogleFonts.notoSansSc(),
+                    ),
+                    trailing: Obx(()=>
+                      Text(
+                        qualityText(),
+                        style: GoogleFonts.notoSansSc(
+                          fontSize: 12,
+                          color: Colors.grey[400]
+                        ),
                       ),
                     ),
                   ),
-                ),
-                ListTile(
-                  onTap: () async {
-                    final rlt=await showOkCancelAlertDialog(
-                      context: context,
-                      okLabel: "继续",
-                      title: "清理缓存",
-                      message: "这不会影响你的使用",
-                      cancelLabel: "取消"
-                    );
-                    if(rlt==OkCancelResult.ok){
-                      clearController();
-                    }
-                  },
-                  title: Text(
-                    '清理缓存',
-                    style: GoogleFonts.notoSansSc(
-                      // fontSize: 18
+                  ListTile(
+                    onTap: ()=>showProgressDialog(context),
+                    title: Text(
+                      '播放栏显示进度',
+                      style: GoogleFonts.notoSansSc(),
+                    ),
+                    trailing: Obx(()=>
+                      Text(
+                        progresStyle(),
+                        style: GoogleFonts.notoSansSc(
+                          fontSize: 12,
+                          color: Colors.grey[400]
+                        ),
+                      ),
                     ),
                   ),
-                  trailing: Text(
-                    sizeConvert(cacheSize),
-                    style: GoogleFonts.notoSansSc(
-                      fontSize: 12,
-                      color: Colors.grey[400]
-                    ),
-                  ),
-                ),
-                ListTile(
-                  onTap: () async {
-                    setState(() {
-                      loading=true;
-                    });
-                    await Operations().refreshLibrary(context);
-                    setState(() {
-                      loading=false;
-                    });
-                  },
-                  title: Text('重新扫描音乐库', style: GoogleFonts.notoSansSc(),),
-                  trailing: loading ? Transform.scale(
-                    scale: 0.6,
-                    child: const CircularProgressIndicator()
-                  ) : null,
-                ),
-                ListTile(
-                  title: Text('开发者工具', style: GoogleFonts.notoSansSc(),),
-                  onTap: () async {
-                    if(p.nowPlay['id']==''){
-                      return;
-                    }
-                    final data=await httpRequest("${u.url.value}/rest/getSong?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay['id']}");
-                    // print(data);
-                    if(context.mounted){
-                      showDialog(
-                        context: context, 
-                        builder: (context)=>AlertDialog(
-                          title: const Text('开发者工具'),
-                          content: DevTool(data: data,),
-                          actions: [
-                            TextButton(
-                              onPressed: (){
-                                Navigator.pop(context);
-                              }, 
-                              child: const Text('完成')
-                            )
-                          ],
-                        )
+                  ListTile(
+                    onTap: () async {
+                      final rlt=await showOkCancelAlertDialog(
+                        context: context,
+                        okLabel: "继续",
+                        title: "清理缓存",
+                        message: "这不会影响你的使用",
+                        cancelLabel: "取消"
                       );
-                    }
-                  },
-                )
-              ],
-            )
-          ),
-        ],
+                      if(rlt==OkCancelResult.ok){
+                        clearController();
+                      }
+                    },
+                    title: Text(
+                      '清理缓存',
+                      style: GoogleFonts.notoSansSc(
+                        // fontSize: 18
+                      ),
+                    ),
+                    trailing: Text(
+                      sizeConvert(cacheSize),
+                      style: GoogleFonts.notoSansSc(
+                        fontSize: 12,
+                        color: Colors.grey[400]
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    onTap: () async {
+                      setState(() {
+                        loading=true;
+                      });
+                      await Operations().refreshLibrary(context);
+                      setState(() {
+                        loading=false;
+                      });
+                    },
+                    title: Text('重新扫描音乐库', style: GoogleFonts.notoSansSc(),),
+                    trailing: loading ? Transform.scale(
+                      scale: 0.6,
+                      child: const CircularProgressIndicator()
+                    ) : null,
+                  ),
+                  ListTile(
+                    title: Text('开发者工具', style: GoogleFonts.notoSansSc(),),
+                    onTap: () async {
+                      if(p.nowPlay['id']==''){
+                        return;
+                      }
+                      final data=await httpRequest("${u.url.value}/rest/getSong?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay['id']}");
+                      // print(data);
+                      if(context.mounted){
+                        showDialog(
+                          context: context, 
+                          builder: (context)=>AlertDialog(
+                            title: const Text('开发者工具'),
+                            content: DevTool(data: data,),
+                            actions: [
+                              TextButton(
+                                onPressed: (){
+                                  Navigator.pop(context);
+                                }, 
+                                child: const Text('完成')
+                              )
+                            ],
+                          )
+                        );
+                      }
+                    },
+                  )
+                ],
+              )
+            ),
+          ],
+        ),
       ),
     );
   }

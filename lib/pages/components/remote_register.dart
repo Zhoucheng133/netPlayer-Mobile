@@ -7,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/variables/remote_var.dart';
+import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RemoteRegister extends StatefulWidget {
@@ -70,60 +71,64 @@ class _RemoteRegisterState extends State<RemoteRegister> {
     urlFocus.dispose();
   }
 
+  SettingsVar s=Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Container(
-          width: 280,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.1),
-                spreadRadius: 1,
-                blurRadius: 5,
-              ),
-            ]
-          ),
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "WebSocket 地址",
-                  style: GoogleFonts.notoSansSc(
-                    color: Colors.grey,
+        Obx(()=>
+          Container(
+            width: 280,
+            decoration: BoxDecoration(
+              color: s.darkMode.value ? s.bgColor3 : Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.1),
+                  spreadRadius: 1,
+                  blurRadius: 5,
+                ),
+              ]
+            ),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "WebSocket 地址",
+                    style: GoogleFonts.notoSansSc(
+                      color: Colors.grey,
+                    ),
                   ),
-                ),
-                Row(
-                  children: [
-                    const Icon(Icons.public),
-                    const SizedBox(width: 5,),
-                    Expanded(
-                      child: TextField(
-                        controller: url,
-                        focusNode: urlFocus,
-                        decoration: InputDecoration(
-                          hintText: 'ws://',
-                          border: InputBorder.none,
-                          hintStyle: TextStyle(
-                            color: Colors.grey[400],
-                          )
-                        ),
-                        autocorrect: false,
-                        enableSuggestions: false,
-                        onEditingComplete: (){
-                          connect(context);
-                        },
+                  Row(
+                    children: [
+                      const Icon(Icons.public),
+                      const SizedBox(width: 5,),
+                      Expanded(
+                        child: TextField(
+                          controller: url,
+                          focusNode: urlFocus,
+                          decoration: InputDecoration(
+                            hintText: 'ws://',
+                            border: InputBorder.none,
+                            hintStyle: TextStyle(
+                              color: Colors.grey[400],
+                            )
+                          ),
+                          autocorrect: false,
+                          enableSuggestions: false,
+                          onEditingComplete: (){
+                            connect(context);
+                          },
+                        )
                       )
-                    )
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

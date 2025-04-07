@@ -7,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/variables/remote_var.dart';
+import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -100,6 +101,8 @@ class _RemoteContentState extends State<RemoteContent> {
       r.socket!.add(command);
     } catch (_) {}
   }
+
+  SettingsVar s=Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -213,7 +216,7 @@ class _RemoteContentState extends State<RemoteContent> {
           Container(
             height: 140,
             decoration: BoxDecoration(
-              color: Colors.grey[100],
+              color: s.darkMode.value ? s.bgColor1 : Colors.grey[100],
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(20),
                 topRight: Radius.circular(20)
@@ -238,9 +241,9 @@ class _RemoteContentState extends State<RemoteContent> {
                     duration: const Duration(milliseconds: 200),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
-                      color: Colors.white,
+                      color: s.darkMode.value ? s.bgColor3 : Colors.white,
                       border: Border.all(
-                        color: Colors.black,
+                        color: s.darkMode.value ? Colors.white : Colors.black,
                         width: 3
                       )
                     ),
@@ -261,7 +264,7 @@ class _RemoteContentState extends State<RemoteContent> {
             ),
           ),
           Container(
-            color: Colors.grey[100],
+            color: s.darkMode.value ? s.bgColor1 : Colors.grey[100],
             height: MediaQuery.of(context).padding.bottom,
             width: double.infinity,
           )

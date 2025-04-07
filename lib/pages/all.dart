@@ -8,6 +8,7 @@ import 'package:netplayer_mobile/pages/components/song_item.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
 import 'package:netplayer_mobile/variables/page_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
+import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
 class All extends StatefulWidget {
@@ -58,87 +59,90 @@ class _AllState extends State<All> {
 
   PageVar p=Get.put(PageVar());
   PlayerVar pl=Get.put(PlayerVar());
+  SettingsVar s=Get.find();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.grey[100],
-        scrolledUnderElevation:0.0,
-        toolbarHeight: 70,
-        title: Align(
-          alignment: Alignment.centerLeft,
-          child: AnimatedSwitcher(
-            duration: const Duration(milliseconds: 200),
-            child: showAppbarTitle ? const Text('所有歌曲', key: Key("1"),) : null,
-          ),
-        ),
-        centerTitle: false,
-        actions: [
-          Obx(()=>
-            IconButton(
-              onPressed: pl.nowPlay['playFrom']=='all' ? (){
-                controller.scrollToIndex(pl.nowPlay['index'], preferPosition: AutoScrollPosition.middle);
-              } : null,
-              icon: const Icon(
-                Icons.my_location_rounded,
-                size: 20,
-              )
-            ),
-          ),
-          const SizedBox(width: 10,)
-        ],
-      ),
-      body: Column(
-        children: [
-          Expanded(
+    return Obx(()=>
+      Scaffold(
+        backgroundColor: s.darkMode.value ? s.bgColor2 : Colors.white,
+        appBar: AppBar(
+          backgroundColor: s.darkMode.value ? s.bgColor1 : Colors.grey[100],
+          scrolledUnderElevation:0.0,
+          toolbarHeight: 70,
+          title: Align(
+            alignment: Alignment.centerLeft,
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 200),
-              child: loading ? Center(
-                key: const Key("0"),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    LoadingAnimationWidget.beat(
-                      color: Colors.blue, 
-                      size: 30
-                    ),
-                    const SizedBox(height: 10,),
-                    const Text('加载中')
-                  ],
-                ),
-              ) : 
-              RefreshIndicator(
-                onRefresh: () => getList(context),
-                child: CupertinoScrollbar(
-                  controller: controller,
-                  child: CustomScrollView(
-                    key: const Key("1"),
-                    controller: controller,
-                    slivers: [
-                      SliverToBoxAdapter(
-                        child: TitleArea(title: '所有歌曲', subtitle: '${ls.length >= 500 ? "> ${ls.length}" : ls.length}首歌曲', showWarning: ls.length >= 500,),
-                      ),
-                      SliverList.builder(
-                        itemCount: ls.length,
-                        itemBuilder: (context, index){
-                          return AutoScrollTag(
-                            controller: controller,
-                            index: index,
-                            key: ValueKey(index),
-                            child: SongItem(item: ls[index], index: index, ls: ls, from: 'all', listId: '', ),
-                          );
-                        },
-                      )
-                    ],
-                  ),
-                ),
-              )
+              child: showAppbarTitle ? const Text('所有歌曲', key: Key("1"),) : null,
             ),
           ),
-          const PlayingBar()
-        ],
+          centerTitle: false,
+          actions: [
+            Obx(()=>
+              IconButton(
+                onPressed: pl.nowPlay['playFrom']=='all' ? (){
+                  controller.scrollToIndex(pl.nowPlay['index'], preferPosition: AutoScrollPosition.middle);
+                } : null,
+                icon: const Icon(
+                  Icons.my_location_rounded,
+                  size: 20,
+                )
+              ),
+            ),
+            const SizedBox(width: 10,)
+          ],
+        ),
+        body: Column(
+          children: [
+            Expanded(
+              child: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 200),
+                child: loading ? Center(
+                  key: const Key("0"),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      LoadingAnimationWidget.beat(
+                        color: Colors.blue, 
+                        size: 30
+                      ),
+                      const SizedBox(height: 10,),
+                      const Text('加载中')
+                    ],
+                  ),
+                ) : 
+                RefreshIndicator(
+                  onRefresh: () => getList(context),
+                  child: CupertinoScrollbar(
+                    controller: controller,
+                    child: CustomScrollView(
+                      key: const Key("1"),
+                      controller: controller,
+                      slivers: [
+                        SliverToBoxAdapter(
+                          child: TitleArea(title: '所有歌曲', subtitle: '${ls.length >= 500 ? "> ${ls.length}" : ls.length}首歌曲', showWarning: ls.length >= 500,),
+                        ),
+                        SliverList.builder(
+                          itemCount: ls.length,
+                          itemBuilder: (context, index){
+                            return AutoScrollTag(
+                              controller: controller,
+                              index: index,
+                              key: ValueKey(index),
+                              child: SongItem(item: ls[index], index: index, ls: ls, from: 'all', listId: '', ),
+                            );
+                          },
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              ),
+            ),
+            const PlayingBar()
+          ],
+        ),
       ),
     );
   }
