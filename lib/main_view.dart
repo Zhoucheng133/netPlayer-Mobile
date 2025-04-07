@@ -218,26 +218,28 @@ class _MainViewState extends State<MainView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[50],
-      resizeToAvoidBottomInset: u.url.value.isEmpty,
-      body: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 200),
-        child: loading ? Center(
-          key: const ValueKey<int>(0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              LoadingAnimationWidget.beat(
-                color: Colors.blue, 
-                size: 30
-              ),
-              const SizedBox(height: 10,),
-              const Text('加载中')
-            ],
-          ),
-        ) :
-        isLogin ? const Index(key: ValueKey<int>(1),) : const Login(key: ValueKey<int>(2),),
+    return Obx(()=>
+      Scaffold(
+        backgroundColor: s.darkMode.value ? s.bgColor2 : Colors.grey[50],
+        resizeToAvoidBottomInset: u.url.value.isEmpty,
+        body: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 200),
+          child: loading ? Center(
+            key: const ValueKey<int>(0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                LoadingAnimationWidget.beat(
+                  color: Colors.blue, 
+                  size: 30
+                ),
+                const SizedBox(height: 10,),
+                const Text('加载中')
+              ],
+            ),
+          ) :
+          isLogin ? const Index(key: ValueKey<int>(1),) : const Login(key: ValueKey<int>(2),),
+        ),
       ),
     );
   }
