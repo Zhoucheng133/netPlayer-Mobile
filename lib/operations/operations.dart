@@ -17,7 +17,7 @@ class Operations{
   DataGet dataGet=DataGet();
   UserVar u = Get.put(UserVar());
   LsVar l=Get.put(LsVar());
-  PlayerVar p=Get.put(PlayerVar());
+  PlayerVar p=Get.find();
   LyricGet lyricGet=LyricGet();
 
   Future<void> renamePlayList(String id, String newname, BuildContext context) async {

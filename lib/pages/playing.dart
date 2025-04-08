@@ -23,7 +23,7 @@ class Playing extends StatefulWidget {
 }
 
 class _PlayingState extends State<Playing> {
-  PlayerVar p=Get.put(PlayerVar());
+  PlayerVar p=Get.find();
   final UserVar u = Get.put(UserVar());
   LsVar l=Get.put(LsVar());
   final Operations operations=Operations();

@@ -5,7 +5,7 @@ import 'package:netplayer_mobile/variables/player_var.dart';
 
 class PlayCheck{
 
-  PlayerVar p=Get.put(PlayerVar());
+  PlayerVar p=Get.find();
   DataGet d=DataGet();
 
   void check(BuildContext context){

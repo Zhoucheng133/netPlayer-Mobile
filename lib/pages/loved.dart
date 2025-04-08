@@ -56,7 +56,7 @@ class _LovedState extends State<Loved> {
     });
   }
 
-  PlayerVar pl=Get.put(PlayerVar());
+  PlayerVar pl=Get.find();
   SettingsVar s=Get.find();
 
   @override

@@ -6,7 +6,7 @@ import 'package:netplayer_mobile/variables/user_var.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 
 class PlayerControl{
-  final PlayerVar p = Get.put(PlayerVar());
+  final PlayerVar p = Get.find();
   final UserVar u = Get.put(UserVar());
   // 播放歌曲
   Future<void> playSong(BuildContext context, String id, String title, String artist, String playFrom, int duration, String listId, int index, List list, String album) async {

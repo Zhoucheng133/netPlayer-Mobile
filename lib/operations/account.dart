@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Account{
   final UserVar u = Get.put(UserVar());
-  PlayerVar p=Get.put(PlayerVar());
+  PlayerVar p=Get.find();
 
   // 登录
   Future<Map> login(String url, String username, String token, String salt) async {

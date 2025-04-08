@@ -20,7 +20,7 @@ class _DevToolState extends State<DevTool> {
   SettingsVar s=Get.put(SettingsVar());
   final seekCheck=SeekCheck();
   UserVar u = Get.put(UserVar());
-  PlayerVar p=Get.put(PlayerVar());
+  PlayerVar p=Get.find();
 
   @override
   Widget build(BuildContext context) {

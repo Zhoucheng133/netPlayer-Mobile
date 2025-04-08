@@ -12,7 +12,7 @@ class PlayingBar extends StatefulWidget {
 
 class _PlayingBarState extends State<PlayingBar> {
 
-  PlayerVar p=Get.put(PlayerVar());
+  PlayerVar p=Get.find();
 
   @override
   Widget build(BuildContext context) {

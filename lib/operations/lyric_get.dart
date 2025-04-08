@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 class LyricGet{
 
-  final p=Get.put(PlayerVar());
+  final PlayerVar p=Get.find();
 
 
   // 时间戳转换成毫秒

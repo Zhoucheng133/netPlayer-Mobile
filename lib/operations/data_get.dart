@@ -15,7 +15,7 @@ class DataGet{
 
   final UserVar u = Get.put(UserVar());
   final LsVar ls=Get.put(LsVar());
-  final PlayerVar p=Get.put(PlayerVar());
+  final PlayerVar p=Get.find();
 
   void dialog(String title, String msg, BuildContext context){
     showOkAlertDialog(

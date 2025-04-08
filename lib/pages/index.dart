@@ -35,7 +35,7 @@ class _IndexState extends State<Index> {
   DataGet dataGet=DataGet();
   PageVar p=Get.put(PageVar());
   LsVar l=Get.put(LsVar());
-  PlayerVar pl=Get.put(PlayerVar());
+  PlayerVar pl=Get.find();
   SettingsVar s=Get.find();
 
   Future<void> initGet(BuildContext context) async {

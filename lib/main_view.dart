@@ -34,7 +34,7 @@ class _MainViewState extends State<MainView> {
   SettingsVar s=Get.put(SettingsVar());
   bool isLogin=false;
   late Worker accountListener;
-  PlayerVar p=Get.put(PlayerVar());
+  PlayerVar p=Get.find();
   late Worker nowPlayListener;
   Operations operations=Operations();
   String? preId;

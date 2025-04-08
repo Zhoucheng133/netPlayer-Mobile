@@ -58,7 +58,7 @@ class _AllState extends State<All> {
   }
 
   PageVar p=Get.put(PageVar());
-  PlayerVar pl=Get.put(PlayerVar());
+  PlayerVar pl=Get.find();
   SettingsVar s=Get.find();
 
   @override

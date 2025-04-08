@@ -27,7 +27,7 @@ class SongItem extends StatefulWidget {
 
 class _SongItemState extends State<SongItem> {
 
-  PlayerVar p=Get.put(PlayerVar());
+  PlayerVar p=Get.find();
   LsVar l=Get.put(LsVar());
   SettingsVar s=Get.find();
 

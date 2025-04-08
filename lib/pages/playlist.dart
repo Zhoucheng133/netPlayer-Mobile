@@ -60,7 +60,7 @@ class _PlaylistState extends State<Playlist> {
     });
   }
 
-  PlayerVar pl=Get.put(PlayerVar());
+  PlayerVar pl=Get.find();
   SettingsVar s=Get.find();
 
   @override

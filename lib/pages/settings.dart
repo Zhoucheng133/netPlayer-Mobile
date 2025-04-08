@@ -29,7 +29,7 @@ class _SettingsState extends State<Settings> {
   int cacheSize=0;
   bool loading=false;
   UserVar u = Get.put(UserVar());
-  PlayerVar p=Get.put(PlayerVar());
+  PlayerVar p=Get.find();
 
   @override
   void initState(){
