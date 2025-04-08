@@ -31,7 +31,7 @@ class _MainViewState extends State<MainView> {
   late SharedPreferences prefs;
   Account account=Account();
   final UserVar u = Get.put(UserVar());
-  SettingsVar s=Get.put(SettingsVar());
+  SettingsVar s=Get.find();
   bool isLogin=false;
   late Worker accountListener;
   PlayerVar p=Get.find();

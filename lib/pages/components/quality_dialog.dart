@@ -8,7 +8,7 @@ import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void showQualityDialog(BuildContext context){
-  final s=Get.put(SettingsVar());
+  final SettingsVar s=Get.find();
 
   final List<String> types=[
     '移动网络和无线网络',

@@ -25,7 +25,7 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
 
-  SettingsVar s=Get.put(SettingsVar());
+  SettingsVar s=Get.find();
   int cacheSize=0;
   bool loading=false;
   UserVar u = Get.put(UserVar());

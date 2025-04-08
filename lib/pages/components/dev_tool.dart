@@ -17,7 +17,7 @@ class DevTool extends StatefulWidget {
 
 class _DevToolState extends State<DevTool> {
 
-  SettingsVar s=Get.put(SettingsVar());
+  SettingsVar s=Get.find();
   final seekCheck=SeekCheck();
   UserVar u = Get.put(UserVar());
   PlayerVar p=Get.find();

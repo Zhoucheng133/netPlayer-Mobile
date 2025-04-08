@@ -16,7 +16,7 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
 
   final player = AudioPlayer();
   final seekCheck=SeekCheck();
-  final s=Get.put(SettingsVar());
+  final SettingsVar s=Get.find();
   var playURL="";
   bool skipHandler=false;
   late MediaItem item;
