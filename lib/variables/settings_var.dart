@@ -21,6 +21,7 @@ enum ProgressStyle{
 }
 
 class SettingsVar extends GetxController{
+
   RxBool savePlay=true.obs;
   RxBool autoLogin=true.obs;
   RxBool wifi=true.obs;
@@ -31,9 +32,19 @@ class SettingsVar extends GetxController{
   final bgColor2=const Color.fromARGB(255, 60, 60, 60);
   final bgColor3=const Color.fromARGB(255, 80, 80, 80);
 
-
   RxBool darkMode=false.obs;
   RxBool autoDark=true.obs;
+
+  void initDark(bool? auto, bool? mode){
+    autoDark.value=auto??true;
+    darkMode.value=mode??false;
+  }
+
+  void autoDarkMode(bool dark){
+    if(autoDark.value){
+      darkMode.value=dark;
+    }
+  }
 
   void showDarkModeDialog(BuildContext context){
 
@@ -62,6 +73,8 @@ class SettingsVar extends GetxController{
                     value: autoDark.value, 
                     onChanged: (val){
                       autoDark.value=val;
+                      final Brightness brightness = MediaQuery.of(context).platformBrightness;
+                      autoDarkMode(brightness==Brightness.dark);
                     }
                   )
                 ],

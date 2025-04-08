@@ -8,6 +8,7 @@ import 'package:netplayer_mobile/main_view.dart';
 import 'package:netplayer_mobile/service/handler.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,7 +16,12 @@ Future<void> main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown
   ]);
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  final darkMode=prefs.getBool("darkMode");
+  final autoDark=prefs.getBool("autoDark");
   final PlayerVar p = Get.put(PlayerVar());
+  final SettingsVar s=Get.put(SettingsVar());
+  s.initDark(autoDark, darkMode);
   p.handler=await AudioService.init(
     builder: () => Handler(),
     config: const AudioServiceConfig(
@@ -35,7 +41,7 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
 
-  final SettingsVar s=Get.put(SettingsVar());
+  final SettingsVar s=Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +52,10 @@ class _MainAppState extends State<MainApp> {
       statusBarColor: Colors.transparent,
       systemNavigationBarColor: Colors.transparent,
     ));
+
+    final Brightness brightness = MediaQuery.of(context).platformBrightness;
+    s.autoDarkMode(brightness == Brightness.dark);
+
     return Obx(()=>
       GetMaterialApp(
         debugShowCheckedModeBanner: false,
