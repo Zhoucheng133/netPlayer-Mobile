@@ -24,8 +24,8 @@ class Playing extends StatefulWidget {
 
 class _PlayingState extends State<Playing> {
   PlayerVar p=Get.find();
-  final UserVar u = Get.put(UserVar());
-  LsVar l=Get.put(LsVar());
+  final UserVar u = Get.find();
+  LsVar l=Get.find();
   final Operations operations=Operations();
 
   bool isLoved(){

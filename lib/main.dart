@@ -6,8 +6,11 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/main_view.dart';
 import 'package:netplayer_mobile/service/handler.dart';
+import 'package:netplayer_mobile/variables/ls_var.dart';
+import 'package:netplayer_mobile/variables/page_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
+import 'package:netplayer_mobile/variables/user_var.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
@@ -21,6 +24,9 @@ Future<void> main() async {
   final autoDark=prefs.getBool("autoDark");
   final PlayerVar p = Get.put(PlayerVar());
   final SettingsVar s=Get.put(SettingsVar());
+  Get.put(LsVar());
+  Get.put(PageVar());
+  Get.put(UserVar());
   s.initDark(autoDark, darkMode);
   p.handler=await AudioService.init(
     builder: () => Handler(),

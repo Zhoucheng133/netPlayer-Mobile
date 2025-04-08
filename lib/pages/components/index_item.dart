@@ -148,7 +148,7 @@ class PlayListItem extends StatefulWidget {
 
 class _PlayListItemState extends State<PlayListItem> {
 
-  final UserVar u = Get.put(UserVar());
+  final UserVar u = Get.find();
 
   Future<void> showAction(BuildContext context) async {
     var req=await showModalActionSheet(

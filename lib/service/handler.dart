@@ -22,7 +22,7 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
   late MediaItem item;
 
   PlayerVar p=Get.find();
-  final UserVar u = Get.put(UserVar());
+  final UserVar u = Get.find();
 
   Future<void> initSession() async {
     final session = await AudioSession.instance;

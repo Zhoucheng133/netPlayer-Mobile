@@ -33,8 +33,8 @@ class _IndexState extends State<Index> {
   Account account=Account();
   int pageIndex=0;
   DataGet dataGet=DataGet();
-  PageVar p=Get.put(PageVar());
-  LsVar l=Get.put(LsVar());
+  PageVar p=Get.find();
+  LsVar l=Get.find();
   PlayerVar pl=Get.find();
   SettingsVar s=Get.find();
 
@@ -83,7 +83,7 @@ class _IndexState extends State<Index> {
   }
 
   ScrollController controller=ScrollController();
-  LsVar ls=Get.put(LsVar());
+  LsVar ls=Get.find();
 
   void jumpIndex(int index){
     controller.animateTo(index*230, duration: const Duration(milliseconds: 200), curve: Curves.easeInOut);

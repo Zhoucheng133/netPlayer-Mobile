@@ -13,8 +13,8 @@ import 'package:http/http.dart' as http;
 
 class DataGet{
 
-  final UserVar u = Get.put(UserVar());
-  final LsVar ls=Get.put(LsVar());
+  final UserVar u = Get.find();
+  final LsVar ls=Get.find();
   final PlayerVar p=Get.find();
 
   void dialog(String title, String msg, BuildContext context){

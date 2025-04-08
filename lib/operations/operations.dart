@@ -15,8 +15,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Operations{
 
   DataGet dataGet=DataGet();
-  UserVar u = Get.put(UserVar());
-  LsVar l=Get.put(LsVar());
+  UserVar u = Get.find();
+  LsVar l=Get.find();
   PlayerVar p=Get.find();
   LyricGet lyricGet=LyricGet();
 

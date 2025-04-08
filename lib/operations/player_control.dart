@@ -7,7 +7,7 @@ import 'package:netplayer_mobile/variables/user_var.dart';
 
 class PlayerControl{
   final PlayerVar p = Get.find();
-  final UserVar u = Get.put(UserVar());
+  final UserVar u = Get.find();
   // 播放歌曲
   Future<void> playSong(BuildContext context, String id, String title, String artist, String playFrom, int duration, String listId, int index, List list, String album) async {
     Map<String, Object> data={

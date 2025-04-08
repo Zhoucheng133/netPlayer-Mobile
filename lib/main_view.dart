@@ -30,7 +30,7 @@ class _MainViewState extends State<MainView> {
   bool loading=true;
   late SharedPreferences prefs;
   Account account=Account();
-  final UserVar u = Get.put(UserVar());
+  final UserVar u = Get.find();
   SettingsVar s=Get.find();
   bool isLogin=false;
   late Worker accountListener;

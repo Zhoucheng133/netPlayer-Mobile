@@ -19,7 +19,7 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
 
-  final UserVar u = Get.put(UserVar());
+  final UserVar u = Get.find();
   Account account=Account();
 
   var urlInput=TextEditingController();

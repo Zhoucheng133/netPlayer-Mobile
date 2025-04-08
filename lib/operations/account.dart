@@ -7,7 +7,7 @@ import 'package:netplayer_mobile/variables/user_var.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Account{
-  final UserVar u = Get.put(UserVar());
+  final UserVar u = Get.find();
   PlayerVar p=Get.find();
 
   // 登录

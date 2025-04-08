@@ -19,7 +19,7 @@ class _DevToolState extends State<DevTool> {
 
   SettingsVar s=Get.find();
   final seekCheck=SeekCheck();
-  UserVar u = Get.put(UserVar());
+  UserVar u = Get.find();
   PlayerVar p=Get.find();
 
   @override

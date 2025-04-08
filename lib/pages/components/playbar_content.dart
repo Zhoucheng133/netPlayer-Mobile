@@ -17,7 +17,7 @@ class PlaybarContent extends StatefulWidget {
 class _PlaybarContentState extends State<PlaybarContent> {
 
   PlayerVar p=Get.find();
-  final UserVar u = Get.put(UserVar());
+  final UserVar u = Get.find();
   SettingsVar s=Get.find();
 
   void toPlaying(){
