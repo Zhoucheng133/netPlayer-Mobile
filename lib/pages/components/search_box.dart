@@ -59,7 +59,8 @@ class _SearchInputState extends State<SearchInput> {
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey.withOpacity(0.1),
+                      // color: Colors.grey.withOpacity(0.1),
+                      color: Colors.grey.withAlpha(2),
                       spreadRadius: 1,
                       blurRadius: 5,
                     ),

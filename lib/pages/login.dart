@@ -127,7 +127,8 @@ class _LoginState extends State<Login> {
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.1),
+                    // color: Colors.grey.withOpacity(0.1),
+                    color: Colors.grey.withAlpha(2),
                     spreadRadius: 1,
                     blurRadius: 5,
                   ),
@@ -182,7 +183,8 @@ class _LoginState extends State<Login> {
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.1),
+                    // color: Colors.grey.withOpacity(0.1),
+                    color: Colors.grey.withAlpha(2),
                     spreadRadius: 1,
                     blurRadius: 5,
                   ),
@@ -233,7 +235,8 @@ class _LoginState extends State<Login> {
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.1),
+                    // color: Colors.grey.withOpacity(0.1),
+                    color: Colors.grey.withAlpha(2),
                     spreadRadius: 1,
                     blurRadius: 5,
                   ),
