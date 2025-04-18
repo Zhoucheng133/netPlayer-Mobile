@@ -32,6 +32,10 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+
     defaultConfig {
         applicationId "zhouc.netplayer_mobile"
         minSdk = flutter.minSdkVersion
