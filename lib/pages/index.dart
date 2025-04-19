@@ -16,6 +16,7 @@ import 'package:netplayer_mobile/pages/loved.dart';
 import 'package:netplayer_mobile/pages/remote.dart';
 import 'package:netplayer_mobile/pages/search.dart';
 import 'package:netplayer_mobile/pages/settings.dart';
+import 'package:netplayer_mobile/plugin/action_sheet.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/page_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
@@ -115,7 +116,7 @@ class _IndexState extends State<Index> {
           actions: [
             IconButton(
               onPressed: () async {
-                final rlt=await showModalActionSheet(
+                final rlt=await showAdaptiveActionSheet(
                   context: context,
                   title: '更多...',
                   actions: [

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/pages/playlist.dart';
+import 'package:netplayer_mobile/plugin/action_sheet.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
 
@@ -151,7 +152,7 @@ class _PlayListItemState extends State<PlayListItem> {
   final UserVar u = Get.find();
 
   Future<void> showAction(BuildContext context) async {
-    var req=await showModalActionSheet(
+    var req=await showAdaptiveActionSheet(
       context: context,
       title: widget.name,
       actions: [
