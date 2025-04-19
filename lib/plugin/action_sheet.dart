@@ -64,11 +64,11 @@ Future<dynamic> showAdaptiveActionSheet({
               data=item.key;
               Navigator.pop(context);
             },
-            child: Text(item.label, style: const TextStyle(fontSize: 17),),
+            child: Text(item.label, style: const TextStyle(fontSize: 18),),
           )).toList(),
           cancelButton: CupertinoActionSheetAction(
             onPressed: ()=>Navigator.pop(context),
-            child: const Text('取消', style: TextStyle(fontSize: 17),),
+            child: const Text('取消', style: TextStyle(fontSize: 18),),
           )
         );
       },
