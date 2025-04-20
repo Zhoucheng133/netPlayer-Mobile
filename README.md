@@ -61,6 +61,9 @@
 
 ## 在你的设备上配置netPlayer Mobile
 
+> [!NOTE]
+> 如果你使用较新版本的Flutter，建议使用`for_new_flutter`这个分支，新版本的Flutter的部分组件显示有一些问题
+
 ### 环境配置
 
 - 如果你需要在Android设备上运行或者调试，需要安装Android Studio和Gradle
