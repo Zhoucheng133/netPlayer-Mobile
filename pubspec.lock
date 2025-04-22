@@ -275,6 +275,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.4.6"
+  flutter_svg:
+    dependency: transitive
+    description:
+      name: flutter_svg
+      sha256: d44bf546b13025ec7353091516f6881f1d4c633993cb109c3916c3a0159dadf1
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.1.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -293,6 +301,22 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "10.8.0"
+  forui:
+    dependency: "direct main"
+    description:
+      name: forui
+      sha256: bcdfc071ee317c8efdee5015866ad10bdabaa98ef6aaada0c285be0d1c491051
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.10.0+1"
+  forui_assets:
+    dependency: transitive
+    description:
+      name: forui_assets
+      sha256: fa1a13b8e1fcd73bd6a142cb8861043ee6442b1459a373518394b75bc933ead3
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.10.0"
   get:
     dependency: "direct main"
     description:
@@ -477,6 +501,22 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.16.0"
+  nitrogen_flutter_svg:
+    dependency: transitive
+    description:
+      name: nitrogen_flutter_svg
+      sha256: "103313861b182fd4069bac896519b1ee64cbe1af0023d818f6c300b81c16853c"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.4.0"
+  nitrogen_types:
+    dependency: transitive
+    description:
+      name: nitrogen_types
+      sha256: "5d4ec453aea14e34607bc6021ff1381192e8fcd8541bf103638baa4d013e668f"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.4.0+1"
   nm:
     dependency: transitive
     description:
@@ -509,6 +549,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.9.1"
+  path_parsing:
+    dependency: transitive
+    description:
+      name: path_parsing
+      sha256: "883402936929eac138ee0a45da5b0f2c80f89913e6dc3bf77eb65b84b409c6ca"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.1.0"
   path_provider:
     dependency: "direct main"
     description:
@@ -746,6 +794,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.4.1"
+  sugar:
+    dependency: transitive
+    description:
+      name: sugar
+      sha256: a0a97f1d3552a3ef4cbec7c6e62c7b52c151cd5c11e984e8311700a918f73dc5
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "4.0.0"
   synchronized:
     dependency: transitive
     description:
@@ -858,6 +914,30 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.5.1"
+  vector_graphics:
+    dependency: transitive
+    description:
+      name: vector_graphics
+      sha256: "44cc7104ff32563122a929e4620cf3efd584194eec6d1d913eb5ba593dbcf6de"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.1.18"
+  vector_graphics_codec:
+    dependency: transitive
+    description:
+      name: vector_graphics_codec
+      sha256: "99fd9fbd34d9f9a32efd7b6a6aae14125d8237b10403b422a6a6dfeac2806146"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.1.13"
+  vector_graphics_compiler:
+    dependency: transitive
+    description:
+      name: vector_graphics_compiler
+      sha256: "1b4b9e706a10294258727674a340ae0d6e64a7231980f9f9a3d12e4b42407aad"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.1.16"
   vector_math:
     dependency: transitive
     description:
@@ -916,4 +996,4 @@ packages:
     version: "3.1.3"
 sdks:
   dart: ">=3.7.0 <4.0.0"
-  flutter: ">=3.27.0"
+  flutter: ">=3.29.0"

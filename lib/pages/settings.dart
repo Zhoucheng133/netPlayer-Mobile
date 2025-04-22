@@ -10,6 +10,7 @@ import 'package:netplayer_mobile/pages/components/dev_tool.dart';
 import 'package:netplayer_mobile/pages/components/progress_dialog.dart';
 import 'package:netplayer_mobile/pages/components/quality_dialog.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
+import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
@@ -30,6 +31,7 @@ class _SettingsState extends State<Settings> {
   bool loading=false;
   UserVar u = Get.find();
   PlayerVar p=Get.find();
+  DialogVar d=Get.find();
 
   @override
   void initState(){
@@ -222,14 +224,15 @@ class _SettingsState extends State<Settings> {
                   ),
                   ListTile(
                     onTap: () async {
-                      final rlt=await showOkCancelAlertDialog(
-                        context: context,
-                        okLabel: "继续",
-                        title: "清理缓存",
-                        message: "这不会影响你的使用",
-                        cancelLabel: "取消"
-                      );
-                      if(rlt==OkCancelResult.ok){
+                      final rlt=await d.showOkCancelDialog(context: context, title: '清理缓存', content: '这不会影响你的使用', okText: '继续');
+                      // final rlt=await showOkCancelAlertDialog(
+                      //   context: context,
+                      //   okLabel: "继续",
+                      //   title: "清理缓存",
+                      //   message: "这不会影响你的使用",
+                      //   cancelLabel: "取消"
+                      // );
+                      if(rlt){
                         clearController();
                       }
                     },
