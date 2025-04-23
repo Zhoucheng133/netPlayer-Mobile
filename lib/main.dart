@@ -2,10 +2,12 @@ import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:forui/forui.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/main_view.dart';
 import 'package:netplayer_mobile/service/handler.dart';
+import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/page_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
@@ -24,6 +26,7 @@ Future<void> main() async {
   final autoDark=prefs.getBool("autoDark");
   final PlayerVar p = Get.put(PlayerVar());
   final SettingsVar s=Get.put(SettingsVar());
+  Get.put(DialogVar());
   Get.put(LsVar());
   Get.put(PageVar());
   Get.put(UserVar());
@@ -74,6 +77,10 @@ class _MainAppState extends State<MainApp> {
           Locale('en', 'US'),
           Locale('zh', 'CN'),
         ],
+        builder: (context, child)=>FTheme(
+          data: s.darkMode.value ? FThemes.blue.dark : FThemes.blue.light, 
+          child: child!
+        ),
         theme: s.darkMode.value ? ThemeData.dark().copyWith(
           textTheme: GoogleFonts.notoSansScTextTheme().apply(
             bodyColor: Colors.white,
