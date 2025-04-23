@@ -8,6 +8,7 @@ import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/pages/album_content.dart';
 import 'package:netplayer_mobile/pages/artist_content.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
+import 'package:netplayer_mobile/plugin/action_sheet.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
@@ -122,7 +123,7 @@ class _PlayingState extends State<Playing> {
   AutoScrollController controller=AutoScrollController();
 
   Future<void> titleTapHandler(BuildContext context) async {
-    final rlt=await showModalActionSheet(
+    final rlt=await showAdaptiveActionSheet(
       context: context,
       title: "歌曲标题操作",
       actions: [
@@ -143,7 +144,7 @@ class _PlayingState extends State<Playing> {
   }
 
   Future<void> subtitleTapHandler(BuildContext context) async {
-    final rlt=await showModalActionSheet(
+    final rlt=await showAdaptiveActionSheet(
       context: context,
       title: "歌曲艺人操作",
       actions: [
@@ -402,7 +403,7 @@ class _PlayingState extends State<Playing> {
                                     );
                                     return;
                                   }
-                                  var rlt=await showModalActionSheet(
+                                  var rlt=await showAdaptiveActionSheet(
                                     context: context,
                                     title: '播放顺序',
                                     actions: [
@@ -476,7 +477,7 @@ class _PlayingState extends State<Playing> {
                               const SizedBox(width: 10,),
                               IconButton(
                                 onPressed: () async {
-                                  var rlt=await showModalActionSheet(
+                                  var rlt=await showAdaptiveActionSheet(
                                     context: context,
                                     title: "更多操作",
                                     actions: [
@@ -500,11 +501,11 @@ class _PlayingState extends State<Playing> {
                                         scrollLyric();
                                       });
                                     }else if(rlt=='add'){
-                                      var listId = await showConfirmationDialog(
+                                      var listId = await showAdaptiveConfirmationSheet(
                                         context: context, 
                                         title: '添加到歌单',
-                                        okLabel: "添加",
-                                        cancelLabel: "取消",
+                                        // okLabel: "添加",
+                                        // cancelLabel: "取消",
                                         actions: List.generate(l.playList.length, (index){
                                           return AlertDialogAction(
                                             key: l.playList[index]['id'],

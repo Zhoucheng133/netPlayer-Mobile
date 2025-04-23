@@ -6,6 +6,7 @@ import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/operations/player_control.dart';
 import 'package:netplayer_mobile/pages/album_content.dart';
 import 'package:netplayer_mobile/pages/artist_content.dart';
+import 'package:netplayer_mobile/plugin/action_sheet.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
@@ -117,7 +118,7 @@ class _SongItemState extends State<SongItem> {
               const SizedBox(width: 10,),
               IconButton(
                 onPressed: () async {
-                  var req=await showModalActionSheet(
+                  var req=await showAdaptiveActionSheet(
                     title: "更多操作",
                     context: context,
                     actions: [
