@@ -1,5 +1,5 @@
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:forui/forui.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/operations/account.dart';
@@ -230,21 +230,26 @@ class _IndexState extends State<Index> {
                               const SizedBox(width: 10,),
                               IconButton(
                                 onPressed: () async {
-                                  var rlt=await showTextInputDialog(
-                                    context: context,
+                                  final controller=TextEditingController();
+                                  await d.showOkCancelDialogRaw(
+                                    context: context, 
                                     title: "创建一个新的歌单",
-                                    textFields: [
-                                      const DialogTextField(
-                                        hintText: "新歌单名称"
-                                      )
-                                    ],
-                                  );
-                                  if(rlt!=null){
-                                    // print(rlt[0]);
-                                    if(context.mounted){
-                                      Operations().newPlayList(rlt[0], context);
+                                    okText: "完成",
+                                    cancelText: "取消",
+                                    child: StatefulBuilder(
+                                      builder: (BuildContext context, StateSetter setState) {
+                                        return FTextField(
+                                          controller: controller,
+                                          hint: '新歌单名称',
+                                        );
+                                      }
+                                    ),
+                                    okHandler: (){
+                                      if(context.mounted){
+                                        Operations().newPlayList(controller.text, context);
+                                      }
                                     }
-                                  }
+                                  );
                                 }, 
                                 icon: const Icon(Icons.add_rounded)
                               )

@@ -1,5 +1,5 @@
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:forui/forui.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
@@ -162,22 +162,26 @@ class _PlayListItemState extends State<PlayListItem> {
     );
     if(req=="rename"){
       if(context.mounted){
-        var newname=await showTextInputDialog(
+        final controller=TextEditingController();
+        await d.showOkCancelDialogRaw(
           context: context, 
-          textFields: [
-            DialogTextField(
-              hintText: widget.name
-            )
-          ],
           title: "重命名歌单",
-          okLabel: "完成",
-          cancelLabel: "取消"
-        );
-        if(newname!=null){
-          if(context.mounted){
-            Operations().renamePlayList(widget.id, newname[0], context);
+          okText: "完成",
+          cancelText: "取消",
+          child: StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
+              return FTextField(
+                controller: controller,
+                hint: widget.name,
+              );
+            }
+          ),
+          okHandler: (){
+            if(context.mounted){
+              Operations().renamePlayList(widget.id, controller.text, context);
+            }
           }
-        }
+        );
       }
     }else if(req=="del"){
       if(context.mounted){

@@ -21,6 +21,10 @@ class Operations{
   LyricGet lyricGet=LyricGet();
 
   Future<void> renamePlayList(String id, String newname, BuildContext context) async {
+    if(newname.isEmpty){
+      dataGet.dialog('创建歌单失败', '歌单名称不能为空', context);
+      return;
+    }
     final rlt=await httpRequest("${u.url.value}/rest/updatePlaylist?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&playlistId=$id&name=$newname");
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
       if(context.mounted){
