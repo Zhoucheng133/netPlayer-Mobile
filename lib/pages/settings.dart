@@ -149,6 +149,7 @@ class _SettingsState extends State<Settings> {
                 )
               ],
             ),
+            const SizedBox(height: 5,),
             Row(
               children: [
                 Text(
