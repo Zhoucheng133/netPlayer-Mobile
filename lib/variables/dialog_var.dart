@@ -35,9 +35,14 @@ class DialogVar extends GetxController{
               FTile(
                 prefixIcon: item.icon!=null ? Icon(
                   item.icon,
-                  size: 18,
+                  size: 20,
                 ) : null,
-                title: Text(item.name, style: GoogleFonts.notoSansSc(),),
+                title: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 2),
+                  child: Text(item.name, style: GoogleFonts.notoSansSc(
+                    fontSize: 17
+                  ),),
+                ),
                 onPress: (){
                   Navigator.pop(context);
                   selectKey=item.key;
