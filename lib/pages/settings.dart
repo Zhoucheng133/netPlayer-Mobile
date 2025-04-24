@@ -118,6 +118,70 @@ class _SettingsState extends State<Settings> {
     return '背景色';
   }
 
+  Future<void> showDarkModeDialog(BuildContext context) async {
+
+    bool tmpDarkMode=s.darkMode.value;
+    bool tmpAutoDark=s.autoDark.value;
+
+    await d.showOkCancelDialogRaw(
+      context: context, 
+      title: '深色模式', 
+      child: Obx(()=>
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              children: [
+                Text(
+                  '跟随系统',
+                  style: GoogleFonts.notoSansSc(
+                    fontSize: 16,
+                  ),
+                ),
+                Expanded(child: Container()),
+                FSwitch(
+                  value: s.autoDark.value, 
+                  onChange: (val){
+                    s.autoDark.value=val;
+                    final Brightness brightness = MediaQuery.of(context).platformBrightness;
+                    s.autoDarkMode(brightness==Brightness.dark);
+                  }
+                )
+              ],
+            ),
+            Row(
+              children: [
+                Text(
+                  '启用深色模式',
+                  style: GoogleFonts.notoSansSc(
+                    fontSize: 16,
+                  ),
+                ),
+                Expanded(child: Container()),
+                FSwitch(
+                  value: s.darkMode.value, 
+                  onChange: s.autoDark.value ? null : (val){
+                    s.darkMode.value=val;
+                  }
+                )
+              ],
+            )
+          ],
+        )
+      ), 
+      okHandler: () async {
+        final prefs=await SharedPreferences.getInstance();
+        prefs.setBool('autoDark', s.autoDark.value);
+        prefs.setBool('darkMode', s.darkMode.value);
+      },
+      cancelHandler: (){
+        s.darkMode.value=tmpDarkMode;
+        s.autoDark.value=tmpAutoDark;
+      },
+      okText: '完成',
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -217,7 +281,7 @@ class _SettingsState extends State<Settings> {
                           label: Text('外观设置', style: GoogleFonts.notoSansSc(),),
                           children: [
                             FTile(
-                              onPress: ()=>s.showDarkModeDialog(context),
+                              onPress: ()=>showDarkModeDialog(context),
                               title: Text(
                                 '深色模式',
                                 style: GoogleFonts.notoSans(),
