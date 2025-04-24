@@ -30,6 +30,7 @@ Future<void> showQualityDialog(BuildContext context) async {
   await d.showOkCancelDialogRaw(
     title: '修改音质',
     context: context,
+    okText: '完成',
     child: StatefulBuilder(
       builder: (BuildContext context, StateSetter setState)=>Column(
         mainAxisSize: MainAxisSize.min,
