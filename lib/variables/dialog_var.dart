@@ -27,37 +27,46 @@ class DialogVar extends GetxController{
     String? selectKey;
     await showFSheet(
       context: context, 
-      builder: (BuildContext context)=>Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          FTileGroup(
-            children: list.map((item)=>
-              FTile(
-                prefixIcon: item.icon!=null ? Icon(
-                  item.icon,
-                  size: 20,
-                ) : null,
-                title: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 2),
-                  child: Text(item.name, style: GoogleFonts.notoSansSc(
-                    fontSize: 17
-                  ),),
-                ),
-                onPress: (){
-                  Navigator.pop(context);
-                  selectKey=item.key;
-                },
-              )
-            ).toList(),
+      builder: (BuildContext context)=>Obx(()=>
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(10),
+              topRight: Radius.circular(10)
+            ),
+            color: settings.darkMode.value ? Colors.black : Colors.white,
           ),
-          Obx(()=>
-            Container(
-              height: MediaQuery.of(context).padding.bottom,
-              color: settings.darkMode.value ? Colors.black : Colors.white,
-            )
-          )
-        ],
-      ), 
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              FTileGroup(
+                children: list.map((item)=>
+                  FTile(
+                    prefixIcon: item.icon!=null ? Icon(
+                      item.icon,
+                      size: 20,
+                    ) : null,
+                    title: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 2),
+                      child: Text(item.name, style: GoogleFonts.notoSansSc(
+                        fontSize: 17
+                      ),),
+                    ),
+                    onPress: (){
+                      Navigator.pop(context);
+                      selectKey=item.key;
+                    },
+                  )
+                ).toList(),
+              ),
+              Container(
+                height: MediaQuery.of(context).padding.bottom,
+                color: settings.darkMode.value ? Colors.black : Colors.white,
+              )
+            ],
+          ),
+        ),
+      ),
       side: FLayout.btt,
     );
     return selectKey;
