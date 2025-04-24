@@ -16,7 +16,6 @@ dependencies:
   shared_preferences: ^2.2.3
   get: ^4.6.6
   http: ^1.2.2
-  adaptive_dialog: ^2.1.0
   loading_animation_widget: ^1.2.1
   crypto: ^3.0.3
   url_launcher: ^6.3.0
