@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:forui/forui.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
@@ -134,162 +135,161 @@ class _SettingsState extends State<Settings> {
             Expanded(
               child: ListView(
                 children: [
-                  ListTile(
-                    title: Text(
-                      '自动登录',
-                      style: GoogleFonts.notoSansSc(
-                        // fontSize: 18
-                      ),
-                    ),
-                    trailing: Obx(()=>
-                      Switch(
-                        activeTrackColor: Colors.blue,
-                        value: s.autoLogin.value, 
-                        onChanged: (val) async {
-                          // setState(() {
-                          //   enableAutoLogin=val;
-                          // });
-                          s.autoLogin.value=val;
-                          final SharedPreferences prefs = await SharedPreferences.getInstance();
-                          prefs.setBool('autoLogin', val);
-                        }
-                      )
-                    ),
-                  ),
-                  ListTile(
-                    title: Text(
-                      '保存上次播放位置',
-                      style: GoogleFonts.notoSansSc(),
-                    ),
-                    trailing: Obx(()=>
-                      Switch(
-                        activeTrackColor: Colors.blue,
-                        value: s.savePlay.value, 
-                        onChanged: (val) async {
-                          s.savePlay.value=val;
-                          final SharedPreferences prefs = await SharedPreferences.getInstance();
-                          prefs.setBool('savePlay', val);
-                        }
-                      )
-                    ),
-                  ),
-                  ListTile(
-                    onTap: ()=>s.showDarkModeDialog(context),
-                    title: Text(
-                      '深色模式',
-                      style: GoogleFonts.notoSans(),
-                    ),
-                    trailing: Obx(()=>
-                      Text(
-                        s.autoDark.value ? '自动' : s.darkMode.value ? '开启' : '关闭',
-                        style: GoogleFonts.notoSansSc(
-                          fontSize: 12,
-                          color: Colors.grey[400]
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        FTileGroup(
+                          label: Text('App 设置', style: GoogleFonts.notoSansSc(),),
+                          children: [
+                            FTile(
+                              title: Text('自动登录', style: GoogleFonts.notoSansSc()),
+                              details: Obx(()=>
+                                FSwitch(
+                                  value: s.autoLogin.value,
+                                  onChange: (val) async {
+                                    s.autoLogin.value=val;
+                                    final SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setBool('autoLogin', val);
+                                  }
+                                ),
+                              ),
+                            ),
+                            FTile(
+                              title: Text('保存上次播放位置', style: GoogleFonts.notoSansSc()),
+                              details: Obx(()=>
+                                FSwitch(
+                                  value: s.savePlay.value, 
+                                  onChange: (val) async {
+                                    s.savePlay.value=val;
+                                    final SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setBool('savePlay', val);
+                                  }
+                                )
+                              ),
+                            ),
+                            FTile(
+                              onPress: ()=>showQualityWarning(context),
+                              title: Text(
+                                '播放音质',
+                                style: GoogleFonts.notoSansSc(),
+                              ),
+                              subtitle: Obx(()=>
+                                Text(
+                                  qualityText(),
+                                  style: GoogleFonts.notoSansSc(
+                                    fontSize: 12,
+                                    color: Colors.grey[400]
+                                  ),
+                                ),
+                              ),
+                            ),
+                            FTile(
+                              onPress: () async {
+                                final rlt=await d.showOkCancelDialog(
+                                  context: context, 
+                                  title: '清理缓存', 
+                                  content: '这不会影响你的使用', 
+                                  okText: '继续'
+                                );
+                                if(rlt){
+                                  clearController();
+                                }
+                              },
+                              title: Text(
+                                '清理缓存',
+                                style: GoogleFonts.notoSansSc(
+                                  // fontSize: 18
+                                ),
+                              ),
+                              subtitle: Text(
+                                sizeConvert(cacheSize),
+                                style: GoogleFonts.notoSansSc(
+                                  fontSize: 12,
+                                  color: Colors.grey[400]
+                                ),
+                              ),
+                            ),
+                          ]
                         ),
-                      )
-                    ),
-                  ),
-                  ListTile(
-                    onTap: ()=>showQualityWarning(context),
-                    title: Text(
-                      '播放音质',
-                      style: GoogleFonts.notoSansSc(),
-                    ),
-                    trailing: Obx(()=>
-                      Text(
-                        qualityText(),
-                        style: GoogleFonts.notoSansSc(
-                          fontSize: 12,
-                          color: Colors.grey[400]
+                        FTileGroup(
+                          label: Text('外观设置', style: GoogleFonts.notoSansSc(),),
+                          children: [
+                            FTile(
+                              onPress: ()=>s.showDarkModeDialog(context),
+                              title: Text(
+                                '深色模式',
+                                style: GoogleFonts.notoSans(),
+                              ),
+                              subtitle: Obx(()=>
+                                Text(
+                                  s.autoDark.value ? '自动' : s.darkMode.value ? '开启' : '关闭',
+                                  style: GoogleFonts.notoSansSc(
+                                    fontSize: 12,
+                                    color: Colors.grey[400]
+                                  ),
+                                )
+                              ),
+                            ),
+                            FTile(
+                              onPress: ()=>showProgressDialog(context),
+                              title: Text(
+                                '播放栏显示进度',
+                                style: GoogleFonts.notoSansSc(),
+                              ),
+                              subtitle: Obx(()=>
+                                Text(
+                                  progresStyle(),
+                                  style: GoogleFonts.notoSansSc(
+                                    fontSize: 12,
+                                    color: Colors.grey[400]
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ]
                         ),
-                      ),
+                        FTileGroup(
+                          label: Text('其它', style: GoogleFonts.notoSansSc(),),
+                          children: [
+                            FTile(
+                              onPress: () async {
+                                setState(() {
+                                  loading=true;
+                                });
+                                await Operations().refreshLibrary(context);
+                                setState(() {
+                                  loading=false;
+                                });
+                              },
+                              title: Text('重新扫描音乐库', style: GoogleFonts.notoSansSc(),),
+                              details: loading ? Transform.scale(
+                                scale: 0.6,
+                                child: const CircularProgressIndicator()
+                              ) : null,
+                            ),
+                            FTile(
+                              title: Text('开发者工具', style: GoogleFonts.notoSansSc(),),
+                              onPress: () async {
+                                if(p.nowPlay['id']==''){
+                                  return;
+                                }
+                                final data=await httpRequest("${u.url.value}/rest/getSong?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay['id']}");
+                                if(context.mounted){
+                                  d.showOkDialogRaw(
+                                    context: context, 
+                                    title: '开发者工具',
+                                    child: DevTool(data: data,),
+                                  );
+                                }
+                              },
+                            )
+                          ]
+                        )
+                      ],
                     ),
                   ),
-                  ListTile(
-                    onTap: ()=>showProgressDialog(context),
-                    title: Text(
-                      '播放栏显示进度',
-                      style: GoogleFonts.notoSansSc(),
-                    ),
-                    trailing: Obx(()=>
-                      Text(
-                        progresStyle(),
-                        style: GoogleFonts.notoSansSc(
-                          fontSize: 12,
-                          color: Colors.grey[400]
-                        ),
-                      ),
-                    ),
-                  ),
-                  ListTile(
-                    onTap: () async {
-                      final rlt=await d.showOkCancelDialog(
-                        context: context, 
-                        title: '清理缓存', 
-                        content: '这不会影响你的使用', 
-                        okText: '继续'
-                      );
-                      if(rlt){
-                        clearController();
-                      }
-                    },
-                    title: Text(
-                      '清理缓存',
-                      style: GoogleFonts.notoSansSc(
-                        // fontSize: 18
-                      ),
-                    ),
-                    trailing: Text(
-                      sizeConvert(cacheSize),
-                      style: GoogleFonts.notoSansSc(
-                        fontSize: 12,
-                        color: Colors.grey[400]
-                      ),
-                    ),
-                  ),
-                  ListTile(
-                    onTap: () async {
-                      setState(() {
-                        loading=true;
-                      });
-                      await Operations().refreshLibrary(context);
-                      setState(() {
-                        loading=false;
-                      });
-                    },
-                    title: Text('重新扫描音乐库', style: GoogleFonts.notoSansSc(),),
-                    trailing: loading ? Transform.scale(
-                      scale: 0.6,
-                      child: const CircularProgressIndicator()
-                    ) : null,
-                  ),
-                  ListTile(
-                    title: Text('开发者工具', style: GoogleFonts.notoSansSc(),),
-                    onTap: () async {
-                      if(p.nowPlay['id']==''){
-                        return;
-                      }
-                      final data=await httpRequest("${u.url.value}/rest/getSong?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay['id']}");
-                      // print(data);
-                      if(context.mounted){
-                        showDialog(
-                          context: context, 
-                          builder: (context)=>AlertDialog(
-                            title: const Text('开发者工具'),
-                            content: DevTool(data: data,),
-                            actions: [
-                              TextButton(
-                                onPressed: (){
-                                  Navigator.pop(context);
-                                }, 
-                                child: const Text('完成')
-                              )
-                            ],
-                          )
-                        );
-                      }
-                    },
-                  )
                 ],
               )
             ),
