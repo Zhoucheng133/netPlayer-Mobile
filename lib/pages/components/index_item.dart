@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/pages/playlist.dart';
-import 'package:netplayer_mobile/plugin/action_sheet.dart';
 import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
@@ -154,12 +153,11 @@ class _PlayListItemState extends State<PlayListItem> {
   final DialogVar d=Get.find();
 
   Future<void> showAction(BuildContext context) async {
-    var req=await showAdaptiveActionSheet(
+    var req=await d.showActionSheet(
       context: context,
-      title: widget.name,
-      actions: [
-        const SheetAction(label: '重命名歌单', key: "rename", icon: Icons.edit_rounded),
-        const SheetAction(label: '删除歌单', key: "del", icon: Icons.delete_rounded)
+      list: [
+        ActionItem(name: '重命名歌单', key: "rename", icon: Icons.edit_rounded),
+        ActionItem(name: '删除歌单', key: "del", icon: Icons.delete_rounded)
       ]
     );
     if(req=="rename"){

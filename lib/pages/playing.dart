@@ -1,4 +1,3 @@
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,7 +7,6 @@ import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/pages/album_content.dart';
 import 'package:netplayer_mobile/pages/artist_content.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
-import 'package:netplayer_mobile/plugin/action_sheet.dart';
 import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
@@ -125,12 +123,11 @@ class _PlayingState extends State<Playing> {
   AutoScrollController controller=AutoScrollController();
 
   Future<void> titleTapHandler(BuildContext context) async {
-    final rlt=await showAdaptiveActionSheet(
+    final rlt=await d.showActionSheet(
       context: context,
-      title: "歌曲标题操作",
-      actions: [
-        const SheetAction(label: '复制标题名称', key: 'copy', icon: Icons.copy_rounded),
-        const SheetAction(label: '查看歌曲专辑', key: 'album', icon: Icons.album_rounded)
+      list: [
+        ActionItem(name: '复制标题名称', key: 'copy', icon: Icons.copy_rounded),
+        ActionItem(name: '查看歌曲专辑', key: 'album', icon: Icons.album_rounded)
       ]
     );
     if(rlt!=null && context.mounted){
@@ -146,12 +143,11 @@ class _PlayingState extends State<Playing> {
   }
 
   Future<void> subtitleTapHandler(BuildContext context) async {
-    final rlt=await showAdaptiveActionSheet(
+    final rlt=await d.showActionSheet(
       context: context,
-      title: "歌曲艺人操作",
-      actions: [
-        const SheetAction(label: '复制艺人名称', key: 'copy', icon: Icons.copy_rounded),
-        const SheetAction(label: '查看艺人', key: 'artist', icon: Icons.mic_rounded)
+      list: [
+        ActionItem(name: '复制艺人名称', key: 'copy', icon: Icons.copy_rounded),
+        ActionItem(name: '查看艺人', key: 'artist', icon: Icons.mic_rounded)
       ]
     );
     if(rlt!=null){
@@ -406,13 +402,12 @@ class _PlayingState extends State<Playing> {
                                     );
                                     return;
                                   }
-                                  var rlt=await showAdaptiveActionSheet(
+                                  var rlt=await d.showActionSheet(
                                     context: context,
-                                    title: '播放顺序',
-                                    actions: [
-                                      const SheetAction(label: '列表播放', key: "list", icon: Icons.repeat_rounded),
-                                      const SheetAction(label: '随机播放', key: "random", icon: Icons.shuffle_rounded),
-                                      const SheetAction(label: '单曲循环', key: 'loop', icon: Icons.repeat_one_rounded)
+                                    list: [
+                                      ActionItem(name: "列表播放", key: "list", icon: Icons.repeat_rounded),
+                                      ActionItem(name: '随机播放', key: "random", icon: Icons.shuffle_rounded),
+                                      ActionItem(name: '单曲循环', key: 'loop', icon: Icons.repeat_one_rounded)
                                     ]
                                   );
                                   if(rlt!=null){
@@ -480,17 +475,16 @@ class _PlayingState extends State<Playing> {
                               const SizedBox(width: 10,),
                               IconButton(
                                 onPressed: () async {
-                                  var rlt=await showAdaptiveActionSheet(
+                                  var rlt=await d.showActionSheet(
                                     context: context,
-                                    title: "更多操作",
-                                    actions: [
-                                      const SheetAction(label: '查看所在专辑', key: 'album', icon: Icons.album_rounded),
-                                      SheetAction(label: '查看艺人: ${p.nowPlay["artist"]}', key: 'artist', icon: Icons.mic_rounded),
-                                      isLoved() ?const SheetAction(label: '从喜欢中移除', key: 'delove', icon: Icons.heart_broken_rounded) : 
-                                      const SheetAction(label: '添加到喜欢', key: 'love', icon: Icons.favorite_rounded),
-                                      const SheetAction(label: '添加到...', key: 'add', icon: Icons.playlist_add_rounded),
-                                      SheetAction(label: showlyric ? '隐藏歌词' : '查看歌词', key: 'lyric', icon: Icons.lyrics_rounded),
-                                      const SheetAction(label: '歌词大小', key: 'font', icon: Icons.text_fields_rounded),
+                                    list: [
+                                      ActionItem(name: '查看所在专辑', key: 'album', icon: Icons.album_rounded),
+                                      ActionItem(name: '查看艺人: ${p.nowPlay["artist"]}', key: 'artist', icon: Icons.mic_rounded),
+                                      isLoved() ? ActionItem(name: '从喜欢中移除', key: 'delove', icon: Icons.heart_broken_rounded) : 
+                                      ActionItem(name: '添加到喜欢', key: 'love', icon: Icons.favorite_rounded),
+                                      ActionItem(name: '添加到...', key: 'add', icon: Icons.playlist_add_rounded),
+                                      ActionItem(name: showlyric ? '隐藏歌词' : '查看歌词', key: 'lyric', icon: Icons.lyrics_rounded),
+                                      ActionItem(name: '歌词大小', key: 'font', icon: Icons.text_fields_rounded),
                                     ]
                                   );
                                   if(rlt!=null && context.mounted){
@@ -504,15 +498,13 @@ class _PlayingState extends State<Playing> {
                                         scrollLyric();
                                       });
                                     }else if(rlt=='add'){
-                                      var listId = await showAdaptiveConfirmationSheet(
+                                      var listId = await d.showActionSheet(
                                         context: context, 
-                                        title: '添加到歌单',
-                                        // okLabel: "添加",
-                                        // cancelLabel: "取消",
-                                        actions: List.generate(l.playList.length, (index){
-                                          return AlertDialogAction(
+                                        list: List.generate(l.playList.length, (index){
+                                          return ActionItem(
                                             key: l.playList[index]['id'],
-                                            label: l.playList[index]['name']
+                                            name: l.playList[index]['name'],
+                                            icon: null,
                                           );
                                         })
                                       );

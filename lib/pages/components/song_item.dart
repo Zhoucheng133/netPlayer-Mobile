@@ -1,4 +1,3 @@
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,7 +5,7 @@ import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/operations/player_control.dart';
 import 'package:netplayer_mobile/pages/album_content.dart';
 import 'package:netplayer_mobile/pages/artist_content.dart';
-import 'package:netplayer_mobile/plugin/action_sheet.dart';
+import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
@@ -31,6 +30,7 @@ class _SongItemState extends State<SongItem> {
   PlayerVar p=Get.find();
   LsVar l=Get.find();
   SettingsVar s=Get.find();
+  final DialogVar d=Get.find();
 
   bool playing(){
     if(p.nowPlay['fromId']==widget.listId && p.nowPlay['playFrom']==widget.from && p.nowPlay['index']==widget.index){
@@ -118,16 +118,15 @@ class _SongItemState extends State<SongItem> {
               const SizedBox(width: 10,),
               IconButton(
                 onPressed: () async {
-                  var req=await showAdaptiveActionSheet(
-                    title: "更多操作",
+                  var req=await d.showActionSheet(
                     context: context,
-                    actions: [
-                      const SheetAction(label: '添加到歌单...', key: "add", icon: Icons.playlist_add_rounded),
-                      isLoved() ? const SheetAction(label: '取消喜欢', key: 'delove', icon: Icons.heart_broken_rounded) : 
-                      const SheetAction(label: '添加到喜欢', key: "love", icon: Icons.favorite_rounded),
-                      const SheetAction(label: "查看这个专辑", key: "album", icon: Icons.album_rounded),
-                      const SheetAction(label: "查看这个艺人", key: "artist", icon: Icons.mic_rounded),
-                      if(widget.from=="playlist") const SheetAction(label: "从歌单中移除", key: "delist", icon: Icons.playlist_remove_rounded, ),
+                    list: [
+                      ActionItem(name: '添加到歌单...', key: "add", icon: Icons.playlist_add_rounded),
+                      isLoved() ? ActionItem(name: '取消喜欢', key: 'delove', icon: Icons.heart_broken_rounded) : 
+                      ActionItem(name: '添加到喜欢', key: "love", icon: Icons.favorite_rounded),
+                      ActionItem(name: "查看这个专辑", key: "album", icon: Icons.album_rounded),
+                      ActionItem(name: "查看这个艺人", key: "artist", icon: Icons.mic_rounded),
+                      if(widget.from=="playlist") ActionItem(name: "从歌单中移除", key: "delist", icon: Icons.playlist_remove_rounded, ),
                     ]
                   );
                   if(req=="album"){
@@ -149,15 +148,13 @@ class _SongItemState extends State<SongItem> {
                     }
                   }else if(req=='add'){
                     if(context.mounted){
-                      var listId = await showConfirmationDialog(
+                      var listId = await d.showActionSheet(
                         context: context, 
-                        title: '添加到歌单',
-                        okLabel: "添加",
-                        cancelLabel: "取消",
-                        actions: List.generate(l.playList.length, (index){
-                          return AlertDialogAction(
+                        list: List.generate(l.playList.length, (index){
+                          return ActionItem(
+                            icon: Icons.playlist_play_rounded,
                             key: l.playList[index]['id'],
-                            label: l.playList[index]['name']
+                            name: l.playList[index]['name']
                           );
                         })
                       );

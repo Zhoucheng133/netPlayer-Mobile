@@ -4,8 +4,59 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 
+class ActionItem{
+
+  String key;
+  String name;
+  IconData? icon; 
+
+  ActionItem({
+    required this.key,
+    required this.name,
+    required this.icon,
+  });
+}
+
 class DialogVar extends GetxController{
   final SettingsVar settings=Get.find();
+
+  Future<String?> showActionSheet({
+    required BuildContext context,
+    required List<ActionItem> list,
+  }) async {
+    String? selectKey;
+    await showFSheet(
+      context: context, 
+      builder: (BuildContext context)=>Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          FTileGroup(
+            children: list.map((item)=>
+              FTile(
+                prefixIcon: item.icon!=null ? Icon(
+                  item.icon,
+                  size: 18,
+                ) : null,
+                title: Text(item.name, style: GoogleFonts.notoSansSc(),),
+                onPress: (){
+                  Navigator.pop(context);
+                  selectKey=item.key;
+                },
+              )
+            ).toList(),
+          ),
+          Obx(()=>
+            Container(
+              height: MediaQuery.of(context).padding.bottom,
+              color: settings.darkMode.value ? Colors.black : Colors.white,
+            )
+          )
+        ],
+      ), 
+      side: FLayout.btt,
+    );
+    return selectKey;
+  }
 
   Future<void> showOkDialog({
     required BuildContext context,
