@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image/image.dart' show decodeImage;
 import 'package:netplayer_mobile/operations/requests.dart';
+import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
@@ -16,13 +16,14 @@ class DataGet{
   final UserVar u = Get.find();
   final LsVar ls=Get.find();
   final PlayerVar p=Get.find();
+  final DialogVar d=Get.find();
 
   void dialog(String title, String msg, BuildContext context){
-    showOkAlertDialog(
-      context: context,
-      title: title,
-      message: msg,
-      okLabel: "好的"
+    d.showOkDialog(
+      context: context, 
+      title: title, 
+      content: msg,
+      okText: '好的'
     );
   }
 

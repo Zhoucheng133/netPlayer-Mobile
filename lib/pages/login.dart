@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/operations/account.dart';
+import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,6 +21,7 @@ class _LoginState extends State<Login> {
 
   final UserVar u = Get.find();
   Account account=Account();
+  final DialogVar d=Get.find();
 
   var urlInput=TextEditingController();
   var usernameInput=TextEditingController();
@@ -42,28 +43,32 @@ class _LoginState extends State<Login> {
 
   Future<void> loginController(BuildContext context) async {
     if(urlInput.text.isEmpty){
-      showOkAlertDialog(
+      d.showOkDialog(
         context: context,
         title: '登录失败',
-        message: '没有输入URL地址'
+        content: '没有输入URL地址',
+        okText: '好的'
       );
     }else if(usernameInput.text.isEmpty){
-      showOkAlertDialog(
+      d.showOkDialog(
         context: context,
         title: '登录失败',
-        message: '没有输入用户名'
+        content: '没有输入用户名',
+        okText: '好的'
       );
     }else if(passwordInput.text.isEmpty){
-      showOkAlertDialog(
+      d.showOkDialog(
         context: context,
         title: '登录失败',
-        message: '没有输入密码'
+        content: '没有输入密码',
+        okText: '好的'
       );
     }else if(!urlInput.text.startsWith('http://') && !urlInput.text.startsWith('https://')){
-      showOkAlertDialog(
+      d.showOkDialog(
         context: context,
         title: '登录失败',
-        message: 'URL地址不合法'
+        content: 'URL地址不合法',
+        okText: '好的'
       );
     }else{
       var salt=account.generateRandomString(6);
@@ -82,10 +87,11 @@ class _LoginState extends State<Login> {
         prefs.setString('salt', salt);
       }else{
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          showOkAlertDialog(
+          d.showOkDialog(
             context: context,
             title: '登录失败',
-            message: resp['data']
+            content: resp['data'],
+            okText: '好的'
           );
         });
       }

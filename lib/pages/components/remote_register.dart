@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/remote_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,21 +19,23 @@ class RemoteRegister extends StatefulWidget {
 
 class _RemoteRegisterState extends State<RemoteRegister> {
 
+  final DialogVar d=Get.find();
+
   Future<void> connect(BuildContext context) async {
     urlFocus.unfocus();
     if(url.text.isEmpty){
-      showOkAlertDialog(
+      d.showOkDialog(
         context: context,
         title: '连接失败',
-        message: "WebSocket 地址不能为空",
-        okLabel: "好的"
+        content: "WebSocket 地址不能为空",
+        okText: "好的"
       );
     }else if(!url.text.startsWith('ws://')){
-      showOkAlertDialog(
+      d.showOkDialog(
         context: context,
         title: '连接失败',
-        message: "WebSocket 地址不合法",
-        okLabel: "好的"
+        content: "WebSocket 地址不合法",
+        okText: "好的"
       );
     }
     try {
@@ -45,11 +47,11 @@ class _RemoteRegisterState extends State<RemoteRegister> {
       r.socket=null;
     }
     if(r.socket==null && context.mounted){
-      await showOkAlertDialog(
+      await d.showOkDialog(
         context: context,
         title: "连接失败",
-        message: "这个地址没有任何响应，检查输入的地址!",
-        okLabel: "好的",
+        content: "这个地址没有任何响应，检查输入的地址!",
+        okText: "好的",
       );
       if(context.mounted){
         FocusScope.of(context).requestFocus(urlFocus);
@@ -142,11 +144,11 @@ class _RemoteRegisterState extends State<RemoteRegister> {
               IconButton(
                 tooltip: "帮助",
                 onPressed: (){
-                  showOkAlertDialog(
+                  d.showOkDialog(
                     context: context,
                     title: "连接到桌面版netPlayer",
-                    message: "你可以在这里连接到桌面版本的netPlayer并进行远程控制\n至少需要v3.3.0版本的桌面netPlayer，并且确保打开WebSocket功能",
-                    okLabel: "好的"
+                    content: "你可以在这里连接到桌面版本的netPlayer并进行远程控制\n至少需要v3.3.0版本的桌面netPlayer，并且确保打开WebSocket功能",
+                    okText: "好的"
                   );
                 }, 
                 icon: const FaIcon(

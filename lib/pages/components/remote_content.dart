@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/remote_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
@@ -103,6 +103,7 @@ class _RemoteContentState extends State<RemoteContent> {
   }
 
   SettingsVar s=Get.find();
+  final DialogVar d=Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -148,14 +149,14 @@ class _RemoteContentState extends State<RemoteContent> {
                 IconButton(
                   tooltip: '关闭连接',
                   onPressed: () async {
-                    final rlt=await showOkCancelAlertDialog(
+                    final rlt=await d.showOkCancelDialog(
                       context: context,
                       title: "关闭连接",
-                      message: "这会回到连接页面",
-                      okLabel: "继续",
-                      cancelLabel: "取消"
+                      content: "这会回到连接页面",
+                      okText: "继续",
+                      cancelText: "取消"
                     );
-                    if(rlt==OkCancelResult.ok){
+                    if(rlt){
                       try {
                         r.socket!.close();
                         r.url.value="";

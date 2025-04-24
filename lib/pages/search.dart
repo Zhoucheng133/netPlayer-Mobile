@@ -1,4 +1,3 @@
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,6 +8,7 @@ import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/components/search_box.dart';
 import 'package:netplayer_mobile/pages/components/song_item.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
+import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 
 class Search extends StatefulWidget {
@@ -24,6 +24,8 @@ class _SearchState extends State<Search> {
   FocusNode focus=FocusNode();
   ScrollController controller=ScrollController();
   bool showAppbarTitle=false;
+  final DialogVar d=Get.find();
+
   Map ls={
     "songs": [],
     "albums": [],
@@ -40,11 +42,11 @@ class _SearchState extends State<Search> {
     Map data=await Operations().search(textController.text, context);
     if(data['songs'].isEmpty && data['albums'].isEmpty && data['artists'].isEmpty){
       if(context.mounted){
-        showOkAlertDialog(
+        d.showOkDialog(
           context: context,
-          okLabel: "好的",
+          okText: "好的",
           title: "没有搜索到任何内容",
-          message: "请尝试换一个关键词"
+          content: "请尝试换一个关键词"
         );
       }
     }else{

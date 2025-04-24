@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,6 +11,7 @@ import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/operations/play_check.dart';
 import 'package:netplayer_mobile/pages/index.dart';
 import 'package:netplayer_mobile/pages/login.dart';
+import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -31,6 +31,7 @@ class _MainViewState extends State<MainView> {
   late SharedPreferences prefs;
   Account account=Account();
   final UserVar u = Get.find();
+  final DialogVar dialog=Get.find();
   SettingsVar s=Get.find();
   bool isLogin=false;
   late Worker accountListener;
@@ -119,10 +120,11 @@ class _MainViewState extends State<MainView> {
         return true;
       }else{
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          showOkAlertDialog(
-            context: context,
-            title: '自动登录失败',
-            message: resp['data']
+          dialog.showOkDialog(
+            context: context, 
+            title: '自动登录失败', 
+            content: resp['data'],
+            okText: '好的'
           );
         });
         return false;

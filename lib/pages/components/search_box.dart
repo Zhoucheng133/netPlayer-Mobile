@@ -1,7 +1,7 @@
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 
 class SearchBox extends SliverPersistentHeaderDelegate {
@@ -42,6 +42,7 @@ class SearchInput extends StatefulWidget {
 class _SearchInputState extends State<SearchInput> {
 
   SettingsVar s=Get.find();
+  final DialogVar d=Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -94,11 +95,11 @@ class _SearchInputState extends State<SearchInput> {
                               autocorrect: false,
                               onEditingComplete: (){
                                 if(widget.textController.text.isEmpty){
-                                  showOkAlertDialog(
+                                  d.showOkDialog(
                                     context: context,
-                                    okLabel: "好的",
+                                    okText: "好的",
                                     title: "搜索失败",
-                                    message: "搜索关键字不能为空"
+                                    content: "搜索关键字不能为空"
                                   );
                                   return;
                                 }

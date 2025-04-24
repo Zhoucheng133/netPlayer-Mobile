@@ -78,7 +78,7 @@ class _MainAppState extends State<MainApp> {
           Locale('zh', 'CN'),
         ],
         builder: (context, child)=>FTheme(
-          data: s.darkMode.value ? FThemes.blue.dark : FThemes.blue.light, 
+          data: s.darkMode.value ? FThemes.zinc.dark : FThemes.zinc.light, 
           child: child!
         ),
         theme: s.darkMode.value ? ThemeData.dark().copyWith(

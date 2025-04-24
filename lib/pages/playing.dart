@@ -9,6 +9,7 @@ import 'package:netplayer_mobile/pages/album_content.dart';
 import 'package:netplayer_mobile/pages/artist_content.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
 import 'package:netplayer_mobile/plugin/action_sheet.dart';
+import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
@@ -27,6 +28,7 @@ class _PlayingState extends State<Playing> {
   PlayerVar p=Get.find();
   final UserVar u = Get.find();
   LsVar l=Get.find();
+  final DialogVar d=Get.find();
   final Operations operations=Operations();
 
   bool isLoved(){
@@ -396,10 +398,11 @@ class _PlayingState extends State<Playing> {
                               IconButton(
                                 onPressed: () async {
                                   if(p.nowPlay['playFrom']=='fullRandom'){
-                                    showOkAlertDialog(
+                                    d.showOkDialog(
                                       context: context,
                                       title: "播放模式不可用",
-                                      message: "当前处于完全随机播放模式"
+                                      content: "当前处于完全随机播放模式",
+                                      okText: '好的'
                                     );
                                     return;
                                   }

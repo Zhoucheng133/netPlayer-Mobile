@@ -1,8 +1,8 @@
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 
 class TitleArea extends StatefulWidget {
@@ -24,6 +24,7 @@ class TitleArea extends StatefulWidget {
 class _TitleAreaState extends State<TitleArea> {
 
   SettingsVar s=Get.find();
+  final DialogVar d=Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -74,11 +75,11 @@ class _TitleAreaState extends State<TitleArea> {
                     padding: const EdgeInsets.only(left: 10),
                     child: GestureDetector(
                       onTap: (){
-                        showOkAlertDialog(
+                        d.showOkDialog(
                           context: context,
                           title: "歌曲数量可能超过500首",
-                          message: "Subsonic API支持的最大歌曲数量为500首\n你可以在首页-更多-随机播放所有歌曲，此功能不受数量限制",
-                          okLabel: "好的"
+                          content: "Subsonic API支持的最大歌曲数量为500首\n你可以在首页-更多-随机播放所有歌曲，此功能不受数量限制",
+                          okText: "好的"
                         );
                       }, 
                       child: const Icon(

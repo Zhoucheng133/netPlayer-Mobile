@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -95,14 +94,14 @@ class _SettingsState extends State<Settings> {
   }
 
   Future<void> showQualityWarning(BuildContext context) async {
-    final rlt=await showOkCancelAlertDialog(
+    final rlt=await d.showOkCancelDialog(
       context: context,
       title: '注意!',
-      message: '如果指定非原始音质，第一次播放可能会导致无法使用时间轴定位歌曲\n对于FLAC格式的高码率歌曲第一次播可能没有声音(取决于音乐服务器的转码速度)',
-      okLabel: '继续',
-      cancelLabel: '取消'
+      content: '如果指定非原始音质，第一次播放可能会导致无法使用时间轴定位歌曲\n对于FLAC格式的高码率歌曲第一次播可能没有声音(取决于音乐服务器的转码速度)',
+      okText: '继续',
+      cancelText: '取消'
     );
-    if(rlt==OkCancelResult.ok){
+    if(rlt){
       if(context.mounted){
         showQualityDialog(context);
       }
@@ -224,14 +223,12 @@ class _SettingsState extends State<Settings> {
                   ),
                   ListTile(
                     onTap: () async {
-                      final rlt=await d.showOkCancelDialog(context: context, title: '清理缓存', content: '这不会影响你的使用', okText: '继续');
-                      // final rlt=await showOkCancelAlertDialog(
-                      //   context: context,
-                      //   okLabel: "继续",
-                      //   title: "清理缓存",
-                      //   message: "这不会影响你的使用",
-                      //   cancelLabel: "取消"
-                      // );
+                      final rlt=await d.showOkCancelDialog(
+                        context: context, 
+                        title: '清理缓存', 
+                        content: '这不会影响你的使用', 
+                        okText: '继续'
+                      );
                       if(rlt){
                         clearController();
                       }

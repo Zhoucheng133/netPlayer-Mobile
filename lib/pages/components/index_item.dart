@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/pages/playlist.dart';
 import 'package:netplayer_mobile/plugin/action_sheet.dart';
+import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
 
@@ -150,6 +151,7 @@ class PlayListItem extends StatefulWidget {
 class _PlayListItemState extends State<PlayListItem> {
 
   final UserVar u = Get.find();
+  final DialogVar d=Get.find();
 
   Future<void> showAction(BuildContext context) async {
     var req=await showAdaptiveActionSheet(
@@ -181,14 +183,14 @@ class _PlayListItemState extends State<PlayListItem> {
       }
     }else if(req=="del"){
       if(context.mounted){
-        var req=await showOkCancelAlertDialog(
+        var req=await d.showOkCancelDialog(
           context: context, 
           title: "删除歌单",
-          message: "确定要删除这个歌单吗",
-          okLabel: "删除",
-          cancelLabel: "取消",
+          content: "确定要删除这个歌单吗",
+          okText: "删除",
+          cancelText: "取消",
         );
-        if(req==OkCancelResult.ok){
+        if(req){
           if(context.mounted){
             Operations().delPlayList(widget.id, context);
           }

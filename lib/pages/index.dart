@@ -17,6 +17,7 @@ import 'package:netplayer_mobile/pages/remote.dart';
 import 'package:netplayer_mobile/pages/search.dart';
 import 'package:netplayer_mobile/pages/settings.dart';
 import 'package:netplayer_mobile/plugin/action_sheet.dart';
+import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/page_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
@@ -38,6 +39,7 @@ class _IndexState extends State<Index> {
   LsVar l=Get.find();
   PlayerVar pl=Get.find();
   SettingsVar s=Get.find();
+  final DialogVar d=Get.find();
 
   Future<void> initGet(BuildContext context) async {
     if(context.mounted){
@@ -71,14 +73,13 @@ class _IndexState extends State<Index> {
   
 
   Future<void> logout(BuildContext context) async {
-    final rlt=await showOkCancelAlertDialog (
+    final rlt=await d.showOkCancelDialog (
       context: context,
       title: "注销",
-      message: "确定要注销吗？这会返回到登录界面",
-      okLabel: "注销",
-      cancelLabel: "取消",
+      content: "确定要注销吗？这会返回到登录界面",
+      okText: "注销",
     );
-    if(rlt==OkCancelResult.ok){
+    if(rlt){
       account.logout();
     }
   }
