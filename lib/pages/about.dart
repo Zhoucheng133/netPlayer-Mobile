@@ -104,7 +104,11 @@ class _AboutState extends State<About> {
                   ),
                   const SizedBox(height: 10,),
                   GestureDetector(
-                    onTap: ()=>showLicensePage(context: context),
+                    onTap: ()=>showLicensePage(
+                      applicationName: 'netPlayer Mobile',
+                      applicationVersion: version,
+                      context: context,
+                    ),
                     child: const Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
