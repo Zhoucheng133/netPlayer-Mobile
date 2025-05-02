@@ -1,4 +1,3 @@
-import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -6,7 +5,6 @@ import 'package:forui/forui.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/main_view.dart';
-import 'package:netplayer_mobile/service/handler.dart';
 import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/page_var.dart';
@@ -24,20 +22,13 @@ Future<void> main() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   final darkMode=prefs.getBool("darkMode");
   final autoDark=prefs.getBool("autoDark");
-  final PlayerVar p = Get.put(PlayerVar());
+  Get.put(PlayerVar());
   final SettingsVar s=Get.put(SettingsVar());
   Get.put(DialogVar());
   Get.put(LsVar());
   Get.put(PageVar());
   Get.put(UserVar());
   s.initDark(autoDark, darkMode);
-  p.handler=await AudioService.init(
-    builder: () => Handler(),
-    config: const AudioServiceConfig(
-      androidNotificationChannelId: 'zhouc.netPlayer.channel.audio',
-      androidNotificationChannelName: 'Music playback',
-    ),
-  );
   runApp(const MainApp());
 }
 

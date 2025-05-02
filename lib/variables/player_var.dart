@@ -1,7 +1,25 @@
 import 'dart:typed_data';
 
+import 'package:audio_service/audio_service.dart';
 import 'package:get/get.dart';
+import 'package:netplayer_mobile/service/handler.dart';
 class PlayerVar extends GetxController{
+
+  Future<void> initPlayer() async {
+    handler=await AudioService.init(
+      builder: () => Handler(),
+      config: const AudioServiceConfig(
+        androidStopForegroundOnPause: false,
+        androidNotificationChannelId: 'zhouc.netPlayer.channel.audio',
+        androidNotificationChannelName: 'Music playback',
+      ),
+    );
+  }
+  
+  PlayerVar(){
+    initPlayer();
+  }
+
   RxMap<String, dynamic> nowPlay={
     'id': '',
     'title': '没有播放的歌曲',
@@ -14,8 +32,7 @@ class PlayerVar extends GetxController{
     'list': [],
   }.obs;
 
-  // ignore: prefer_typing_uninitialized_variables
-  var handler;
+  late AudioHandler handler;
   // 播放模式, 可选值为: list, random, repeat
   RxString playMode='list'.obs;
   // 随机播放所有歌曲
