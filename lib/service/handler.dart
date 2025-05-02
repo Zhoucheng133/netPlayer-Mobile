@@ -18,7 +18,6 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
   final seekCheck=SeekCheck();
   final SettingsVar s=Get.find();
   var playURL="";
-  bool skipHandler=false;
   late MediaItem item;
 
   PlayerVar p=Get.find();
@@ -32,18 +31,15 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
         switch (event.type) {
           case AudioInterruptionType.duck:
             player.setVolume(0.5);
-            // print("Duck!");
             break;
           case AudioInterruptionType.pause:
           case AudioInterruptionType.unknown:
-            // print("pause Request");
             pause();
             break;
         }
       } else {
         switch (event.type) {
           case AudioInterruptionType.duck:
-            // The interruption ended and we should unduck.
             player.setVolume(1);
             break;
           case AudioInterruptionType.pause:
@@ -72,25 +68,14 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
             p.lyricLine.value=0;
             break;
           }else if(data>=p.lyric[i]['time'] && data<p.lyric[i+1]['time']){
-            // updateLyricLine(i+1);
             p.lyricLine.value=i+1;
             break;
           }
         }
       }else if(p.lyric.length==1){
-        // updateLyricLine(0);
         p.lyricLine.value=0;
       }
     });
-
-    // playbackState.add(playbackState.value.copyWith(
-    //   controls: [
-    //     MediaControl.skipToPrevious,
-    //     MediaControl.pause,
-    //     MediaControl.skipToNext,
-    //   ],
-    //   processingState: AudioProcessingState.loading,
-    // ));
     player.playerStateStream.listen((state) {
       if(state.processingState == ProcessingState.completed) {
         // print("complete");
@@ -100,20 +85,23 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
   }
 
   void setMedia(bool isPlay){
-    playbackState.add(PlaybackState(
-      playing: isPlay,
-      controls: [
-        MediaControl.skipToPrevious,
-        isPlay ? MediaControl.pause : MediaControl.play,
-        MediaControl.skipToNext,
-      ],
-      updatePosition: Duration(milliseconds: p.playProgress.value),
-      systemActions: const {
-        MediaAction.seek,
-        MediaAction.seekForward,
-        MediaAction.seekBackward,
-      },
-    ));
+    playbackState.add(
+      PlaybackState(
+        playing: isPlay,
+        controls: [
+          MediaControl.skipToPrevious,
+          isPlay ? MediaControl.pause : MediaControl.play,
+          MediaControl.skipToNext,
+        ],
+        updatePosition: Duration(milliseconds: p.playProgress.value),
+        processingState: AudioProcessingState.ready,
+        systemActions: const {
+          MediaAction.seek,
+          MediaAction.seekForward,
+          MediaAction.seekBackward,
+        },
+      )
+    );
     item=MediaItem(
       id: p.nowPlay["id"],
       title: p.nowPlay["title"],
@@ -131,16 +119,15 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
     if(p.nowPlay["id"].isEmpty){
       return;
     }
-    // var url="${u.url.value}/rest/stream?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}";
     var url=seekCheck.enableSeek() ? "${u.url.value}/rest/stream?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}"
     : "${u.url.value}/rest/stream?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}&maxBitRate=${s.quality.value.quality}";
-    if(url!=playURL || skipHandler){
+    if(url!=playURL){
       await player.setUrl(url);
     }
     player.play();
-    if(skipHandler){
-      skipHandler=false;
-    }
+    // if(skipHandler){
+    //   skipHandler=false;
+    // }
     playURL=url;
     setMedia(true);
     p.isPlay.value=true;
@@ -166,16 +153,16 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
     player.stop();
     p.isPlay.value=false;
     Map<String, Object> tmp={
-          'id': '',
-          'title': '',
-          'artist': '',
-          'playFrom': '',
-          'duration': 0,
-          'fromId': '',
-          'index': 0,
-          'album': '',
-          'list': [],
-        };
+      'id': '',
+      'title': '',
+      'artist': '',
+      'playFrom': '',
+      'duration': 0,
+      'fromId': '',
+      'index': 0,
+      'album': '',
+      'list': [],
+    };
     p.nowPlay.value=tmp;
   }
 
@@ -216,7 +203,7 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
     tmpList['album']=tmpList['list'][tmpList['index']]['album'];
     p.nowPlay.value=tmpList;
     p.nowPlay.refresh();
-    skipHandler=true;
+    // skipHandler=true;
     play();
     setMedia(true);
   }
@@ -255,10 +242,9 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
     tmpList['artist']=tmpList['list'][tmpList['index']]['artist'];
     tmpList['duration']=tmpList['list'][tmpList['index']]['duration'];
     tmpList['album']=tmpList['list'][tmpList['index']]['album'];
-    // p.updateNowPlay(tmpList);
     p.nowPlay.value=tmpList;
     p.nowPlay.refresh();
-    skipHandler=true;
+    // skipHandler=true;
     play();
     setMedia(true);
   }
