@@ -1,4 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -33,24 +33,18 @@
         
         <service android:name="com.ryanheise.audioservice.AudioService"
             android:foregroundServiceType="mediaPlayback"
-            android:exported="true">
+            android:exported="true" tools:ignore="Instantiatable">
         <intent-filter>
             <action android:name="android.media.browse.MediaBrowserService" />
         </intent-filter>
         </service>
 
         <receiver android:name="com.ryanheise.audioservice.MediaButtonReceiver"
-            android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.MEDIA_BUTTON" />
-        </intent-filter>
+            android:exported="true" tools:ignore="Instantiatable">
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
+            </intent-filter>
         </receiver>
-        <receiver android:name="com.ryanheise.audioservice.MediaButtonReceiver"
-            android:exported="true" >
-        <intent-filter>
-            <action android:name="android.intent.action.MEDIA_BUTTON" />
-        </intent-filter>
-        </receiver> 
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
