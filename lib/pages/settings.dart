@@ -338,6 +338,12 @@ class _SettingsState extends State<Settings> {
                               title: Text('开发者工具', style: GoogleFonts.notoSansSc(),),
                               onPress: () async {
                                 if(p.nowPlay['id']==''){
+                                  d.showOkDialog(
+                                    context: context, 
+                                    title: "开发者工具", 
+                                    content: "当前没有在播放",
+                                    okText: "好的",
+                                  );
                                   return;
                                 }
                                 final data=await httpRequest("${u.url.value}/rest/getSong?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay['id']}");
