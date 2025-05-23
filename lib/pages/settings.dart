@@ -329,6 +329,13 @@ class _SettingsState extends State<Settings> {
                                 });
                               },
                               title: Text('重新扫描音乐库', style: GoogleFonts.notoSansSc(),),
+                              subtitle: Text(
+                                "手动扫描音乐库中的所有文件", 
+                                style: GoogleFonts.notoSansSc(
+                                  fontSize: 12,
+                                  color: Colors.grey[400]
+                                ),
+                              ),
                               details: loading ? Transform.scale(
                                 scale: 0.6,
                                 child: const CircularProgressIndicator()
