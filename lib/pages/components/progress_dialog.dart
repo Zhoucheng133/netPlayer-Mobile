@@ -19,7 +19,7 @@ Future<void> showProgressDialog(BuildContext context) async {
 
   final controller = FRadioSelectGroupController(value: style);
 
-  await d.showOkDialogRaw(
+  await d.showOkCancelDialogRaw(
     context: context, 
     title: '播放栏进度显示方式', 
     child: StatefulBuilder(
@@ -42,6 +42,7 @@ Future<void> showProgressDialog(BuildContext context) async {
         );
       }
     ),
+    cancelText: "取消",
     okText: '完成',
     okHandler: () async {
       s.progressStyle.value=ProgressStyle.values[controller.value.first];
