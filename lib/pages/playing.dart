@@ -223,7 +223,7 @@ class _PlayingState extends State<Playing> {
                         duration: const Duration(milliseconds: 200),
                         child: showlyric ? Container(
                           key: const Key("0"),
-                          color: Colors.white,
+                          color: Colors.transparent,
                           child: Stack(
                             children: [
                               Padding(
@@ -333,8 +333,8 @@ class _PlayingState extends State<Playing> {
                                 data: SliderThemeData(
                                   overlayColor: Colors.transparent,
                                   overlayShape: const RoundSliderOverlayShape(overlayRadius: 0.0), // 取消波纹效果
-                                  activeTrackColor: Colors.black,
-                                  inactiveTrackColor: Colors.grey[300], 
+                                  activeTrackColor: s.darkMode.value ? Colors.grey[300] : Colors.black,
+                                  inactiveTrackColor: s.darkMode.value ? Colors.grey[600] : Colors.grey[300],
                                   trackHeight: 2,
                                   thumbShape: const RoundSliderThumbShape(
                                     enabledThumbRadius: 8,
