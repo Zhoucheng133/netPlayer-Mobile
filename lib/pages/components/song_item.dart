@@ -48,12 +48,76 @@ class _SongItemState extends State<SongItem> {
     return false;
   }
 
+  Future<void> showSongMenu(BuildContext context) async {
+    var req=await d.showActionSheet(
+      context: context,
+      list: [
+        ActionItem(name: '添加到歌单...', key: "add", icon: Icons.playlist_add_rounded),
+        isLoved() ? ActionItem(name: '取消喜欢', key: 'delove', icon: Icons.heart_broken_rounded) : 
+        ActionItem(name: '添加到喜欢', key: "love", icon: Icons.favorite_rounded),
+        ActionItem(name: "查看这个专辑", key: "album", icon: Icons.album_rounded),
+        ActionItem(name: "查看这个艺人", key: "artist", icon: Icons.mic_rounded),
+        if(widget.from=="playlist") ActionItem(name: "从歌单中移除", key: "delist", icon: Icons.playlist_remove_rounded, ),
+        ActionItem(name: "查看歌曲信息", key: "info", icon: Icons.info_rounded),
+      ]
+    );
+    if(req=="album"){
+      if(widget.item['album']!=null && widget.item['albumId']!=null){
+        Get.to(()=>AlbumContent(album: widget.item['album'], id: widget.item['albumId']));
+      }
+      
+    }else if(req=='artist'){
+      if(widget.item['artistId']!=null && widget.item['artist']!=null){
+        Get.to(()=>ArtistContent(id: widget.item['artistId'], artist: widget.item['artist']));
+      }
+    }else if(req=='love'){
+      if(context.mounted){
+        Operations().love(widget.item["id"], context);
+      }
+    }else if(req=='delove'){
+      if(context.mounted){
+        Operations().delove(widget.item["id"], context);
+      }
+    }else if(req=='add'){
+      if(context.mounted){
+        var listId = await d.showActionSheet(
+          context: context, 
+          list: List.generate(l.playList.length, (index){
+            return ActionItem(
+              icon: Icons.playlist_play_rounded,
+              key: l.playList[index]['id'],
+              name: l.playList[index]['name']
+            );
+          })
+        );
+        // print(listId);
+        if(listId!=null){
+          if(context.mounted){
+            Operations().addToList(widget.item["id"], listId, context);
+          }
+        }
+      }
+    }else if(req=="delist"){
+      if(widget.from!="playlist" || widget.listId.isEmpty){
+        return;
+      }
+      if(context.mounted){
+        if(await Operations().deList(widget.index, widget.listId, context)){
+          try {
+            widget.refresh();
+          } catch (_) {}
+        }
+      }
+    }else if(req=="info"){
+      // TODO 歌曲信息
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
-        PlayerControl().playSong(context, widget.item['id'], widget.item['title'], widget.item['artist'], widget.from, widget.item['duration'], widget.listId, widget.index, widget.ls, widget.item['album']);
-      },
+      onTap: () => PlayerControl().playSong(context, widget.item['id'], widget.item['title'], widget.item['artist'], widget.from, widget.item['duration'], widget.listId, widget.index, widget.ls, widget.item['album']),
+      onLongPress: () => showSongMenu(context),
       child: Padding(
         padding: const EdgeInsets.only(left: 10, right: 10),
         child: Container(
@@ -117,67 +181,7 @@ class _SongItemState extends State<SongItem> {
               ),
               const SizedBox(width: 10,),
               IconButton(
-                onPressed: () async {
-                  var req=await d.showActionSheet(
-                    context: context,
-                    list: [
-                      ActionItem(name: '添加到歌单...', key: "add", icon: Icons.playlist_add_rounded),
-                      isLoved() ? ActionItem(name: '取消喜欢', key: 'delove', icon: Icons.heart_broken_rounded) : 
-                      ActionItem(name: '添加到喜欢', key: "love", icon: Icons.favorite_rounded),
-                      ActionItem(name: "查看这个专辑", key: "album", icon: Icons.album_rounded),
-                      ActionItem(name: "查看这个艺人", key: "artist", icon: Icons.mic_rounded),
-                      if(widget.from=="playlist") ActionItem(name: "从歌单中移除", key: "delist", icon: Icons.playlist_remove_rounded, ),
-                    ]
-                  );
-                  if(req=="album"){
-                    if(widget.item['album']!=null && widget.item['albumId']!=null){
-                      Get.to(()=>AlbumContent(album: widget.item['album'], id: widget.item['albumId']));
-                    }
-                    
-                  }else if(req=='artist'){
-                    if(widget.item['artistId']!=null && widget.item['artist']!=null){
-                      Get.to(()=>ArtistContent(id: widget.item['artistId'], artist: widget.item['artist']));
-                    }
-                  }else if(req=='love'){
-                    if(context.mounted){
-                      Operations().love(widget.item["id"], context);
-                    }
-                  }else if(req=='delove'){
-                    if(context.mounted){
-                      Operations().delove(widget.item["id"], context);
-                    }
-                  }else if(req=='add'){
-                    if(context.mounted){
-                      var listId = await d.showActionSheet(
-                        context: context, 
-                        list: List.generate(l.playList.length, (index){
-                          return ActionItem(
-                            icon: Icons.playlist_play_rounded,
-                            key: l.playList[index]['id'],
-                            name: l.playList[index]['name']
-                          );
-                        })
-                      );
-                      // print(listId);
-                      if(listId!=null){
-                        if(context.mounted){
-                          Operations().addToList(widget.item["id"], listId, context);
-                        }
-                      }
-                    }
-                  }else if(req=="delist"){
-                    if(widget.from!="playlist" || widget.listId.isEmpty){
-                      return;
-                    }
-                    if(context.mounted){
-                      if(await Operations().deList(widget.index, widget.listId, context)){
-                        try {
-                          widget.refresh();
-                        } catch (_) {}
-                      }
-                    }
-                  }
-                },
+                onPressed: () => showSongMenu(context),
                 icon: Obx(()=>
                   Icon(
                     Icons.more_vert_rounded,
