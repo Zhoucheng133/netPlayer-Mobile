@@ -6,9 +6,9 @@
 
 **基于Subsonic API的移动端播放器**
 
-[**netPlayer Next**](https://github.com/Zhoucheng133/netPlayer-Next) | [**netPlayer**](https://github.com/Zhoucheng133/net-player) | **★ netPlayer Mobile**
+[**netPlayer Next**](https://github.com/Zhoucheng133/netPlayer-Next) | **★ netPlayer Mobile**
 
-**支持Android设备和iOS设备**
+**支持Android设备和iOS设备**，如果你要查找桌面版本，应该访问[**netPlayer Next**](https://github.com/Zhoucheng133/netPlayer-Next)仓库
 
 经过测试的平台：小米5X & iPhone13
 
