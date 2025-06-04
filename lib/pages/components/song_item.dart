@@ -9,6 +9,7 @@ import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
+import 'package:netplayer_mobile/variables/user_var.dart';
 
 class SongItem extends StatefulWidget {
 
@@ -30,6 +31,7 @@ class _SongItemState extends State<SongItem> {
   PlayerVar p=Get.find();
   LsVar l=Get.find();
   SettingsVar s=Get.find();
+  UserVar u=Get.find();
   final DialogVar d=Get.find();
 
   bool playing(){
@@ -109,7 +111,28 @@ class _SongItemState extends State<SongItem> {
         }
       }
     }else if(req=="info"){
-      // TODO 歌曲信息
+      if(context.mounted){
+        d.showOkDialogRaw(
+          context: context, 
+          title: '歌曲信息', 
+          child: SizedBox(
+            width: 300,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.network(
+                    "${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${widget.ls[widget.index]['id']}",
+                    height: 100,
+                    width: 100,
+                  ),
+                ),
+              ],
+            ),
+          )
+        );
+      }
     }
   }
 
