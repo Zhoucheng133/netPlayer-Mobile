@@ -204,7 +204,39 @@ class _PlayListItemState extends State<PlayListItem> {
         d.showOkDialogRaw(
           context: context, 
           title: "歌单信息", 
-          child: Container()
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.network(
+                  "${u.url.value}/rest/getCoverArt.view?u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&v=1.16.1&c=netPlayer&f=json&id=${widget.coverArt}",
+                  height: 100,
+                  width: 100,
+                ),
+              ),
+              const SizedBox(height: 10,),
+              Row(
+                children: [
+                  const SizedBox(
+                    width: 100,
+                    child: Text(
+                      "歌单名称",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      widget.name,
+                      overflow: TextOverflow.ellipsis,
+                    )
+                  )
+                ],
+              ),
+            ],
+          )
         );
       }
     }
