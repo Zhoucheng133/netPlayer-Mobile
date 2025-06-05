@@ -246,11 +246,16 @@ class _PlayListItemState extends State<PlayListItem> {
                     children: [
                       Text(
                         widget.name,
-                        style: const TextStyle(
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                        style: GoogleFonts.notoSansSc(),
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      Text("${widget.songCount}首")
+                      Text(
+                        "${widget.songCount}首",
+                        style: GoogleFonts.notoSansSc(
+                          fontSize: 12,
+                          color: Colors.grey
+                        ),
+                      )
                     ],
                   ),
                 )
