@@ -33,6 +33,7 @@ class _SongItemState extends State<SongItem> {
   SettingsVar s=Get.find();
   UserVar u=Get.find();
   final DialogVar d=Get.find();
+  final Operations operations=Operations();
 
   bool playing(){
     if(p.nowPlay['fromId']==widget.listId && p.nowPlay['playFrom']==widget.from && p.nowPlay['index']==widget.index){
@@ -115,21 +116,159 @@ class _SongItemState extends State<SongItem> {
         d.showOkDialogRaw(
           context: context, 
           title: '歌曲信息', 
-          child: SizedBox(
-            width: 300,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    "${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${widget.ls[widget.index]['id']}",
-                    height: 100,
-                    width: 100,
-                  ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.network(
+                  "${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${widget.ls[widget.index]['id']}",
+                  height: 100,
+                  width: 100,
                 ),
-              ],
-            ),
+              ),
+              const SizedBox(height: 10,),
+              Row(
+                children: [
+                  const SizedBox(
+                    width: 100,
+                    child: Text(
+                      "歌曲标题",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      widget.ls[widget.index]['title'],
+                      overflow: TextOverflow.ellipsis,
+                    )
+                  )
+                ],
+              ),
+              const SizedBox(height: 5,),
+              Row(
+                children: [
+                  const SizedBox(
+                    width: 100,
+                    child: Text(
+                      "歌曲长度",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      operations.convertDuration(widget.ls[widget.index]['duration']),
+                      overflow: TextOverflow.ellipsis,
+                    )
+                  )
+                ],
+              ),
+              const SizedBox(height: 5,),
+              Row(
+                children: [
+                  const SizedBox(
+                    width: 100,
+                    child: Text(
+                      "艺人",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      widget.ls[widget.index]['artist'],
+                      overflow: TextOverflow.ellipsis,
+                    )
+                  )
+                ],
+              ),
+              const SizedBox(height: 5,),
+              Row(
+                children: [
+                  const SizedBox(
+                    width: 100,
+                    child: Text(
+                      "专辑",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      widget.ls[widget.index]['album'],
+                      overflow: TextOverflow.ellipsis,
+                    )
+                  )
+                ],
+              ),
+              const SizedBox(height: 5,),
+              Row(
+                children: [
+                  const SizedBox(
+                    width: 100,
+                    child: Text(
+                      "歌曲id",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      widget.ls[widget.index]['id'],
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    )
+                  )
+                ],
+              ),
+              const SizedBox(height: 5,),
+              Row(
+                children: [
+                  const SizedBox(
+                    width: 100,
+                    child: Text(
+                      "歌单id",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      widget.listId.isEmpty ? "N/A" : widget.listId,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    )
+                  )
+                ],
+              ),
+              const SizedBox(height: 5,),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 100,
+                    child: Text(
+                      'created'.tr,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      operations.formatIsoString(widget.ls[widget.index]['created']),
+                    )
+                  )
+                ],
+              )
+            ],
           )
         );
       }

@@ -39,6 +39,33 @@ class Operations{
     return;
   }
 
+  // 时间字符串格式化
+  String formatIsoString(String isoString) {
+    try {
+      DateTime dateTime = DateTime.parse(isoString).toLocal();
+      String formatted = "${dateTime.year}/${dateTime.month}/${dateTime.day} - ${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}";
+
+      return formatted;
+    } catch (_) {
+      return "";
+    }
+  }
+
+  // 将秒转换成(H:)mm:ss
+  String convertDuration(int seconds){
+    final int hours = seconds ~/ 3600;
+    final int minutes = (seconds % 3600) ~/ 60;
+    final int secs = seconds % 60;
+
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+
+    if ( hours > 0) {
+      return '$hours:${twoDigits(minutes)}:${twoDigits(secs)}';
+    } else {
+      return '${twoDigits(minutes)}:${twoDigits(secs)}';
+    }
+  }
+
   Future<void> delPlayList(String id, BuildContext context) async {
     final rlt=await httpRequest("${u.url.value}/rest/deletePlaylist?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=$id");
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
