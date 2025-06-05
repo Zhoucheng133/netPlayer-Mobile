@@ -157,7 +157,8 @@ class _PlayListItemState extends State<PlayListItem> {
       context: context,
       list: [
         ActionItem(name: '重命名歌单', key: "rename", icon: Icons.edit_rounded),
-        ActionItem(name: '删除歌单', key: "del", icon: Icons.delete_rounded)
+        ActionItem(name: '删除歌单', key: "del", icon: Icons.delete_rounded),
+        ActionItem(name: '歌单信息', key: "info", icon: Icons.info_rounded)
       ]
     );
     if(req=="rename"){
@@ -197,6 +198,14 @@ class _PlayListItemState extends State<PlayListItem> {
             Operations().delPlayList(widget.id, context);
           }
         }
+      }
+    }else if(req=="info"){
+      if(context.mounted){
+        d.showOkDialogRaw(
+          context: context, 
+          title: "歌单信息", 
+          child: Container()
+        );
       }
     }
   }
