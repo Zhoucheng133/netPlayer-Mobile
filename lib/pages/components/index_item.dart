@@ -216,6 +216,7 @@ class _PlayListItemState extends State<PlayListItem> {
       onTap: (){
         Get.to(()=>Playlist(id: widget.id, name: widget.name,));
       },
+      onLongPress: ()=>showAction(context),
       child: SizedBox(
         height: 60,
         child: Padding(
