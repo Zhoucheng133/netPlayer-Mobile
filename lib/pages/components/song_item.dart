@@ -252,11 +252,11 @@ class _SongItemState extends State<SongItem> {
               const SizedBox(height: 5,),
               Row(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     width: 100,
                     child: Text(
-                      'created'.tr,
-                      style: const TextStyle(
+                      "创建时间",
+                      style: TextStyle(
                         fontWeight: FontWeight.bold
                       ),
                     ),
