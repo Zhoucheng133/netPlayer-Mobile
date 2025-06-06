@@ -255,7 +255,7 @@ class _SongItemState extends State<SongItem> {
                   const SizedBox(
                     width: 100,
                     child: Text(
-                      "创建时间",
+                      "创建于",
                       style: TextStyle(
                         fontWeight: FontWeight.bold
                       ),
