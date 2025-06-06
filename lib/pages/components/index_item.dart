@@ -140,8 +140,11 @@ class PlayListItem extends StatefulWidget {
   final String id;
   final int songCount;
   final String coverArt;
+  final int len;
+  final String created;
+  final String changed;
 
-  const PlayListItem({super.key, required this.name, required this.id, required this.songCount, required this.coverArt});
+  const PlayListItem({super.key, required this.name, required this.id, required this.songCount, required this.coverArt, required this.len, required this.created, required this.changed});
 
   @override
   State<PlayListItem> createState() => _PlayListItemState();
@@ -151,6 +154,7 @@ class _PlayListItemState extends State<PlayListItem> {
 
   final UserVar u = Get.find();
   final DialogVar d=Get.find();
+  final Operations operations=Operations();
 
   Future<void> showAction(BuildContext context) async {
     var req=await d.showActionSheet(
@@ -231,6 +235,106 @@ class _PlayListItemState extends State<PlayListItem> {
                     child: Text(
                       widget.name,
                       overflow: TextOverflow.ellipsis,
+                    )
+                  )
+                ],
+              ),
+              const SizedBox(height: 5,),
+              Row(
+                children: [
+                  const SizedBox(
+                    width: 100,
+                    child: Text(
+                      "歌曲数量",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      "${widget.songCount}首",
+                      overflow: TextOverflow.ellipsis,
+                    )
+                  )
+                ],
+              ),
+              const SizedBox(height: 5,),
+              Row(
+                children: [
+                  const SizedBox(
+                    width: 100,
+                    child: Text(
+                      "总时长",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      operations.convertDuration(widget.len),
+                      maxLines: 2,
+                    )
+                  )
+                ],
+              ),
+              const SizedBox(height: 5,),
+              Row(
+                children: [
+                  const SizedBox(
+                    width: 100,
+                    child: Text(
+                      "歌单id",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      widget.id,
+                      maxLines: 2,
+                    )
+                  )
+                ],
+              ),
+              const SizedBox(height: 5,),
+              Row(
+                children: [
+                  const SizedBox(
+                    width: 100,
+                    child: Text(
+                      "创建于",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      operations.formatIsoString(widget.created),
+                      maxLines: 2,
+                    )
+                  )
+                ],
+              ),
+              const SizedBox(height: 5,),
+              Row(
+                children: [
+                  const SizedBox(
+                    width: 100,
+                    child: Text(
+                      "修改于",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      operations.formatIsoString(widget.changed),
+                      maxLines: 2,
                     )
                   )
                 ],

@@ -263,7 +263,15 @@ class _IndexState extends State<Index> {
                       SliverList.builder(
                         itemCount: ls.playList.length,
                         itemBuilder: (context, index){
-                          return PlayListItem(name: ls.playList[index]['name'], id: ls.playList[index]['id'], songCount: ls.playList[index]['songCount'], coverArt: ls.playList[index]['coverArt']);
+                          return PlayListItem(
+                            name: ls.playList[index]['name'], 
+                            id: ls.playList[index]['id'], 
+                            songCount: ls.playList[index]['songCount'], 
+                            coverArt: ls.playList[index]['coverArt'], 
+                            len: ls.playList[index]['duration'], 
+                            created: ls.playList[index]['created'], 
+                            changed: ls.playList[index]['changed'],
+                          );
                         }
                       ),
                       const SliverToBoxAdapter(
