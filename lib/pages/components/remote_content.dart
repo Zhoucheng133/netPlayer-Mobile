@@ -193,14 +193,41 @@ class _RemoteContentState extends State<RemoteContent> {
                               key: ValueKey(index), 
                               controller: controller, 
                               index: index,
-                              child: Text(
-                                r.wsData.value.fullLyric[index]['content'],
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.notoSansSc(
-                                  fontSize: 18,
-                                  height: 2.5,
-                                  color: playedLyric(index) ? Colors.blue:Colors.grey[400],
-                                  fontWeight: playedLyric(index) ? FontWeight.bold: FontWeight.normal,
+                              // child: Text(
+                              //   r.wsData.value.fullLyric[index]['lyric'],
+                              //   textAlign: TextAlign.center,
+                              //   style: GoogleFonts.notoSansSc(
+                              //     fontSize: 18,
+                              //     height: 2.5,
+                              //     color: playedLyric(index) ? Colors.blue:Colors.grey[400],
+                              //     fontWeight: playedLyric(index) ? FontWeight.bold: FontWeight.normal,
+                              //   ),
+                              // ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 7),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      r.wsData.value.fullLyric[index]['lyric'],
+                                      textAlign: TextAlign.center,
+                                      style: GoogleFonts.notoSansSc(
+                                        fontSize: 17,
+                                        color: playedLyric(index) ? Colors.blue:Colors.grey[400],
+                                        fontWeight: playedLyric(index) ? FontWeight.bold: FontWeight.normal,
+                                      ),
+                                    ),
+                                    if(r.wsData.value.fullLyric[index]['translate'].isNotEmpty) Text(
+                                      r.wsData.value.fullLyric[index]['translate'],
+                                      textAlign: TextAlign.center,
+                                      style: GoogleFonts.notoSansSc(
+                                        fontSize: 17*0.85,
+                                        color: playedLyric(index) ? Colors.blue:Colors.grey[400],
+                                        fontWeight: playedLyric(index) ? FontWeight.bold: FontWeight.normal,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             )
