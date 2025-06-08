@@ -82,11 +82,14 @@ class _MainViewState extends State<MainView> {
       }
 
       savePlay(val);
+      // p.lyric.value=[
+      //   {
+      //     'time': 0,
+      //     'content': '查找歌词中...',
+      //   }
+      // ];
       p.lyric.value=[
-        {
-          'time': 0,
-          'content': '查找歌词中...',
-        }
+        LyricItem('查找歌词中...', "", 0)
       ];
       operations.getLyric();
     });

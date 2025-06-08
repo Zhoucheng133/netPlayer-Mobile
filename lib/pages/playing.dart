@@ -72,9 +72,9 @@ class _PlayingState extends State<Playing> {
     }
     bool flag=false;
     try {
-      flag=p.playProgress.value>=p.lyric[index]['time'] && p.playProgress<p.lyric[index+1]['time'];
+      flag=p.playProgress.value>=p.lyric[index].time && p.playProgress<p.lyric[index+1].time;
     } catch (_) {
-      if(p.lyric.length==index+1 && p.playProgress.value>=p.lyric[index]['time']){
+      if(p.lyric.length==index+1 && p.playProgress.value>=p.lyric[index].time){
         flag=true;
       }else{
         flag=false;
@@ -234,7 +234,7 @@ class _PlayingState extends State<Playing> {
                                     return Obx(()=>
                                       p.lyric.length==1 ? Center(
                                         child: Text(
-                                          p.lyric[0]['content'],
+                                          p.lyric[0].lyric,
                                           textAlign: TextAlign.center,
                                           style: GoogleFonts.notoSansSc(
                                             fontSize: p.fontSize.value.toDouble(),
@@ -254,14 +254,31 @@ class _PlayingState extends State<Playing> {
                                                 key: ValueKey(index), 
                                                 controller: controller, 
                                                 index: index,
-                                                child: Text(
-                                                  p.lyric[index]['content'],
-                                                  textAlign: TextAlign.center,
-                                                  style: GoogleFonts.notoSansSc(
-                                                    fontSize: p.fontSize.value.toDouble(),
-                                                    height: 2.5,
-                                                    color: playedLyric(index) ? Colors.blue:Colors.grey[400],
-                                                    fontWeight: playedLyric(index) ? FontWeight.bold: FontWeight.normal,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.symmetric(vertical: 7),
+                                                  child: Column(
+                                                    mainAxisSize: MainAxisSize.min,
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                    children: [
+                                                      Text(
+                                                        p.lyric[index].lyric,
+                                                        textAlign: TextAlign.center,
+                                                        style: GoogleFonts.notoSansSc(
+                                                          fontSize: p.fontSize.value.toDouble(),
+                                                          color: playedLyric(index) ? Colors.blue:Colors.grey[400],
+                                                          fontWeight: playedLyric(index) ? FontWeight.bold: FontWeight.normal,
+                                                        ),
+                                                      ),
+                                                      if(p.lyric[index].translate.isNotEmpty) Text(
+                                                        p.lyric[index].translate,
+                                                        textAlign: TextAlign.center,
+                                                        style: GoogleFonts.notoSansSc(
+                                                          fontSize: p.fontSize.value.toDouble() * 0.85,
+                                                          color: playedLyric(index) ? Colors.blue:Colors.grey[400],
+                                                          fontWeight: playedLyric(index) ? FontWeight.bold: FontWeight.normal,
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
                                               )

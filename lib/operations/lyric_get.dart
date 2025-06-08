@@ -29,10 +29,11 @@ class LyricGet{
     if(!(await netease())){
       if(!(await lrclib())){
         p.lyric.value=[
-          {
-            'time': 0,
-            'content': '没有歌词',
-          }
+          // {
+          //   'time': 0,
+          //   'content': '没有歌词',
+          // }
+          LyricItem('没有歌词', "", 0)
         ];
       }
     }
@@ -48,7 +49,7 @@ class LyricGet{
     if(response==''){
       return false;
     }
-    List lyricCovert=[];
+    List<LyricItem> lyricCovert=[];
     List<String> lines = LineSplitter.split(response).toList();
     for(String line in lines){
       int pos1=line.indexOf("[");
@@ -56,22 +57,24 @@ class LyricGet{
       if(pos1==-1 || pos2==-1){
         return false;
       }
-      lyricCovert.add({
-        'time': timeToMilliseconds(line.substring(pos1+1, pos2)),
-        'content': line.substring(pos2 + 1).trim(),
-      });
+      // lyricCovert.add({
+      //   'time': timeToMilliseconds(line.substring(pos1+1, pos2)),
+      //   'content': line.substring(pos2 + 1).trim(),
+      // });
+      lyricCovert.add(LyricItem(line.substring(pos2 + 1).trim(), "", timeToMilliseconds(line.substring(pos1+1, pos2))));
     }
     p.lyric.value=lyricCovert;
     // print("from lrclib");
     return true;
   }
 
-  Future<String?> neteaseRequest(String title, String artist) async {
+  Future<Map?> neteaseRequest(String title, String artist) async {
     String id="";
     try {
       final keyword="$title $artist";
       final searchAPI="https://music.163.com/api/search/get/web?csrf_token=hlpretag=&hlposttag=&s=$keyword&type=1&offset=0&total=true&limit=1";
       final response=await http.get(Uri.parse(searchAPI));
+      
       final firstRlt=json.decode(utf8.decode(response.bodyBytes))['result']['songs'][0];
       if(!(firstRlt['name'].contains(title) || title.contains(firstRlt['name']))){
         return null;
@@ -83,27 +86,35 @@ class LyricGet{
     if(id.isEmpty){
       return null;
     }
-    String lyric="";
+    Map lyric={};
     try {
-      final lyricAPI="https://music.163.com/api/song/media?id=$id";
+      final lyricAPI="https://music.163.com/api/song/lyric?id=$id&tv=-1&os=pc&lv=-1";
       final response=await http.get(Uri.parse(lyricAPI));
-      lyric=json.decode(utf8.decode(response.bodyBytes))["lyric"];
+      lyric=json.decode(utf8.decode(response.bodyBytes));
     } catch (_) {
       return null;
     }
     if(lyric.isNotEmpty){
-      return lyric;
+      return {
+        "lyric": lyric["lrc"]["lyric"],
+        "translate": lyric["tlyric"]["lyric"]
+      };
     }
     return null;
   }
 
   Future<bool> netease() async {
-    final String? lyricPainText=await neteaseRequest(p.nowPlay['title'], p.nowPlay['artist']);
-    if(lyricPainText==null){
+    final Map? lyricResponse=await neteaseRequest(p.nowPlay['title'], p.nowPlay['artist']);
+    if(lyricResponse==null){
       return false;
     }
-    List lyricCovert=[];
-    List<String> lines = LineSplitter.split(lyricPainText).toList();
+    List<LyricItem> lyricCovert=[];
+    List<String> lines = LineSplitter.split(lyricResponse["lyric"]).toList();
+    bool hasTranslate=lyricResponse["translate"].length!=0;
+    List<String> tlines=[];
+    if(hasTranslate){
+      tlines=LineSplitter.split(lyricResponse["translate"]).toList();
+    }
     for(String line in lines){
       int pos1=line.indexOf("[");
       int pos2=line.indexOf("]");
@@ -111,27 +122,40 @@ class LyricGet{
         continue;
       }
       late int time;
-      late String content;
+      late String lyricItem;
+      String lyricTranslate="";
       try {
-        time=timeToMilliseconds(line.substring(pos1+1, pos2));
-        content = (pos2 + 1 < line.length) ? line.substring(pos2 + 1).trim() : "";
-        if(content=='' && lyricCovert.last['content']==''){
+        final timeInString=line.substring(pos1+1, pos2);
+        time=timeToMilliseconds(timeInString);
+        lyricItem = (pos2 + 1 < line.length) ? line.substring(pos2 + 1).trim() : "";
+        if(lyricItem=='' && lyricCovert.last.lyric==''){
           continue;
+        }
+        if(hasTranslate){
+          for(final t in tlines){
+            if(t.startsWith("[$timeInString]")){
+              lyricTranslate = (pos2 + 1 < t.length) ? t.substring(pos2 + 1).trim() : "";
+            }
+          }
         }
       } catch (_) {
         continue;
       }
-      lyricCovert.add({
-        'time': time,
-        'content': content,
-      });
+      // lyricCovert.add({
+      //   'time': time,
+      //   'content': content,
+      // });
+      lyricCovert.add(LyricItem(
+        lyricItem,
+        lyricTranslate,
+        time,
+      ));
     }
     if(lyricCovert.isEmpty){
       return false;
     }
-    lyricCovert.sort((a, b)=>a['time'].compareTo(b['time']));
+    lyricCovert.sort((a, b)=>a.time.compareTo(b.time));
     p.lyric.value=lyricCovert;
-    // print("from网易云");
     return true;
   }
 }

@@ -3,6 +3,20 @@ import 'dart:typed_data';
 import 'package:audio_service/audio_service.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/service/handler.dart';
+
+class LyricItem{
+  String lyric;
+  String translate;
+  int time;
+  LyricItem(this.lyric, this.translate, this.time);
+
+  Map toJson()=>{
+    "lyric": lyric,
+    "translate": translate,
+    "time": time,
+  };
+}
+
 class PlayerVar extends GetxController{
 
   Future<void> initPlayer() async {
@@ -41,7 +55,7 @@ class PlayerVar extends GetxController{
   // 播放进度, 注意单位为毫秒~1000ms=1s
   RxInt playProgress=0.obs;
   // 歌词内容
-  RxList lyric=[].obs;
+  RxList<LyricItem> lyric=<LyricItem>[].obs;
   // 当前歌词到多少行了
   RxInt lyricLine=0.obs;
   // 正在播放
