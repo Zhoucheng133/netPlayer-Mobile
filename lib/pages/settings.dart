@@ -235,6 +235,23 @@ class _SettingsState extends State<Settings> {
                               ),
                             ),
                             FTile(
+                              title: Text('显示歌词翻译', style: GoogleFonts.notoSansSc()),
+                              details: Obx(()=>
+                                FSwitch(
+                                  value: s.showTranslation.value, 
+                                  onChange: (val) async {
+                                    s.showTranslation.value=val;
+                                    final SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setBool('showTranslation', val);
+                                  }
+                                )
+                              ),
+                              subtitle: Text('如果存在歌词翻译则显示', style: GoogleFonts.notoSansSc(
+                                fontSize: 12,
+                                color: Colors.grey[400]
+                              )),
+                            ),
+                            FTile(
                               onPress: ()=>showQualityWarning(context),
                               title: Text(
                                 '播放音质',

@@ -25,6 +25,7 @@ class SettingsVar extends GetxController{
   RxBool wifi=true.obs;
   var quality=CustomQuality().obs;
   var progressStyle=ProgressStyle.ring.obs;
+  RxBool showTranslation=true.obs;
 
   final bgColor1=const Color.fromARGB(255, 50, 50, 50);
   final bgColor2=const Color.fromARGB(255, 60, 60, 60);

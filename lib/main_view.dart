@@ -198,6 +198,13 @@ class _MainViewState extends State<MainView> {
     }
   }
 
+  void translateSet(){
+    final showTranslation=prefs.getBool('showTranslation');
+    if(showTranslation!=null){
+      s.showTranslation.value=showTranslation;
+    }
+  }
+
   Future<void> initPrefs() async {
     prefs = await SharedPreferences.getInstance();
     if(await loginCheck()){
@@ -205,6 +212,7 @@ class _MainViewState extends State<MainView> {
       qualitySet();
       progressSet();
       initLyric();
+      translateSet();
     }
     subscription = Connectivity().onConnectivityChanged.listen((List<ConnectivityResult> result) {
       if(result.contains(ConnectivityResult.mobile)){

@@ -218,7 +218,7 @@ class _RemoteContentState extends State<RemoteContent> {
                                         fontWeight: playedLyric(index) ? FontWeight.bold: FontWeight.normal,
                                       ),
                                     ),
-                                    if(r.wsData.value.fullLyric[index]['translate'].isNotEmpty) Text(
+                                    if(r.wsData.value.fullLyric[index]['translate'].isNotEmpty && s.showTranslation.value) Text(
                                       r.wsData.value.fullLyric[index]['translate'],
                                       textAlign: TextAlign.center,
                                       style: GoogleFonts.notoSansSc(

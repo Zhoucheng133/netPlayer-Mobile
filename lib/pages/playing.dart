@@ -269,7 +269,7 @@ class _PlayingState extends State<Playing> {
                                                           fontWeight: playedLyric(index) ? FontWeight.bold: FontWeight.normal,
                                                         ),
                                                       ),
-                                                      if(p.lyric[index].translate.isNotEmpty) Text(
+                                                      if(p.lyric[index].translate.isNotEmpty && s.showTranslation.value) Text(
                                                         p.lyric[index].translate,
                                                         textAlign: TextAlign.center,
                                                         style: GoogleFonts.notoSansSc(
