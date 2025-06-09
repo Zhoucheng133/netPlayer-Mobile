@@ -97,8 +97,8 @@ class _SettingsState extends State<Settings> {
   Future<void> showQualityWarning(BuildContext context) async {
     final rlt=await d.showOkCancelDialog(
       context: context,
-      title: '注意!',
-      content: '如果指定非原始音质，第一次播放可能会导致无法使用时间轴定位歌曲\n对于FLAC格式的高码率歌曲第一次播可能没有声音(取决于音乐服务器的转码速度)',
+      title: '注意! 不推荐的设置',
+      content: '如果指定非原始音质，有一定概率无法播放或无法定位时间轴\n对于FLAC格式的高码率歌曲第一次播可能没有声音(取决于音乐服务器的转码速度)',
       okText: '继续',
       cancelText: '取消'
     );
