@@ -65,5 +65,7 @@ class PlayerVar extends GetxController{
   // 歌词字体大小
   RxInt fontSize=18.obs;
 
+  RxBool onSlide=false.obs;
+
   var coverFuture = Rx<Uint8List?>(null);
 }

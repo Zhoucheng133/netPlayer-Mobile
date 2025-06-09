@@ -57,7 +57,9 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
 
     player.positionStream.listen((position) {
       var data=position.inMilliseconds;
-      p.playProgress.value=data;
+      if(!p.onSlide.value){
+        p.playProgress.value=data;
+      }
       if(p.lyric.isNotEmpty && p.lyric.length!=1){
         for (var i = 0; i < p.lyric.length; i++) {
           if(i==p.lyric.length-1){
@@ -172,9 +174,12 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
     if(p.nowPlay["id"].isEmpty){
       return;
     }
+    p.onSlide.value=true;
+    await player.pause();
     await player.seek(position);
-    await play();
     setMedia(true);
+    p.onSlide.value=false;
+    play();
   }
 
   int preHandler(int index, int length){
