@@ -218,7 +218,10 @@ class _PlayingState extends State<Playing> {
                       });
                     },
                     child: Container(
-                      color: Colors.transparent,
+                      width: double.infinity,
+                      decoration: const BoxDecoration(
+                        color: Colors.transparent,
+                      ),
                       child: AnimatedSwitcher(
                         duration: const Duration(milliseconds: 200),
                         child: showlyric ? Container(
