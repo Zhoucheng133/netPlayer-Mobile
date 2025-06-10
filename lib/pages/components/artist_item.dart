@@ -47,7 +47,7 @@ class _ArtistItemState extends State<ArtistItem> {
                         fontSize: 16,
                       ),
                     ),
-                    Text(
+                    if(widget.item['albumCount']!=null) Text(
                       "${widget.item['albumCount']}张专辑",
                       overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.notoSansSc(
