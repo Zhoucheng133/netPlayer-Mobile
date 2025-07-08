@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:netplayer_mobile/operations/player_control.dart';
 import 'package:netplayer_mobile/operations/seek_check.dart';
+import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
@@ -85,8 +86,9 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
       }
     });
   }
-
-  void setMedia(bool isPlay){
+  
+  void setMedia(bool isPlay, {Duration? progress}){
+    // print("set!");
     playbackState.add(
       PlaybackState(
         playing: isPlay,
@@ -95,7 +97,7 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
           isPlay ? MediaControl.pause : MediaControl.play,
           MediaControl.skipToNext,
         ],
-        updatePosition: Duration(milliseconds: p.playProgress.value),
+        updatePosition: progress ?? Duration(milliseconds: p.playProgress.value),
         processingState: AudioProcessingState.ready,
         systemActions: const {
           MediaAction.seek,
@@ -117,7 +119,7 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
 
   // 播放
   @override
-  Future<void> play() async {
+  Future<void> play({bool bindMedia=true}) async {
     if(p.nowPlay["id"].isEmpty){
       return;
     }
@@ -131,7 +133,9 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
     //   skipHandler=false;
     // }
     playURL=url;
-    setMedia(true);
+    if(bindMedia){
+      setMedia(true);
+    }
     p.isPlay.value=true;
   }
 
@@ -177,9 +181,9 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
     p.onSlide.value=true;
     await player.pause();
     await player.seek(position);
-    setMedia(true);
+    setMedia(true, progress: position);
     p.onSlide.value=false;
-    play();
+    play(bindMedia: false);
   }
 
   int preHandler(int index, int length){
@@ -210,7 +214,7 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
     p.nowPlay.refresh();
     // skipHandler=true;
     play();
-    setMedia(true);
+    // setMedia(true);
   }
 
   int nextHandler(int index, int length){
@@ -251,7 +255,7 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
     p.nowPlay.refresh();
     // skipHandler=true;
     play();
-    setMedia(true);
+    // setMedia(true);
   }
 
   Future<void> volumeSet(val) async {
