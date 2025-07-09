@@ -505,19 +505,32 @@ class _PlayingState extends State<Playing> {
                                       ActionItem(name: '添加到...', key: 'add', icon: Icons.playlist_add_rounded),
                                       ActionItem(name: showlyric ? '隐藏歌词' : '查看歌词', key: 'lyric', icon: Icons.lyrics_rounded),
                                       ActionItem(name: '歌词大小', key: 'font', icon: Icons.text_fields_rounded),
+                                      ActionItem(name: '歌曲信息', key: 'info', icon: Icons.info_rounded),
                                     ]
                                   );
                                   if(rlt!=null && context.mounted){
                                     if(rlt=='delove'){
+                                      if(p.nowPlay["id"].isEmpty){
+                                        return;
+                                      }
                                       operations.delove(p.nowPlay['id'], context);
                                     }else if(rlt=='love'){
+                                      if(p.nowPlay["id"].isEmpty){
+                                        return;
+                                      }
                                       operations.love(p.nowPlay['id'], context);
                                     }else if(rlt=='lyric'){
+                                      if(p.nowPlay["id"].isEmpty){
+                                        return;
+                                      }
                                       setState(() {
                                         showlyric=!showlyric;
                                         scrollLyric();
                                       });
                                     }else if(rlt=='add'){
+                                      if(p.nowPlay["id"].isEmpty){
+                                        return;
+                                      }
                                       var listId = await d.showActionSheet(
                                         context: context, 
                                         list: List.generate(l.playList.length, (index){
@@ -534,11 +547,17 @@ class _PlayingState extends State<Playing> {
                                         }
                                       }
                                     }else if(rlt=='album'){
+                                      if(p.nowPlay["id"].isEmpty){
+                                        return;
+                                      }
                                       final data=await DataGet().getSong(p.nowPlay['id'], context);
                                       if(data['album']!=null && data['albumId']!=null){
                                         Get.off(()=>AlbumContent(album: data['album'], id: data['albumId']));
                                       }
                                     }else if(rlt=='artist'){
+                                      if(p.nowPlay["id"].isEmpty){
+                                        return;
+                                      }
                                       final data=await DataGet().getSong(p.nowPlay['id'], context);
                                       if(data['artistId']!=null && data['artist']!=null){
                                         Get.off(()=>ArtistContent(id: data['artistId'], artist: data['artist']));
@@ -551,6 +570,149 @@ class _PlayingState extends State<Playing> {
                                         });
                                       }
                                       operations.resizeFont(context);
+                                    }else if(rlt=='info'){
+                                      if(p.nowPlay["id"].isEmpty){
+                                        return;
+                                      }
+                                      d.showOkDialogRaw(
+                                        context: context, 
+                                        title: '歌曲信息', 
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            ClipRRect(
+                                              borderRadius: BorderRadius.circular(10),
+                                              child: Image.network(
+                                                "${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay['id']}",
+                                                height: 100,
+                                                width: 100,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 10,),
+                                            Row(
+                                              children: [
+                                                const SizedBox(
+                                                  width: 100,
+                                                  child: Text(
+                                                    "歌曲标题",
+                                                    style: TextStyle(
+                                                      fontWeight: FontWeight.bold
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Text(
+                                                    p.nowPlay['title'],
+                                                    overflow: TextOverflow.ellipsis,
+                                                  )
+                                                )
+                                              ],
+                                            ),
+                                            const SizedBox(height: 5,),
+                                            Row(
+                                              children: [
+                                                const SizedBox(
+                                                  width: 100,
+                                                  child: Text(
+                                                    "歌曲长度",
+                                                    style: TextStyle(
+                                                      fontWeight: FontWeight.bold
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Text(
+                                                    operations.convertDuration(p.nowPlay['duration']),
+                                                    overflow: TextOverflow.ellipsis,
+                                                  )
+                                                )
+                                              ],
+                                            ),
+                                            const SizedBox(height: 5,),
+                                            Row(
+                                              children: [
+                                                const SizedBox(
+                                                  width: 100,
+                                                  child: Text(
+                                                    "艺人",
+                                                    style: TextStyle(
+                                                      fontWeight: FontWeight.bold
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Text(
+                                                    p.nowPlay['artist'],
+                                                    overflow: TextOverflow.ellipsis,
+                                                  )
+                                                )
+                                              ],
+                                            ),
+                                            const SizedBox(height: 5,),
+                                            Row(
+                                              children: [
+                                                const SizedBox(
+                                                  width: 100,
+                                                  child: Text(
+                                                    "专辑",
+                                                    style: TextStyle(
+                                                      fontWeight: FontWeight.bold
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Text(
+                                                    p.nowPlay['album'],
+                                                    overflow: TextOverflow.ellipsis,
+                                                  )
+                                                )
+                                              ],
+                                            ),
+                                            const SizedBox(height: 5,),
+                                            Row(
+                                              children: [
+                                                const SizedBox(
+                                                  width: 100,
+                                                  child: Text(
+                                                    "歌曲id",
+                                                    style: TextStyle(
+                                                      fontWeight: FontWeight.bold
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Text(
+                                                    p.nowPlay['id'],
+                                                    maxLines: 2,
+                                                    overflow: TextOverflow.ellipsis,
+                                                  )
+                                                )
+                                              ],
+                                            ),
+                                            const SizedBox(height: 5,),
+                                            Row(
+                                              children: [
+                                                const SizedBox(
+                                                  width: 100,
+                                                  child: Text(
+                                                    "歌单id",
+                                                    style: TextStyle(
+                                                      fontWeight: FontWeight.bold
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Text(
+                                                    p.nowPlay['fromId'].isEmpty ? "N/A" : p.nowPlay['fromId'],
+                                                    maxLines: 2,
+                                                    overflow: TextOverflow.ellipsis,
+                                                  )
+                                                )
+                                              ],
+                                            ),
+                                          ],
+                                        )
+                                      );
                                     }
                                   }
                                 }, 
