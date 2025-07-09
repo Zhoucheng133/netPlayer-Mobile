@@ -201,7 +201,7 @@ class _SettingsState extends State<Settings> {
               child: ListView(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
