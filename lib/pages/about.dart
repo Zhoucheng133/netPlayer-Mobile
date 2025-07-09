@@ -61,7 +61,7 @@ class _AboutState extends State<About> {
                   ),
                   const SizedBox(height: 10,),
                   Text(
-                    'netPlayer Mobile',
+                    'netPlayer',
                     style: GoogleFonts.notoSansSc(
                       fontWeight: FontWeight.bold,
                       fontSize: 25,
