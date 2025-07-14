@@ -36,7 +36,11 @@ class DataGet{
       return;
     }else{
       try {
-        ls.playList.value=rlt['subsonic-response']['playlists']['playlist'];
+        if(rlt['subsonic-response']['playlists'].isEmpty){
+          ls.playList.value=[];
+        }else{
+          ls.playList.value=rlt['subsonic-response']['playlists']['playlist'];
+        }
       } catch (_) {
         if(context.mounted){
           dialog("获取所有歌单失败", "请检查你的网络连接", context);
