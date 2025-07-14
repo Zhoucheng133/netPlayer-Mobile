@@ -10,15 +10,13 @@
 
 **支持Android设备和iOS设备**，如果你要查找桌面版本，应该访问[**netPlayer Next**](https://github.com/Zhoucheng133/netPlayer-Next)仓库
 
-经过测试的平台：小米5X & iPhone13
+经过测试的平台：小米5X & iPhone13  
+若有任何bug欢迎提交至Issues
 
 （`apk`安装包见`Release`，iOS设备请自行下载源码安装）
 
 > [!NOTE]
 > 受限于Subsonic API，“所有歌曲”和“专辑”只能显示500首/张（随机的500首歌曲排序展示），如果你要随机播放所有的歌曲，可以点击主页右上角更多-随机播放所有歌曲
-
-> [!WARNING]
-> 如果你已经安装了v1.x版本的netPlayer Mobile，那么请在升级到v2.0.0或更新版本时卸载旧版本
 
 ## 一些使用技巧
 
