@@ -82,6 +82,10 @@ class _SongItemState extends State<SongItem> {
         Operations().delove(widget.item["id"], context);
       }
     }else if(req=='add'){
+      if(l.playList.isEmpty && context.mounted){
+        d.showOkDialog(context: context, title: "无法添加到歌单", content: "没有创建任何歌单");
+        return;
+      }
       if(context.mounted){
         var listId = await d.showActionSheet(
           context: context, 
