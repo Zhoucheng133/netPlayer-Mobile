@@ -24,15 +24,10 @@ class LyricGet{
 
   Future<void> getLyric() async {
 
-    // print("get!");
-
     if(!(await netease())){
       if(!(await lrclib())){
+        p.lyricSource.value=null;
         p.lyric.value=[
-          // {
-          //   'time': 0,
-          //   'content': '没有歌词',
-          // }
           LyricItem('没有歌词', "", 0)
         ];
       }
@@ -64,7 +59,7 @@ class LyricGet{
       lyricCovert.add(LyricItem(line.substring(pos2 + 1).trim(), "", timeToMilliseconds(line.substring(pos1+1, pos2))));
     }
     p.lyric.value=lyricCovert;
-    // print("from lrclib");
+    p.lyricSource.value=LyricSource.lrclib;
     return true;
   }
 
@@ -156,6 +151,7 @@ class LyricGet{
     }
     lyricCovert.sort((a, b)=>a.time.compareTo(b.time));
     p.lyric.value=lyricCovert;
+    p.lyricSource.value=LyricSource.netease;
     return true;
   }
 }

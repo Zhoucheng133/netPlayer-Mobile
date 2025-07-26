@@ -17,6 +17,11 @@ class LyricItem{
   };
 }
 
+enum LyricSource{
+  netease,
+  lrclib
+}
+
 class PlayerVar extends GetxController{
 
   Future<void> initPlayer() async {
@@ -33,6 +38,8 @@ class PlayerVar extends GetxController{
   PlayerVar(){
     initPlayer();
   }
+
+  Rx<LyricSource?> lyricSource=Rx<LyricSource?>(null);
 
   RxMap<String, dynamic> nowPlay={
     'id': '',

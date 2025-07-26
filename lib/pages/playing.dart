@@ -294,16 +294,20 @@ class _PlayingState extends State<Playing> {
                                   }
                                 ),
                               ),
-                              Positioned(
-                                right: 20,
-                                bottom: 10,
-                                child: IconButton(
-                                  onPressed: ()=>operations.resizeFont(context), 
-                                  icon: Icon(
-                                    Icons.text_fields_rounded,
-                                    color: Colors.grey[500],
-                                  )
-                                ),
+                              Obx(()=>
+                                p.lyricSource.value==null ? Container() : Positioned(
+                                  right: 20,
+                                  bottom: 10,
+                                  child: Tooltip(
+                                    preferBelow: false,
+                                    message: "歌词来自${p.lyricSource.value==LyricSource.netease ? '网易云' : 'lrclib.net'}，歌词仅供参考",
+                                    triggerMode: TooltipTriggerMode.tap,
+                                    child: Icon(
+                                      Icons.info_rounded,
+                                      color: Colors.grey[500],
+                                    ),
+                                  ),
+                                )
                               )
                             ],
                           ),
