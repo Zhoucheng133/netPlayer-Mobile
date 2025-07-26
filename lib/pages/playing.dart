@@ -528,6 +528,10 @@ class _PlayingState extends State<Playing> {
                                         scrollLyric();
                                       });
                                     }else if(rlt=='add'){
+                                      if(l.playList.isEmpty && context.mounted){
+                                        d.showOkDialog(context: context, title: "无法添加到歌单", content: "没有创建任何歌单");
+                                        return;
+                                      }
                                       if(p.nowPlay["id"].isEmpty){
                                         return;
                                       }
