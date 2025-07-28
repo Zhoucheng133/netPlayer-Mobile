@@ -115,6 +115,7 @@ class _LovedState extends State<Loved> {
                   child: CupertinoScrollbar(
                     controller: controller,
                     child: CustomScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(),
                       key: const Key('1'),
                       controller: controller,
                       slivers: [

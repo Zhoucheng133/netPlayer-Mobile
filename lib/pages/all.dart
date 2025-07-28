@@ -117,6 +117,7 @@ class _AllState extends State<All> {
                   child: CupertinoScrollbar(
                     controller: controller,
                     child: CustomScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(),
                       key: const Key("1"),
                       controller: controller,
                       slivers: [

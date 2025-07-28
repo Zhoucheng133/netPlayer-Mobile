@@ -187,6 +187,7 @@ class _IndexState extends State<Index> {
                 onRefresh: ()=>initGet(context),
                 child: Obx(()=>
                   CustomScrollView(
+                    physics: const AlwaysScrollableScrollPhysics(),
                     controller: controller,
                     slivers: [
                       const SliverToBoxAdapter(

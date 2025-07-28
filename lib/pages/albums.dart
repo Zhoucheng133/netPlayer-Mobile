@@ -99,6 +99,7 @@ class _AlbumsState extends State<Albums> {
                   child: CupertinoScrollbar(
                     controller: controller,
                     child: CustomScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(),
                       key: const Key("1"),
                       controller: controller,
                       slivers: [

@@ -97,22 +97,26 @@ class _AlbumContentState extends State<AlbumContent> {
                     ],
                   ),
                 ) : 
-                CupertinoScrollbar(
-                  controller: controller,
-                  child: CustomScrollView(
-                    key: const Key("1"),
+                RefreshIndicator(
+                  onRefresh: ()=>getList(context),
+                  child: CupertinoScrollbar(
                     controller: controller,
-                    slivers: [
-                      SliverToBoxAdapter(
-                        child: TitleArea(title: "专辑: ${widget.album}", subtitle: '${ls.length}首歌曲',),
-                      ),
-                      SliverList.builder(
-                        itemCount: ls.length,
-                        itemBuilder: (context, index){
-                          return SongItem(item: ls[index], index: index, ls: ls, from: 'album', listId: widget.id,);
-                        }
-                      )
-                    ],
+                    child: CustomScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      key: const Key("1"),
+                      controller: controller,
+                      slivers: [
+                        SliverToBoxAdapter(
+                          child: TitleArea(title: "专辑: ${widget.album}", subtitle: '${ls.length}首歌曲',),
+                        ),
+                        SliverList.builder(
+                          itemCount: ls.length,
+                          itemBuilder: (context, index){
+                            return SongItem(item: ls[index], index: index, ls: ls, from: 'album', listId: widget.id,);
+                          }
+                        )
+                      ],
+                    ),
                   ),
                 ),
               )

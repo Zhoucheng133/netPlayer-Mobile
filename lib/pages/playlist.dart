@@ -119,6 +119,7 @@ class _PlaylistState extends State<Playlist> {
                   child: CupertinoScrollbar(
                     controller: controller,
                     child: CustomScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(),
                       key: const Key('1'),
                       controller: controller,
                       slivers: [
