@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,6 +7,7 @@ import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/components/song_item.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
+import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
@@ -23,9 +25,16 @@ class _LovedState extends State<Loved> {
   AutoScrollController controller=AutoScrollController();
   bool showAppbarTitle=false;
   bool loading=true;
+  final LsVar lsVar=Get.find();
 
   Future<void> getList(BuildContext context) async {
     final data=await DataGet().getLoved(context);
+
+    const deepEq = DeepCollectionEquality();
+    if(!deepEq.equals(data, lsVar.loved)){
+      lsVar.loved.value=data;
+    }
+
     setState(() {
       ls=data;
       // loading=false;
