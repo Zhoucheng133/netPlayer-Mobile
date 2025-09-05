@@ -23,11 +23,14 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
   PlayerVar p=Get.find();
   final UserVar u = Get.find();
 
+  bool playBeforeInterruption=false;
+
   Future<void> initSession() async {
     final session = await AudioSession.instance;
     await session.configure(const AudioSessionConfiguration.music());
     session.interruptionEventStream.listen((event) {
       if (event.begin) {
+        playBeforeInterruption=p.isPlay.value;
         switch (event.type) {
           case AudioInterruptionType.duck:
             player.setVolume(0.5);
@@ -43,7 +46,9 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
             player.setVolume(1);
             break;
           case AudioInterruptionType.pause:
-            play();
+            if(playBeforeInterruption){
+              play();
+            }
           case AudioInterruptionType.unknown:
             break;
         }
