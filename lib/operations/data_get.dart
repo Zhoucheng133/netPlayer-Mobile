@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -53,7 +54,7 @@ class DataGet{
     final rlt=await httpRequest("${u.url.value}/rest/getRandomSongs?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&size=500");
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
       if(context.mounted){
-        dialog("获取所有歌单失败", "请检查你的网络连接", context);
+        dialog("获取所有歌曲失败", "请检查你的网络连接", context);
       }
       return [];
     }else{
@@ -67,18 +68,47 @@ class DataGet{
         return tmpList;
       } catch (_) {
         if(context.mounted){
-          dialog("获取所有歌单失败","请检查你的网络连接", context);
+          dialog("获取所有歌曲失败","请检查你的网络连接", context);
         }
         return [];
       }
     }
   }
 
+  // Navidrome获取用户验证信息
+  Future<bool> getNavidromeAuth() async {
+    if(u.password.value.isEmpty){
+      return false;
+    }
+    try {
+      final response=await http.post(
+        Uri.parse('${u.url.value}/auth/login'),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: jsonEncode({
+          "username": u.username.value,
+          "password": u.password.value,
+        }),
+      );
+      String responseBody = utf8.decode(response.bodyBytes);
+      Map<String, dynamic> data = json.decode(responseBody);
+      if(data['token'].isNotEmpty && data['id'].isNotEmpty){
+        u.authorization.value="Bearer ${data['token']}";
+        u.uniqueId.value=data['id'];
+        return true;
+      }
+    } catch (_) {
+      return false;
+    }
+    return false;
+  }
+
   Future<List> getLoved(BuildContext context) async {
     final rlt=await httpRequest("${u.url.value}/rest/getStarred?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}");
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
       if(context.mounted){
-        dialog("获取所有歌单失败","请检查你的网络连接", context);
+        dialog("获取喜欢的歌曲","请检查你的网络连接", context);
       }
       return [];
     }else{
@@ -91,7 +121,7 @@ class DataGet{
         }
       } catch (_) {
         if(context.mounted){
-          dialog("获取所有歌单失败", "请检查你的网络连接", context);
+          dialog("获取喜欢的歌曲", "请检查你的网络连接", context);
         }
         return [];
       }
@@ -182,7 +212,6 @@ class DataGet{
       return [];
     }else{
       try {
-        // print(rlt['subsonic-response']['album']);
         return rlt['subsonic-response']['album']['song'];
       } catch (_) {}
       return [];
@@ -205,7 +234,6 @@ class DataGet{
   }
 
   Future<Uint8List?> fetchCover() async {
-    // print("fetch!");
     if(p.nowPlay["id"]=="" || u.username.value.isEmpty){
       return null;
     }
