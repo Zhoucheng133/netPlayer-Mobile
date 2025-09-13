@@ -216,7 +216,7 @@ class _AlbumItemState extends State<AlbumItem> {
                       ),
                     ),
                     Text(
-                      "${widget.item['songCount']}首歌曲",
+                      widget.item['artist'],
                       overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.notoSansSc(
                         fontSize: 12,
