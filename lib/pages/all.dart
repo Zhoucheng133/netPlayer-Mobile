@@ -9,6 +9,7 @@ import 'package:netplayer_mobile/pages/components/title_area.dart';
 import 'package:netplayer_mobile/variables/page_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
+import 'package:netplayer_mobile/variables/user_var.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
 class All extends StatefulWidget {
@@ -24,6 +25,7 @@ class _AllState extends State<All> {
   AutoScrollController controller=AutoScrollController();
   bool showAppbarTitle=false;
   bool loading=true;
+  final UserVar u=Get.find();
 
   Future<void> getList(BuildContext context) async {
     final data=await DataGet().getAll(context);
@@ -122,7 +124,7 @@ class _AllState extends State<All> {
                       controller: controller,
                       slivers: [
                         SliverToBoxAdapter(
-                          child: TitleArea(title: '所有歌曲', subtitle: '${ls.length >= 500 ? "> ${ls.length}" : ls.length}首歌曲', showWarning: ls.length >= 500,),
+                          child: TitleArea(title: '所有歌曲', subtitle: '${ u.authorization.value.isEmpty && ls.length >= 500 ? "> ${ls.length}" : ls.length}首歌曲', showWarning: u.authorization.value.isEmpty && ls.length >= 500,),
                         ),
                         SliverList.builder(
                           itemCount: ls.length,
