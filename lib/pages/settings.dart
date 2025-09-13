@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:netplayer_mobile/operations/account.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/operations/requests.dart';
 import 'package:netplayer_mobile/pages/components/dev_tool.dart';
@@ -32,6 +33,7 @@ class _SettingsState extends State<Settings> {
   UserVar u = Get.find();
   PlayerVar p=Get.find();
   DialogVar d=Get.find();
+  Account account=Account();
 
   @override
   void initState(){
@@ -252,6 +254,36 @@ class _SettingsState extends State<Settings> {
                               )),
                             ),
                             FTile(
+                              title: Text('使用Navidrome API', style: GoogleFonts.notoSansSc()),
+                              details: Obx(()=>
+                                FSwitch(
+                                  value: p.useNavidrome.value, 
+                                  onChange: (val) async {
+                                    if(val){
+                                      final ok=await d.showOkCancelDialog(
+                                        context: context, 
+                                        title: "优先使用Navidrome API", 
+                                        content: "如果使用Navidrome服务可以打开此选项显示所有的歌曲和专辑",
+                                        okText: u.password.value.isEmpty ? "继续并重新登录" : "继续",
+                                        cancelText: "取消"
+                                      );
+                                      if(ok && u.password.value.isEmpty){
+                                        account.logout();
+                                        if(context.mounted) Navigator.pop(context);
+                                      }
+                                    }
+                                    p.useNavidrome.value=val;
+                                    final prefs=await SharedPreferences.getInstance();
+                                    prefs.setBool("useNavidrome", val);
+                                  }
+                                )
+                              ),
+                              subtitle: Text('显示所有歌曲和专辑', style: GoogleFonts.notoSansSc(
+                                fontSize: 12,
+                                color: Colors.grey[400]
+                              )),
+                            ),
+                            FTile(
                               onPress: ()=>showQualityWarning(context),
                               title: Text(
                                 '播放音质',
@@ -390,7 +422,7 @@ class _SettingsState extends State<Settings> {
                                 if(context.mounted){
                                   reset =await d.showOkCancelDialog(
                                     context: context, 
-                                    title: "重置Prefs成功", 
+                                    title: "重置Prefs", 
                                     content: "当前:\nuseNavidrome:$useNavidrome\npassword:$password",
                                   );
                                 }
