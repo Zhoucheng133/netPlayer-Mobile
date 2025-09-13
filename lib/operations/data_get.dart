@@ -51,6 +51,23 @@ class DataGet{
   }
 
   Future<List> getAll(BuildContext context) async {
+    if(p.useNavidrome.value){
+      if(u.uniqueId.value.isEmpty || u.authorization.value.isEmpty){
+        await getNavidromeAuth();
+      }
+      if(u.authorization.value.isNotEmpty && u.uniqueId.value.isNotEmpty){
+        List tmpList=await getAllSongByNavidrome();
+        if(tmpList.isNotEmpty){
+          tmpList.sort((a, b) {
+            DateTime dateTimeA = DateTime.parse(a['createdAt']??a['created']);
+            DateTime dateTimeB = DateTime.parse(b['createdAt']??b['created']);
+            return dateTimeB.compareTo(dateTimeA);
+          });
+          return tmpList;
+        }
+      }
+    }
+
     final rlt=await httpRequest("${u.url.value}/rest/getRandomSongs?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&size=500");
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
       if(context.mounted){
@@ -102,6 +119,84 @@ class DataGet{
       return false;
     }
     return false;
+  }
+
+  Future<List> getAllSongByNavidrome() async {
+    try {
+      try {
+        final response=await http.get(
+          Uri.parse('${u.url.value}/api/song'),
+          headers: {
+            "x-nd-authorization": u.authorization.value,
+            "x-nd-client-unique-id": u.uniqueId.value,
+          },
+        );
+        String responseBody = utf8.decode(response.bodyBytes);
+        List ls = json.decode(responseBody) as List;
+        ls=ls.map((item){
+          if (item['duration'] is num) {
+            item['duration'] = (item['duration'] as num).toInt();
+          }
+          if (item.containsKey('createdAt')) {
+            item['created'] = item['createdAt'];
+            item.remove('createdAt');
+          }
+          return item;
+        }).toList();
+        return ls;
+      } catch (e) {
+        return [];
+      }
+    } catch (_) {
+      return [];
+    }
+  }
+
+  Future<List> getAlbumsByNavidrome() async {
+    try {
+      try {
+        final response=await http.get(
+          Uri.parse('${u.url.value}/api/album'),
+          headers: {
+            "x-nd-authorization": u.authorization.value,
+            "x-nd-client-unique-id": u.uniqueId.value,
+          },
+        );
+        String responseBody = utf8.decode(response.bodyBytes);
+        List ls = json.decode(responseBody) as List;
+        ls=ls.map((item){
+          if (item['duration'] is num) {
+            item['duration'] = (item['duration'] as num).toInt();
+          }
+          if (item.containsKey('createdAt')) {
+            item['created'] = item['createdAt'];
+            item.remove('createdAt');
+          }
+          if (item.containsKey('name')) {
+            item['title'] = item['name'];
+            item.remove('name');
+          }
+          if (item.containsKey('albumArtist')) {
+            item['artist'] = item['albumArtist'];
+            item.remove('albumArtist');
+          }
+          if (item.containsKey('albumArtistId')) {
+            item['artistId'] = item['albumArtistId'];
+            item.remove('albumArtistId');
+          }
+          if (item.containsKey('maxYear')) {
+            item['year'] = item['maxYear'];
+            item.remove('maxYear');
+          }
+          return item;
+        }).toList();
+        return ls;
+      } catch (e) {
+        return [];
+      }
+    } catch (_) {
+      return [];
+    }
   }
 
   Future<List> getLoved(BuildContext context) async {
@@ -166,6 +261,19 @@ class DataGet{
   }
 
   Future<List> getAlbums(BuildContext context) async {
+
+    if(p.useNavidrome.value){
+      if(u.uniqueId.value.isEmpty || u.authorization.value.isEmpty){
+        await getNavidromeAuth();
+      }
+      if(u.authorization.value.isNotEmpty && u.uniqueId.value.isNotEmpty){
+        List tmpList=await getAlbumsByNavidrome();
+        if(tmpList.isNotEmpty){
+          return tmpList;
+        }
+      }
+    }
+
     final rlt=await httpRequest("${u.url.value}/rest/getAlbumList?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&type=newest&size=500");
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
       if(context.mounted){
