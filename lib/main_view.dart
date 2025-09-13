@@ -219,6 +219,7 @@ class _MainViewState extends State<MainView> {
       }else{
         p.useNavidrome.value=false;
         prefs.setBool("useNavidrome", false);
+        return false;
       }
     }
     if(useNavidrome==null && password!=null){
