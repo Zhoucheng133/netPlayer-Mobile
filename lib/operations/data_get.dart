@@ -318,6 +318,19 @@ class DataGet{
     }
   }
 
+  Future<Map> getAlbumInfo(String id, BuildContext context) async {
+    final rlt=await httpRequest("${u.url.value}/rest/getAlbum?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=$id");
+    if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
+      return {};
+    }else{
+      try {
+        return rlt['subsonic-response']['album'];
+      } catch (_) {}
+      return {};
+    }
+  }
+
+
   Future<Map> getSong(String id, BuildContext context) async {
     final rlt=await httpRequest("${u.url.value}/rest/getSong?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=$id");
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
