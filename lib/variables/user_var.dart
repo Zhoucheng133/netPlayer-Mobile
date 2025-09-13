@@ -4,4 +4,5 @@ class UserVar extends GetxController{
   RxString username=''.obs;
   RxString token=''.obs;
   RxString salt=''.obs;
+  RxString password=''.obs;
 }

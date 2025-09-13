@@ -53,6 +53,7 @@ class Account{
     u.token.value='';
     u.url.value='';
     u.username.value='';
+    u.password.value='';
     p.handler.stop();
     final prefs = await SharedPreferences.getInstance();
     prefs.clear();

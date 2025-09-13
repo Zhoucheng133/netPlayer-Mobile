@@ -40,6 +40,12 @@ class _LoginState extends State<Login> {
     super.dispose();
   }
 
+   String normalizeUrl(String url) {
+    if (url.endsWith('/')) {
+      return url.substring(0, url.length - 1);
+    }
+    return url;
+  }
 
   Future<void> loginController(BuildContext context) async {
     if(urlInput.text.isEmpty){
@@ -74,17 +80,19 @@ class _LoginState extends State<Login> {
       var salt=account.generateRandomString(6);
       var bytes = utf8.encode(passwordInput.text+salt);
       var token = md5.convert(bytes);
-      var resp=await account.login(urlInput.text, usernameInput.text, token.toString(), salt);
+      var resp=await account.login(normalizeUrl(urlInput.text), usernameInput.text, token.toString(), salt);
       if(resp['ok']){
         u.username.value=usernameInput.text;
         u.salt.value=salt;
-        u.url.value=urlInput.text;
+        u.url.value=normalizeUrl(urlInput.text);
         u.token.value=token.toString();
+        u.password.value=passwordInput.text;
         SharedPreferences prefs=await SharedPreferences.getInstance();
-        prefs.setString('url', urlInput.text);
+        prefs.setString('url', normalizeUrl(urlInput.text));
         prefs.setString('username', usernameInput.text);
         prefs.setString('token', token.toString());
         prefs.setString('salt', salt);
+        prefs.setString("password", passwordInput.text);
       }else{
         WidgetsBinding.instance.addPostFrameCallback((_) {
           d.showOkDialog(

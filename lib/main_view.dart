@@ -57,7 +57,9 @@ class _MainViewState extends State<MainView> {
   @override
   void initState() {
     super.initState();
-    initPrefs();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      initPrefs(context);
+    });
     accountListener=ever(u.url, (val){
       if(val.isEmpty){
         setState(() {
@@ -70,24 +72,15 @@ class _MainViewState extends State<MainView> {
       }
     });
     nowPlayListener=ever(p.nowPlay, (val){
-
       if(preId!=null && p.nowPlay['id']==preId){
         return;
       }
-
       updateCover();
-
       if(p.nowPlay['id']!=null && p.nowPlay['id'].isNotEmpty){
         preId=p.nowPlay['id'];
       }
 
       savePlay(val);
-      // p.lyric.value=[
-      //   {
-      //     'time': 0,
-      //     'content': '查找歌词中...',
-      //   }
-      // ];
       p.lyric.value=[
         LyricItem('查找歌词中...', "", 0)
       ];
@@ -113,6 +106,7 @@ class _MainViewState extends State<MainView> {
     var username=prefs.getString('username');
     var token=prefs.getString('token');
     var salt=prefs.getString('salt');
+    var password=prefs.getString("password");
     if(url!=null && username!=null && token!=null && salt!=null){
       var resp=await account.login(url, username, token, salt);
       if(resp['ok']){
@@ -120,6 +114,7 @@ class _MainViewState extends State<MainView> {
         u.salt.value=salt;
         u.url.value=url;
         u.token.value=token;
+        u.password.value=password??"";
         return true;
       }else{
         WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -184,7 +179,7 @@ class _MainViewState extends State<MainView> {
 
   late StreamSubscription<List<ConnectivityResult>> subscription;
 
-  void initLyric(){
+  void lyricSet(){
     final fontSize=prefs.getInt('fontSize');
     if(fontSize!=null){
       p.fontSize.value=fontSize;
@@ -205,13 +200,50 @@ class _MainViewState extends State<MainView> {
     }
   }
 
-  Future<void> initPrefs() async {
+  Future<bool> navidromeSet(BuildContext context) async {
+    bool? useNavidrome=prefs.getBool("useNavidrome");
+    String? password=prefs.getString("password");
+    if(useNavidrome==null && password==null){
+      final useNavidrome=await dialog.showOkCancelDialog(
+        context: context, 
+        title: "启用Navidrome API", 
+        content: "如果你使用了Navidrome服务，可以使用Navidrome API获取所有歌曲和专辑\n这个操作需要你重新登录服务器",
+        okText: "启用并重新登录",
+        cancelText: "不启用"
+      );
+      if(useNavidrome){
+        p.useNavidrome.value=true;
+        prefs.setBool("useNavidrome", true);
+        account.logout();
+        return true;
+      }else{
+        p.useNavidrome.value=false;
+        prefs.setBool("useNavidrome", false);
+      }
+    }
+    p.useNavidrome.value=useNavidrome??true;
+    if(useNavidrome==null && password!=null){
+      prefs.setBool("useNavidrome", true);
+    }
+    return false;
+  }
+
+  Future<void> initPrefs(BuildContext context) async {
     prefs = await SharedPreferences.getInstance();
+    if(context.mounted){
+      bool toLogin = await navidromeSet(context);
+      if(toLogin){
+        setState(() {
+          loading=false;
+        });
+        return;
+      }
+    }
     if(await loginCheck()){
       nowPlaySet();
       qualitySet();
       progressSet();
-      initLyric();
+      lyricSet();
       translateSet();
     }
     subscription = Connectivity().onConnectivityChanged.listen((List<ConnectivityResult> result) {
