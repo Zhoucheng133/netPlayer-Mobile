@@ -123,30 +123,26 @@ class DataGet{
 
   Future<List> getAllSongByNavidrome() async {
     try {
-      try {
-        final response=await http.get(
-          Uri.parse('${u.url.value}/api/song'),
-          headers: {
-            "x-nd-authorization": u.authorization.value,
-            "x-nd-client-unique-id": u.uniqueId.value,
-          },
-        );
-        String responseBody = utf8.decode(response.bodyBytes);
-        List ls = json.decode(responseBody) as List;
-        ls=ls.map((item){
-          if (item['duration'] is num) {
-            item['duration'] = (item['duration'] as num).toInt();
-          }
-          if (item.containsKey('createdAt')) {
-            item['created'] = item['createdAt'];
-            item.remove('createdAt');
-          }
-          return item;
-        }).toList();
-        return ls;
-      } catch (e) {
-        return [];
-      }
+      final response=await http.get(
+        Uri.parse('${u.url.value}/api/song'),
+        headers: {
+          "x-nd-authorization": u.authorization.value,
+          "x-nd-client-unique-id": u.uniqueId.value,
+        },
+      );
+      String responseBody = utf8.decode(response.bodyBytes);
+      List ls = json.decode(responseBody) as List;
+      ls=ls.map((item){
+        if (item['duration'] is num) {
+          item['duration'] = (item['duration'] as num).toInt();
+        }
+        if (item.containsKey('createdAt')) {
+          item['created'] = item['createdAt'];
+          item.remove('createdAt');
+        }
+        return item;
+      }).toList();
+      return ls;
     } catch (_) {
       return [];
     }
@@ -154,46 +150,42 @@ class DataGet{
 
   Future<List> getAlbumsByNavidrome() async {
     try {
-      try {
-        final response=await http.get(
-          Uri.parse('${u.url.value}/api/album'),
-          headers: {
-            "x-nd-authorization": u.authorization.value,
-            "x-nd-client-unique-id": u.uniqueId.value,
-          },
-        );
-        String responseBody = utf8.decode(response.bodyBytes);
-        List ls = json.decode(responseBody) as List;
-        ls=ls.map((item){
-          if (item['duration'] is num) {
-            item['duration'] = (item['duration'] as num).toInt();
-          }
-          if (item.containsKey('createdAt')) {
-            item['created'] = item['createdAt'];
-            item.remove('createdAt');
-          }
-          if (item.containsKey('name')) {
-            item['title'] = item['name'];
-            item.remove('name');
-          }
-          if (item.containsKey('albumArtist')) {
-            item['artist'] = item['albumArtist'];
-            item.remove('albumArtist');
-          }
-          if (item.containsKey('albumArtistId')) {
-            item['artistId'] = item['albumArtistId'];
-            item.remove('albumArtistId');
-          }
-          if (item.containsKey('maxYear')) {
-            item['year'] = item['maxYear'];
-            item.remove('maxYear');
-          }
-          return item;
-        }).toList();
-        return ls;
-      } catch (e) {
-        return [];
-      }
+      final response=await http.get(
+        Uri.parse('${u.url.value}/api/album'),
+        headers: {
+          "x-nd-authorization": u.authorization.value,
+          "x-nd-client-unique-id": u.uniqueId.value,
+        },
+      );
+      String responseBody = utf8.decode(response.bodyBytes);
+      List ls = json.decode(responseBody) as List;
+      ls=ls.map((item){
+        if (item['duration'] is num) {
+          item['duration'] = (item['duration'] as num).toInt();
+        }
+        if (item.containsKey('createdAt')) {
+          item['created'] = item['createdAt'];
+          item.remove('createdAt');
+        }
+        if (item.containsKey('name')) {
+          item['title'] = item['name'];
+          item.remove('name');
+        }
+        if (item.containsKey('albumArtist')) {
+          item['artist'] = item['albumArtist'];
+          item.remove('albumArtist');
+        }
+        if (item.containsKey('albumArtistId')) {
+          item['artistId'] = item['albumArtistId'];
+          item.remove('albumArtistId');
+        }
+        if (item.containsKey('maxYear')) {
+          item['year'] = item['maxYear'];
+          item.remove('maxYear');
+        }
+        return item;
+      }).toList();
+      return ls;
     } catch (_) {
       return [];
     }
