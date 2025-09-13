@@ -221,10 +221,10 @@ class _MainViewState extends State<MainView> {
         prefs.setBool("useNavidrome", false);
       }
     }
-    p.useNavidrome.value=useNavidrome??true;
     if(useNavidrome==null && password!=null){
       prefs.setBool("useNavidrome", true);
     }
+    p.useNavidrome.value=useNavidrome??true;
     return false;
   }
 
