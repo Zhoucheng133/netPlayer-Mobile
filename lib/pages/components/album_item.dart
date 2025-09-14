@@ -35,7 +35,7 @@ class _AlbumItemState extends State<AlbumItem> {
       ]
     );
     if(req=='artist'){
-      Get.to(ArtistContent(id: widget.item['artistId'], artist: widget.item['artist']));
+      Get.to(()=>ArtistContent(id: widget.item['artistId'], artist: widget.item['artist']));
     }else if(req=="info"){
       Map albumInfo={};
       if(context.mounted) albumInfo=await dataGet.getAlbumInfo(widget.item['id'], context);
