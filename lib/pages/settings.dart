@@ -6,11 +6,10 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/operations/account.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
-import 'package:netplayer_mobile/operations/requests.dart';
-import 'package:netplayer_mobile/pages/components/dev_tool.dart';
 import 'package:netplayer_mobile/pages/components/progress_dialog.dart';
 import 'package:netplayer_mobile/pages/components/quality_dialog.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
+import 'package:netplayer_mobile/pages/dev.dart';
 import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
@@ -392,25 +391,7 @@ class _SettingsState extends State<Settings> {
                             ),
                             FTile(
                               title: Text('开发者工具', style: GoogleFonts.notoSansSc(),),
-                              onPress: () async {
-                                if(p.nowPlay['id']==''){
-                                  d.showOkDialog(
-                                    context: context, 
-                                    title: "开发者工具", 
-                                    content: "当前没有在播放",
-                                    okText: "好的",
-                                  );
-                                  return;
-                                }
-                                final data=await httpRequest("${u.url.value}/rest/getSong?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay['id']}");
-                                if(context.mounted){
-                                  d.showOkDialogRaw(
-                                    context: context, 
-                                    title: '开发者工具',
-                                    child: DevTool(data: data,),
-                                  );
-                                }
-                              },
+                              onPress: ()=>Get.to(()=>const Dev()),
                             ),
                           ]
                         )
