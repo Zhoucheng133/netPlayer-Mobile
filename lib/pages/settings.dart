@@ -270,6 +270,8 @@ class _SettingsState extends State<Settings> {
                                       if(ok && u.password.value.isEmpty){
                                         account.logout();
                                         if(context.mounted) Navigator.pop(context);
+                                      }else if(!ok){
+                                        return;
                                       }
                                     }
                                     p.useNavidrome.value=val;
