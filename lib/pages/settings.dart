@@ -412,26 +412,6 @@ class _SettingsState extends State<Settings> {
                                 }
                               },
                             ),
-                            FTile(
-                              title: Text('使用上一个版本的prefs', style: GoogleFonts.notoSansSc(),),
-                              onPress: () async {
-                                final prefs=await SharedPreferences.getInstance();
-                                final useNavidrome=prefs.getBool("useNavidrome");
-                                final password=prefs.getString("password");
-                                bool reset=false;
-                                if(context.mounted){
-                                  reset =await d.showOkCancelDialog(
-                                    context: context, 
-                                    title: "重置Prefs", 
-                                    content: "当前:\nuseNavidrome:$useNavidrome\npassword:$password",
-                                  );
-                                }
-                                if(reset){
-                                  prefs.remove("password");
-                                  prefs.remove("useNavidrome");
-                                }
-                              },
-                            )
                           ]
                         )
                       ],
