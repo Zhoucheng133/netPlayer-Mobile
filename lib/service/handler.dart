@@ -130,12 +130,13 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
     var url=seekCheck.enableSeek() ? "${u.url.value}/rest/stream?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}"
     : "${u.url.value}/rest/stream?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}&maxBitRate=${s.quality.value.quality}";
     if(url!=playURL){
-      await player.setUrl(url);
+      try {
+        await player.setUrl(url);
+      } catch (_) {
+        skipToNext();
+      }
     }
     player.play();
-    // if(skipHandler){
-    //   skipHandler=false;
-    // }
     playURL=url;
     if(bindMedia){
       setMedia(true);
