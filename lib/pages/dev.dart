@@ -72,6 +72,7 @@ token: ${prefs.getString("token")}
 显示翻译: ${prefs.getBool("showTranslation")}
 进度条模式: ${prefs.getInt("progressStyle")}
 播放音质: ${prefs.getString("quality")}
+忽略失效文件: ${prefs.getBool("removeMissing")}
 ————————————
 # 播放
 播放模式: ${prefs.getString("playMode")}

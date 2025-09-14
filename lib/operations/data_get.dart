@@ -132,9 +132,11 @@ class DataGet{
       );
       String responseBody = utf8.decode(response.bodyBytes);
       List ls = json.decode(responseBody) as List;
-      ls=ls.where((item){
-        return item['missing']!=true;
-      }).toList();
+      if(p.removeMissing.value){
+        ls=ls.where((item){
+          return item['missing']!=true;
+        }).toList();
+      }
       ls=ls.map((item){
         if (item['duration'] is num) {
           item['duration'] = (item['duration'] as num).toInt();
@@ -162,9 +164,11 @@ class DataGet{
       );
       String responseBody = utf8.decode(response.bodyBytes);
       List ls = json.decode(responseBody) as List;
-      ls=ls.where((item){
-        return item['missing']!=true;
-      }).toList();
+      if(p.removeMissing.value){
+        ls=ls.where((item){
+          return item['missing']!=true;
+        }).toList();
+      }
       ls=ls.map((item){
         if (item['duration'] is num) {
           item['duration'] = (item['duration'] as num).toInt();

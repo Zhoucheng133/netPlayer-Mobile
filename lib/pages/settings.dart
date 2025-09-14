@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/operations/account.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
+import 'package:netplayer_mobile/operations/play_check.dart';
 import 'package:netplayer_mobile/pages/components/progress_dialog.dart';
 import 'package:netplayer_mobile/pages/components/quality_dialog.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
@@ -278,6 +279,26 @@ class _SettingsState extends State<Settings> {
                                 )
                               ),
                               subtitle: Text('显示所有歌曲和专辑', style: GoogleFonts.notoSansSc(
+                                fontSize: 12,
+                                color: Colors.grey[400]
+                              )),
+                            ),
+                            FTile(
+                              title: Text('忽略失效的文件', style: GoogleFonts.notoSansSc()),
+                              details: Obx(()=>
+                                FSwitch(
+                                  value: p.removeMissing.value, 
+                                  onChange: p.useNavidrome.value ? (val) async {
+                                    p.removeMissing.value=val;
+                                    final prefs=await SharedPreferences.getInstance();
+                                    prefs.setBool("removeMissing", val);
+                                    if(p.nowPlay['playFrom']=="all" && context.mounted){
+                                      PlayCheck().check(context);
+                                    }
+                                  } : null,
+                                )
+                              ),
+                              subtitle: Text('仅对NavidromeAPI有效', style: GoogleFonts.notoSansSc(
                                 fontSize: 12,
                                 color: Colors.grey[400]
                               )),

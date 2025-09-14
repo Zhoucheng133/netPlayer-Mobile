@@ -74,6 +74,7 @@ class PlayerVar extends GetxController{
   RxBool onSlide=false.obs;
 
   RxBool useNavidrome=true.obs;
+  RxBool removeMissing=true.obs;
 
   var coverFuture = Rx<Uint8List?>(null);
 }

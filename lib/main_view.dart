@@ -201,6 +201,12 @@ class _MainViewState extends State<MainView> {
   }
 
   Future<bool> navidromeSet(BuildContext context) async {
+
+    bool? removeMissing=prefs.getBool("removeMissing");
+    if(removeMissing==false){
+      p.removeMissing.value=false;
+    }
+
     bool? useNavidrome=prefs.getBool("useNavidrome");
     String? password=prefs.getString("password");
     if(useNavidrome==null && password==null){
