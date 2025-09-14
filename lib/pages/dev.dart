@@ -46,7 +46,34 @@ class _DevState extends State<Dev> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 FTileGroup(
-                  label: Text('本地', style: GoogleFonts.notoSansSc()),
+                  label: Text('状态', style: GoogleFonts.notoSansSc()),
+                  children: [
+                    FTile(
+                      title: Text("播放状态", style: GoogleFonts.notoSansSc(),),
+                      onPress: () async {
+                        if(p.nowPlay['id']==''){
+                          d.showOkDialog(
+                            context: context, 
+                            title: "播放状态", 
+                            content: "当前没有在播放",
+                            okText: "好的",
+                          );
+                          return;
+                        }
+                        final data=await httpRequest("${u.url.value}/rest/getSong?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay['id']}");
+                          if(context.mounted){
+                            d.showOkDialogRaw(
+                              context: context, 
+                              title: '播放状态',
+                              child: DevTool(data: data,),
+                            );
+                          }
+                      },
+                    ),
+                  ],
+                ),
+                FTileGroup(
+                  label: Text("存储", style: GoogleFonts.notoSansSc(),),
                   children: [
                     FTile(
                       title: Text("本地存储", style: GoogleFonts.notoSansSc(),),
@@ -78,33 +105,42 @@ token: ${prefs.getString("token")}
 播放模式: ${prefs.getString("playMode")}
 歌词大小: ${prefs.getInt("fontSize")}
 """
-                        );
+                          );
                         }
                       },
                     ),
                     FTile(
-                      title: Text("播放状态", style: GoogleFonts.notoSansSc(),),
+                      title: Text("使用前一个版本的存储", style: GoogleFonts.notoSansSc(),),
+                      subtitle: Text("清除password和useNavidrome", style: GoogleFonts.notoSans(),),
                       onPress: () async {
-                        if(p.nowPlay['id']==''){
+                        final prefs=await SharedPreferences.getInstance();
+                        prefs.remove("useNavidrome");
+                        prefs.remove("password");
+                        if(context.mounted){
                           d.showOkDialog(
                             context: context, 
-                            title: "播放状态", 
-                            content: "当前没有在播放",
-                            okText: "好的",
+                            title: "清除完成", 
+                            content: "已经清除password和useNavidrome存储"
                           );
-                          return;
                         }
-                        final data=await httpRequest("${u.url.value}/rest/getSong?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay['id']}");
-                          if(context.mounted){
-                            d.showOkDialogRaw(
-                              context: context, 
-                              title: '开发者工具',
-                              child: DevTool(data: data,),
-                            );
-                          }
                       },
                     ),
-                  ],
+                    FTile(
+                      title: Text("清除所有的存储", style: GoogleFonts.notoSansSc(),),
+                      subtitle: Text("清除所有的配置信息", style: GoogleFonts.notoSans(),),
+                      onPress: () async {
+                        final prefs=await SharedPreferences.getInstance();
+                        prefs.clear();
+                        if(context.mounted){
+                          d.showOkDialog(
+                            context: context, 
+                            title: "清除完成", 
+                            content: "已经清除所有的配置"
+                          );
+                        }
+                      },
+                    )
+                  ]
                 )
               ],
             ),
