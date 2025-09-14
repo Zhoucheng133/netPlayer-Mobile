@@ -209,7 +209,8 @@ class _MainViewState extends State<MainView> {
 
     bool? useNavidrome=prefs.getBool("useNavidrome");
     String? password=prefs.getString("password");
-    if(useNavidrome==null && password==null){
+    String? username=prefs.getString("username");
+    if(useNavidrome==null && password==null && username!=null){
       final useNavidrome=await dialog.showOkCancelDialog(
         context: context, 
         title: "启用Navidrome API", 
