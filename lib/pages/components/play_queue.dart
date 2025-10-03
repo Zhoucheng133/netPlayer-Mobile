@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:netplayer_mobile/pages/components/queue_item.dart';
+import 'package:netplayer_mobile/variables/player_var.dart';
 
 class PlayQueue extends StatefulWidget {
   const PlayQueue({super.key});
@@ -9,6 +12,9 @@ class PlayQueue extends StatefulWidget {
 }
 
 class _PlayQueueState extends State<PlayQueue> {
+
+  final PlayerVar p=Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -38,7 +44,14 @@ class _PlayQueueState extends State<PlayQueue> {
             ),
           ),
           const SizedBox(height: 15,),
-          Expanded(child: Placeholder())
+          Expanded(
+            child: Obx(()=>
+              ListView.builder(
+                itemCount: p.nowPlay['list'].length,
+                itemBuilder: (context, index)=>QueueItem(songItem: p.nowPlay['list'][index], index: index,)
+              ),
+            )
+          )
         ],
       ),
     );
