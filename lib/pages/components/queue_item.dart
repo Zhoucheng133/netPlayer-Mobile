@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:netplayer_mobile/operations/player_control.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 
@@ -27,7 +28,9 @@ class _QueueItemState extends State<QueueItem> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){},
+      onTap: (){
+        PlayerControl().playSong(context, widget.songItem['id'], widget.songItem['title'], widget.songItem['artist'], p.nowPlay['playFrom'], widget.songItem['duration'], p.nowPlay['fromId'], widget.index, p.nowPlay['list'], widget.songItem['album']);
+      },
       child: Padding(
         padding: const EdgeInsets.only(left: 10, right: 10),
         child: Container(
