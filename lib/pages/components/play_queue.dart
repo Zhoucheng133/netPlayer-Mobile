@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/pages/components/queue_item.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 
 class PlayQueue extends StatefulWidget {
   const PlayQueue({super.key});
@@ -14,6 +15,7 @@ class PlayQueue extends StatefulWidget {
 class _PlayQueueState extends State<PlayQueue> {
 
   final PlayerVar p=Get.find();
+  AutoScrollController controller=AutoScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,9 @@ class _PlayQueueState extends State<PlayQueue> {
                   ),
                 ),
                 IconButton(
-                  onPressed: (){}, 
+                  onPressed: (){
+                    controller.scrollToIndex(p.nowPlay['index'], preferPosition: AutoScrollPosition.middle);
+                  }, 
                   icon: const Icon(
                     Icons.my_location_rounded,
                     size: 22,
@@ -47,8 +51,14 @@ class _PlayQueueState extends State<PlayQueue> {
           Expanded(
             child: Obx(()=>
               ListView.builder(
+                controller: controller,
                 itemCount: p.nowPlay['list'].length,
-                itemBuilder: (context, index)=>QueueItem(songItem: p.nowPlay['list'][index], index: index,)
+                itemBuilder: (context, index)=>AutoScrollTag(
+                  key: ValueKey(index),
+                  controller: controller,
+                  index: index,
+                  child: QueueItem(songItem: p.nowPlay['list'][index], index: index,)
+                )
               ),
             )
           )
