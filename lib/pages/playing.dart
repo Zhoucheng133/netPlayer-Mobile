@@ -6,6 +6,7 @@ import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/pages/album_content.dart';
 import 'package:netplayer_mobile/pages/artist_content.dart';
+import 'package:netplayer_mobile/pages/components/play_queue.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
 import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
@@ -506,6 +507,7 @@ class _PlayingState extends State<Playing> {
                                       ActionItem(name: '查看艺人: ${p.nowPlay["artist"]}', key: 'artist', icon: Icons.mic_rounded),
                                       isLoved() ? ActionItem(name: '从喜欢中移除', key: 'delove', icon: Icons.heart_broken_rounded) : 
                                       ActionItem(name: '添加到喜欢', key: 'love', icon: Icons.favorite_rounded),
+                                      ActionItem(name: '播放队列', key: 'queue', icon: Icons.playlist_play_rounded),
                                       ActionItem(name: '添加到...', key: 'add', icon: Icons.playlist_add_rounded),
                                       ActionItem(name: showlyric ? '隐藏歌词' : '查看歌词', key: 'lyric', icon: Icons.lyrics_rounded),
                                       ActionItem(name: '歌词大小', key: 'font', icon: Icons.text_fields_rounded),
@@ -720,6 +722,15 @@ class _PlayingState extends State<Playing> {
                                             ),
                                           ],
                                         )
+                                      );
+                                    }else if(rlt=='queue'){
+                                      if(p.nowPlay['playFrom']=='fullRandom'){
+                                        await d.showOkDialog(context: context, title: "播放队列不可用", content: "现在是完全随机播放模式");
+                                        return;
+                                      }
+                                      showModalBottomSheet(
+                                        context: context,
+                                        builder: (BuildContext context)=>const PlayQueue()
                                       );
                                     }
                                   }

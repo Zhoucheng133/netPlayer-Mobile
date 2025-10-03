@@ -1,0 +1,46 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+class PlayQueue extends StatefulWidget {
+  const PlayQueue({super.key});
+
+  @override
+  State<PlayQueue> createState() => _PlayQueueState();
+}
+
+class _PlayQueueState extends State<PlayQueue> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom+10, top: 15),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    '播放队列',
+                    style: GoogleFonts.notoSansSc(
+                      fontSize: 20
+                    ),
+                  ),
+                ),
+                IconButton(
+                  onPressed: (){}, 
+                  icon: const Icon(
+                    Icons.my_location_rounded,
+                    size: 22,
+                  )
+                )
+              ],
+            ),
+          ),
+          const SizedBox(height: 15,),
+          Expanded(child: Placeholder())
+        ],
+      ),
+    );
+  }
+}
