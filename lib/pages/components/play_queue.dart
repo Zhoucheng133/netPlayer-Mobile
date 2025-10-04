@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart' show CupertinoScrollbar;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -50,15 +51,18 @@ class _PlayQueueState extends State<PlayQueue> {
           const SizedBox(height: 15,),
           Expanded(
             child: Obx(()=>
-              ListView.builder(
+              CupertinoScrollbar(
                 controller: controller,
-                itemCount: p.nowPlay['list'].length,
-                itemBuilder: (context, index)=>AutoScrollTag(
-                  key: ValueKey(index),
+                child: ListView.builder(
                   controller: controller,
-                  index: index,
-                  child: QueueItem(songItem: p.nowPlay['list'][index], index: index,)
-                )
+                  itemCount: p.nowPlay['list'].length,
+                  itemBuilder: (context, index)=>AutoScrollTag(
+                    key: ValueKey(index),
+                    controller: controller,
+                    index: index,
+                    child: QueueItem(songItem: p.nowPlay['list'][index], index: index,)
+                  )
+                ),
               ),
             )
           )
