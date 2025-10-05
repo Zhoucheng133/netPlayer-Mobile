@@ -19,6 +19,17 @@ class _PlayQueueState extends State<PlayQueue> {
   AutoScrollController controller=AutoScrollController();
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final maxScroll = controller.position.maxScrollExtent;
+      double targetOffset = (50 * p.nowPlay['index'] - 50 * 3).toDouble();
+      targetOffset = targetOffset.clamp(0.0, maxScroll);
+      controller.jumpTo(targetOffset);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom+10, top: 15),
