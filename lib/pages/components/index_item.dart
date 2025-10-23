@@ -7,6 +7,7 @@ import 'package:netplayer_mobile/pages/playlist.dart';
 import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
+import 'package:skeletons_forked/skeletons_forked.dart';
 
 class MenuItem extends StatefulWidget {
 
@@ -364,12 +365,16 @@ class _PlayListItemState extends State<PlayListItem> {
                 width: 50,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(7),
-                  image: DecorationImage(
-                    image: NetworkImage(
+                ),
+                clipBehavior: Clip.hardEdge,
+                child: Stack(
+                  children: [
+                    const Center(child: SkeletonAvatar()),
+                    Image.network(
                       '${u.url.value}/rest/getCoverArt.view?u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&v=1.16.1&c=netPlayer&f=json&id=${widget.coverArt}',
-                    ),
-                    fit: BoxFit.cover,
-                  )
+                      fit: BoxFit.cover,
+                    )
+                  ],
                 ),
               ),
               const SizedBox(width: 10,),
