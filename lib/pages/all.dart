@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/components/song_item.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
+import 'package:netplayer_mobile/pages/skeletons/song_skeleton.dart';
 import 'package:netplayer_mobile/variables/page_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
@@ -100,44 +100,38 @@ class _AllState extends State<All> {
             Expanded(
               child: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 200),
-                child: loading ? Center(
-                  key: const Key("0"),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      LoadingAnimationWidget.beat(
-                        color: Colors.blue, 
-                        size: 30
-                      ),
-                      const SizedBox(height: 10,),
-                      const Text('加载中')
-                    ],
-                  ),
-                ) : 
-                RefreshIndicator(
-                  onRefresh: () => getList(context),
-                  child: CupertinoScrollbar(
-                    controller: controller,
-                    child: CustomScrollView(
-                      physics: const AlwaysScrollableScrollPhysics(),
-                      key: const Key("1"),
+                child: AbsorbPointer(
+                  absorbing: loading,
+                  child: RefreshIndicator(
+                    onRefresh: () => getList(context),
+                    child: CupertinoScrollbar(
                       controller: controller,
-                      slivers: [
-                        SliverToBoxAdapter(
-                          child: TitleArea(title: '所有歌曲', subtitle: '${ u.authorization.value.isEmpty && ls.length >= 500 ? "> ${ls.length}" : ls.length}首歌曲', showWarning: u.authorization.value.isEmpty && ls.length >= 500,),
-                        ),
-                        SliverList.builder(
-                          itemCount: ls.length,
-                          itemBuilder: (context, index){
-                            return AutoScrollTag(
-                              controller: controller,
-                              index: index,
-                              key: ValueKey(index),
-                              child: SongItem(item: ls[index], index: index, ls: ls, from: 'all', listId: '', ),
-                            );
-                          },
-                        )
-                      ],
+                      child: CustomScrollView(
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        key: const Key("1"),
+                        controller: controller,
+                        slivers: [
+                          SliverToBoxAdapter(
+                            child: TitleArea(title: '所有歌曲', subtitle: '${ u.authorization.value.isEmpty && ls.length >= 500 ? "> ${ls.length}" : ls.length}首歌曲', showWarning: u.authorization.value.isEmpty && ls.length >= 500,),
+                          ),
+                          !loading ? SliverList.builder(
+                            itemCount: ls.length,
+                            itemBuilder: (context, index){
+                              return AutoScrollTag(
+                                controller: controller,
+                                index: index,
+                                key: ValueKey(index),
+                                child: SongItem(item: ls[index], index: index, ls: ls, from: 'all', listId: '', ),
+                              );
+                            },
+                          ) : SliverList.builder(
+                            itemCount: 20,
+                            itemBuilder: (context, _){
+                              return const SongSkeleton();
+                            }
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 )
