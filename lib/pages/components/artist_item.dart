@@ -18,7 +18,7 @@ class _ArtistItemState extends State<ArtistItem> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        Get.to(()=>ArtistContent(id: widget.item['id'], artist: widget.item['name']));
+        Get.to(()=>ArtistContent(id: widget.item['id'], artist: widget.item['name'], albumCount: widget.item['albumCount'] ?? 0));
       },
       child: Padding(
         padding: const EdgeInsets.only(left: 10, right: 10),

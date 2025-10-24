@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/pages/components/album_item.dart';
 import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
+import 'package:netplayer_mobile/pages/skeletons/album_skeleton.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
@@ -13,8 +13,9 @@ class ArtistContent extends StatefulWidget {
 
   final String id;
   final String artist;
+  final int albumCount;
 
-  const ArtistContent({super.key, required this.id, required this.artist});
+  const ArtistContent({super.key, required this.id, required this.artist, this.albumCount=0});
 
   @override
   State<ArtistContent> createState() => _ArtistContentState();
@@ -30,7 +31,6 @@ class _ArtistContentState extends State<ArtistContent> {
     final data=await DataGet().getArtist(widget.id, context);
     setState(() {
       ls=data;
-      // loading=false;
     });
     Future.delayed(const Duration(milliseconds: 200), (){
       setState(() {
@@ -83,21 +83,7 @@ class _ArtistContentState extends State<ArtistContent> {
             Expanded(
               child: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 200),
-                child: loading ? Center(
-                  key: const Key("0"),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      LoadingAnimationWidget.beat(
-                        color: Colors.blue, 
-                        size: 30
-                      ),
-                      const SizedBox(height: 10,),
-                      const Text('加载中')
-                    ],
-                  ),
-                ) : 
-                RefreshIndicator(
+                child: RefreshIndicator(
                   onRefresh: ()=>getList(context),
                   child: CupertinoScrollbar(
                     controller: controller,
@@ -109,11 +95,16 @@ class _ArtistContentState extends State<ArtistContent> {
                         SliverToBoxAdapter(
                           child: TitleArea(title: '艺人: ${widget.artist}', subtitle: '${ls.length}张专辑',),
                         ),
-                        SliverList.builder(
+                        !loading ? SliverList.builder(
                           itemCount: ls.length,
                           itemBuilder: (context, index){
                             return AlbumItem(index: index, item: ls[index],);
                           }
+                        ) : SliverList.builder(
+                          itemCount: widget.albumCount > 0 ? widget.albumCount : 20,
+                          itemBuilder: (context, index) {
+                            return const AlbumSkeleton();
+                          },
                         )
                       ],
                     ),
