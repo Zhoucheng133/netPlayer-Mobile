@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/components/song_item.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
+import 'package:netplayer_mobile/pages/skeletons/song_skeleton.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
@@ -13,8 +13,9 @@ class AlbumContent extends StatefulWidget {
 
   final String album;
   final String id;
+  final int songCount;
 
-  const AlbumContent({super.key, required this.album, required this.id});
+  const AlbumContent({super.key, required this.album, required this.id, this.songCount=0});
 
   @override
   State<AlbumContent> createState() => _AlbumContentState();
@@ -83,21 +84,7 @@ class _AlbumContentState extends State<AlbumContent> {
             Expanded(
               child: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 200),
-                child: loading ? Center(
-                  key: const Key("0"),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      LoadingAnimationWidget.beat(
-                        color: Colors.blue, 
-                        size: 30
-                      ),
-                      const SizedBox(height: 10,),
-                      const Text('加载中')
-                    ],
-                  ),
-                ) : 
-                RefreshIndicator(
+                child: RefreshIndicator(
                   onRefresh: ()=>getList(context),
                   child: CupertinoScrollbar(
                     controller: controller,
@@ -109,11 +96,16 @@ class _AlbumContentState extends State<AlbumContent> {
                         SliverToBoxAdapter(
                           child: TitleArea(title: "专辑: ${widget.album}", subtitle: '${ls.length}首歌曲',),
                         ),
-                        SliverList.builder(
+                        !loading ? SliverList.builder(
                           itemCount: ls.length,
                           itemBuilder: (context, index){
                             return SongItem(item: ls[index], index: index, ls: ls, from: 'album', listId: widget.id,);
                           }
+                        ) : SliverList.builder(
+                          itemCount: widget.songCount > 0 ? widget.songCount : 20,
+                          itemBuilder: (context, index) {
+                            return const SongSkeleton();
+                          },
                         )
                       ],
                     ),

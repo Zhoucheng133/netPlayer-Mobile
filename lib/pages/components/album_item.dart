@@ -186,7 +186,7 @@ class _AlbumItemState extends State<AlbumItem> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        Get.to(() =>AlbumContent(album: widget.item['title'], id: widget.item['id']));
+        Get.to(() =>AlbumContent(album: widget.item['title'], id: widget.item['id'], songCount: widget.item['songCount'],));
       },
       onLongPress: ()=>showAlbumMenu(context),
       child: Padding(
