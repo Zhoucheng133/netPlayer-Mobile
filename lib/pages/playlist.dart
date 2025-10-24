@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/components/song_item.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
+import 'package:netplayer_mobile/pages/skeletons/song_skeleton.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
@@ -14,8 +14,9 @@ class Playlist extends StatefulWidget {
 
   final String id;
   final String name;
+  final int songCount;
 
-  const Playlist({super.key, required this.id, required this.name});
+  const Playlist({super.key, required this.id, required this.name, required this.songCount});
 
   @override
   State<Playlist> createState() => _PlaylistState();
@@ -100,21 +101,7 @@ class _PlaylistState extends State<Playlist> {
             Expanded(
               child: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 200),
-                child: loading ? Center(
-                  key: const Key("0"),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      LoadingAnimationWidget.beat(
-                        color: Colors.blue, 
-                        size: 30
-                      ),
-                      const SizedBox(height: 10,),
-                      const Text('加载中')
-                    ],
-                  ),
-                ) : 
-                RefreshIndicator(
+                child: RefreshIndicator(
                   onRefresh: () => getList(context),
                   child: CupertinoScrollbar(
                     controller: controller,
@@ -124,9 +111,9 @@ class _PlaylistState extends State<Playlist> {
                       controller: controller,
                       slivers: [
                         SliverToBoxAdapter(
-                          child: TitleArea(title: widget.name, subtitle: '${ls.length}首歌曲',),
+                          child: TitleArea(title: widget.name, subtitle: '${ loading ? widget.songCount.toString() : ls.length}首歌曲',),
                         ),
-                        SliverList.builder(
+                        !loading ? SliverList.builder(
                           itemCount: ls.length,
                           itemBuilder: (context, index){
                             return AutoScrollTag(
@@ -135,6 +122,11 @@ class _PlaylistState extends State<Playlist> {
                               controller: controller,
                               child: SongItem(item: ls[index], index: index, ls: ls, from: 'playlist', listId: widget.id, refresh: () => getList(context),),
                             );
+                          }
+                        ) : SliverList.builder(
+                          itemCount: widget.songCount,
+                          itemBuilder: (context, index){
+                            return const SongSkeleton(showLoved: false);
                           }
                         )
                       ],

@@ -351,7 +351,7 @@ class _PlayListItemState extends State<PlayListItem> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        Get.to(()=>Playlist(id: widget.id, name: widget.name,));
+        Get.to(()=>Playlist(id: widget.id, name: widget.name, songCount: widget.songCount));
       },
       onLongPress: ()=>showAction(context),
       child: SizedBox(
