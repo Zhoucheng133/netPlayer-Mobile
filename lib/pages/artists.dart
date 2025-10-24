@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/pages/components/artist_item.dart';
 import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
+import 'package:netplayer_mobile/pages/skeletons/artist_skeleton.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
@@ -79,21 +79,7 @@ class _ArtistsState extends State<Artists> {
             Expanded(
               child: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 200),
-                child: loading ? Center(
-                  key: const Key("0"),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      LoadingAnimationWidget.beat(
-                        color: Colors.blue, 
-                        size: 30
-                      ),
-                      const SizedBox(height: 10,),
-                      const Text('加载中')
-                    ],
-                  ),
-                ) : 
-                RefreshIndicator(
+                child: RefreshIndicator(
                   onRefresh: () => getList(context),
                   child: CupertinoScrollbar(
                     controller: controller,
@@ -105,11 +91,16 @@ class _ArtistsState extends State<Artists> {
                         SliverToBoxAdapter(
                           child: TitleArea(title: '艺人', subtitle: '${ls.length}位艺人',),
                         ),
-                        SliverList.builder(
+                        !loading ? SliverList.builder(
                           itemCount: ls.length,
                           itemBuilder: (context ,index){
                             return ArtistItem(index: index, item: ls[index], );
                           }
+                        ) : SliverList.builder(
+                          itemCount: 20,
+                          itemBuilder: (context, index) {
+                            return const ArtistSkeleton();
+                          },
                         )
                       ],
                     ),
