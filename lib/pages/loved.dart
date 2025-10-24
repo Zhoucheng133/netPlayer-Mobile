@@ -2,11 +2,11 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/components/song_item.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
+import 'package:netplayer_mobile/pages/skeletons/song_skeleton.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
@@ -105,44 +105,38 @@ class _LovedState extends State<Loved> {
             Expanded(
               child: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 200),
-                child: loading ? Center(
-                  key: const Key("0"),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      LoadingAnimationWidget.beat(
-                        color: Colors.blue, 
-                        size: 30
-                      ),
-                      const SizedBox(height: 10,),
-                      const Text('加载中')
-                    ],
-                  ),
-                ) : 
-                RefreshIndicator(
-                  onRefresh: () => getList(context),
-                  child: CupertinoScrollbar(
-                    controller: controller,
-                    child: CustomScrollView(
-                      physics: const AlwaysScrollableScrollPhysics(),
-                      key: const Key('1'),
+                child: AbsorbPointer(
+                  absorbing: loading,
+                  child: RefreshIndicator(
+                    onRefresh: () => getList(context),
+                    child: CupertinoScrollbar(
                       controller: controller,
-                      slivers: [
-                        SliverToBoxAdapter(
-                          child: TitleArea(title: '喜欢的歌曲', subtitle: '${ls.length}首歌曲', ),
-                        ),
-                        SliverList.builder(
-                          itemCount: ls.length,
-                          itemBuilder: (context, index){
-                            return AutoScrollTag(
-                              key: ValueKey(index),
-                              index: index,
-                              controller: controller,
-                              child: SongItem(item: ls[index], index: index, ls: ls, from: 'loved', listId: '',),
-                            );
-                          }
-                        )
-                      ],
+                      child: CustomScrollView(
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        key: const Key('1'),
+                        controller: controller,
+                        slivers: [
+                          SliverToBoxAdapter(
+                            child: TitleArea(title: '喜欢的歌曲', subtitle: '${ls.length}首歌曲', ),
+                          ),
+                          !loading ? SliverList.builder(
+                            itemCount: ls.length,
+                            itemBuilder: (context, index){
+                              return AutoScrollTag(
+                                key: ValueKey(index),
+                                index: index,
+                                controller: controller,
+                                child: SongItem(item: ls[index], index: index, ls: ls, from: 'loved', listId: '',),
+                              );
+                            }
+                          ) : SliverList.builder(
+                            itemCount: 20,
+                            itemBuilder: (context, _){
+                              return const SongSkeleton(showLoved: true);
+                            }
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 )

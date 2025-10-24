@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:skeletons_forked/skeletons_forked.dart';
 
 class SongSkeleton extends StatefulWidget {
-  const SongSkeleton({super.key});
+
+  final bool showLoved;
+
+  const SongSkeleton({super.key, this.showLoved = false});
 
   @override
   State<SongSkeleton> createState() => _SongSkeletonState();
@@ -16,10 +19,10 @@ class _SongSkeletonState extends State<SongSkeleton> {
       child: Container(
         color: Colors.transparent,
         height: 60,
-        child: const Row(
+        child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
+            const SizedBox(
               width: 30,
               child: Center(
                 child: SkeletonAvatar(
@@ -30,25 +33,43 @@ class _SongSkeletonState extends State<SongSkeleton> {
                 ),
               ),
             ),
-            SizedBox(width: 10,),
+            const SizedBox(width: 10,),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SkeletonLine(),
-                  SizedBox(height: 10,),
-                  SkeletonLine(
+                  const SkeletonLine(
                     style: SkeletonLineStyle(
-                      height: 12,
-                      width: 50
+                      width: 200,
                     ),
+                  ),
+                  const SizedBox(height: 6,),
+                  Row(
+                    children: [
+                      widget.showLoved ? const Padding(
+                        padding: EdgeInsets.only(right: 10),
+                        child: Icon(
+                          Icons.favorite_rounded,
+                          color: Colors.red,
+                          size: 15,
+                        ),
+                      ) : Container(),
+                      const Expanded(
+                        child: SkeletonLine(
+                          style: SkeletonLineStyle(
+                            height: 12,
+                            width: 50,
+                          ),
+                        ),
+                      ),
+                    ],
                   )
                 ],
               ),
             ),
-            SizedBox(width: 10,),
-            IconButton(
+            const SizedBox(width: 10,),
+            const IconButton(
               onPressed: null,
               icon: Icon(
                 Icons.more_vert_rounded,
