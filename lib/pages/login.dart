@@ -31,6 +31,8 @@ class _LoginState extends State<Login> {
   FocusNode usernameFocus=FocusNode();
   FocusNode passwordFocus=FocusNode();
 
+  bool loading=false;
+
 
   @override
   void dispose() {
@@ -77,6 +79,9 @@ class _LoginState extends State<Login> {
         okText: '好的'
       );
     }else{
+      setState(() {
+        loading=true;
+      });
       var salt=account.generateRandomString(6);
       var bytes = utf8.encode(passwordInput.text+salt);
       var token = md5.convert(bytes);
@@ -103,6 +108,9 @@ class _LoginState extends State<Login> {
           );
         });
       }
+      setState(() {
+        loading=false;
+      });
     }
   }
 
@@ -112,232 +120,246 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Center(
       child: Obx(()=>
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text(
-              "登录到你的音乐服务器",
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.fromLTRB(0, 5, 0, 50),
-              child: Text(
-                "输入你的音乐服务器信息来登录",
+        AbsorbPointer(
+          absorbing: loading,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                "登录到你的音乐服务器",
                 style: TextStyle(
-                  color: Colors.grey,
-                  fontWeight: FontWeight.w300,
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            ),
-            Container(
-              width: 280,
-              decoration: BoxDecoration(
-                color: s.darkMode.value ? s.bgColor3 : Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    // color: Colors.grey.withOpacity(0.1),
-                    color: Colors.grey.withAlpha(2),
-                    spreadRadius: 1,
-                    blurRadius: 5,
+              const Padding(
+                padding: EdgeInsets.fromLTRB(0, 5, 0, 50),
+                child: Text(
+                  "输入你的音乐服务器信息来登录",
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontWeight: FontWeight.w300,
                   ),
-                ]
-              ),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "服务器的URL地址",
-                      style: GoogleFonts.notoSansSc(
-                        color: Colors.grey,
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        const Icon(Icons.public),
-                        const SizedBox(width: 5,),
-                        Expanded(
-                          child: TextField(
-                            controller: urlInput,
-                            focusNode: urlFocus,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'http(s)://',
-                              hintStyle: TextStyle(
-                                color: Colors.grey[400],
-                              )
-                            ),
-                            autocorrect: false,
-                            // enableSuggestions: false,
-                            onEditingComplete: (){
-                              try {
-                                FocusScope.of(context).requestFocus(usernameFocus);
-                              } catch (_) {}
-                            },
-                          )
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              )
-            ),
-            const SizedBox(height: 20,),
-            Container(
-              width: 280,
-              decoration: BoxDecoration(
-                color: s.darkMode.value ? s.bgColor3 : Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    // color: Colors.grey.withOpacity(0.1),
-                    color: Colors.grey.withAlpha(2),
-                    spreadRadius: 1,
-                    blurRadius: 5,
-                  ),
-                ]
-              ),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "用户名",
-                      style: GoogleFonts.notoSansSc(
-                        color: Colors.grey,
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        const Icon(Icons.person),
-                        const SizedBox(width: 5,),
-                        Expanded(
-                          child: TextField(
-                            controller: usernameInput,
-                            focusNode: usernameFocus,
-                            decoration: const InputDecoration(
-                              border: InputBorder.none,
-                            ),
-                            autocorrect: false,
-                            // enableSuggestions: false,
-                            onEditingComplete: (){
-                              try {
-                                FocusScope.of(context).requestFocus(passwordFocus);
-                              } catch (_) {}
-                            },
-                          )
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              )
-            ),
-            const SizedBox(height: 20,),
-            Container(
-              width: 280,
-              decoration: BoxDecoration(
-                color: s.darkMode.value ? s.bgColor3 : Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    // color: Colors.grey.withOpacity(0.1),
-                    color: Colors.grey.withAlpha(2),
-                    spreadRadius: 1,
-                    blurRadius: 5,
-                  ),
-                ]
-              ),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "密码",
-                      style: GoogleFonts.notoSansSc(
-                        color: Colors.grey,
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        const Icon(Icons.key),
-                        const SizedBox(width: 5,),
-                        Expanded(
-                          child: TextField(
-                            controller: passwordInput,
-                            focusNode: passwordFocus,
-                            obscureText: true,
-                            decoration: const InputDecoration(
-                              border: InputBorder.none,
-                            ),
-                            autocorrect: false,
-                            // enableSuggestions: false,
-                            onEditingComplete: (){
-                              loginController(context);
-                            },
-                          )
-                        )
-                      ],
-                    ),
-                  ],
                 ),
               ),
-            ),
-            const SizedBox(height: 30,),
-            SizedBox(
-              width: 280,
-              child: Row(
-                children: [
-                  Expanded(child: Container()),
-                  Material(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(10),
-                    clipBehavior: Clip.antiAlias,
-                    child: InkWell(
-                      onTap: (){
-                        loginController(context);
-                      },
-                      child: Container(
-                        width: 110,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10)
+              Container(
+                width: 280,
+                decoration: BoxDecoration(
+                  color: s.darkMode.value ? s.bgColor3 : Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      // color: Colors.grey.withOpacity(0.1),
+                      color: Colors.grey.withAlpha(2),
+                      spreadRadius: 1,
+                      blurRadius: 5,
+                    ),
+                  ]
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "服务器的URL地址",
+                        style: GoogleFonts.notoSansSc(
+                          color: Colors.grey,
                         ),
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(width: 10,),
-                            Text(
-                              "登录",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 17,
-                                fontWeight: FontWeight.bold
-                              ),
-                            ),
-                            Icon(
-                              Icons.chevron_right_rounded,
-                              color: Colors.white,
-                              size: 30,
-                            )
-                          ],
-                        )
                       ),
-                    ),
-                  )
-                ],
+                      Row(
+                        children: [
+                          const Icon(Icons.public),
+                          const SizedBox(width: 5,),
+                          Expanded(
+                            child: TextField(
+                              controller: urlInput,
+                              focusNode: urlFocus,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'http(s)://',
+                                hintStyle: TextStyle(
+                                  color: Colors.grey[400],
+                                )
+                              ),
+                              autocorrect: false,
+                              // enableSuggestions: false,
+                              onEditingComplete: (){
+                                try {
+                                  FocusScope.of(context).requestFocus(usernameFocus);
+                                } catch (_) {}
+                              },
+                            )
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                )
               ),
-            ),
-          ],
+              const SizedBox(height: 20,),
+              Container(
+                width: 280,
+                decoration: BoxDecoration(
+                  color: s.darkMode.value ? s.bgColor3 : Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      // color: Colors.grey.withOpacity(0.1),
+                      color: Colors.grey.withAlpha(2),
+                      spreadRadius: 1,
+                      blurRadius: 5,
+                    ),
+                  ]
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "用户名",
+                        style: GoogleFonts.notoSansSc(
+                          color: Colors.grey,
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          const Icon(Icons.person),
+                          const SizedBox(width: 5,),
+                          Expanded(
+                            child: TextField(
+                              controller: usernameInput,
+                              focusNode: usernameFocus,
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
+                              ),
+                              autocorrect: false,
+                              // enableSuggestions: false,
+                              onEditingComplete: (){
+                                try {
+                                  FocusScope.of(context).requestFocus(passwordFocus);
+                                } catch (_) {}
+                              },
+                            )
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                )
+              ),
+              const SizedBox(height: 20,),
+              Container(
+                width: 280,
+                decoration: BoxDecoration(
+                  color: s.darkMode.value ? s.bgColor3 : Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      // color: Colors.grey.withOpacity(0.1),
+                      color: Colors.grey.withAlpha(2),
+                      spreadRadius: 1,
+                      blurRadius: 5,
+                    ),
+                  ]
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "密码",
+                        style: GoogleFonts.notoSansSc(
+                          color: Colors.grey,
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          const Icon(Icons.key),
+                          const SizedBox(width: 5,),
+                          Expanded(
+                            child: TextField(
+                              controller: passwordInput,
+                              focusNode: passwordFocus,
+                              obscureText: true,
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
+                              ),
+                              autocorrect: false,
+                              // enableSuggestions: false,
+                              onEditingComplete: (){
+                                loginController(context);
+                              },
+                            )
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 30,),
+              SizedBox(
+                width: 280,
+                child: Row(
+                  children: [
+                    Expanded(child: Container()),
+                    Material(
+                      color: loading ? Colors.blue.withAlpha(100) : Colors.blue,
+                      borderRadius: BorderRadius.circular(10),
+                      clipBehavior: Clip.antiAlias,
+                      child: InkWell(
+                        onTap: (){
+                          loginController(context);
+                        },
+                        child: Container(
+                          width: 110,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const SizedBox(width: 10,),
+                              const Text(
+                                "登录",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold
+                                ),
+                              ),
+                              !loading ? const Icon(
+                                Icons.chevron_right_rounded,
+                                color: Colors.white,
+                                size: 30,
+                              ) : const Padding(
+                                padding: EdgeInsets.only(left: 10.0,),
+                                child: SizedBox(
+                                  width: 15,
+                                  height: 15,
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                    strokeWidth: 2,
+                                  ),
+                                ),
+                              )
+                            ],
+                          )
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
