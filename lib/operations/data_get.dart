@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image/image.dart' show decodeImage;
 import 'package:netplayer_mobile/operations/requests.dart';
 import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
@@ -353,25 +351,6 @@ class DataGet{
         return rlt['subsonic-response']['song'];
       } catch (_) {}
       return {};
-    }
-  }
-
-  Future<Uint8List?> fetchCover() async {
-    if(p.nowPlay["id"]=="" || u.username.value.isEmpty){
-      return null;
-    }
-    try {
-      // 获取文件流
-      var response = await http.get(Uri.parse("${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}")).timeout(const Duration(seconds: 2));
-      if (response.statusCode == 200) {
-        return decodeImage(response.bodyBytes)==null ? null:response.bodyBytes;
-      } else {
-        return null;
-      }
-    } on TimeoutException {
-      return null;
-    } catch (e) {
-      return null;
     }
   }
 }
