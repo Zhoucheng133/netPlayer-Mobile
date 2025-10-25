@@ -600,10 +600,19 @@ class _PlayingState extends State<Playing> {
                                           children: [
                                             ClipRRect(
                                               borderRadius: BorderRadius.circular(10),
-                                              child: Image.network(
-                                                "${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay['id']}",
-                                                height: 100,
-                                                width: 100,
+                                              child: Stack(
+                                                children: [
+                                                  Image.asset(
+                                                    "assets/blank.jpg",
+                                                    height: 100,
+                                                    width: 100,
+                                                  ),
+                                                  Image.network(
+                                                    "${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay['id']}",
+                                                    height: 100,
+                                                    width: 100,
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                             const SizedBox(height: 10,),

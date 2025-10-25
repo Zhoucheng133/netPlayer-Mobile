@@ -214,10 +214,19 @@ class _PlayListItemState extends State<PlayListItem> {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.network(
-                  "${u.url.value}/rest/getCoverArt.view?u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&v=1.16.1&c=netPlayer&f=json&id=${widget.coverArt}",
-                  height: 100,
-                  width: 100,
+                child: Stack(
+                  children: [
+                    Image.asset(
+                      "assets/blank.jpg",
+                      height: 100,
+                      width: 100,
+                    ),
+                    Image.network(
+                      "${u.url.value}/rest/getCoverArt.view?u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&v=1.16.1&c=netPlayer&f=json&id=${widget.coverArt}",
+                      height: 100,
+                      width: 100,
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 10,),
