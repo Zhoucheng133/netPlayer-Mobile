@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:audio_service/audio_service.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/service/handler.dart';
@@ -75,6 +73,4 @@ class PlayerVar extends GetxController{
 
   RxBool useNavidrome=true.obs;
   RxBool removeMissing=true.obs;
-
-  var coverFuture = Rx<Uint8List?>(null);
 }

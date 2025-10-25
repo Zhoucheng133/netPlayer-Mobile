@@ -50,10 +50,6 @@ class _MainViewState extends State<MainView> {
     } catch (_) {}
   }
 
-  Future<void> updateCover() async {
-    p.coverFuture.value=await d.fetchCover();
-  }
-
   @override
   void initState() {
     super.initState();
@@ -75,7 +71,6 @@ class _MainViewState extends State<MainView> {
       if(preId!=null && p.nowPlay['id']==preId){
         return;
       }
-      updateCover();
       if(p.nowPlay['id']!=null && p.nowPlay['id'].isNotEmpty){
         preId=p.nowPlay['id'];
       }

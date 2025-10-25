@@ -321,12 +321,20 @@ class _PlayingState extends State<Playing> {
                                 child: SizedBox(
                                   height: MediaQuery.of(context).size.width-150,
                                   width: MediaQuery.of(context).size.width-150,
-                                  child: p.coverFuture.value==null ? Image.asset(
+                                  child: p.nowPlay['id'].isEmpty ? Image.asset(
                                     "assets/blank.jpg",
                                     fit: BoxFit.contain,
-                                  ) : Image.memory(
-                                    p.coverFuture.value!,
-                                    fit: BoxFit.contain,
+                                  ) : Stack(
+                                    children: [
+                                       Image.asset(
+                                        "assets/blank.jpg",
+                                        fit: BoxFit.contain,
+                                      ),
+                                      Image.network(
+                                        "${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}",
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
