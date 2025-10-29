@@ -60,20 +60,6 @@ class _AlbumItemState extends State<AlbumItem> {
                       "${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${albumInfo['coverArt']}",
                       height: 100,
                       width: 100,
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) {
-                          return ColorFiltered(
-                            colorFilter: const ColorFilter.mode(
-                              Colors.white,
-                              BlendMode.dstOver,
-                            ),
-                            child: child,
-                          );
-                        } else {
-                          return const SizedBox();
-                        }
-                      },
-                      errorBuilder: (context, error, stackTrace) => const SizedBox(),
                     ),
                   ],
                 ),
