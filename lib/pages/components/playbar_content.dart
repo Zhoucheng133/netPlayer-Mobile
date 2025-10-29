@@ -79,17 +79,9 @@ class _PlaybarContentState extends State<PlaybarContent> {
                                   child: p.nowPlay['id'].isEmpty ? Image.asset(
                                     "assets/blank.jpg",
                                     fit: BoxFit.contain,
-                                  ) : Stack(
-                                    children: [
-                                      Image.asset(
-                                        "assets/blank.jpg",
-                                        fit: BoxFit.contain,
-                                      ),
-                                      Image.network(
-                                        "${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}",
-                                        fit: BoxFit.contain,
-                                      ),
-                                    ],
+                                  ) : Image.network(
+                                    "${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}",
+                                    fit: BoxFit.contain,
                                   ),
                                 )
                               ),
@@ -102,17 +94,9 @@ class _PlaybarContentState extends State<PlaybarContent> {
                                 child: p.nowPlay['id'].isEmpty ? Image.asset(
                                   "assets/blank.jpg",
                                   fit: BoxFit.contain,
-                                ) : Stack(
-                                  children: [
-                                    Image.asset(
-                                      "assets/blank.jpg",
-                                      fit: BoxFit.contain,
-                                    ),
-                                    Image.network(
-                                      "${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}",
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ],
+                                ) : Image.network(
+                                  "${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}",
+                                  fit: BoxFit.contain,
                                 ),
                               )
                             ),
