@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:skeletons_forked/skeletons_forked.dart';
 
 class SongSkeleton extends StatefulWidget {
@@ -12,6 +14,9 @@ class SongSkeleton extends StatefulWidget {
 }
 
 class _SongSkeletonState extends State<SongSkeleton> {
+
+  SettingsVar s=Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -69,11 +74,11 @@ class _SongSkeletonState extends State<SongSkeleton> {
               ),
             ),
             const SizedBox(width: 10,),
-            const IconButton(
+            IconButton(
               onPressed: null,
               icon: Icon(
                 Icons.more_vert_rounded,
-                color: Colors.black,
+                color: s.darkMode.value ? Colors.white : Colors.black,
                 size: 20,
               ),
             )
