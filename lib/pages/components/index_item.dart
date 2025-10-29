@@ -225,6 +225,20 @@ class _PlayListItemState extends State<PlayListItem> {
                       "${u.url.value}/rest/getCoverArt.view?u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&v=1.16.1&c=netPlayer&f=json&id=${widget.coverArt}",
                       height: 100,
                       width: 100,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) {
+                          return ColorFiltered(
+                            colorFilter: const ColorFilter.mode(
+                              Colors.white,
+                              BlendMode.dstOver,
+                            ),
+                            child: child,
+                          );
+                        } else {
+                          return const SizedBox();
+                        }
+                      },
+                      errorBuilder: (context, error, stackTrace) => const SizedBox(),
                     ),
                   ],
                 ),
@@ -382,6 +396,20 @@ class _PlayListItemState extends State<PlayListItem> {
                     Image.network(
                       '${u.url.value}/rest/getCoverArt.view?u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&v=1.16.1&c=netPlayer&f=json&id=${widget.coverArt}',
                       fit: BoxFit.cover,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) {
+                          return ColorFiltered(
+                            colorFilter: const ColorFilter.mode(
+                              Colors.white,
+                              BlendMode.dstOver,
+                            ),
+                            child: child,
+                          );
+                        } else {
+                          return const SizedBox();
+                        }
+                      },
+                      errorBuilder: (context, error, stackTrace) => const SizedBox(),
                     )
                   ],
                 ),

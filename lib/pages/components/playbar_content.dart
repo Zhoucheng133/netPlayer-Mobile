@@ -88,6 +88,20 @@ class _PlaybarContentState extends State<PlaybarContent> {
                                       Image.network(
                                         "${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}",
                                         fit: BoxFit.contain,
+                                        loadingBuilder: (context, child, loadingProgress) {
+                                          if (loadingProgress == null) {
+                                            return ColorFiltered(
+                                              colorFilter: const ColorFilter.mode(
+                                                Colors.white,
+                                                BlendMode.dstOver,
+                                              ),
+                                              child: child,
+                                            );
+                                          } else {
+                                            return const SizedBox();
+                                          }
+                                        },
+                                        errorBuilder: (context, error, stackTrace) => const SizedBox(),
                                       ),
                                     ],
                                   ),
@@ -111,6 +125,20 @@ class _PlaybarContentState extends State<PlaybarContent> {
                                     Image.network(
                                       "${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}",
                                       fit: BoxFit.contain,
+                                      loadingBuilder: (context, child, loadingProgress) {
+                                        if (loadingProgress == null) {
+                                          return ColorFiltered(
+                                            colorFilter: const ColorFilter.mode(
+                                              Colors.white,
+                                              BlendMode.dstOver,
+                                            ),
+                                            child: child,
+                                          );
+                                        } else {
+                                          return const SizedBox();
+                                        }
+                                      },
+                                      errorBuilder: (context, error, stackTrace) => const SizedBox(),
                                     ),
                                   ],
                                 ),
