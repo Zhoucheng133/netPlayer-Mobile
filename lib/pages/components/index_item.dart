@@ -216,7 +216,6 @@ class _PlayListItemState extends State<PlayListItem> {
                 borderRadius: BorderRadius.circular(10),
                 child: Image.network(
                   "${u.url.value}/rest/getCoverArt.view?u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&v=1.16.1&c=netPlayer&f=json&id=${widget.coverArt}",
-                  height: 100,
                   width: 100,
                 ),
               ),
@@ -346,6 +345,8 @@ class _PlayListItemState extends State<PlayListItem> {
       }
     }
   }
+
+  SettingsVar s=Get.find();
   
   @override
   Widget build(BuildContext context) {
@@ -376,7 +377,7 @@ class _PlayListItemState extends State<PlayListItem> {
                       loadingBuilder: (context, child, loadingProgress){
                         if(loadingProgress==null){
                           return Container(
-                            color: Colors.white,
+                            color: s.darkMode.value ? s.bgColor2 : Colors.white,
                             child: child
                           );
                         }else{
