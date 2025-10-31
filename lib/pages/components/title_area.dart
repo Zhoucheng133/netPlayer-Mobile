@@ -103,8 +103,9 @@ class SearchTitleArea extends StatefulWidget {
 
   final ValueChanged changeMode;
   final String mode;
+  final bool disableMode;
 
-  const SearchTitleArea({super.key, required this.mode, required this.changeMode});
+  const SearchTitleArea({super.key, required this.mode, required this.changeMode, this.disableMode = false});
 
   @override
   State<SearchTitleArea> createState() => _SearchTitleAreaState();
@@ -144,7 +145,7 @@ class _SearchTitleAreaState extends State<SearchTitleArea> {
                     ),
                     const SizedBox(width: 10,),
                     IconButton(
-                      onPressed: (){
+                      onPressed: widget.disableMode ? null : (){
                         if(widget.mode=='song'){
                           return;
                         }
@@ -157,7 +158,7 @@ class _SearchTitleAreaState extends State<SearchTitleArea> {
                       )
                     ),
                     IconButton(
-                      onPressed: (){
+                      onPressed: widget.disableMode ? null : (){
                         if(widget.mode=='album'){
                           return;
                         }
@@ -170,7 +171,7 @@ class _SearchTitleAreaState extends State<SearchTitleArea> {
                       )
                     ),
                     IconButton(
-                      onPressed: (){
+                      onPressed: widget.disableMode ? null : (){
                         if(widget.mode=='artist'){
                           return;
                         }
