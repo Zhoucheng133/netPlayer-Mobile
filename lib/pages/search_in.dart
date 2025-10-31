@@ -105,6 +105,7 @@ class _SearchInState extends State<SearchIn> {
     return Obx(()=>
       Scaffold(
         backgroundColor: s.darkMode.value ? s.bgColor2 : Colors.white,
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: s.darkMode.value ? s.bgColor1 : Colors.grey[100],
           scrolledUnderElevation:0.0,
