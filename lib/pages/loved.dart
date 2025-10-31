@@ -6,6 +6,7 @@ import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/components/song_item.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
+import 'package:netplayer_mobile/pages/search_in.dart';
 import 'package:netplayer_mobile/pages/skeletons/song_skeleton.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
@@ -96,6 +97,12 @@ class _LovedState extends State<Loved> {
                   size: 20,
                 )
               ),
+            ),
+            IconButton(
+              onPressed: ls.isEmpty ? null : (){
+                Get.to(()=> SearchIn(ls: ls, from: 'loved', mode: 'song', listId: '',));
+              }, 
+              icon: const Icon(Icons.search_rounded, size: 22,)
             ),
             const SizedBox(width: 10,)
           ],
