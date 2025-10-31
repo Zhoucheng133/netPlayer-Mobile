@@ -90,7 +90,8 @@ class _SearchInState extends State<SearchIn> {
         .where((entry){
           final text = textController.text.toLowerCase();
           final title = entry.value['title']?.toLowerCase() ?? '';
-          return title.contains(text);
+          final artist = entry.value['artist']?.toLowerCase() ?? '';
+          return title.contains(text) || artist.contains(text);
         }).map((entry) => {
           'index': entry.key,
           'item': entry.value,

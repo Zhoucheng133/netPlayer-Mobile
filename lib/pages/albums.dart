@@ -5,6 +5,7 @@ import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/pages/components/album_item.dart';
 import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
+import 'package:netplayer_mobile/pages/search_in.dart';
 import 'package:netplayer_mobile/pages/skeletons/album_skeleton.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
@@ -73,6 +74,15 @@ class _AlbumsState extends State<Albums> {
               child: showAppbarTitle ? const Text('专辑', key: Key("1"),) : null,
             ),
           ),
+          actions: [
+            IconButton(
+              onPressed: ls.isEmpty ? null : (){
+                Get.to(()=> SearchIn(ls: ls, from: 'albums', mode: 'album', listId: '',));
+              }, 
+              icon: const Icon(Icons.search_rounded, size: 22,)
+            ),
+            const SizedBox(width: 10,)
+          ],
           centerTitle: false,
         ),
         body: Column(
