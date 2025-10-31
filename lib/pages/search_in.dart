@@ -29,7 +29,6 @@ class _SearchInState extends State<SearchIn> {
   TextEditingController textController=TextEditingController(text: '');
   ScrollController controller=ScrollController();
   bool showAppbarTitle=false;
-  String mode='song';
   FocusNode focus=FocusNode();
 
   @override
@@ -69,6 +68,34 @@ class _SearchInState extends State<SearchIn> {
         })
         .toList();
       });
+    }else if(widget.mode=='artist'){
+      setState(() {
+        filtered = widget.ls
+        .asMap()
+        .entries
+        .where((entry){
+          final text = textController.text.toLowerCase();
+          final name = entry.value['name']?.toLowerCase() ?? '';
+          return name.contains(text);
+        }).map((entry) => {
+          'index': entry.key,
+          'item': entry.value,
+        }).toList();
+      });
+    }else if(widget.mode=='album'){
+      setState(() {
+        filtered = widget.ls
+        .asMap()
+        .entries
+        .where((entry){
+          final text = textController.text.toLowerCase();
+          final title = entry.value['title']?.toLowerCase() ?? '';
+          return title.contains(text);
+        }).map((entry) => {
+          'index': entry.key,
+          'item': entry.value,
+        }).toList();
+      });
     }
   }
 
@@ -100,39 +127,39 @@ class _SearchInState extends State<SearchIn> {
                   controller: controller,
                   slivers: [
                     SliverToBoxAdapter(
-                      child: SearchTitleArea(mode: mode, changeMode: (val){}, disableMode: true,)
+                      child: SearchTitleArea(mode: widget.mode, changeMode: (val){}, disableMode: true,)
                     ),
                     SliverPersistentHeader(
                       pinned: true,
                       delegate: SearchBox(
                         (context)=>SearchInput(
-                          textController: textController, focus: focus, search: searchHandler, mode: mode,
+                          textController: textController, focus: focus, search: searchHandler, mode: widget.mode,
                         ),
                       ),
                     ),
-                    mode=='song' ? SliverList.builder(
+                    widget.mode=='song' ? SliverList.builder(
                       itemCount: filtered.length,
                       itemBuilder: (context, index){
-                        // return widget.ls[index]['title'].toLowerCase().contains(textController.text.toLowerCase()) ?
-                        // SongItem(item: widget.ls[index], index: index, ls: widget.ls, from: widget.from, listId: widget.listId, ) : Container();
                         final data = filtered[index];
                         return SongItem(
                           item: data['item'],
-                          index: data['index'], // ✅ 这里是原始 index
+                          index: data['index'],
                           ls: widget.ls,
                           from: widget.from,
                           listId: widget.listId,
                         );
                       }
-                    ) : mode=='album' ? SliverList.builder(
-                      itemCount: widget.ls.length,
+                    ) : widget.mode=='album' ? SliverList.builder(
+                      itemCount: filtered.length,
                       itemBuilder: (context, index){
-                        return AlbumItem(index: index, item: widget.ls[index]);
+                        final data = filtered[index];
+                        return AlbumItem(index: data['index'], item: data['item']);
                       }
                     ) :  SliverList.builder(
-                      itemCount: widget.ls.length,
+                      itemCount: filtered.length,
                       itemBuilder: (context, index){
-                        return ArtistItem(index: index, item: widget.ls[index]);
+                        final data = filtered[index];
+                        return ArtistItem(index: data['index'], item: data['item']);
                       }
                     )
                   ],
