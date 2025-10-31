@@ -94,7 +94,7 @@ class _AllState extends State<All> {
               ),
             ),
             IconButton(
-              onPressed: (){
+              onPressed: ls.isEmpty ? null : (){
                 Get.to(()=> SearchIn(ls: ls, from: 'all', mode: 'song', listId: '',));
               }, 
               icon: const Icon(Icons.search_rounded, size: 22,)
