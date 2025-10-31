@@ -59,7 +59,7 @@
 
 ### 环境配置
 
-- 如果你需要在Android设备上运行或者调试，需要安装Android Studio和Gradle
+- 如果你需要在Android设备上运行或者调试，需要安装Android Studio
 - 如果你需要在iOS设备上运行或者调试，需要使用Mac，并且安装Xcode<sup>*</sup>
 - 安装Flutter，安装步骤见[Flutter - Quick start](https://docs.flutter.cn/get-started/quick)，本项目使用的Flutter版本为`3.32`
 - 建议使用Visual Studio Code打开项目
