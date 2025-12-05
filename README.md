@@ -6,6 +6,8 @@
 
 **基于Subsonic API的移动端播放器**
 
+**NOT** support multi-language yet. But you can still view the English version of the README [HERE](./document/en.md)
+
 [**netPlayer Next**](https://github.com/Zhoucheng133/netPlayer-Next) | **★ netPlayer Mobile**
 
 **支持Android设备和iOS设备**，如果你要查找桌面版本，应该访问[**netPlayer Next**](https://github.com/Zhoucheng133/netPlayer-Next)仓库
@@ -60,7 +62,10 @@
 ### 环境配置
 
 - 如果你需要在Android设备上运行或者调试，需要安装Android Studio
+  - 项目使用的Gradle版本为: `8.4` (会自动下载)
+  - 开发使用的Android SDK版本: `35.0.1`
 - 如果你需要在iOS设备上运行或者调试，需要使用Mac，并且安装Xcode<sup>*</sup>
+  - Minimum Deployment Target: `iOS 12.0`
 - 安装Flutter，安装步骤见[Flutter - Quick start](https://docs.flutter.cn/get-started/quick)，本项目使用的Flutter版本为`3.32`
 - 建议使用Visual Studio Code打开项目
   - 在Visual Studio Code的右下角找到`Device`按钮（也有可能显示为可用的设备），选择目标设备或者模拟器
