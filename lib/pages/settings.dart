@@ -92,7 +92,7 @@ class _SettingsState extends State<Settings> {
     if(s.quality.value.cellularOnly){
       text+='${"cellularOnly".tr}: ';
     }
-    text+=s.quality.value.quality==0 ? 'original' : '${s.quality.value.quality.toString()} Kbps';
+    text+=s.quality.value.quality==0 ? 'original'.tr : '${s.quality.value.quality.toString()} Kbps';
     return text;
   }
 
@@ -101,7 +101,7 @@ class _SettingsState extends State<Settings> {
       context: context,
       title: 'noRecommendSetting'.tr,
       content: 'noRecommendSettingContent'.tr,
-      okText: 'cancel'.tr,
+      okText: 'continue'.tr,
     );
     if(rlt){
       if(context.mounted){
@@ -359,7 +359,7 @@ class _SettingsState extends State<Settings> {
                               ),
                               subtitle: Obx(()=>
                                 Text(
-                                  s.autoDark.value ? 'auto' : s.darkMode.value ? 'enable'.tr : 'disable'.tr,
+                                  s.autoDark.value ? 'auto'.tr : s.darkMode.value ? 'enable'.tr : 'disable'.tr,
                                   style: GoogleFonts.notoSansSc(
                                     fontSize: 12,
                                     color: Colors.grey[400]
