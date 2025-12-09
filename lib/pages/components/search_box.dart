@@ -74,7 +74,7 @@ class _SearchInputState extends State<SearchInput> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '${"search".tr}${widget.mode=="song" ? "songs".tr: widget.mode=="album" ? "albums".tr: "artists".tr}',
+                        '${"search".tr}: ${widget.mode=="song" ? "songs".tr: widget.mode=="album" ? "albums".tr: "artists".tr}',
                         style: GoogleFonts.notoSansSc(
                           color: Colors.grey,
                         ),

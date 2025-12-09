@@ -209,4 +209,5 @@ const Map<String, String> zhCN={
   'songCountOverflow': '歌曲数量可能超过500首',
   'songCountOverflowContent': 'Subsonic API支持的最大歌曲数量为500首\n你可以在首页-更多-随机播放所有歌曲，此功能不受数量限制',
   
+  'language': '语言',
 };

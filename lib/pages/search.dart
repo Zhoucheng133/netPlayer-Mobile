@@ -44,7 +44,7 @@ class _SearchState extends State<Search> {
       if(context.mounted){
         d.showOkDialog(
           context: context,
-          okText: "opk".tr,
+          okText: "ok".tr,
           title: "searchEmpty".tr,
           content: "tryOtherKeywords".tr
         );

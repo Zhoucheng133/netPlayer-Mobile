@@ -41,7 +41,7 @@ class PlayerVar extends GetxController{
 
   RxMap<String, dynamic> nowPlay={
     'id': '',
-    'title': 'noplaying'.tr,
+    'title': '/',
     'artist': '/',
     'playFrom': '',
     'duration': 0,  // 注意这里使用的是秒~1000ms

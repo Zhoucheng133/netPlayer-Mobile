@@ -161,7 +161,7 @@ class _PlayListItemState extends State<PlayListItem> {
     var req=await d.showActionSheet(
       context: context,
       list: [
-        ActionItem(name: 'renamePlayList', key: "rename", icon: Icons.edit_rounded),
+        ActionItem(name: 'renamePlayList'.tr, key: "rename", icon: Icons.edit_rounded),
         ActionItem(name: 'deletePlayList'.tr, key: "del", icon: Icons.delete_rounded),
         ActionItem(name: 'playListInfo'.tr, key: "info", icon: Icons.info_rounded)
       ]

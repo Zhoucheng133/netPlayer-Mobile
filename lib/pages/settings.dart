@@ -253,7 +253,7 @@ class _SettingsState extends State<Settings> {
                               )),
                             ),
                             FTile(
-                              title: Text('使用Navidrome API', style: GoogleFonts.notoSansSc()),
+                              title: Text('enableNavidromeAPI'.tr, style: GoogleFonts.notoSansSc()),
                               details: Obx(()=>
                                 FSwitch(
                                   value: p.useNavidrome.value, 
@@ -303,6 +303,17 @@ class _SettingsState extends State<Settings> {
                                 fontSize: 12,
                                 color: Colors.grey[400]
                               )),
+                            ),
+                            FTile(
+                              title: Text('language'.tr, style: GoogleFonts.notoSansSc()),
+                              subtitle: Text(
+                                s.lang.value.name, 
+                                style: GoogleFonts.notoSansSc(
+                                  fontSize: 12,
+                                  color: Colors.grey[400]
+                                ),
+                              ),
+                              onPress: () => s.showLanguageDialog(context),
                             ),
                             FTile(
                               onPress: ()=>showQualityWarning(context),
