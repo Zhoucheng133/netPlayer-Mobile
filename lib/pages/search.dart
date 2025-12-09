@@ -44,9 +44,9 @@ class _SearchState extends State<Search> {
       if(context.mounted){
         d.showOkDialog(
           context: context,
-          okText: "好的",
-          title: "没有搜索到任何内容",
-          content: "请尝试换一个关键词"
+          okText: "opk".tr,
+          title: "searchEmpty".tr,
+          content: "tryOtherKeywords".tr
         );
       }
     }else{
@@ -89,7 +89,7 @@ class _SearchState extends State<Search> {
             alignment: Alignment.centerLeft,
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 200),
-              child: showAppbarTitle ? const Text('搜索', key: Key("1"),) : null,
+              child: showAppbarTitle ? Text('search'.tr, key: const Key("1"),) : null,
             ),
           ),
           centerTitle: false,

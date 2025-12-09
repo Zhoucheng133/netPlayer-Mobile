@@ -90,19 +90,18 @@ class _SettingsState extends State<Settings> {
   String qualityText(){
     String text='';
     if(s.quality.value.cellularOnly){
-      text+='仅移动网络: ';
+      text+='${"cellularOnly".tr}: ';
     }
-    text+=s.quality.value.quality==0 ? '原始' : '${s.quality.value.quality.toString()} Kbps';
+    text+=s.quality.value.quality==0 ? 'original' : '${s.quality.value.quality.toString()} Kbps';
     return text;
   }
 
   Future<void> showQualityWarning(BuildContext context) async {
     final rlt=await d.showOkCancelDialog(
       context: context,
-      title: '注意! 不推荐的设置',
-      content: '如果指定非原始音质，有一定概率无法播放或无法定位时间轴\n对于FLAC格式的高码率歌曲第一次播可能没有声音(取决于音乐服务器的转码速度)',
-      okText: '继续',
-      cancelText: '取消'
+      title: 'noRecommendSetting'.tr,
+      content: 'noRecommendSettingContent'.tr,
+      okText: 'cancel'.tr,
     );
     if(rlt){
       if(context.mounted){
@@ -113,11 +112,11 @@ class _SettingsState extends State<Settings> {
 
   String progresStyle(){
     if(s.progressStyle.value==ProgressStyle.off){
-      return '关闭';
+      return 'close'.tr;
     }else if(s.progressStyle.value==ProgressStyle.ring){
-      return '环状';
+      return 'ring'.tr;
     }
-    return '背景色';
+    return 'background'.tr;
   }
 
   Future<void> showDarkModeDialog(BuildContext context) async {
@@ -127,7 +126,7 @@ class _SettingsState extends State<Settings> {
 
     await d.showOkCancelDialogRaw(
       context: context, 
-      title: '深色模式', 
+      title: 'darkMode'.tr, 
       child: Obx(()=>
         Column(
           mainAxisSize: MainAxisSize.min,
@@ -135,7 +134,7 @@ class _SettingsState extends State<Settings> {
             Row(
               children: [
                 Text(
-                  '跟随系统',
+                  'followSystem'.tr,
                   style: GoogleFonts.notoSansSc(
                     fontSize: 16,
                   ),
@@ -155,7 +154,7 @@ class _SettingsState extends State<Settings> {
             Row(
               children: [
                 Text(
-                  '启用深色模式',
+                  'darkMode'.tr,
                   style: GoogleFonts.notoSansSc(
                     fontSize: 16,
                   ),
@@ -198,7 +197,7 @@ class _SettingsState extends State<Settings> {
         ),
         body: Column(
           children: [
-            const TitleArea(title: '设置', subtitle: ' '),
+            TitleArea(title: 'settings'.tr, subtitle: ' '),
             Expanded(
               child: ListView(
                 children: [
@@ -208,10 +207,10 @@ class _SettingsState extends State<Settings> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         FTileGroup(
-                          label: Text('App 设置', style: GoogleFonts.notoSansSc(),),
+                          label: Text('appSettings'.tr, style: GoogleFonts.notoSansSc(),),
                           children: [
                             FTile(
-                              title: Text('自动登录', style: GoogleFonts.notoSansSc()),
+                              title: Text('autoLogin'.tr, style: GoogleFonts.notoSansSc()),
                               details: Obx(()=>
                                 FSwitch(
                                   value: s.autoLogin.value,
@@ -224,7 +223,7 @@ class _SettingsState extends State<Settings> {
                               ),
                             ),
                             FTile(
-                              title: Text('保存上次播放位置', style: GoogleFonts.notoSansSc()),
+                              title: Text('savePlay'.tr, style: GoogleFonts.notoSansSc()),
                               details: Obx(()=>
                                 FSwitch(
                                   value: s.savePlay.value, 
@@ -237,7 +236,7 @@ class _SettingsState extends State<Settings> {
                               ),
                             ),
                             FTile(
-                              title: Text('显示歌词翻译', style: GoogleFonts.notoSansSc()),
+                              title: Text('showTranslations'.tr, style: GoogleFonts.notoSansSc()),
                               details: Obx(()=>
                                 FSwitch(
                                   value: s.showTranslation.value, 
@@ -248,7 +247,7 @@ class _SettingsState extends State<Settings> {
                                   }
                                 )
                               ),
-                              subtitle: Text('如果存在歌词翻译则显示', style: GoogleFonts.notoSansSc(
+                              subtitle: Text('showTranslationsIfExist'.tr, style: GoogleFonts.notoSansSc(
                                 fontSize: 12,
                                 color: Colors.grey[400]
                               )),
@@ -262,10 +261,10 @@ class _SettingsState extends State<Settings> {
                                     if(val){
                                       final ok=await d.showOkCancelDialog(
                                         context: context, 
-                                        title: "优先使用Navidrome API", 
-                                        content: "如果使用Navidrome服务可以打开此选项显示所有的歌曲和专辑",
-                                        okText: u.password.value.isEmpty ? "继续并重新登录" : "继续",
-                                        cancelText: "取消"
+                                        title: "enableNavidromeAPI".tr, 
+                                        content: "useNavidromeApiFirst".tr,
+                                        okText: u.password.value.isEmpty ? "enableAndRestart".tr : "continue".tr,
+                                        cancelText: "cancel".tr
                                       );
                                       if(ok && u.password.value.isEmpty){
                                         account.logout();
@@ -280,13 +279,13 @@ class _SettingsState extends State<Settings> {
                                   }
                                 )
                               ),
-                              subtitle: Text('显示所有歌曲和专辑', style: GoogleFonts.notoSansSc(
+                              subtitle: Text('showAllSongsAndAlbums'.tr, style: GoogleFonts.notoSansSc(
                                 fontSize: 12,
                                 color: Colors.grey[400]
                               )),
                             ),
                             FTile(
-                              title: Text('忽略失效的文件', style: GoogleFonts.notoSansSc()),
+                              title: Text('ignoreMissing'.tr, style: GoogleFonts.notoSansSc()),
                               details: Obx(()=>
                                 FSwitch(
                                   value: p.removeMissing.value, 
@@ -300,7 +299,7 @@ class _SettingsState extends State<Settings> {
                                   } : null,
                                 )
                               ),
-                              subtitle: Text('仅对NavidromeAPI有效', style: GoogleFonts.notoSansSc(
+                              subtitle: Text('avaliableForNavidromeApi'.tr, style: GoogleFonts.notoSansSc(
                                 fontSize: 12,
                                 color: Colors.grey[400]
                               )),
@@ -308,7 +307,7 @@ class _SettingsState extends State<Settings> {
                             FTile(
                               onPress: ()=>showQualityWarning(context),
                               title: Text(
-                                '播放音质',
+                                'playQuality'.tr,
                                 style: GoogleFonts.notoSansSc(),
                               ),
                               subtitle: Obx(()=>
@@ -325,16 +324,16 @@ class _SettingsState extends State<Settings> {
                               onPress: () async {
                                 final rlt=await d.showOkCancelDialog(
                                   context: context, 
-                                  title: '清理缓存', 
-                                  content: '这不会影响你的使用', 
-                                  okText: '继续'
+                                  title: 'clearCache'.tr, 
+                                  content: 'noAffectForUse'.tr, 
+                                  okText: 'continue'.tr,
                                 );
                                 if(rlt){
                                   clearController();
                                 }
                               },
                               title: Text(
-                                '清理缓存',
+                                'clearCache'.tr,
                                 style: GoogleFonts.notoSansSc(
                                   // fontSize: 18
                                 ),
@@ -350,17 +349,17 @@ class _SettingsState extends State<Settings> {
                           ]
                         ),
                         FTileGroup(
-                          label: Text('外观设置', style: GoogleFonts.notoSansSc(),),
+                          label: Text('apperanceSettings'.tr, style: GoogleFonts.notoSansSc(),),
                           children: [
                             FTile(
                               onPress: ()=>showDarkModeDialog(context),
                               title: Text(
-                                '深色模式',
+                                'darkMode'.tr,
                                 style: GoogleFonts.notoSans(),
                               ),
                               subtitle: Obx(()=>
                                 Text(
-                                  s.autoDark.value ? '自动' : s.darkMode.value ? '开启' : '关闭',
+                                  s.autoDark.value ? 'auto' : s.darkMode.value ? 'enable'.tr : 'disable'.tr,
                                   style: GoogleFonts.notoSansSc(
                                     fontSize: 12,
                                     color: Colors.grey[400]
@@ -371,7 +370,7 @@ class _SettingsState extends State<Settings> {
                             FTile(
                               onPress: ()=>showProgressDialog(context),
                               title: Text(
-                                '播放栏显示进度',
+                                'progressbarStyle'.tr,
                                 style: GoogleFonts.notoSansSc(),
                               ),
                               subtitle: Obx(()=>
@@ -387,7 +386,7 @@ class _SettingsState extends State<Settings> {
                           ]
                         ),
                         FTileGroup(
-                          label: Text('其它', style: GoogleFonts.notoSansSc(),),
+                          label: Text('others'.tr, style: GoogleFonts.notoSansSc(),),
                           children: [
                             FTile(
                               onPress: () async {
@@ -399,9 +398,9 @@ class _SettingsState extends State<Settings> {
                                   loading=false;
                                 });
                               },
-                              title: Text('重新扫描音乐库', style: GoogleFonts.notoSansSc(),),
+                              title: Text('rescanLibrary'.tr, style: GoogleFonts.notoSansSc(),),
                               subtitle: Text(
-                                "手动扫描音乐库中的所有文件", 
+                                "rescanLibraryContent".tr, 
                                 style: GoogleFonts.notoSansSc(
                                   fontSize: 12,
                                   color: Colors.grey[400]
@@ -413,7 +412,7 @@ class _SettingsState extends State<Settings> {
                               ) : null,
                             ),
                             FTile(
-                              title: Text('开发者工具', style: GoogleFonts.notoSansSc(),),
+                              title: Text('devTool'.tr, style: GoogleFonts.notoSansSc(),),
                               onPress: ()=>Get.to(()=>const Dev()),
                             ),
                           ]

@@ -45,7 +45,7 @@ class _AboutState extends State<About> {
         ),
         body: Column(
           children: [
-            const TitleArea(title: '关于', subtitle: ' '),
+            TitleArea(title: 'about'.tr, subtitle: ' '),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -93,7 +93,7 @@ class _AboutState extends State<About> {
                         Padding(
                           padding: const EdgeInsets.only(bottom: 2),
                           child: Text(
-                            '本项目地址',
+                            'projectURL'.tr,
                             style: GoogleFonts.notoSansSc(
                               fontSize: 13,
                             ),
@@ -109,15 +109,15 @@ class _AboutState extends State<About> {
                       applicationVersion: version,
                       context: context,
                     ),
-                    child: const Row(
+                    child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        FaIcon(
+                        const FaIcon(
                           FontAwesomeIcons.certificate,
                           size: 15,
                         ),
-                        SizedBox(width: 5,),
-                        Text('许可证')
+                        const SizedBox(width: 5,),
+                        Text('license'.tr)
                       ],
                     )
                   ),

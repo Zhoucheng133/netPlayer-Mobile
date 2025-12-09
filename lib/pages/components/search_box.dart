@@ -74,7 +74,7 @@ class _SearchInputState extends State<SearchInput> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '搜索${widget.mode=="song" ? "歌曲": widget.mode=="album" ? "专辑": "艺人"}',
+                        '${"search".tr}${widget.mode=="song" ? "songs".tr: widget.mode=="album" ? "albums".tr: "artists".tr}',
                         style: GoogleFonts.notoSansSc(
                           color: Colors.grey,
                         ),
@@ -97,9 +97,9 @@ class _SearchInputState extends State<SearchInput> {
                                 if(widget.textController.text.isEmpty){
                                   d.showOkDialog(
                                     context: context,
-                                    okText: "好的",
-                                    title: "搜索失败",
-                                    content: "搜索关键字不能为空"
+                                    okText: "ok".tr,
+                                    title: "searchFailed".tr,
+                                    content: "searchKeywordsEmpty".tr
                                   );
                                   return;
                                 }

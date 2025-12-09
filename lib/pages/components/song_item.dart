@@ -55,13 +55,13 @@ class _SongItemState extends State<SongItem> {
     var req=await d.showActionSheet(
       context: context,
       list: [
-        ActionItem(name: '添加到歌单...', key: "add", icon: Icons.playlist_add_rounded),
-        isLoved() ? ActionItem(name: '取消喜欢', key: 'delove', icon: Icons.heart_broken_rounded) : 
-        ActionItem(name: '添加到喜欢', key: "love", icon: Icons.favorite_rounded),
-        ActionItem(name: "查看这个专辑", key: "album", icon: Icons.album_rounded),
-        ActionItem(name: "查看这个艺人", key: "artist", icon: Icons.mic_rounded),
-        if(widget.from=="playlist") ActionItem(name: "从歌单中移除", key: "delist", icon: Icons.playlist_remove_rounded, ),
-        ActionItem(name: "查看歌曲信息", key: "info", icon: Icons.info_rounded),
+        ActionItem(name: 'addToPlaylist'.tr, key: "add", icon: Icons.playlist_add_rounded),
+        isLoved() ? ActionItem(name: 'removeFromLoved'.tr, key: 'delove', icon: Icons.heart_broken_rounded) : 
+        ActionItem(name: 'addToLoved'.tr, key: "love", icon: Icons.favorite_rounded),
+        ActionItem(name: "showAlbum".tr, key: "album", icon: Icons.album_rounded),
+        ActionItem(name: "showArtist".tr, key: "artist", icon: Icons.mic_rounded),
+        if(widget.from=="playlist") ActionItem(name: "removeFromPlaylist".tr, key: "delist", icon: Icons.playlist_remove_rounded, ),
+        ActionItem(name: "songInfo".tr, key: "info", icon: Icons.info_rounded),
       ]
     );
     if(req=="album"){
@@ -83,7 +83,7 @@ class _SongItemState extends State<SongItem> {
       }
     }else if(req=='add'){
       if(l.playList.isEmpty && context.mounted){
-        d.showOkDialog(context: context, title: "无法添加到歌单", content: "没有创建任何歌单");
+        d.showOkDialog(context: context, title: "cantAddToPlaylist".tr, content: "noPlaylist".tr);
         return;
       }
       if(context.mounted){
@@ -119,7 +119,7 @@ class _SongItemState extends State<SongItem> {
       if(context.mounted){
         d.showOkDialogRaw(
           context: context, 
-          title: '歌曲信息', 
+          title: 'songInfo'.tr, 
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -134,11 +134,11 @@ class _SongItemState extends State<SongItem> {
               const SizedBox(height: 10,),
               Row(
                 children: [
-                  const SizedBox(
+                  SizedBox(
                     width: 100,
                     child: Text(
-                      "歌曲标题",
-                      style: TextStyle(
+                      "songTitle".tr,
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold
                       ),
                     ),
@@ -154,11 +154,11 @@ class _SongItemState extends State<SongItem> {
               const SizedBox(height: 5,),
               Row(
                 children: [
-                  const SizedBox(
+                  SizedBox(
                     width: 100,
                     child: Text(
-                      "歌曲长度",
-                      style: TextStyle(
+                      "duration".tr,
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold
                       ),
                     ),
@@ -174,11 +174,11 @@ class _SongItemState extends State<SongItem> {
               const SizedBox(height: 5,),
               Row(
                 children: [
-                  const SizedBox(
+                  SizedBox(
                     width: 100,
                     child: Text(
-                      "艺人",
-                      style: TextStyle(
+                      "artist".tr,
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold
                       ),
                     ),
@@ -194,11 +194,11 @@ class _SongItemState extends State<SongItem> {
               const SizedBox(height: 5,),
               Row(
                 children: [
-                  const SizedBox(
+                  SizedBox(
                     width: 100,
                     child: Text(
-                      "专辑",
-                      style: TextStyle(
+                      "album".tr,
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold
                       ),
                     ),
@@ -214,11 +214,11 @@ class _SongItemState extends State<SongItem> {
               const SizedBox(height: 5,),
               Row(
                 children: [
-                  const SizedBox(
+                  SizedBox(
                     width: 100,
                     child: Text(
-                      "歌曲id",
-                      style: TextStyle(
+                      "songId".tr,
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold
                       ),
                     ),
@@ -235,11 +235,11 @@ class _SongItemState extends State<SongItem> {
               const SizedBox(height: 5,),
               Row(
                 children: [
-                  const SizedBox(
+                  SizedBox(
                     width: 100,
                     child: Text(
-                      "歌单id",
-                      style: TextStyle(
+                      "playlistId".tr,
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold
                       ),
                     ),
@@ -256,11 +256,11 @@ class _SongItemState extends State<SongItem> {
               const SizedBox(height: 5,),
               Row(
                 children: [
-                  const SizedBox(
+                  SizedBox(
                     width: 100,
                     child: Text(
-                      "创建于",
-                      style: TextStyle(
+                      "created".tr,
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold
                       ),
                     ),

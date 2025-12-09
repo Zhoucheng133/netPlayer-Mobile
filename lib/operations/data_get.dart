@@ -30,7 +30,7 @@ class DataGet{
     final rlt=await httpRequest("${u.url.value}/rest/getPlaylists?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}");
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
       if(context.mounted){
-        dialog("获取所有歌单失败", "请检查你的网络连接", context);
+        dialog("getAllPlaylistsFailed".tr, "checkYourNetwork".tr, context);
       }
       return;
     }else{
@@ -42,7 +42,7 @@ class DataGet{
         }
       } catch (_) {
         if(context.mounted){
-          dialog("获取所有歌单失败", "请检查你的网络连接", context);
+          dialog("getAllPlaylistsFailed".tr, "checkYourNetwork".tr, context);
         }
       }
     }
@@ -69,7 +69,7 @@ class DataGet{
     final rlt=await httpRequest("${u.url.value}/rest/getRandomSongs?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&size=500");
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
       if(context.mounted){
-        dialog("获取所有歌曲失败", "请检查你的网络连接", context);
+        dialog("getAllSongsFailed".tr, "checkYourNetwork".tr, context);
       }
       return [];
     }else{
@@ -83,7 +83,7 @@ class DataGet{
         return tmpList;
       } catch (_) {
         if(context.mounted){
-          dialog("获取所有歌曲失败","请检查你的网络连接", context);
+          dialog("getAllSongsFailed".tr, "checkYourNetwork".tr, context);
         }
         return [];
       }
@@ -203,7 +203,7 @@ class DataGet{
     final rlt=await httpRequest("${u.url.value}/rest/getStarred?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}");
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
       if(context.mounted){
-        dialog("获取喜欢的歌曲","请检查你的网络连接", context);
+        dialog("getLovedSongsFailed".tr, "checkYourNetwork".tr, context);
       }
       return [];
     }else{
@@ -216,7 +216,7 @@ class DataGet{
         }
       } catch (_) {
         if(context.mounted){
-          dialog("获取喜欢的歌曲", "请检查你的网络连接", context);
+          dialog("getLovedSongsFailed".tr, "checkYourNetwork".tr, context);
         }
         return [];
       }
@@ -227,7 +227,7 @@ class DataGet{
     final rlt=await httpRequest("${u.url.value}/rest/getPlaylist?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=$id");
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
       if(context.mounted){
-        dialog("获取歌单失败", "请检查你的网络连接", context);
+        dialog("getPlaylistFailed".tr, "checkYourNetwork".tr, context);
       }
       return [];
     }else{
@@ -242,7 +242,7 @@ class DataGet{
     final rlt=await httpRequest('${u.url.value}/rest/getArtists?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}');
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
       if(context.mounted){
-        dialog("获取所有艺人失败", "请检查你的网络连接", context);
+        dialog("getAllArtistsFailed".tr, "checkYourNetwork".tr, context);
       }
       return [];
     }else{
@@ -277,7 +277,7 @@ class DataGet{
     final rlt=await httpRequest("${u.url.value}/rest/getAlbumList?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&type=newest&size=500");
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
       if(context.mounted){
-        dialog("获取所有专辑失败", "请检查你的网络连接", context);
+        dialog("getAllAlbumsFailed".tr, "checkYourNetwork".tr, context);
       }
       return [];
     }else{
@@ -289,7 +289,7 @@ class DataGet{
         }
       } catch (_) {
         if(context.mounted){
-          dialog("解析所有专辑失败", "请检查你的网络连接", context);
+          dialog("getAllAlbumsFailed".tr, "checkYourNetwork".tr, context);
         }
         return [];
       }
@@ -300,7 +300,7 @@ class DataGet{
     final rlt=await httpRequest("${u.url.value}/rest/getArtist?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=$id");
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
       if(context.mounted){
-        dialog("获取艺人信息失败", "请检查你的网络连接", context);
+        dialog("getArtistFailed".tr, "checkYourNetwork".tr, context);
       }
       return [];
     }else{
@@ -315,7 +315,7 @@ class DataGet{
     final rlt=await httpRequest("${u.url.value}/rest/getAlbum?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=$id");
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
       if(context.mounted){
-        dialog("获取专辑信息失败", "请检查你的网络连接", context);
+        dialog("getAlbumFailed".tr, "checkYourNetwork".tr, context);
       }
       return [];
     }else{
@@ -343,7 +343,7 @@ class DataGet{
     final rlt=await httpRequest("${u.url.value}/rest/getSong?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=$id");
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
       if(context.mounted){
-        dialog("获取专辑信息失败", "请检查你的网络连接", context);
+        dialog("getSongFailed".tr, "checkYourNetwork".tr, context);
       }
       return {};
     }else{

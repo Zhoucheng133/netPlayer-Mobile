@@ -34,7 +34,7 @@ class _DevState extends State<Dev> {
         toolbarHeight: 70,
         title: Align(
           alignment: Alignment.centerLeft,
-          child: Text('开发者工具', style: GoogleFonts.notoSansSc(),)
+          child: Text('devTool'.tr, style: GoogleFonts.notoSansSc(),)
         ),
         centerTitle: false,
       ),
@@ -46,17 +46,17 @@ class _DevState extends State<Dev> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 FTileGroup(
-                  label: Text('状态', style: GoogleFonts.notoSansSc()),
+                  label: Text('status'.tr, style: GoogleFonts.notoSansSc()),
                   children: [
                     FTile(
-                      title: Text("播放状态", style: GoogleFonts.notoSansSc(),),
+                      title: Text("playStatus".tr, style: GoogleFonts.notoSansSc(),),
                       onPress: () async {
                         if(p.nowPlay['id']==''){
                           d.showOkDialog(
                             context: context, 
-                            title: "播放状态", 
-                            content: "当前没有在播放",
-                            okText: "好的",
+                            title: "playStatus".tr, 
+                            content: "noplaying".tr,
+                            okText: "ok".tr,
                           );
                           return;
                         }
@@ -64,7 +64,7 @@ class _DevState extends State<Dev> {
                           if(context.mounted){
                             d.showOkDialogRaw(
                               context: context, 
-                              title: '播放状态',
+                              title: 'playStatus'.tr,
                               child: DevTool(data: data,),
                             );
                           }
@@ -73,45 +73,45 @@ class _DevState extends State<Dev> {
                   ],
                 ),
                 FTileGroup(
-                  label: Text("存储", style: GoogleFonts.notoSansSc(),),
+                  label: Text("storage".tr, style: GoogleFonts.notoSansSc(),),
                   children: [
                     FTile(
-                      title: Text("本地存储", style: GoogleFonts.notoSansSc(),),
-                      subtitle: Text("SharedPreference 存储", style: GoogleFonts.notoSansSc(),),
+                      title: Text("localStorage".tr, style: GoogleFonts.notoSansSc(),),
+                      subtitle: Text("SharedPreference", style: GoogleFonts.notoSansSc(),),
                       onPress: () async {
                         final prefs=await SharedPreferences.getInstance();
                         if(context.mounted){
                           d.showOkDialog(
                           context: context, 
-                          title: "本地存储", 
-                          content: """# 用户信息
-用户: ${prefs.getString("username")}
-密码: ${prefs.getString("password")}
+                          title: "localStorage".tr, 
+                          content: """# ${"userData".tr}
+${"username".tr}: ${prefs.getString("username")}
+${"password".tr}: ${prefs.getString("password")}
 salt: ${prefs.getString("salt")}
 token: ${prefs.getString("token")}
 ————————————
 # 设置
-自动登录: ${prefs.getBool("autoLogin")}
-保存播放: ${prefs.getBool("savePlay")}
-使用NavidromeAPI: ${prefs.getBool("useNavidrome")}
-自动暗色模式: ${prefs.getBool("autoDark")}
-启用暗色模式: ${prefs.getBool("darkMode")}
-显示翻译: ${prefs.getBool("showTranslation")}
-进度条模式: ${prefs.getInt("progressStyle")}
-播放音质: ${prefs.getString("quality")}
-忽略失效文件: ${prefs.getBool("removeMissing")}
+${"autoLogin".tr}: ${prefs.getBool("autoLogin")}
+${"savePlay".tr}: ${prefs.getBool("savePlay")}
+${"enableNavidromeAPI".tr}: ${prefs.getBool("useNavidrome")}
+${"autoDark".tr}: ${prefs.getBool("autoDark")}
+${"darkMode".tr}: ${prefs.getBool("darkMode")}
+${"showTranslations".tr}: ${prefs.getBool("showTranslation")}
+${"progressbarStyle".tr}: ${prefs.getInt("progressStyle")}
+${"playQuality".tr}: ${prefs.getString("quality")}
+${"ignoreMissing".tr}: ${prefs.getBool("removeMissing")}
 ————————————
-# 播放
-播放模式: ${prefs.getString("playMode")}
-歌词大小: ${prefs.getInt("fontSize")}
+# ${"playlist".tr}
+${"playMode".tr}: ${prefs.getString("playMode")}
+${"lyricFontSize".tr}: ${prefs.getInt("fontSize")}
 """
                           );
                         }
                       },
                     ),
                     FTile(
-                      title: Text("使用前一个版本的存储", style: GoogleFonts.notoSansSc(),),
-                      subtitle: Text("清除password和useNavidrome", style: GoogleFonts.notoSans(),),
+                      title: Text("usePreviousStorage".tr, style: GoogleFonts.notoSansSc(),),
+                      subtitle: Text("clearPasswordAndUseNavidrome".tr, style: GoogleFonts.notoSans(),),
                       onPress: () async {
                         final prefs=await SharedPreferences.getInstance();
                         prefs.remove("useNavidrome");
@@ -119,23 +119,23 @@ token: ${prefs.getString("token")}
                         if(context.mounted){
                           d.showOkDialog(
                             context: context, 
-                            title: "清除完成", 
-                            content: "已经清除password和useNavidrome存储"
+                            title: "clearFinished".tr, 
+                            content: "clearFinished".tr
                           );
                         }
                       },
                     ),
                     FTile(
-                      title: Text("清除所有的存储", style: GoogleFonts.notoSansSc(),),
-                      subtitle: Text("清除所有的配置信息", style: GoogleFonts.notoSans(),),
+                      title: Text("clearAllStorage".tr, style: GoogleFonts.notoSansSc(),),
+                      subtitle: Text("clearConfig".tr, style: GoogleFonts.notoSans(),),
                       onPress: () async {
                         final prefs=await SharedPreferences.getInstance();
                         prefs.clear();
                         if(context.mounted){
                           d.showOkDialog(
                             context: context, 
-                            title: "清除完成", 
-                            content: "已经清除所有的配置"
+                            title: "clearFinished".tr, 
+                            content: "clearFinished".tr
                           );
                         }
                       },

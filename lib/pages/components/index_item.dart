@@ -161,9 +161,9 @@ class _PlayListItemState extends State<PlayListItem> {
     var req=await d.showActionSheet(
       context: context,
       list: [
-        ActionItem(name: '重命名歌单', key: "rename", icon: Icons.edit_rounded),
-        ActionItem(name: '删除歌单', key: "del", icon: Icons.delete_rounded),
-        ActionItem(name: '歌单信息', key: "info", icon: Icons.info_rounded)
+        ActionItem(name: 'renamePlayList', key: "rename", icon: Icons.edit_rounded),
+        ActionItem(name: 'deletePlayList'.tr, key: "del", icon: Icons.delete_rounded),
+        ActionItem(name: 'playListInfo'.tr, key: "info", icon: Icons.info_rounded)
       ]
     );
     if(req=="rename"){
@@ -171,9 +171,9 @@ class _PlayListItemState extends State<PlayListItem> {
         final controller=TextEditingController();
         await d.showOkCancelDialogRaw(
           context: context, 
-          title: "重命名歌单",
-          okText: "完成",
-          cancelText: "取消",
+          title: "renamePlayList".tr,
+          okText: "ok".tr,
+          cancelText: "cancel".tr,
           child: StatefulBuilder(
             builder: (BuildContext context, StateSetter setState) {
               return FTextField(
@@ -193,10 +193,10 @@ class _PlayListItemState extends State<PlayListItem> {
       if(context.mounted){
         var req=await d.showOkCancelDialog(
           context: context, 
-          title: "删除歌单",
-          content: "确定要删除这个歌单吗",
-          okText: "删除",
-          cancelText: "取消",
+          title: "deletePlayList".tr,
+          content: "deleteConfirm".tr,
+          okText: "delete".tr,
+          cancelText: "cancel".tr,
         );
         if(req){
           if(context.mounted){
@@ -208,7 +208,7 @@ class _PlayListItemState extends State<PlayListItem> {
       if(context.mounted){
         d.showOkDialogRaw(
           context: context, 
-          title: "歌单信息", 
+          title: "playListInfo".tr, 
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -222,11 +222,11 @@ class _PlayListItemState extends State<PlayListItem> {
               const SizedBox(height: 10,),
               Row(
                 children: [
-                  const SizedBox(
+                  SizedBox(
                     width: 100,
                     child: Text(
-                      "歌单名称",
-                      style: TextStyle(
+                      "playlistName".tr,
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold
                       ),
                     ),
@@ -242,18 +242,18 @@ class _PlayListItemState extends State<PlayListItem> {
               const SizedBox(height: 5,),
               Row(
                 children: [
-                  const SizedBox(
+                  SizedBox(
                     width: 100,
                     child: Text(
-                      "歌曲数量",
-                      style: TextStyle(
+                      "songCount".tr,
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold
                       ),
                     ),
                   ),
                   Expanded(
                     child: Text(
-                      "${widget.songCount}首",
+                      "${widget.songCount} ${'songsEnd'.tr}",
                       overflow: TextOverflow.ellipsis,
                     )
                   )
@@ -262,11 +262,11 @@ class _PlayListItemState extends State<PlayListItem> {
               const SizedBox(height: 5,),
               Row(
                 children: [
-                  const SizedBox(
+                  SizedBox(
                     width: 100,
                     child: Text(
-                      "总时长",
-                      style: TextStyle(
+                      "allDuration".tr,
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold
                       ),
                     ),
@@ -282,11 +282,11 @@ class _PlayListItemState extends State<PlayListItem> {
               const SizedBox(height: 5,),
               Row(
                 children: [
-                  const SizedBox(
+                  SizedBox(
                     width: 100,
                     child: Text(
-                      "歌单id",
-                      style: TextStyle(
+                      "playlistId".tr,
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold
                       ),
                     ),
@@ -302,11 +302,11 @@ class _PlayListItemState extends State<PlayListItem> {
               const SizedBox(height: 5,),
               Row(
                 children: [
-                  const SizedBox(
+                  SizedBox(
                     width: 100,
                     child: Text(
-                      "创建于",
-                      style: TextStyle(
+                      "created".tr,
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold
                       ),
                     ),
@@ -322,11 +322,11 @@ class _PlayListItemState extends State<PlayListItem> {
               const SizedBox(height: 5,),
               Row(
                 children: [
-                  const SizedBox(
+                  SizedBox(
                     width: 100,
                     child: Text(
-                      "修改于",
-                      style: TextStyle(
+                      "modified".tr,
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold
                       ),
                     ),

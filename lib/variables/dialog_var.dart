@@ -101,7 +101,7 @@ class DialogVar extends GetxController{
               padding: const EdgeInsets.only(top: 8, bottom: 8, left: 14, right: 14),
               child: Obx(
                 ()=>Text(
-                  okText??'完成', 
+                  okText??'ok'.tr, 
                   style: GoogleFonts.notoSansSc(
                     color: settings.darkMode.value ? Colors.black : Colors.white,
                   )
@@ -143,7 +143,7 @@ class DialogVar extends GetxController{
               padding: const EdgeInsets.only(top: 8, bottom: 8, left: 14, right: 14),
               child: Obx(()=>
                 Text(
-                  okText??'完成', 
+                  okText??'ok'.tr, 
                   style: GoogleFonts.notoSansSc(
                     color: settings.darkMode.value ? Colors.black : Colors.white,
                   )
@@ -187,7 +187,7 @@ class DialogVar extends GetxController{
               padding: const EdgeInsets.only(top: 8, bottom: 8, left: 14, right: 14),
               child: Obx(()=>
                 Text(
-                  cancelText??'取消', 
+                  cancelText??'cancel'.tr, 
                   style: GoogleFonts.notoSansSc(
                     color: settings.darkMode.value ? Colors.white : Colors.black,
                   )
@@ -205,7 +205,7 @@ class DialogVar extends GetxController{
               padding: const EdgeInsets.only(top: 8, bottom: 8, left: 14, right: 14),
               child: Obx(()=>
                 Text(
-                  okText??'继续', 
+                  okText??'continue'.tr, 
                   style: GoogleFonts.notoSansSc(
                     color: settings.darkMode.value ? Colors.black : Colors.white,
                   )
@@ -246,7 +246,7 @@ class DialogVar extends GetxController{
               padding: const EdgeInsets.only(top: 8, bottom: 8, left: 14, right: 14),
               child: Obx(()=>
                 Text(
-                  cancelText??'取消', 
+                  cancelText??'cancel'.tr, 
                   style: GoogleFonts.notoSansSc(
                     color: settings.darkMode.value ? Colors.white : Colors.black,
                   )
@@ -264,7 +264,7 @@ class DialogVar extends GetxController{
               padding: const EdgeInsets.only(top: 8, bottom: 8, left: 14, right: 14),
               child: Obx(()=>
                 Text(
-                  okText??'继续', 
+                  okText??'continue'.tr, 
                   style: GoogleFonts.notoSansSc(
                     color: settings.darkMode.value ? Colors.black : Colors.white,
                   )

@@ -30,10 +30,10 @@ class _DevToolState extends State<DevTool> {
         children: [
           Column(
             children: [
-              const Align(
+              Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  '当前播放id',
+                  'playingId'.tr,
                 ),
               ),
               Align(
@@ -48,10 +48,10 @@ class _DevToolState extends State<DevTool> {
           const SizedBox(height: 5,),
           Column(
             children: [
-              const Align(
+              Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  '当前播放url',
+                  'playingUrl'.tr,
                 ),
               ),
               Align(
@@ -67,9 +67,9 @@ class _DevToolState extends State<DevTool> {
           const SizedBox(height: 5,),
           Row(
             children: [
-              const SizedBox(
+              SizedBox(
                 width: 120,
-                child: Text('使用无线网络'),
+                child: Text('useWifi'.tr),
               ),
               Text(s.wifi.value.toString())
             ],
@@ -77,9 +77,9 @@ class _DevToolState extends State<DevTool> {
           const SizedBox(height: 5,),
           Row(
             children: [
-              const SizedBox(
+              SizedBox(
                 width: 120,
-                child: Text('指定比特率'),
+                child: Text('useBitrate'.tr),
               ),
               Text((!SeekCheck().enableSeek()).toString())
             ],
@@ -87,9 +87,9 @@ class _DevToolState extends State<DevTool> {
           const SizedBox(height: 5,),
           Row(
             children: [
-              const SizedBox(
+              SizedBox(
                 width: 120,
-                child: Text('最大比特率'),
+                child: Text('maxBitrate'.tr),
               ),
               Text((SeekCheck().enableSeek()) ? '' : s.quality.value.quality.toString())
             ],
@@ -97,9 +97,9 @@ class _DevToolState extends State<DevTool> {
           const SizedBox(height: 5,),
           Row(
             children: [
-              const SizedBox(
+              SizedBox(
                 width: 120,
-                child: Text('播放源比特率'),
+                child: Text('originalBitrate'.tr),
               ),
               Text(widget.data['subsonic-response']['song']['bitRate'].toString())
             ],
@@ -107,9 +107,9 @@ class _DevToolState extends State<DevTool> {
           const SizedBox(height: 5,),
           Row(
             children: [
-              const SizedBox(
+              SizedBox(
                 width: 120,
-                child: Text('格式'),
+                child: Text('format'.tr),
               ),
               Text(widget.data['subsonic-response']['song']['suffix'])
             ],
@@ -117,9 +117,9 @@ class _DevToolState extends State<DevTool> {
           const SizedBox(height: 5,),
           Row(
             children: [
-              const SizedBox(
+              SizedBox(
                 width: 120,
-                child: Text('大小'),
+                child: Text('size'.tr),
               ),
               Text(widget.data['subsonic-response']['song']['size'].toString())
             ],

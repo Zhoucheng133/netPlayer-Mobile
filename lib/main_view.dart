@@ -77,7 +77,7 @@ class _MainViewState extends State<MainView> {
 
       savePlay(val);
       p.lyric.value=[
-        LyricItem('查找歌词中...', "", 0)
+        LyricItem('searchingForLyrics'.tr, "", 0)
       ];
       operations.getLyric();
     });
@@ -115,9 +115,9 @@ class _MainViewState extends State<MainView> {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           dialog.showOkDialog(
             context: context, 
-            title: '自动登录失败', 
+            title: 'autoLoginFailed'.tr, 
             content: resp['data'],
-            okText: '好的'
+            okText: 'ok'.tr
           );
         });
         return false;
@@ -208,10 +208,10 @@ class _MainViewState extends State<MainView> {
     if(useNavidrome==null && password==null && username!=null){
       final useNavidrome=await dialog.showOkCancelDialog(
         context: context, 
-        title: "启用Navidrome API", 
-        content: "如果你使用了Navidrome服务，可以使用Navidrome API获取所有歌曲和专辑\n这个操作需要你重新登录服务器",
-        okText: "启用并重新登录",
-        cancelText: "不启用"
+        title: "enableNavidromeAPI".tr, 
+        content: "enableNavidromeAPIContent".tr,
+        okText: "enableAndRestart".tr,
+        cancelText: "disabled".tr
       );
       if(useNavidrome){
         p.useNavidrome.value=true;
@@ -282,7 +282,7 @@ class _MainViewState extends State<MainView> {
                   size: 30
                 ),
                 const SizedBox(height: 10,),
-                const Text('加载中')
+                Text('loading'.tr)
               ],
             ),
           ) :

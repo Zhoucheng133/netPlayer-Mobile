@@ -70,7 +70,7 @@ class _ArtistsState extends State<Artists> {
             alignment: Alignment.centerLeft,
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 200),
-              child: showAppbarTitle ? const Text('艺人', key: Key("1"),) : null,
+              child: showAppbarTitle ? Text('artists'.tr, key: const Key("1"),) : null,
             ),
           ),
           actions: [
@@ -99,7 +99,7 @@ class _ArtistsState extends State<Artists> {
                       controller: controller,
                       slivers: [
                         SliverToBoxAdapter(
-                          child: TitleArea(title: '艺人', subtitle: '${ls.length}位艺人',),
+                          child: TitleArea(title: 'artists'.tr, subtitle: '${ls.length} ${"artistEnd".tr}',),
                         ),
                         !loading ? SliverList.builder(
                           itemCount: ls.length,

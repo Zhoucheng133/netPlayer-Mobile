@@ -28,7 +28,7 @@ class LyricGet{
       if(!(await lrclib())){
         p.lyricSource.value=null;
         p.lyric.value=[
-          LyricItem('没有歌词', "", 0)
+          LyricItem('noLyric'.tr, "", 0)
         ];
       }
     }

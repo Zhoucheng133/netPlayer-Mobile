@@ -74,7 +74,7 @@ class _AlbumContentState extends State<AlbumContent> {
             alignment: Alignment.centerLeft,
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 200),
-              child: showAppbarTitle ? Text("专辑: ${widget.album}", key: const Key("1"),) : null,
+              child: showAppbarTitle ? Text("${'album'.tr}: ${widget.album}", key: const Key("1"),) : null,
             ),
           ),
           centerTitle: false,
@@ -94,7 +94,7 @@ class _AlbumContentState extends State<AlbumContent> {
                       controller: controller,
                       slivers: [
                         SliverToBoxAdapter(
-                          child: TitleArea(title: "专辑: ${widget.album}", subtitle: '${ls.length}首歌曲',),
+                          child: TitleArea(title: "${'album'.tr}: ${widget.album}", subtitle: '${ls.length}${"songsEnd".tr}',),
                         ),
                         !loading ? SliverList.builder(
                           itemCount: ls.length,

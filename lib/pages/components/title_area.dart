@@ -77,9 +77,9 @@ class _TitleAreaState extends State<TitleArea> {
                       onTap: (){
                         d.showOkDialog(
                           context: context,
-                          title: "歌曲数量可能超过500首",
-                          content: "Subsonic API支持的最大歌曲数量为500首\n你可以在首页-更多-随机播放所有歌曲，此功能不受数量限制",
-                          okText: "好的"
+                          title: "songCountOverflow".tr,
+                          content: "songCountOverflowContent".tr,
+                          okText: "ok".tr
                         );
                       }, 
                       child: const Icon(
@@ -135,7 +135,7 @@ class _SearchTitleAreaState extends State<SearchTitleArea> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      '搜索',
+                      'search'.tr,
                       style: GoogleFonts.notoSansSc(
                         fontWeight: FontWeight.w300,
                         fontSize: 35

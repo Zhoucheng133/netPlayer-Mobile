@@ -11,12 +11,12 @@ Future<void> showQualityDialog(BuildContext context) async {
   final DialogVar d=Get.find();
 
   final List<String> types=[
-    '移动网络和无线网络',
-    '仅移动网络',
+    'cellularAndWiFi'.tr,
+    'cellularOnly'.tr,
   ];
 
   final List<String> qualitiesAll=[
-    '原始',
+    'original'.tr,
     '128Kbps',
     '320Kbps'
   ];
@@ -30,9 +30,9 @@ Future<void> showQualityDialog(BuildContext context) async {
   int quality=local.quality;
 
   await d.showOkCancelDialogRaw(
-    title: '修改音质',
+    title: 'changeQuality'.tr,
     context: context,
-    okText: '完成',
+    okText: 'ok'.tr,
     child: StatefulBuilder(
       builder: (BuildContext context, StateSetter setState)=>Column(
         mainAxisSize: MainAxisSize.min,
@@ -59,8 +59,8 @@ Future<void> showQualityDialog(BuildContext context) async {
             //   item, item
             // )).toList(),
             children: [
-              FSelectItem("移动网络和无线网络", 0),
-              FSelectItem("仅移动网络", 1)
+              FSelectItem("cellularAndWiFi".tr, 0),
+              FSelectItem("cellularOnly".tr, 1)
             ],
           ),
           const SizedBox(height: 15,),
@@ -96,7 +96,7 @@ Future<void> showQualityDialog(BuildContext context) async {
             // )).toList(),
             initialValue: quality==0 ? 0 : quality==128 ? 1 : 2,
             children: [
-              FSelectItem("原始", 0),
+              FSelectItem("original".tr, 0),
               FSelectItem("128Kbps", 1),
               FSelectItem("320Kbps", 2),
             ],

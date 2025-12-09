@@ -74,9 +74,9 @@ class _IndexState extends State<Index> {
   Future<void> logout(BuildContext context) async {
     final rlt=await d.showOkCancelDialog (
       context: context,
-      title: "注销",
+      title: "logout".tr,
       content: "确定要注销吗？这会返回到登录界面",
-      okText: "注销",
+      okText: "logout".tr,
     );
     if(rlt){
       account.logout();
@@ -119,11 +119,11 @@ class _IndexState extends State<Index> {
                 final rlt=await d.showActionSheet(
                   context: context,
                   list: [
-                    ActionItem(name: '随机播放所有歌曲', icon: Icons.shuffle_rounded, key: 'shuffle'),
-                    ActionItem(name: '设置', icon: Icons.settings_rounded, key: 'settings'),
-                    ActionItem(name: '远程控制', icon: Icons.settings_remote, key: 'remote'),
-                    ActionItem(name: '关于', icon: Icons.info_rounded, key: 'about'),
-                    ActionItem(name: '注销', icon: Icons.logout_rounded, key: 'logout'),
+                    ActionItem(name: 'shuffleAllSongs'.tr, icon: Icons.shuffle_rounded, key: 'shuffle'),
+                    ActionItem(name: 'settings'.tr, icon: Icons.settings_rounded, key: 'settings'),
+                    ActionItem(name: 'remote'.tr, icon: Icons.settings_remote, key: 'remote'),
+                    ActionItem(name: 'about'.tr, icon: Icons.info_rounded, key: 'about'),
+                    ActionItem(name: 'logout'.tr, icon: Icons.logout_rounded, key: 'logout'),
                   ]
                 );
                 if(rlt!=null){
@@ -162,7 +162,7 @@ class _IndexState extends State<Index> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '主页',
+                      'home'.tr,
                       style: GoogleFonts.notoSansSc(
                         fontSize: 35,
                         fontWeight: FontWeight.w300,
@@ -172,9 +172,9 @@ class _IndexState extends State<Index> {
                     Obx(()=>
                       Row(
                         children: [
-                          MenuItem(isSet: p.index.value==0, name: '固定项', func: ()=>jumpIndex(0),),
+                          MenuItem(isSet: p.index.value==0, name: 'fixed'.tr, func: ()=>jumpIndex(0),),
                           const SizedBox(width: 30,),
-                          MenuItem(isSet: p.index.value==1, name: '歌单', func: ()=>jumpIndex(1),)
+                          MenuItem(isSet: p.index.value==1, name: 'playlist'.tr, func: ()=>jumpIndex(1),)
                         ],
                       )
                     )
@@ -200,13 +200,13 @@ class _IndexState extends State<Index> {
                             scrollDirection: Axis.horizontal,
                             children: [
                               const SizedBox(width: 20,),
-                              IndexPinItem(icon: Icons.queue_music_rounded, label: '所有歌曲', bgColor: s.darkMode.value ? s.bgColor1 : Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>const All()),),
+                              IndexPinItem(icon: Icons.queue_music_rounded, label: 'allSongs'.tr, bgColor: s.darkMode.value ? s.bgColor1 : Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>const All()),),
                               const SizedBox(width: 10,),
-                              IndexPinItem(icon: Icons.favorite_rounded, label: '喜欢的歌曲', bgColor: s.darkMode.value ? s.bgColor1 : Colors.red[50]!, contentColor: Colors.red, func: ()=>Get.to(()=>const Loved()),),
+                              IndexPinItem(icon: Icons.favorite_rounded, label: 'loved'.tr, bgColor: s.darkMode.value ? s.bgColor1 : Colors.red[50]!, contentColor: Colors.red, func: ()=>Get.to(()=>const Loved()),),
                               const SizedBox(width: 10,),
-                              IndexPinItem(icon: Icons.mic_rounded, label: '艺人', bgColor: s.darkMode.value ? s.bgColor1 : Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>const Artists()),),
+                              IndexPinItem(icon: Icons.mic_rounded, label: 'artists'.tr, bgColor: s.darkMode.value ? s.bgColor1 : Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>const Artists()),),
                               const SizedBox(width: 10,),
-                              IndexPinItem(icon: Icons.album_rounded, label: '专辑', bgColor: s.darkMode.value ? s.bgColor1 : Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>const Albums()),),
+                              IndexPinItem(icon: Icons.album_rounded, label: 'albums'.tr, bgColor: s.darkMode.value ? s.bgColor1 : Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>const Albums()),),
                               const SizedBox(width: 20,),
                             ],
                           ),
@@ -222,7 +222,7 @@ class _IndexState extends State<Index> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
-                                '歌单',
+                                'playlists'.tr,
                                 style: GoogleFonts.notoSansSc(
                                   fontSize: 25,
                                   fontWeight: FontWeight.w300
@@ -234,14 +234,14 @@ class _IndexState extends State<Index> {
                                   final controller=TextEditingController();
                                   await d.showOkCancelDialogRaw(
                                     context: context, 
-                                    title: "创建一个新的歌单",
-                                    okText: "完成",
-                                    cancelText: "取消",
+                                    title: "createPlaylist".tr,
+                                    okText: "create".tr,
+                                    cancelText: "cancel".tr,
                                     child: StatefulBuilder(
                                       builder: (BuildContext context, StateSetter setState) {
                                         return FTextField(
                                           controller: controller,
-                                          hint: '新歌单名称',
+                                          hint: 'playlistName'.tr,
                                         );
                                       }
                                     ),

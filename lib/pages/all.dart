@@ -77,7 +77,7 @@ class _AllState extends State<All> {
             alignment: Alignment.centerLeft,
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 200),
-              child: showAppbarTitle ? const Text('所有歌曲', key: Key("1"),) : null,
+              child: showAppbarTitle ? Text('allSongs'.tr, key: const Key("1"),) : null,
             ),
           ),
           centerTitle: false,
@@ -119,7 +119,7 @@ class _AllState extends State<All> {
                         controller: controller,
                         slivers: [
                           SliverToBoxAdapter(
-                            child: TitleArea(title: '所有歌曲', subtitle: '${ u.authorization.value.isEmpty && ls.length >= 500 ? "> ${ls.length}" : ls.length}首歌曲', showWarning: u.authorization.value.isEmpty && ls.length >= 500,),
+                            child: TitleArea(title: 'allSongs'.tr, subtitle: '${ u.authorization.value.isEmpty && ls.length >= 500 ? "> ${ls.length}" : ls.length} ${'songsEnd'.tr}', showWarning: u.authorization.value.isEmpty && ls.length >= 500,),
                           ),
                           !loading ? SliverList.builder(
                             itemCount: ls.length,
