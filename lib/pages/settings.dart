@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:forui/forui.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -305,7 +306,18 @@ class _SettingsState extends State<Settings> {
                               )),
                             ),
                             FTile(
-                              title: Text('language'.tr, style: GoogleFonts.notoSansSc()),
+                              title: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text('language'.tr, style: GoogleFonts.notoSansSc()),
+                                  const SizedBox(width: 5,),
+                                  const FaIcon(
+                                    FontAwesomeIcons.globe,
+                                    size: 14,
+                                  )
+                                ],
+                              ),
                               subtitle: Text(
                                 s.lang.value.name, 
                                 style: GoogleFonts.notoSansSc(
