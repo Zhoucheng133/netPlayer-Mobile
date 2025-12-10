@@ -94,7 +94,7 @@ class _AlbumContentState extends State<AlbumContent> {
                       controller: controller,
                       slivers: [
                         SliverToBoxAdapter(
-                          child: TitleArea(title: "${'album'.tr}: ${widget.album}", subtitle: '${ls.length}${"songsEnd".tr}',),
+                          child: TitleArea(title: "${'album'.tr}: ${widget.album}", subtitle: '${ls.length} ${"songsEnd".tr}',),
                         ),
                         !loading ? SliverList.builder(
                           itemCount: ls.length,
