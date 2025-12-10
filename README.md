@@ -1,12 +1,15 @@
 # netPlayer Mobile
 
+
+Support multi-language now! You can view the English version of the README [HERE](./document/en.md)
+
+## 简介
+
 <img src="./assets/icon.png" width="100px">
 
 ![License](https://img.shields.io/badge/License-MIT-dark_green)
 
 **基于Subsonic API的移动端播放器**
-
-**NOT** support multi-language yet. But you can still view the English version of the README [HERE](./document/en.md)
 
 [**netPlayer Next**](https://github.com/Zhoucheng133/netPlayer-Next) | **★ netPlayer Mobile**
 
@@ -39,6 +42,12 @@
 <img src="demo/4.png" alt="netPlayer_Mobile_截图.jpg" width="200px" /><img src="demo/5.png" alt="netPlayer_Mobile_截图.jpg" width="200px" /><img src="demo/6.png" alt="netPlayer_Mobile_截图.jpg" width="200px" />
 
 <img src="demo/7.png" alt="netPlayer_Mobile_截图.jpg" width="200px" /><img src="demo/8.png" alt="netPlayer_Mobile_截图.jpg" width="200px" /><img src="demo/9.png" alt="netPlayer_Mobile_截图.jpg" width="200px" />
+
+## 支持的语言
+
+- 简体中文
+- 繁体中文
+- 英语
 
 ## 常见问题
 

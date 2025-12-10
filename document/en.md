@@ -1,12 +1,10 @@
 # netPlayer Mobile
 
+## Intro
+
 <img src="../assets/icon.png" width="100px">
 
 ![License](https://img.shields.io/badge/License-MIT-dark_green)
-
-> [!WARNING]
-> This project does **NOT** support multi-language. But you can still clone this project and add translations.
-
 
 **A mobile music player based on the Subsonic API**
 
@@ -43,6 +41,12 @@ The following screenshots were taken on emulators. The actual appearance may var
 <img src="../demo/4.png" width="200px" /><img src="../demo/5.png" width="200px" /><img src="../demo/6.png" width="200px" />
 
 <img src="../demo/7.png" width="200px" /><img src="../demo/8.png" width="200px" /><img src="../demo/9.png" width="200px" />
+
+## Supported Languages
+
+- English
+- Simplified Chinese
+- Traditional Chinese
 
 ## FAQ
 
