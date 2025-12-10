@@ -174,7 +174,7 @@ class _IndexState extends State<Index> {
                         children: [
                           MenuItem(isSet: p.index.value==0, name: 'fixed'.tr, func: ()=>jumpIndex(0),),
                           const SizedBox(width: 30,),
-                          MenuItem(isSet: p.index.value==1, name: 'playlist'.tr, func: ()=>jumpIndex(1),)
+                          MenuItem(isSet: p.index.value==1, name: 'playlists'.tr, func: ()=>jumpIndex(1),)
                         ],
                       )
                     )
