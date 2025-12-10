@@ -402,7 +402,7 @@ class _PlayListItemState extends State<PlayListItem> {
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
-                        "${widget.songCount}首",
+                        "${widget.songCount} ${'songsEnd'.tr}",
                         style: GoogleFonts.notoSansSc(
                           fontSize: 12,
                           color: Colors.grey

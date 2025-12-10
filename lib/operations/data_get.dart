@@ -22,7 +22,7 @@ class DataGet{
       context: context, 
       title: title, 
       content: msg,
-      okText: '好的'
+      okText: 'ok'.tr
     );
   }
 
