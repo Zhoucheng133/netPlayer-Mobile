@@ -9,9 +9,9 @@ Future<void> showProgressDialog(BuildContext context) async {
   SettingsVar s=Get.find();
   DialogVar d=Get.find();
   final List<String> types=[
-    '关闭',
-    '环状',
-    '背景色',
+    'close'.tr,
+    'ring'.tr,
+    'background'.tr,
   ];
 
   var style=s.progressStyle.value.index;
@@ -20,7 +20,7 @@ Future<void> showProgressDialog(BuildContext context) async {
 
   await d.showOkCancelDialogRaw(
     context: context, 
-    title: '播放栏进度显示方式', 
+    title: 'progressbarStyle'.tr, 
     child: StatefulBuilder(
       builder: (context, _) {
         return FSelect(
@@ -58,8 +58,8 @@ Future<void> showProgressDialog(BuildContext context) async {
         );
       }
     ),
-    cancelText: "取消",
-    okText: '完成',
+    cancelText: "cancel".tr,
+    okText: 'ok'.tr,
     okHandler: () async {
       // s.progressStyle.value=ProgressStyle.values[controller.value.first];
       // final SharedPreferences prefs = await SharedPreferences.getInstance();

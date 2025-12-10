@@ -26,16 +26,16 @@ class _RemoteRegisterState extends State<RemoteRegister> {
     if(url.text.isEmpty){
       d.showOkDialog(
         context: context,
-        title: '连接失败',
-        content: "WebSocket 地址不能为空",
-        okText: "好的"
+        title: 'connectFailed'.tr,
+        content: "wsEmpty".tr,
+        okText: "ok".tr
       );
     }else if(!url.text.startsWith('ws://')){
       d.showOkDialog(
         context: context,
-        title: '连接失败',
-        content: "WebSocket 地址不合法",
-        okText: "好的"
+        title: 'connectFailed'.tr,
+        content: "wsInvalid".tr,
+        okText: "ok".tr
       );
     }
     try {
@@ -49,9 +49,9 @@ class _RemoteRegisterState extends State<RemoteRegister> {
     if(r.socket==null && context.mounted){
       await d.showOkDialog(
         context: context,
-        title: "连接失败",
-        content: "这个地址没有任何响应，检查输入的地址!",
-        okText: "好的",
+        title: "connectFailed".tr,
+        content: "noResponse".tr,
+        okText: "ok".tr,
       );
       if(context.mounted){
         FocusScope.of(context).requestFocus(urlFocus);
@@ -101,7 +101,7 @@ class _RemoteRegisterState extends State<RemoteRegister> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "WebSocket 地址",
+                    "wsAddr".tr,
                     style: GoogleFonts.notoSansSc(
                       color: Colors.grey,
                     ),
@@ -142,13 +142,13 @@ class _RemoteRegisterState extends State<RemoteRegister> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               IconButton(
-                tooltip: "帮助",
+                tooltip: "help".tr,
                 onPressed: (){
                   d.showOkDialog(
                     context: context,
-                    title: "连接到桌面版netPlayer",
-                    content: "你可以在这里连接到桌面版本的netPlayer并进行远程控制\n至少需要v3.3.0版本的桌面netPlayer，并且确保打开WebSocket功能",
-                    okText: "好的"
+                    title: "connectToDesktop".tr,
+                    content: "connectToDesktopContent".tr,
+                    okText: "ok".tr
                   );
                 }, 
                 icon: const FaIcon(
@@ -171,19 +171,19 @@ class _RemoteRegisterState extends State<RemoteRegister> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10)
                     ),
-                    child: const Row(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(width: 10,),
+                        const SizedBox(width: 10,),
                         Text(
-                          "连接",
-                          style: TextStyle(
+                          "connect".tr,
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 17,
                             fontWeight: FontWeight.bold
                           ),
                         ),
-                        Icon(
+                        const Icon(
                           Icons.chevron_right_rounded,
                           color: Colors.white,
                           size: 30,

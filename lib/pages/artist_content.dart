@@ -73,7 +73,7 @@ class _ArtistContentState extends State<ArtistContent> {
             alignment: Alignment.centerLeft,
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 200),
-              child: showAppbarTitle ? Text('艺人: ${widget.artist}', key: const Key("1"),) : null,
+              child: showAppbarTitle ? Text('${"artist".tr}: ${widget.artist}', key: const Key("1"),) : null,
             ),
           ),
           centerTitle: false,
@@ -93,7 +93,7 @@ class _ArtistContentState extends State<ArtistContent> {
                       controller: controller,
                       slivers: [
                         SliverToBoxAdapter(
-                          child: TitleArea(title: '艺人: ${widget.artist}', subtitle: '${ls.length}张专辑',),
+                          child: TitleArea(title: '${"artist".tr}: ${widget.artist}', subtitle: '${ls.length} ${"albumEnd".tr}',),
                         ),
                         !loading ? SliverList.builder(
                           itemCount: ls.length,

@@ -70,7 +70,7 @@ class _RemoteState extends State<Remote> {
   Widget build(BuildContext context) {
     return Obx(()=>
       Scaffold(
-        backgroundColor: s.darkMode.value ? s.bgColor2 : Colors.white,
+        backgroundColor: s.darkMode.value ? s.bgColor2 : Colors.grey[50],
         resizeToAvoidBottomInset: !r.isRegister.value,
         appBar: AppBar(
           backgroundColor: s.darkMode.value ? s.bgColor1 : Colors.grey[100],
@@ -80,7 +80,7 @@ class _RemoteState extends State<Remote> {
         ),
         body: Column(
           children: [
-            const TitleArea(title: '远程控制', subtitle: '',),
+            TitleArea(title: 'remote'.tr, subtitle: '',),
             Expanded(
               child: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 300),

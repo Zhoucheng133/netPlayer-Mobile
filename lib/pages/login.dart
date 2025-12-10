@@ -53,30 +53,30 @@ class _LoginState extends State<Login> {
     if(urlInput.text.isEmpty){
       d.showOkDialog(
         context: context,
-        title: '登录失败',
-        content: '没有输入URL地址',
-        okText: '好的'
+        title: 'loginFailed'.tr,
+        content: 'noURL'.tr,
+        okText: 'ok'.tr
       );
     }else if(usernameInput.text.isEmpty){
       d.showOkDialog(
         context: context,
-        title: '登录失败',
-        content: '没有输入用户名',
-        okText: '好的'
+        title: 'loginFailed'.tr,
+        content: 'noUsername'.tr,
+        okText: 'ok'.tr
       );
     }else if(passwordInput.text.isEmpty){
       d.showOkDialog(
         context: context,
-        title: '登录失败',
-        content: '没有输入密码',
-        okText: '好的'
+        title: 'loginFailed'.tr,
+        content: 'noPassword'.tr,
+        okText: 'ok'.tr
       );
     }else if(!urlInput.text.startsWith('http://') && !urlInput.text.startsWith('https://')){
       d.showOkDialog(
         context: context,
-        title: '登录失败',
-        content: 'URL地址不合法',
-        okText: '好的'
+        title: 'loginFailed'.tr,
+        content: 'urlInvalid'.tr,
+        okText: 'ok'.tr
       );
     }else{
       setState(() {
@@ -102,9 +102,9 @@ class _LoginState extends State<Login> {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           d.showOkDialog(
             context: context,
-            title: '登录失败',
+            title: 'loginFailed'.tr,
             content: resp['data'],
-            okText: '好的'
+            okText: 'ok'.tr
           );
         });
       }
@@ -127,18 +127,18 @@ class _LoginState extends State<Login> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text(
-                "登录到你的音乐服务器",
-                style: TextStyle(
+              Text(
+                "connectToYourMusicServer".tr,
+                style: GoogleFonts.notoSansSc(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.fromLTRB(0, 5, 0, 50),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 5, 0, 50),
                 child: Text(
-                  "输入你的音乐服务器信息来登录",
-                  style: TextStyle(
+                  "inputYourMusicServerInfo".tr,
+                  style: GoogleFonts.notoSansSc(
                     color: Colors.grey,
                     fontWeight: FontWeight.w300,
                   ),
@@ -164,7 +164,7 @@ class _LoginState extends State<Login> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "服务器的URL地址",
+                        "serverURL".tr,
                         style: GoogleFonts.notoSansSc(
                           color: Colors.grey,
                         ),
@@ -220,7 +220,7 @@ class _LoginState extends State<Login> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "用户名",
+                        "username".tr,
                         style: GoogleFonts.notoSansSc(
                           color: Colors.grey,
                         ),
@@ -272,7 +272,7 @@ class _LoginState extends State<Login> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "密码",
+                        "password".tr,
                         style: GoogleFonts.notoSansSc(
                           color: Colors.grey,
                         ),
@@ -327,9 +327,9 @@ class _LoginState extends State<Login> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               const SizedBox(width: 10,),
-                              const Text(
-                                "登录",
-                                style: TextStyle(
+                              Text(
+                                "login".tr,
+                                style: GoogleFonts.notoSansSc(
                                   color: Colors.white,
                                   fontSize: 17,
                                   fontWeight: FontWeight.bold

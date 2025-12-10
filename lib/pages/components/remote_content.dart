@@ -147,14 +147,14 @@ class _RemoteContentState extends State<RemoteContent> {
                   ),
                 ),
                 IconButton(
-                  tooltip: '关闭连接',
+                  tooltip: 'closeConnect'.tr,
                   onPressed: () async {
                     final rlt=await d.showOkCancelDialog(
                       context: context,
-                      title: "关闭连接",
-                      content: "这会回到连接页面",
-                      okText: "继续",
-                      cancelText: "取消"
+                      title: "closeConnect".tr,
+                      content: "backToConnectPage".tr,
+                      okText: "continue".tr,
+                      cancelText: "cancel".tr
                     );
                     if(rlt){
                       try {

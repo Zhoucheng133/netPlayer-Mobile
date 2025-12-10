@@ -18,13 +18,13 @@ class Account{
     } catch (_) {
       return {
         'ok': false,
-        'data': '网络请求出错'
+        'data': 'networkError'.tr
       };
     }
     if(response['status']=='failed'){
       return {
         'ok': false,
-        'data': '用户名或者密码有误'
+        'data': 'usernameOrPasswordError'.tr
       };
     }
     return {

@@ -83,7 +83,7 @@ class _LovedState extends State<Loved> {
             alignment: Alignment.centerLeft,
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 200),
-              child: showAppbarTitle ? const Text('喜欢的歌曲', key: Key("1"),) : null,
+              child: showAppbarTitle ? Text('loved'.tr, key: const Key("1"),) : null,
             ),
           ),
           actions: [
@@ -124,7 +124,7 @@ class _LovedState extends State<Loved> {
                         controller: controller,
                         slivers: [
                           SliverToBoxAdapter(
-                            child: TitleArea(title: '喜欢的歌曲', subtitle: '${ls.length}首歌曲', ),
+                            child: TitleArea(title: 'loved'.tr, subtitle: '${ls.length} ${"songsEnd".tr}', ),
                           ),
                           !loading ? SliverList.builder(
                             itemCount: ls.length,

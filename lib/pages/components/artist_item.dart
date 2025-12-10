@@ -48,7 +48,7 @@ class _ArtistItemState extends State<ArtistItem> {
                       ),
                     ),
                     if(widget.item['albumCount']!=null) Text(
-                      "${widget.item['albumCount']}张专辑",
+                      "${widget.item['albumCount']} ${"albumEnd".tr}",
                       overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.notoSansSc(
                         fontSize: 12,

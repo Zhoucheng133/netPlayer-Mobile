@@ -30,8 +30,8 @@ class _AlbumItemState extends State<AlbumItem> {
     var req=await d.showActionSheet(
       context: context,
       list: [
-        ActionItem(name: '显示艺人', key: "artist", icon: Icons.mic_rounded),
-        ActionItem(name: '专辑信息', key: "info", icon: Icons.info_rounded),
+        ActionItem(name: 'showArtist'.tr, key: "artist", icon: Icons.mic_rounded),
+        ActionItem(name: 'albumInfo'.tr, key: "info", icon: Icons.info_rounded),
       ]
     );
     if(req=='artist'){
@@ -43,7 +43,7 @@ class _AlbumItemState extends State<AlbumItem> {
       if(context.mounted){
         d.showOkDialogRaw(
           context: context, 
-          title: '专辑信息', 
+          title: 'albumInfo'.tr, 
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -58,11 +58,11 @@ class _AlbumItemState extends State<AlbumItem> {
               const SizedBox(height: 10,),
               Row(
                 children: [
-                  const SizedBox(
+                  SizedBox(
                     width: 100,
                     child: Text(
-                      "专辑名称",
-                      style: TextStyle(
+                      "albumTitle".tr,
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold
                       ),
                     ),
@@ -78,11 +78,11 @@ class _AlbumItemState extends State<AlbumItem> {
               const SizedBox(height: 5,),
               Row(
                 children: [
-                  const SizedBox(
+                  SizedBox(
                     width: 100,
                     child: Text(
-                      "专辑总长度",
-                      style: TextStyle(
+                      "albumDuration".tr,
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold
                       ),
                     ),
@@ -98,11 +98,11 @@ class _AlbumItemState extends State<AlbumItem> {
               const SizedBox(height: 5,),
               Row(
                 children: [
-                  const SizedBox(
+                  SizedBox(
                     width: 100,
                     child: Text(
-                      "艺人",
-                      style: TextStyle(
+                      "artist".tr,
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold
                       ),
                     ),
@@ -118,11 +118,11 @@ class _AlbumItemState extends State<AlbumItem> {
               const SizedBox(height: 5,),
               Row(
                 children: [
-                  const SizedBox(
+                  SizedBox(
                     width: 100,
                     child: Text(
-                      "歌曲数量",
-                      style: TextStyle(
+                      "songCount".tr,
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold
                       ),
                     ),
@@ -138,11 +138,11 @@ class _AlbumItemState extends State<AlbumItem> {
               const SizedBox(height: 5,),
               Row(
                 children: [
-                  const SizedBox(
+                  SizedBox(
                     width: 100,
                     child: Text(
-                      "专辑id",
-                      style: TextStyle(
+                      "albumId".tr,
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold
                       ),
                     ),
@@ -159,11 +159,11 @@ class _AlbumItemState extends State<AlbumItem> {
               const SizedBox(height: 5,),
               Row(
                 children: [
-                  const SizedBox(
+                  SizedBox(
                     width: 100,
                     child: Text(
-                      "创建于",
-                      style: TextStyle(
+                      "created".tr,
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold
                       ),
                     ),

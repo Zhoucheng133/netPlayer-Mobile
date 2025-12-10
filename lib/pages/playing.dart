@@ -127,8 +127,8 @@ class _PlayingState extends State<Playing> {
     final rlt=await d.showActionSheet(
       context: context,
       list: [
-        ActionItem(name: '复制标题名称', key: 'copy', icon: Icons.copy_rounded),
-        ActionItem(name: '查看歌曲专辑', key: 'album', icon: Icons.album_rounded)
+        ActionItem(name: 'copyTitle'.tr, key: 'copy', icon: Icons.copy_rounded),
+        ActionItem(name: 'showAlbum'.tr, key: 'album', icon: Icons.album_rounded)
       ]
     );
     if(rlt!=null && context.mounted){
@@ -147,8 +147,8 @@ class _PlayingState extends State<Playing> {
     final rlt=await d.showActionSheet(
       context: context,
       list: [
-        ActionItem(name: '复制艺人名称', key: 'copy', icon: Icons.copy_rounded),
-        ActionItem(name: '查看艺人', key: 'artist', icon: Icons.mic_rounded)
+        ActionItem(name: 'copyArtist'.tr, key: 'copy', icon: Icons.copy_rounded),
+        ActionItem(name: 'showArtist'.tr, key: 'artist', icon: Icons.mic_rounded)
       ]
     );
     if(rlt!=null){
@@ -197,7 +197,7 @@ class _PlayingState extends State<Playing> {
                           size: 20,
                         ),
                         Text(
-                          '下滑返回',
+                          'slideDownToReturn'.tr,
                           style: GoogleFonts.notoSansSc(
                             color: Colors.grey[400],
                             fontSize: 14
@@ -301,7 +301,7 @@ class _PlayingState extends State<Playing> {
                                   bottom: 10,
                                   child: Tooltip(
                                     preferBelow: false,
-                                    message: "歌词来自${p.lyricSource.value==LyricSource.netease ? '网易云' : 'lrclib.net'}，歌词仅供参考",
+                                    message: "${'lyricFrom'.tr} ${p.lyricSource.value==LyricSource.netease ? 'netease'.tr : 'lrclib.net'}\n${'lyricForReference'.tr}",
                                     triggerMode: TooltipTriggerMode.tap,
                                     child: Icon(
                                       Icons.info_rounded,
@@ -424,18 +424,18 @@ class _PlayingState extends State<Playing> {
                                   if(p.nowPlay['playFrom']=='fullRandom'){
                                     d.showOkDialog(
                                       context: context,
-                                      title: "播放模式不可用",
-                                      content: "当前处于完全随机播放模式",
-                                      okText: '好的'
+                                      title: "modeNotAvailable".tr,
+                                      content: "allShuffleModeNow".tr,
+                                      okText: 'ok'.tr
                                     );
                                     return;
                                   }
                                   var rlt=await d.showActionSheet(
                                     context: context,
                                     list: [
-                                      ActionItem(name: "列表播放", key: "list", icon: Icons.repeat_rounded),
-                                      ActionItem(name: '随机播放', key: "random", icon: Icons.shuffle_rounded),
-                                      ActionItem(name: '单曲循环', key: 'loop', icon: Icons.repeat_one_rounded)
+                                      ActionItem(name: "loop".tr, key: "list", icon: Icons.repeat_rounded),
+                                      ActionItem(name: 'shuffle'.tr, key: "random", icon: Icons.shuffle_rounded),
+                                      ActionItem(name: 'single'.tr, key: 'loop', icon: Icons.repeat_one_rounded)
                                     ]
                                   );
                                   if(rlt!=null){
@@ -506,15 +506,15 @@ class _PlayingState extends State<Playing> {
                                   var rlt=await d.showActionSheet(
                                     context: context,
                                     list: [
-                                      ActionItem(name: '查看所在专辑', key: 'album', icon: Icons.album_rounded),
-                                      ActionItem(name: '查看艺人: ${p.nowPlay["artist"]}', key: 'artist', icon: Icons.mic_rounded),
-                                      isLoved() ? ActionItem(name: '从喜欢中移除', key: 'delove', icon: Icons.heart_broken_rounded) : 
-                                      ActionItem(name: '添加到喜欢', key: 'love', icon: Icons.favorite_rounded),
-                                      ActionItem(name: '播放队列', key: 'queue', icon: Icons.playlist_play_rounded),
-                                      ActionItem(name: '添加到...', key: 'add', icon: Icons.playlist_add_rounded),
-                                      ActionItem(name: showlyric ? '隐藏歌词' : '查看歌词', key: 'lyric', icon: Icons.lyrics_rounded),
-                                      ActionItem(name: '歌词大小', key: 'font', icon: Icons.text_fields_rounded),
-                                      ActionItem(name: '歌曲信息', key: 'info', icon: Icons.info_rounded),
+                                      ActionItem(name: 'showAlbum'.tr, key: 'album', icon: Icons.album_rounded),
+                                      ActionItem(name: '${"showArtist".tr}: ${p.nowPlay["artist"]}', key: 'artist', icon: Icons.mic_rounded),
+                                      isLoved() ? ActionItem(name: 'removeFromLoved'.tr, key: 'delove', icon: Icons.heart_broken_rounded) : 
+                                      ActionItem(name: 'addToLoved'.tr, key: 'love', icon: Icons.favorite_rounded),
+                                      ActionItem(name: 'nowPlayList'.tr, key: 'queue', icon: Icons.playlist_play_rounded),
+                                      ActionItem(name: 'addTo...'.tr, key: 'add', icon: Icons.playlist_add_rounded),
+                                      ActionItem(name: showlyric ? 'hideLyric'.tr : 'showLyric'.tr, key: 'lyric', icon: Icons.lyrics_rounded),
+                                      ActionItem(name: 'lyricFontSize'.tr, key: 'font', icon: Icons.text_fields_rounded),
+                                      ActionItem(name: 'songInfo'.tr, key: 'info', icon: Icons.info_rounded),
                                     ]
                                   );
                                   if(rlt!=null && context.mounted){
@@ -538,7 +538,7 @@ class _PlayingState extends State<Playing> {
                                       });
                                     }else if(rlt=='add'){
                                       if(l.playList.isEmpty && context.mounted){
-                                        d.showOkDialog(context: context, title: "无法添加到歌单", content: "没有创建任何歌单");
+                                        d.showOkDialog(context: context, title: "cantAddToPlaylist".tr, content: "noPlaylist".tr);
                                         return;
                                       }
                                       if(p.nowPlay["id"].isEmpty){
@@ -589,7 +589,7 @@ class _PlayingState extends State<Playing> {
                                       }
                                       d.showOkDialogRaw(
                                         context: context, 
-                                        title: '歌曲信息', 
+                                        title: 'songInfo'.tr, 
                                         child: Column(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
@@ -603,11 +603,11 @@ class _PlayingState extends State<Playing> {
                                             const SizedBox(height: 10,),
                                             Row(
                                               children: [
-                                                const SizedBox(
+                                                SizedBox(
                                                   width: 100,
                                                   child: Text(
-                                                    "歌曲标题",
-                                                    style: TextStyle(
+                                                    "songTitle".tr,
+                                                    style: const TextStyle(
                                                       fontWeight: FontWeight.bold
                                                     ),
                                                   ),
@@ -623,11 +623,11 @@ class _PlayingState extends State<Playing> {
                                             const SizedBox(height: 5,),
                                             Row(
                                               children: [
-                                                const SizedBox(
+                                                SizedBox(
                                                   width: 100,
                                                   child: Text(
-                                                    "歌曲长度",
-                                                    style: TextStyle(
+                                                    "duration".tr,
+                                                    style: const TextStyle(
                                                       fontWeight: FontWeight.bold
                                                     ),
                                                   ),
@@ -643,11 +643,11 @@ class _PlayingState extends State<Playing> {
                                             const SizedBox(height: 5,),
                                             Row(
                                               children: [
-                                                const SizedBox(
+                                                SizedBox(
                                                   width: 100,
                                                   child: Text(
-                                                    "艺人",
-                                                    style: TextStyle(
+                                                    "artist".tr,
+                                                    style: const TextStyle(
                                                       fontWeight: FontWeight.bold
                                                     ),
                                                   ),
@@ -663,11 +663,11 @@ class _PlayingState extends State<Playing> {
                                             const SizedBox(height: 5,),
                                             Row(
                                               children: [
-                                                const SizedBox(
+                                                SizedBox(
                                                   width: 100,
                                                   child: Text(
-                                                    "专辑",
-                                                    style: TextStyle(
+                                                    "album".tr,
+                                                    style: const TextStyle(
                                                       fontWeight: FontWeight.bold
                                                     ),
                                                   ),
@@ -683,11 +683,11 @@ class _PlayingState extends State<Playing> {
                                             const SizedBox(height: 5,),
                                             Row(
                                               children: [
-                                                const SizedBox(
+                                                SizedBox(
                                                   width: 100,
                                                   child: Text(
-                                                    "歌曲id",
-                                                    style: TextStyle(
+                                                    "songId".tr,
+                                                    style: const TextStyle(
                                                       fontWeight: FontWeight.bold
                                                     ),
                                                   ),
@@ -704,11 +704,11 @@ class _PlayingState extends State<Playing> {
                                             const SizedBox(height: 5,),
                                             Row(
                                               children: [
-                                                const SizedBox(
+                                                SizedBox(
                                                   width: 100,
                                                   child: Text(
-                                                    "歌单id",
-                                                    style: TextStyle(
+                                                    "playlistId".tr,
+                                                    style: const TextStyle(
                                                       fontWeight: FontWeight.bold
                                                     ),
                                                   ),
@@ -727,7 +727,7 @@ class _PlayingState extends State<Playing> {
                                       );
                                     }else if(rlt=='queue'){
                                       if(p.nowPlay['playFrom']=='fullRandom'){
-                                        await d.showOkDialog(context: context, title: "播放队列不可用", content: "现在是完全随机播放模式");
+                                        await d.showOkDialog(context: context, title: "nowPlayListNotAvailable".tr, content: "allShuffleModeNow".tr);
                                         return;
                                       }
                                       showModalBottomSheet(

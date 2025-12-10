@@ -114,7 +114,7 @@ class _SearchInState extends State<SearchIn> {
             alignment: Alignment.centerLeft,
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 200),
-              child: showAppbarTitle ? const Text('搜索', key: Key("1"),) : null,
+              child: showAppbarTitle ? Text('search'.tr, key: const Key("1"),) : null,
             ),
           ),
           centerTitle: false,

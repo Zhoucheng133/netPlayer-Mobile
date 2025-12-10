@@ -41,7 +41,7 @@ class _PlayQueueState extends State<PlayQueue> {
               children: [
                 Expanded(
                   child: Text(
-                    '播放队列',
+                    'nowPlayList'.tr,
                     style: GoogleFonts.notoSansSc(
                       fontSize: 20
                     ),

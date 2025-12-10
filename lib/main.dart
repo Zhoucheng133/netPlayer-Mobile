@@ -6,6 +6,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:forui/forui.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:netplayer_mobile/lang/en_us.dart';
+import 'package:netplayer_mobile/lang/zh_cn.dart';
+import 'package:netplayer_mobile/lang/zh_tw.dart';
 import 'package:netplayer_mobile/main_view.dart';
 import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
@@ -37,6 +40,7 @@ Future<void> main() async {
   Get.put(PageVar());
   Get.put(UserVar());
   s.initDark(autoDark, darkMode);
+  await s.initLang();
   runApp(const MainApp());
 }
 
@@ -45,6 +49,15 @@ class MainApp extends StatefulWidget {
 
   @override
   State<MainApp> createState() => _MainAppState();
+}
+
+class MainTranslations extends Translations {
+  @override
+  Map<String, Map<String, String>> get keys => {
+    'en_US': enUS,
+    'zh_CN': zhCN,
+    'zh_TW': zhTW,
+  };
 }
 
 class _MainAppState extends State<MainApp> {
@@ -72,9 +85,12 @@ class _MainAppState extends State<MainApp> {
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate
         ],
+        translations: MainTranslations(),
+        locale: s.lang.value.locale,
         supportedLocales: const [
           Locale('en', 'US'),
           Locale('zh', 'CN'),
+          Locale('zh', 'TW'),
         ],
         builder: (context, child)=>FTheme(
           data: s.darkMode.value ? FThemes.zinc.dark : FThemes.zinc.light, 
