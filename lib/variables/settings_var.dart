@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:forui/forui.dart';
 import 'package:get/get.dart';
+import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomQuality{
@@ -88,6 +90,27 @@ class SettingsVar extends GetxController{
       lang.value=supportedLocales[langIndex];
     }
     Get.updateLocale(lang.value.locale);
+  }
+
+  void showLanguageDialog(BuildContext context){
+    Get.find<DialogVar>().showOkDialogRaw(
+      context: context, 
+      title: 'language'.tr, 
+      child: FSelect(
+        format: (s)=>supportedLocales[s].name,
+        initialValue: supportedLocales.indexWhere((item)=>item.locale==lang.value.locale),
+        autoHide: true,
+        children: List.generate(supportedLocales.length, (int index)=> FSelectItem(
+          supportedLocales[index].name,
+          index,
+        )),
+        onChange: (value){
+          if(value!=null){
+            changeLanguage(value);
+          }
+        },
+      )
+    );
   }
 
   void changeLanguage(int index){
