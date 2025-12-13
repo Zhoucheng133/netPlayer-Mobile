@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
@@ -74,16 +74,13 @@ class SettingsVar extends GetxController{
     int? langIndex=prefs.getInt("langIndex");
 
     if(langIndex==null){
-      final sysLang=Platform.localeName;
-      final languageCode = sysLang.split('_')[0];
-      final countryCode = sysLang.split('_').last;
-      final local=Locale(languageCode, countryCode);
+      final sysLang=PlatformDispatcher.instance.locale;
+      // final languageCode = sysLang.split('_')[0];
+      // final countryCode = sysLang.split('_').last;
+      final local=Locale(sysLang.languageCode, sysLang.countryCode);
       int index=supportedLocales.indexWhere((element) => element.locale==local);
-      if(index==-1){
-        prefs.setInt("langIndex", 0);
-      }else{
+      if(index!=-1){
         lang.value=supportedLocales[index];
-        prefs.setInt("langIndex", index);
         lang.refresh();
       }
     }else{

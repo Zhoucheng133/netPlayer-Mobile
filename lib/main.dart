@@ -87,11 +87,8 @@ class _MainAppState extends State<MainApp> {
         ],
         translations: MainTranslations(),
         locale: s.lang.value.locale,
-        supportedLocales: const [
-          Locale('en', 'US'),
-          Locale('zh', 'CN'),
-          Locale('zh', 'TW'),
-        ],
+        supportedLocales: supportedLocales.map((item)=>item.locale).toList(),
+        fallbackLocale: supportedLocales[0].locale,
         builder: (context, child)=>FTheme(
           data: s.darkMode.value ? FThemes.zinc.dark : FThemes.zinc.light, 
           child: child!
