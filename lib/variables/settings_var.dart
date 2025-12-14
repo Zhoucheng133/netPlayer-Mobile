@@ -86,7 +86,6 @@ class SettingsVar extends GetxController{
     }else{
       lang.value=supportedLocales[langIndex];
     }
-    Get.updateLocale(lang.value.locale);
   }
 
   void showLanguageDialog(BuildContext context){
