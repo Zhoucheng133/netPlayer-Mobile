@@ -77,6 +77,7 @@ The following screenshots were taken on emulators. The actual appearance may var
 - For Android development or debugging: install **Android Studio**
   - Gradle version required: `8.4` (Download automatically)
   - My development environment: Android SDK `35.0.1`
+  - Specify NDK version: `27.2.12479018`
 - For iOS development or debugging: you must use **macOS** and install **Xcode**<sup>*</sup>
   - Minimum Deployment Target: `iOS 12.0`
 - Install **Flutter** — see the official guide:  
