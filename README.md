@@ -24,6 +24,15 @@ Support multi-language now! You can view the English version of the README [HERE
 > 受限于Subsonic API，“所有歌曲”和“专辑”只能显示500首/张（随机的500首歌曲排序展示）  
 > 从`v2.3.0`版本开始支持显示Navidrome服务的“所有歌曲”和“专辑”（默认开启，优先检查是否支持Navidrome API）
 
+## 目录
+- [简介](#简介)
+- [一些使用技巧](#一些使用技巧)
+- [截图](#截图)
+- [支持的语言](#支持的语言)
+- [常见问题](#常见问题)
+- [在你的设备上配置](#在你的设备上配置)
+- [一些API](#一些api)
+
 
 ## 一些使用技巧
 
@@ -66,16 +75,14 @@ Support multi-language now! You can view the English version of the README [HERE
 > 歌曲的封面来自你上传的音频文件，如果音频文件没有内嵌封面则会显示默认封面  
 > 另外经过测试部分编码的音频文件内嵌封面加载存在异常（或加载时间过长），可能会导致崩溃，因此也会显示默认封面
 
-## 在你的设备上配置netPlayer Mobile
+## 在你的设备上配置
 
-### 环境配置
-
+- 安装Flutter，安装步骤见[Flutter - Quick start](https://docs.flutter.cn/get-started/quick)，本项目使用的Flutter版本为`3.32`
 - 如果你需要在Android设备上运行或者调试，需要安装Android Studio
   - 开发使用的Android SDK版本: `35.0.1`
   - 指定NDK版本: `27.2.12479018`
 - 如果你需要在iOS设备上运行或者调试，需要使用Mac，并且安装Xcode<sup>*</sup>
   - Minimum Deployment Target: `iOS 12.0`
-- 安装Flutter，安装步骤见[Flutter - Quick start](https://docs.flutter.cn/get-started/quick)，本项目使用的Flutter版本为`3.32`
 - 建议使用Visual Studio Code打开项目
   - 在Visual Studio Code的右下角找到`Device`按钮（也有可能显示为可用的设备），选择目标设备或者模拟器
   - 在`运行和调试`面板选择`Debug`，`Profile`或者`Release`<sup>**</sup>，详细的区别见[Flutter官网](https://docs.flutter.dev/testing/build-modes)

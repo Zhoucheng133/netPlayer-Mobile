@@ -22,6 +22,15 @@ If you encounter any bugs, feel free to report them in the Issues section.
 > Due to limitations of the Subsonic API, “All Songs” and “Albums” can only display 500 items  (a random selection of 500 songs).  
 > Starting from `v2.3.0`, Navidrome's “All Songs” and “Albums” are supported  (enabled by default, and the app will first check whether the Navidrome API is available).
 
+## Contents
+- [Intro](#intro)
+- [Tips & Tricks](#tips--tricks)
+- [Screenshots](#screenshots)
+- [Supported Languages](#supported-languages)
+- [FAQ](#faq)
+- [Build on Your Device](#build-on-your-device)
+- [APIs](#apis)
+
 ## Tips & Tricks
 
 > [!TIP]
@@ -70,19 +79,17 @@ The following screenshots were taken on emulators. The actual appearance may var
 > Some audio encodings have issues loading embedded images (slow loading or failures),  
 > which may cause crashes, so the app will fall back to showing the default cover.
 
-## Setting up netPlayer Mobile on your device
+## Build on Your Device
 
-### Environment Requirements
-
+- Install **Flutter** — see the official guide:  
+  [Flutter - Quick Start](https://docs.flutter.cn/get-started/quick)  
+  This project uses **Flutter 3.32**
 - For Android development or debugging: install **Android Studio**
   - Gradle version required: `8.4` (Download automatically)
   - My development environment: Android SDK `35.0.1`
   - Specify NDK version: `27.2.12479018`
 - For iOS development or debugging: you must use **macOS** and install **Xcode**<sup>*</sup>
   - Minimum Deployment Target: `iOS 12.0`
-- Install **Flutter** — see the official guide:  
-  [Flutter - Quick Start](https://docs.flutter.cn/get-started/quick)  
-  This project uses **Flutter 3.32**
 - It is recommended to open the project with **Visual Studio Code**
   - In the bottom-right corner of VS Code, find the **Device** selector and choose a device or emulator
   - In the **Run and Debug** panel, select `Debug`, `Profile`, or `Release`<sup>**</sup>  
