@@ -71,7 +71,6 @@ Support multi-language now! You can view the English version of the README [HERE
 ### 环境配置
 
 - 如果你需要在Android设备上运行或者调试，需要安装Android Studio
-  - 项目使用的Gradle版本为: `8.4` (会自动下载)
   - 开发使用的Android SDK版本: `35.0.1`
   - 指定NDK版本: `27.2.12479018`
 - 如果你需要在iOS设备上运行或者调试，需要使用Mac，并且安装Xcode<sup>*</sup>
