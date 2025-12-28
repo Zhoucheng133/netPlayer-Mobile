@@ -29,10 +29,12 @@ class _SearchInState extends State<SearchIn> {
   TextEditingController textController=TextEditingController(text: '');
   ScrollController controller=ScrollController();
   bool showAppbarTitle=false;
+  FocusNode focus=FocusNode();
 
   @override
   void initState() {
     super.initState();
+    focus.requestFocus();
     controller.addListener((){
       if(controller.offset>60){
         setState(() {
@@ -133,7 +135,7 @@ class _SearchInState extends State<SearchIn> {
                       pinned: true,
                       delegate: SearchBox(
                         (context)=>SearchInput(
-                          textController: textController, search: searchHandler, mode: widget.mode,
+                          textController: textController, focus: focus, search: searchHandler, mode: widget.mode,
                         ),
                       ),
                     ),
