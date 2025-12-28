@@ -1,7 +1,6 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/pages/album_content.dart';
@@ -198,7 +197,7 @@ class _PlayingState extends State<Playing> {
                         ),
                         Text(
                           'slideDownToReturn'.tr,
-                          style: GoogleFonts.notoSansSc(
+                          style: TextStyle(
                             color: Colors.grey[400],
                             fontSize: 14
                           ),
@@ -240,7 +239,7 @@ class _PlayingState extends State<Playing> {
                                         child: Text(
                                           p.lyric[0].lyric,
                                           textAlign: TextAlign.center,
-                                          style: GoogleFonts.notoSansSc(
+                                          style: TextStyle(
                                             fontSize: p.fontSize.value.toDouble(),
                                             height: 2.5,
                                             color: playedLyric(0) ? Colors.blue:Colors.grey[400],
@@ -267,7 +266,7 @@ class _PlayingState extends State<Playing> {
                                                       Text(
                                                         p.lyric[index].lyric,
                                                         textAlign: TextAlign.center,
-                                                        style: GoogleFonts.notoSansSc(
+                                                        style: TextStyle(
                                                           fontSize: p.fontSize.value.toDouble(),
                                                           color: playedLyric(index) ? Colors.blue:Colors.grey[400],
                                                           fontWeight: playedLyric(index) ? FontWeight.bold: FontWeight.normal,
@@ -276,7 +275,7 @@ class _PlayingState extends State<Playing> {
                                                       if(p.lyric[index].translate.isNotEmpty && s.showTranslation.value) Text(
                                                         p.lyric[index].translate,
                                                         textAlign: TextAlign.center,
-                                                        style: GoogleFonts.notoSansSc(
+                                                        style: TextStyle(
                                                           fontSize: p.fontSize.value.toDouble() * 0.85,
                                                           color: playedLyric(index) ? Colors.blue:Colors.grey[400],
                                                           fontWeight: playedLyric(index) ? FontWeight.bold: FontWeight.normal,
@@ -394,7 +393,7 @@ class _PlayingState extends State<Playing> {
                                       Obx(()=>
                                         Text(
                                           p.nowPlay['duration']==0 ? "" : convertDuration(p.playProgress.value~/1000),
-                                          style: GoogleFonts.notoSansSc(
+                                          style: TextStyle(
                                             fontSize: 12,
                                           ),
                                         )
@@ -403,7 +402,7 @@ class _PlayingState extends State<Playing> {
                                       Obx(()=>
                                         Text(
                                           p.nowPlay['duration']==0 ? "" : convertDuration(p.nowPlay['duration']),
-                                          style: GoogleFonts.notoSansSc(
+                                          style: TextStyle(
                                             fontSize: 12,
                                           ),
                                         )

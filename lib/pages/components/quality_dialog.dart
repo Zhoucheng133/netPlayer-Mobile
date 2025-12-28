@@ -42,7 +42,7 @@ Future<void> showQualityDialog(BuildContext context) async {
             // title: ListenableBuilder(
             //   listenable: controller1,
             //   builder: (_, context) {
-            //     return Text(controller1.value.first, style: GoogleFonts.notoSansSc(),);
+            //     return Text(controller1.value.first, style: TextStyle(),);
             //   }
             // ),
             format: (int s)=>types[s],
@@ -55,7 +55,7 @@ Future<void> showQualityDialog(BuildContext context) async {
             },
             // children: types.map((item)=>FSelectItem(
             //   // value: item,
-            //   // title: Text(item, style: GoogleFonts.notoSansSc(),),
+            //   // title: Text(item, style: TextStyle(),),
             //   item, item
             // )).toList(),
             children: [
@@ -69,7 +69,7 @@ Future<void> showQualityDialog(BuildContext context) async {
             // title: ListenableBuilder(
             //   listenable: controller2,
             //   builder: (_, context) {
-            //     return Text(controller2.value.first, style: GoogleFonts.notoSansSc(),);
+            //     return Text(controller2.value.first, style: TextStyle(),);
             //   }
             // ),
             format: (int s)=>qualitiesAll[s],
@@ -86,12 +86,12 @@ Future<void> showQualityDialog(BuildContext context) async {
               }
             },
             // menu: qualitiesAll.map((item)=>FSelectTile(
-            //   title: Text(item, style: GoogleFonts.notoSansSc(),), 
+            //   title: Text(item, style: TextStyle(),), 
             //   value: item
             // )).toList(),
             // children: qualitiesAll.map((item)=>FSelectItem(
             //   // value: item,
-            //   // title: Text(item, style: GoogleFonts.notoSansSc(),),
+            //   // title: Text(item, style: TextStyle(),),
             //   item, item
             // )).toList(),
             initialValue: quality==0 ? 0 : quality==128 ? 1 : 2,

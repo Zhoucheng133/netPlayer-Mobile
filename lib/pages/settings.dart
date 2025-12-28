@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:forui/forui.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/operations/account.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/operations/play_check.dart';
@@ -136,7 +135,7 @@ class _SettingsState extends State<Settings> {
               children: [
                 Text(
                   'followSystem'.tr,
-                  style: GoogleFonts.notoSansSc(
+                  style: TextStyle(
                     fontSize: 16,
                   ),
                 ),
@@ -156,7 +155,7 @@ class _SettingsState extends State<Settings> {
               children: [
                 Text(
                   'darkMode'.tr,
-                  style: GoogleFonts.notoSansSc(
+                  style: TextStyle(
                     fontSize: 16,
                   ),
                 ),
@@ -208,10 +207,10 @@ class _SettingsState extends State<Settings> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         FTileGroup(
-                          label: Text('appSettings'.tr, style: GoogleFonts.notoSansSc(),),
+                          label: Text('appSettings'.tr, style: TextStyle(),),
                           children: [
                             FTile(
-                              title: Text('autoLogin'.tr, style: GoogleFonts.notoSansSc()),
+                              title: Text('autoLogin'.tr, style: TextStyle()),
                               details: Obx(()=>
                                 FSwitch(
                                   value: s.autoLogin.value,
@@ -224,7 +223,7 @@ class _SettingsState extends State<Settings> {
                               ),
                             ),
                             FTile(
-                              title: Text('savePlay'.tr, style: GoogleFonts.notoSansSc()),
+                              title: Text('savePlay'.tr, style: TextStyle()),
                               details: Obx(()=>
                                 FSwitch(
                                   value: s.savePlay.value, 
@@ -237,7 +236,7 @@ class _SettingsState extends State<Settings> {
                               ),
                             ),
                             FTile(
-                              title: Text('showTranslations'.tr, style: GoogleFonts.notoSansSc()),
+                              title: Text('showTranslations'.tr, style: TextStyle()),
                               details: Obx(()=>
                                 FSwitch(
                                   value: s.showTranslation.value, 
@@ -248,13 +247,13 @@ class _SettingsState extends State<Settings> {
                                   }
                                 )
                               ),
-                              subtitle: Text('showTranslationsIfExist'.tr, style: GoogleFonts.notoSansSc(
+                              subtitle: Text('showTranslationsIfExist'.tr, style: TextStyle(
                                 fontSize: 12,
                                 color: Colors.grey[400]
                               )),
                             ),
                             FTile(
-                              title: Text('enableNavidromeAPI'.tr, style: GoogleFonts.notoSansSc()),
+                              title: Text('enableNavidromeAPI'.tr, style: TextStyle()),
                               details: Obx(()=>
                                 FSwitch(
                                   value: p.useNavidrome.value, 
@@ -280,13 +279,13 @@ class _SettingsState extends State<Settings> {
                                   }
                                 )
                               ),
-                              subtitle: Text('showAllSongsAndAlbums'.tr, style: GoogleFonts.notoSansSc(
+                              subtitle: Text('showAllSongsAndAlbums'.tr, style: TextStyle(
                                 fontSize: 12,
                                 color: Colors.grey[400]
                               )),
                             ),
                             FTile(
-                              title: Text('ignoreMissing'.tr, style: GoogleFonts.notoSansSc()),
+                              title: Text('ignoreMissing'.tr, style: TextStyle()),
                               details: Obx(()=>
                                 FSwitch(
                                   value: p.removeMissing.value, 
@@ -300,7 +299,7 @@ class _SettingsState extends State<Settings> {
                                   } : null,
                                 )
                               ),
-                              subtitle: Text('avaliableForNavidromeApi'.tr, style: GoogleFonts.notoSansSc(
+                              subtitle: Text('avaliableForNavidromeApi'.tr, style: TextStyle(
                                 fontSize: 12,
                                 color: Colors.grey[400]
                               )),
@@ -310,7 +309,7 @@ class _SettingsState extends State<Settings> {
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Text('language'.tr, style: GoogleFonts.notoSansSc()),
+                                  Text('language'.tr, style: TextStyle()),
                                   const SizedBox(width: 5,),
                                   const FaIcon(
                                     FontAwesomeIcons.globe,
@@ -320,7 +319,7 @@ class _SettingsState extends State<Settings> {
                               ),
                               subtitle: Text(
                                 s.lang.value.name, 
-                                style: GoogleFonts.notoSansSc(
+                                style: TextStyle(
                                   fontSize: 12,
                                   color: Colors.grey[400]
                                 ),
@@ -331,12 +330,12 @@ class _SettingsState extends State<Settings> {
                               onPress: ()=>showQualityWarning(context),
                               title: Text(
                                 'playQuality'.tr,
-                                style: GoogleFonts.notoSansSc(),
+                                style: TextStyle(),
                               ),
                               subtitle: Obx(()=>
                                 Text(
                                   qualityText(),
-                                  style: GoogleFonts.notoSansSc(
+                                  style: TextStyle(
                                     fontSize: 12,
                                     color: Colors.grey[400]
                                   ),
@@ -357,13 +356,13 @@ class _SettingsState extends State<Settings> {
                               },
                               title: Text(
                                 'clearCache'.tr,
-                                style: GoogleFonts.notoSansSc(
+                                style: TextStyle(
                                   // fontSize: 18
                                 ),
                               ),
                               subtitle: Text(
                                 sizeConvert(cacheSize),
-                                style: GoogleFonts.notoSansSc(
+                                style: TextStyle(
                                   fontSize: 12,
                                   color: Colors.grey[400]
                                 ),
@@ -372,18 +371,15 @@ class _SettingsState extends State<Settings> {
                           ]
                         ),
                         FTileGroup(
-                          label: Text('apperanceSettings'.tr, style: GoogleFonts.notoSansSc(),),
+                          label: Text('apperanceSettings'.tr, style: TextStyle(),),
                           children: [
                             FTile(
                               onPress: ()=>showDarkModeDialog(context),
-                              title: Text(
-                                'darkMode'.tr,
-                                style: GoogleFonts.notoSans(),
-                              ),
+                              title: Text('darkMode'.tr,),
                               subtitle: Obx(()=>
                                 Text(
                                   s.autoDark.value ? 'auto'.tr : s.darkMode.value ? 'enable'.tr : 'disable'.tr,
-                                  style: GoogleFonts.notoSansSc(
+                                  style: TextStyle(
                                     fontSize: 12,
                                     color: Colors.grey[400]
                                   ),
@@ -394,12 +390,12 @@ class _SettingsState extends State<Settings> {
                               onPress: ()=>showProgressDialog(context),
                               title: Text(
                                 'progressbarStyle'.tr,
-                                style: GoogleFonts.notoSansSc(),
+                                style: TextStyle(),
                               ),
                               subtitle: Obx(()=>
                                 Text(
                                   progresStyle(),
-                                  style: GoogleFonts.notoSansSc(
+                                  style: TextStyle(
                                     fontSize: 12,
                                     color: Colors.grey[400]
                                   ),
@@ -409,7 +405,7 @@ class _SettingsState extends State<Settings> {
                           ]
                         ),
                         FTileGroup(
-                          label: Text('others'.tr, style: GoogleFonts.notoSansSc(),),
+                          label: Text('others'.tr, style: TextStyle(),),
                           children: [
                             FTile(
                               onPress: () async {
@@ -421,10 +417,10 @@ class _SettingsState extends State<Settings> {
                                   loading=false;
                                 });
                               },
-                              title: Text('rescanLibrary'.tr, style: GoogleFonts.notoSansSc(),),
+                              title: Text('rescanLibrary'.tr, style: TextStyle(),),
                               subtitle: Text(
                                 "rescanLibraryContent".tr, 
-                                style: GoogleFonts.notoSansSc(
+                                style: TextStyle(
                                   fontSize: 12,
                                   color: Colors.grey[400]
                                 ),
@@ -435,7 +431,7 @@ class _SettingsState extends State<Settings> {
                               ) : null,
                             ),
                             FTile(
-                              title: Text('devTool'.tr, style: GoogleFonts.notoSansSc(),),
+                              title: Text('devTool'.tr, style: TextStyle(),),
                               onPress: ()=>Get.to(()=>const Dev()),
                             ),
                           ]

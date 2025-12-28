@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/pages/artist_content.dart';
 
 class ArtistItem extends StatefulWidget {
@@ -43,14 +42,14 @@ class _ArtistItemState extends State<ArtistItem> {
                     Text(
                       widget.item['name'],
                       overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.notoSansSc(
+                      style: TextStyle(
                         fontSize: 16,
                       ),
                     ),
                     if(widget.item['albumCount']!=null) Text(
                       "${widget.item['albumCount']} ${"albumEnd".tr}",
                       overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.notoSansSc(
+                      style: TextStyle(
                         fontSize: 12,
                         color:Colors.grey[400]
                       ),

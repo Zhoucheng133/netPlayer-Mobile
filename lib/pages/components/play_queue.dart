@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart' show CupertinoScrollbar;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/pages/components/queue_item.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
@@ -42,7 +41,7 @@ class _PlayQueueState extends State<PlayQueue> {
                 Expanded(
                   child: Text(
                     'nowPlayList'.tr,
-                    style: GoogleFonts.notoSansSc(
+                    style: TextStyle(
                       fontSize: 20
                     ),
                   ),

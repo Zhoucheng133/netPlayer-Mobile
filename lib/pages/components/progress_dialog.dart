@@ -28,7 +28,7 @@ Future<void> showProgressDialog(BuildContext context) async {
           // title: ListenableBuilder(
           //   listenable: controller,
           //   builder: (_, context) {
-          //     return Text(types[controller.value.first], style: GoogleFonts.notoSansSc(),);
+          //     return Text(types[controller.value.first], style: TextStyle(),);
           //   }
           // ), 
           autoHide: true,
@@ -37,14 +37,14 @@ Future<void> showProgressDialog(BuildContext context) async {
           // title: ListenableBuilder(
           //   listenable: controller,
           //   builder: (_, context) {
-          //     return Text(types[controller.value.first], style: GoogleFonts.notoSansSc(),);
+          //     return Text(types[controller.value.first], style: TextStyle(),);
           //   }
           // ), 
           format: (int s)=>types[s],
           children: List.generate(types.length, (int index) {
             return FSelectItem(
               // value: index,
-              // title: Text(types[index], style: GoogleFonts.notoSansSc()),
+              // title: Text(types[index], style: TextStyle()),
               // index.toString(),
               types[index],
               index

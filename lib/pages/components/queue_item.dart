@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/operations/player_control.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
@@ -60,7 +59,7 @@ class _QueueItemState extends State<QueueItem> {
                       Text(
                         widget.songItem['title'],
                         overflow: TextOverflow.ellipsis,
-                        style: GoogleFonts.notoSansSc(
+                        style: TextStyle(
                           fontSize: 16,
                           fontWeight: playing() ? FontWeight.bold : FontWeight.normal,
                           color: playing() ? Colors.blue : s.darkMode.value ? Colors.white : Colors.black
@@ -69,7 +68,7 @@ class _QueueItemState extends State<QueueItem> {
                       Text(
                         widget.songItem['artist'],
                         overflow: TextOverflow.ellipsis,
-                        style: GoogleFonts.notoSansSc(
+                        style: TextStyle(
                           fontSize: 12,
                           color: playing() ? Colors.blue : Colors.grey[400]
                         ),

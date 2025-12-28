@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/pages/album_content.dart';
@@ -212,14 +211,14 @@ class _AlbumItemState extends State<AlbumItem> {
                     Text(
                       widget.item['title'],
                       overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.notoSansSc(
+                      style: TextStyle(
                         fontSize: 16,
                       ),
                     ),
                     Text(
                       widget.item['artist'],
                       overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.notoSansSc(
+                      style: TextStyle(
                         fontSize: 12,
                         color:Colors.grey[400]
                       ),

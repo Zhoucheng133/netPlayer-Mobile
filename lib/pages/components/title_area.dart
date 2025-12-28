@@ -1,7 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 
@@ -47,7 +46,7 @@ class _TitleAreaState extends State<TitleArea> {
                     widget.title,
                     maxFontSize: 35,
                     minFontSize: 25,
-                    style: GoogleFonts.notoSansSc(
+                    style: TextStyle(
                       fontWeight: FontWeight.w300,
                       fontSize: 35
                     ),
@@ -65,7 +64,7 @@ class _TitleAreaState extends State<TitleArea> {
                     onTap: widget.subtitleOnTap,
                     child: Text(
                       widget.subtitle,
-                      style: GoogleFonts.notoSansSc(
+                      style: TextStyle(
                         fontSize: 14,
                       ),
                       overflow: TextOverflow.fade,
@@ -136,7 +135,7 @@ class _SearchTitleAreaState extends State<SearchTitleArea> {
                   children: [
                     Text(
                       'search'.tr,
-                      style: GoogleFonts.notoSansSc(
+                      style: TextStyle(
                         fontWeight: FontWeight.w300,
                         fontSize: 35
                       ),

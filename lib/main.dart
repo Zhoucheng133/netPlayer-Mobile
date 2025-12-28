@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:forui/forui.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/lang/en_us.dart';
 import 'package:netplayer_mobile/lang/zh_cn.dart';
 import 'package:netplayer_mobile/lang/zh_tw.dart';
@@ -93,26 +92,27 @@ class _MainAppState extends State<MainApp> {
           data: s.darkMode.value ? FThemes.zinc.dark : FThemes.zinc.light, 
           child: child!
         ),
-        theme: s.darkMode.value ? ThemeData.dark().copyWith(
-          textTheme: GoogleFonts.notoSansScTextTheme().apply(
-            bodyColor: Colors.white,
-            displayColor: Colors.white, 
-          ),
+        theme: ThemeData(
+          brightness: s.darkMode.value ? Brightness.dark : Brightness.light,
+          fontFamily: 'PuHui', 
           colorScheme: ColorScheme.fromSeed(
             seedColor: Colors.blue,
-            brightness: Brightness.dark,
+            brightness: s.darkMode.value ? Brightness.dark : Brightness.light,
           ),
-        ) : ThemeData(
-          textTheme: GoogleFonts.notoSansScTextTheme(),
-          highlightColor: Colors.transparent,
-          useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+          textTheme: s.darkMode.value ? ThemeData.dark().textTheme.apply(
+            fontFamily: 'PuHui',
+            bodyColor: Colors.white,
+            displayColor: Colors.white,
+          ) : ThemeData.light().textTheme.apply(
+            fontFamily: 'PuHui',
+          ),
           dialogTheme: DialogThemeData(
-            backgroundColor: Colors.grey[50]
+            backgroundColor: s.darkMode.value ? null : Colors.grey[50],
           ),
           bottomSheetTheme: BottomSheetThemeData(
-            backgroundColor: Colors.grey[50],
-          )
+            backgroundColor: s.darkMode.value ? null : Colors.grey[50],
+          ),
+          highlightColor: s.darkMode.value ? null : Colors.transparent,
         ),
         home: const MainView()
       )

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/operations/requests.dart';
 import 'package:netplayer_mobile/pages/components/dev_tool.dart';
 import 'package:netplayer_mobile/variables/dialog_var.dart';
@@ -34,7 +33,7 @@ class _DevState extends State<Dev> {
         toolbarHeight: 70,
         title: Align(
           alignment: Alignment.centerLeft,
-          child: Text('devTool'.tr, style: GoogleFonts.notoSansSc(),)
+          child: Text('devTool'.tr, style: TextStyle(),)
         ),
         centerTitle: false,
       ),
@@ -46,10 +45,10 @@ class _DevState extends State<Dev> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 FTileGroup(
-                  label: Text('status'.tr, style: GoogleFonts.notoSansSc()),
+                  label: Text('status'.tr, style: TextStyle()),
                   children: [
                     FTile(
-                      title: Text("playStatus".tr, style: GoogleFonts.notoSansSc(),),
+                      title: Text("playStatus".tr, style: TextStyle(),),
                       onPress: () async {
                         if(p.nowPlay['id']==''){
                           d.showOkDialog(
@@ -73,11 +72,11 @@ class _DevState extends State<Dev> {
                   ],
                 ),
                 FTileGroup(
-                  label: Text("storage".tr, style: GoogleFonts.notoSansSc(),),
+                  label: Text("storage".tr, style: TextStyle(),),
                   children: [
                     FTile(
-                      title: Text("localStorage".tr, style: GoogleFonts.notoSansSc(),),
-                      subtitle: Text("SharedPreference", style: GoogleFonts.notoSansSc(),),
+                      title: Text("localStorage".tr, style: TextStyle(),),
+                      subtitle: Text("SharedPreference", style: TextStyle(),),
                       onPress: () async {
                         final prefs=await SharedPreferences.getInstance();
                         if(context.mounted){
@@ -110,8 +109,8 @@ ${"lyricFontSize".tr}: ${prefs.getInt("fontSize")}
                       },
                     ),
                     FTile(
-                      title: Text("usePreviousStorage".tr, style: GoogleFonts.notoSansSc(),),
-                      subtitle: Text("clearPasswordAndUseNavidrome".tr, style: GoogleFonts.notoSans(),),
+                      title: Text("usePreviousStorage".tr, style: TextStyle(),),
+                      subtitle: Text("clearPasswordAndUseNavidrome".tr),
                       onPress: () async {
                         final prefs=await SharedPreferences.getInstance();
                         prefs.remove("useNavidrome");
@@ -126,8 +125,8 @@ ${"lyricFontSize".tr}: ${prefs.getInt("fontSize")}
                       },
                     ),
                     FTile(
-                      title: Text("clearAllStorage".tr, style: GoogleFonts.notoSansSc(),),
-                      subtitle: Text("clearConfig".tr, style: GoogleFonts.notoSans(),),
+                      title: Text("clearAllStorage".tr, style: TextStyle(),),
+                      subtitle: Text("clearConfig".tr),
                       onPress: () async {
                         final prefs=await SharedPreferences.getInstance();
                         prefs.clear();

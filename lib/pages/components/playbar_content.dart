@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/pages/playing.dart';
 import 'package:netplayer_mobile/variables/page_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
@@ -108,7 +107,7 @@ class _PlaybarContentState extends State<PlaybarContent> {
                                 children: [
                                   Text(
                                     p.nowPlay['title'],
-                                    style: GoogleFonts.notoSansSc(
+                                    style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
                                       decoration: TextDecoration.none,
@@ -118,7 +117,7 @@ class _PlaybarContentState extends State<PlaybarContent> {
                                   ),
                                   Text(
                                     p.nowPlay['artist'],
-                                    style: GoogleFonts.notoSansSc(
+                                    style: TextStyle(
                                       fontWeight: FontWeight.normal,
                                       fontSize: 12,
                                       color: Colors.grey[400],

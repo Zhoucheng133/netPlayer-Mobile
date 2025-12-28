@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/operations/lyric_get.dart';
 import 'package:netplayer_mobile/operations/play_check.dart';
@@ -254,7 +253,7 @@ class Operations{
                     Text(
                       p.fontSize.toString(),
                       textAlign: TextAlign.center,
-                      style: GoogleFonts.notoSansSc(
+                      style: TextStyle(
                         fontSize: 20,
                       ),
                     ),

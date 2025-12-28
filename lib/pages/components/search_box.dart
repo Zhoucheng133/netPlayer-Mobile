@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 
@@ -74,7 +73,7 @@ class _SearchInputState extends State<SearchInput> {
                     children: [
                       Text(
                         '${"search".tr}: ${widget.mode=="song" ? "songs".tr: widget.mode=="album" ? "albums".tr: "artists".tr}',
-                        style: GoogleFonts.notoSansSc(
+                        style: TextStyle(
                           color: Colors.grey,
                         ),
                       ),

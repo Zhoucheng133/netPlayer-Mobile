@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -62,7 +61,7 @@ class _AboutState extends State<About> {
                   const SizedBox(height: 10,),
                   Text(
                     'netPlayer',
-                    style: GoogleFonts.notoSansSc(
+                    style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 25,
                     ),
@@ -70,7 +69,7 @@ class _AboutState extends State<About> {
                   const SizedBox(height: 10,),
                   Text(
                     "v$version",
-                    style: GoogleFonts.notoSansSc(
+                    style: TextStyle(
                       fontWeight: FontWeight.w300,
                       color: Colors.grey[600],
                       fontSize: 15,
@@ -94,7 +93,7 @@ class _AboutState extends State<About> {
                           padding: const EdgeInsets.only(bottom: 2),
                           child: Text(
                             'projectURL'.tr,
-                            style: GoogleFonts.notoSansSc(
+                            style: TextStyle(
                               fontSize: 13,
                             ),
                           ),

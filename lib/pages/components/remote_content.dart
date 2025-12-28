@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/remote_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
@@ -129,7 +128,7 @@ class _RemoteContentState extends State<RemoteContent> {
                     children: [
                       Text(
                         r.wsData.value.title,
-                        style: GoogleFonts.notoSansSc(
+                        style: TextStyle(
                           fontSize: 16,
                         ),
                         maxLines: 1,
@@ -137,7 +136,7 @@ class _RemoteContentState extends State<RemoteContent> {
                       ),
                       Text(
                         r.wsData.value.artist,
-                        style: GoogleFonts.notoSansSc(
+                        style: TextStyle(
                           color: Colors.grey[500]
                         ),
                         maxLines: 1,
@@ -196,7 +195,7 @@ class _RemoteContentState extends State<RemoteContent> {
                               // child: Text(
                               //   r.wsData.value.fullLyric[index]['lyric'],
                               //   textAlign: TextAlign.center,
-                              //   style: GoogleFonts.notoSansSc(
+                              //   style: TextStyle(
                               //     fontSize: 18,
                               //     height: 2.5,
                               //     color: playedLyric(index) ? Colors.blue:Colors.grey[400],
@@ -212,7 +211,7 @@ class _RemoteContentState extends State<RemoteContent> {
                                     Text(
                                       r.wsData.value.fullLyric[index]['lyric'],
                                       textAlign: TextAlign.center,
-                                      style: GoogleFonts.notoSansSc(
+                                      style: TextStyle(
                                         fontSize: 17,
                                         color: playedLyric(index) ? Colors.blue:Colors.grey[400],
                                         fontWeight: playedLyric(index) ? FontWeight.bold: FontWeight.normal,
@@ -221,7 +220,7 @@ class _RemoteContentState extends State<RemoteContent> {
                                     if(r.wsData.value.fullLyric[index]['translate'].isNotEmpty && s.showTranslation.value) Text(
                                       r.wsData.value.fullLyric[index]['translate'],
                                       textAlign: TextAlign.center,
-                                      style: GoogleFonts.notoSansSc(
+                                      style: TextStyle(
                                         fontSize: 17*0.85,
                                         color: playedLyric(index) ? Colors.blue:Colors.grey[400],
                                         fontWeight: playedLyric(index) ? FontWeight.bold: FontWeight.normal,

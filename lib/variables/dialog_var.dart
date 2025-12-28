@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 
 class ActionItem{
@@ -48,7 +47,7 @@ class DialogVar extends GetxController{
                     ) : null,
                     title: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 2),
-                      child: Text(item.name, style: GoogleFonts.notoSansSc(
+                      child: Text(item.name, style: TextStyle(
                         fontSize: 17
                       ),),
                     ),
@@ -82,10 +81,10 @@ class DialogVar extends GetxController{
     await showAdaptiveDialog(
       context: context, 
       builder: (BuildContext context)=>FDialog(
-        title: Text(title, style: GoogleFonts.notoSansSc(),),
+        title: Text(title, style: TextStyle(),),
         body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 5),
-          child: Text(content, style: GoogleFonts.notoSansSc(),),
+          child: Text(content, style: TextStyle(),),
         ),
         direction: Axis.horizontal,
         actions: [
@@ -102,7 +101,7 @@ class DialogVar extends GetxController{
               child: Obx(
                 ()=>Text(
                   okText??'ok'.tr, 
-                  style: GoogleFonts.notoSansSc(
+                  style: TextStyle(
                     color: settings.darkMode.value ? Colors.black : Colors.white,
                   )
                 ),
@@ -124,7 +123,7 @@ class DialogVar extends GetxController{
     await showAdaptiveDialog(
       context: context, 
       builder: (BuildContext context)=>FDialog(
-        title: Text(title, style: GoogleFonts.notoSansSc(),),
+        title: Text(title, style: TextStyle(),),
         body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 5),
           child: child,
@@ -144,7 +143,7 @@ class DialogVar extends GetxController{
               child: Obx(()=>
                 Text(
                   okText??'ok'.tr, 
-                  style: GoogleFonts.notoSansSc(
+                  style: TextStyle(
                     color: settings.darkMode.value ? Colors.black : Colors.white,
                   )
                 )
@@ -168,7 +167,7 @@ class DialogVar extends GetxController{
     await showAdaptiveDialog(
       context: context, 
       builder: (BuildContext context)=>FDialog(
-        title: Text(title, style: GoogleFonts.notoSansSc(),),
+        title: Text(title, style: TextStyle(),),
         body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 5),
           child: child,
@@ -188,7 +187,7 @@ class DialogVar extends GetxController{
               child: Obx(()=>
                 Text(
                   cancelText??'cancel'.tr, 
-                  style: GoogleFonts.notoSansSc(
+                  style: TextStyle(
                     color: settings.darkMode.value ? Colors.white : Colors.black,
                   )
                 )
@@ -206,7 +205,7 @@ class DialogVar extends GetxController{
               child: Obx(()=>
                 Text(
                   okText??'continue'.tr, 
-                  style: GoogleFonts.notoSansSc(
+                  style: TextStyle(
                     color: settings.darkMode.value ? Colors.black : Colors.white,
                   )
                 )
@@ -230,10 +229,10 @@ class DialogVar extends GetxController{
       context: context, 
       builder: (BuildContext context)=>FDialog(
         direction: Axis.horizontal,
-        title: Text(title, style: GoogleFonts.notoSansSc(),),
+        title: Text(title, style: TextStyle(),),
         body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 5),
-          child: Text(content, style: GoogleFonts.notoSansSc(),),
+          child: Text(content, style: TextStyle(),),
         ),
         actions: [
           FButton.raw(
@@ -247,7 +246,7 @@ class DialogVar extends GetxController{
               child: Obx(()=>
                 Text(
                   cancelText??'cancel'.tr, 
-                  style: GoogleFonts.notoSansSc(
+                  style: TextStyle(
                     color: settings.darkMode.value ? Colors.white : Colors.black,
                   )
                 )
@@ -265,7 +264,7 @@ class DialogVar extends GetxController{
               child: Obx(()=>
                 Text(
                   okText??'continue'.tr, 
-                  style: GoogleFonts.notoSansSc(
+                  style: TextStyle(
                     color: settings.darkMode.value ? Colors.black : Colors.white,
                   )
                 )

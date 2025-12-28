@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/operations/account.dart';
 import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
@@ -129,7 +128,7 @@ class _LoginState extends State<Login> {
             children: [
               Text(
                 "connectToYourMusicServer".tr,
-                style: GoogleFonts.notoSansSc(
+                style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
                 ),
@@ -138,7 +137,7 @@ class _LoginState extends State<Login> {
                 padding: const EdgeInsets.fromLTRB(0, 5, 0, 50),
                 child: Text(
                   "inputYourMusicServerInfo".tr,
-                  style: GoogleFonts.notoSansSc(
+                  style: TextStyle(
                     color: Colors.grey,
                     fontWeight: FontWeight.w300,
                   ),
@@ -165,7 +164,7 @@ class _LoginState extends State<Login> {
                     children: [
                       Text(
                         "serverURL".tr,
-                        style: GoogleFonts.notoSansSc(
+                        style: TextStyle(
                           color: Colors.grey,
                         ),
                       ),
@@ -221,7 +220,7 @@ class _LoginState extends State<Login> {
                     children: [
                       Text(
                         "username".tr,
-                        style: GoogleFonts.notoSansSc(
+                        style: TextStyle(
                           color: Colors.grey,
                         ),
                       ),
@@ -273,7 +272,7 @@ class _LoginState extends State<Login> {
                     children: [
                       Text(
                         "password".tr,
-                        style: GoogleFonts.notoSansSc(
+                        style: TextStyle(
                           color: Colors.grey,
                         ),
                       ),
@@ -329,7 +328,7 @@ class _LoginState extends State<Login> {
                               const SizedBox(width: 10,),
                               Text(
                                 "login".tr,
-                                style: GoogleFonts.notoSansSc(
+                                style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 17,
                                   fontWeight: FontWeight.bold

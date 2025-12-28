@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/operations/player_control.dart';
 import 'package:netplayer_mobile/pages/album_content.dart';
@@ -313,7 +312,7 @@ class _SongItemState extends State<SongItem> {
                       Text(
                         widget.item['title'],
                         overflow: TextOverflow.ellipsis,
-                        style: GoogleFonts.notoSansSc(
+                        style: TextStyle(
                           fontSize: 16,
                           fontWeight: playing() ? FontWeight.bold : FontWeight.normal,
                           color: playing() ? Colors.blue : s.darkMode.value ? Colors.white : Colors.black
@@ -333,7 +332,7 @@ class _SongItemState extends State<SongItem> {
                             child: Text(
                               widget.item['artist'],
                               overflow: TextOverflow.ellipsis,
-                              style: GoogleFonts.notoSansSc(
+                              style: TextStyle(
                                 fontSize: 12,
                                 color: playing() ? Colors.blue : Colors.grey[400]
                               ),

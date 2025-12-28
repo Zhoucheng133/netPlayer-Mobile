@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/remote_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
@@ -102,7 +101,7 @@ class _RemoteRegisterState extends State<RemoteRegister> {
                 children: [
                   Text(
                     "wsAddr".tr,
-                    style: GoogleFonts.notoSansSc(
+                    style: TextStyle(
                       color: Colors.grey,
                     ),
                   ),

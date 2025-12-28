@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/pages/playlist.dart';
 import 'package:netplayer_mobile/variables/dialog_var.dart';
@@ -37,7 +36,7 @@ class _MenuItemState extends State<MenuItem> {
           Obx(()=>
             Text(
               widget.name,
-              style: GoogleFonts.notoSansSc(
+              style: TextStyle(
                 fontSize: 16,
                 color: s.darkMode.value ? widget.isSet ? Colors.white : Colors.grey[500] : widget.isSet ? Colors.black : Colors.grey[500]
               ),
@@ -118,7 +117,7 @@ class _IndexPinItemState extends State<IndexPinItem> {
                     child: Center(
                       child: Text(
                         widget.label,
-                        style: GoogleFonts.notoSansSc(
+                        style: TextStyle(
                           color: widget.contentColor,
                           fontSize: 15
                         ),
@@ -398,12 +397,12 @@ class _PlayListItemState extends State<PlayListItem> {
                     children: [
                       Text(
                         widget.name,
-                        style: GoogleFonts.notoSansSc(),
+                        style: TextStyle(),
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
                         "${widget.songCount} ${'songsEnd'.tr}",
-                        style: GoogleFonts.notoSansSc(
+                        style: TextStyle(
                           fontSize: 12,
                           color: Colors.grey
                         ),

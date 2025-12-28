@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:netplayer_mobile/operations/account.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
@@ -163,7 +162,7 @@ class _IndexState extends State<Index> {
                   children: [
                     Text(
                       'home'.tr,
-                      style: GoogleFonts.notoSansSc(
+                      style: TextStyle(
                         fontSize: 35,
                         fontWeight: FontWeight.w300,
                       ),
@@ -223,7 +222,7 @@ class _IndexState extends State<Index> {
                             children: [
                               Text(
                                 'playlists'.tr,
-                                style: GoogleFonts.notoSansSc(
+                                style: TextStyle(
                                   fontSize: 25,
                                   fontWeight: FontWeight.w300
                                 ),
