@@ -30,10 +30,9 @@ class SearchBox extends SliverPersistentHeaderDelegate {
 class SearchInput extends StatefulWidget {
 
   final TextEditingController textController;
-  final FocusNode focus;
   final VoidCallback search;
   final String mode;
-  const SearchInput({super.key, required this.textController, required this.focus, required this.search, required this.mode});
+  const SearchInput({super.key, required this.textController, required this.search, required this.mode});
 
   @override
   State<SearchInput> createState() => _SearchInputState();
@@ -86,7 +85,7 @@ class _SearchInputState extends State<SearchInput> {
                           Expanded(
                             child: TextField(
                               controller: widget.textController,
-                              focusNode: widget.focus,
+                              autofocus: true,
                               decoration: const InputDecoration(
                                 border: InputBorder.none,
                                 isCollapsed: true,
@@ -103,7 +102,6 @@ class _SearchInputState extends State<SearchInput> {
                                   );
                                   return;
                                 }
-                                widget.focus.unfocus();
                                 widget.search();
                               },
                             ),

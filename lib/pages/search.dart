@@ -21,7 +21,6 @@ class Search extends StatefulWidget {
 class _SearchState extends State<Search> {
 
   TextEditingController textController=TextEditingController();
-  FocusNode focus=FocusNode();
   ScrollController controller=ScrollController();
   bool showAppbarTitle=false;
   final DialogVar d=Get.find();
@@ -59,7 +58,6 @@ class _SearchState extends State<Search> {
   @override
   void initState() {
     super.initState();
-    focus.requestFocus();
     controller.addListener((){
       if(controller.offset>60){
         setState(() {
@@ -112,7 +110,7 @@ class _SearchState extends State<Search> {
                         pinned: true,
                         delegate: SearchBox(
                           (context)=>SearchInput(
-                            textController: textController, focus: focus, search: ()=>searchHandler(context), mode: mode,
+                            textController: textController, search: ()=>searchHandler(context), mode: mode,
                           ),
                         ),
                       ),
