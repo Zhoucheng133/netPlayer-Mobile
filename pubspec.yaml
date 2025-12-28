@@ -46,6 +46,8 @@ flutter:
   fonts:
     - family: "PuHui"
       fonts:
+        - asset: fonts/AlibabaPuHuiTi-3-Light.ttf
+          weight: 300
         - asset: fonts/AlibabaPuHuiTi-3-Regular.ttf
           weight: 400
         - asset: fonts/AlibabaPuHuiTi-3-Bold.ttf
