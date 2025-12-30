@@ -46,8 +46,6 @@ class _PlaylistState extends State<Playlist> {
 
   @override
   void dispose(){
-    s.selectList.clear();
-    s.selectMode.value=false;
     controller.dispose();
     super.dispose();
   }
@@ -55,6 +53,8 @@ class _PlaylistState extends State<Playlist> {
   @override
   void initState(){
     super.initState();
+    s.selectList.clear();
+    s.selectMode.value=false;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       getList(context);
     });
