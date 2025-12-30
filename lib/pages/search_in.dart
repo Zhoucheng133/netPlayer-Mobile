@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/pages/components/album_item.dart';
 import 'package:netplayer_mobile/pages/components/artist_item.dart';
+import 'package:netplayer_mobile/pages/components/multi_option.dart';
 import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/components/search_box.dart';
 import 'package:netplayer_mobile/pages/components/song_item.dart';
@@ -25,6 +26,12 @@ class SearchIn extends StatefulWidget {
 class _SearchInState extends State<SearchIn> {
 
   SettingsVar s=Get.find();
+
+  @override
+  void dispose(){
+    controller.dispose();
+    super.dispose();
+  }
 
   TextEditingController textController=TextEditingController(text: '');
   ScrollController controller=ScrollController();
@@ -118,6 +125,21 @@ class _SearchInState extends State<SearchIn> {
             ),
           ),
           centerTitle: false,
+          actions: [
+            Obx(()=>
+              s.selectMode.value ? TextButton(
+                onPressed: (){
+                  s.selectMode.value=false;
+                  s.selectList.clear();
+                }, 
+                child: Text('unselect'.tr)
+              ) : Container()
+            ),
+            Obx(()=> 
+              s.selectMode.value ? MultiOption(fromPlaylist: false, listId: "",) : Container()
+            ),
+            const SizedBox(width: 10,)
+          ],
         ),
         body: Column(
           children: [
