@@ -239,6 +239,7 @@ class _IndexState extends State<Index> {
                                     child: StatefulBuilder(
                                       builder: (BuildContext context, StateSetter setState) {
                                         return FTextField(
+                                          autofocus: true,
                                           controller: controller,
                                           hint: 'playlistName'.tr,
                                         );
