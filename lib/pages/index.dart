@@ -11,6 +11,7 @@ import 'package:netplayer_mobile/pages/all.dart';
 import 'package:netplayer_mobile/pages/artists.dart';
 import 'package:netplayer_mobile/pages/components/index_item.dart';
 import 'package:netplayer_mobile/pages/components/playing_bar.dart';
+import 'package:netplayer_mobile/pages/download.dart';
 import 'package:netplayer_mobile/pages/loved.dart';
 import 'package:netplayer_mobile/pages/remote.dart';
 import 'package:netplayer_mobile/pages/search.dart';
@@ -202,6 +203,8 @@ class _IndexState extends State<Index> {
                               IndexPinItem(icon: Icons.queue_music_rounded, label: 'allSongs'.tr, bgColor: s.darkMode.value ? s.bgColor1 : Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>const All()),),
                               const SizedBox(width: 10,),
                               IndexPinItem(icon: Icons.favorite_rounded, label: 'loved'.tr, bgColor: s.darkMode.value ? s.bgColor1 : Colors.red[50]!, contentColor: Colors.red, func: ()=>Get.to(()=>const Loved()),),
+                              const SizedBox(width: 10,),
+                              IndexPinItem(icon: Icons.download_rounded, label: 'downloaded'.tr, bgColor: s.darkMode.value ? s.bgColor1 : Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>const Download()),),
                               const SizedBox(width: 10,),
                               IndexPinItem(icon: Icons.mic_rounded, label: 'artists'.tr, bgColor: s.darkMode.value ? s.bgColor1 : Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>const Artists()),),
                               const SizedBox(width: 10,),
