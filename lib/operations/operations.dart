@@ -130,6 +130,39 @@ class Operations{
     }
   }
 
+  void multiAddToList(List<String> songIds, String listId, BuildContext context) async { 
+    if (songIds.isEmpty) return;
+    final songParams = songIds
+      .map((id) => 'songIdToAdd=${Uri.encodeQueryComponent(id)}')
+      .join('&');
+    final url =
+      "${u.url.value}/rest/updatePlaylist"
+      "?v=1.12.0"
+      "&c=netPlayer"
+      "&f=json"
+      "&u=${u.username.value}"
+      "&t=${u.token.value}"
+      "&s=${u.salt.value}"
+      "&playlistId=$listId"
+      "&$songParams";
+
+    final rlt = await httpRequest(url);
+
+    if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
+      if(context.mounted){
+        dataGet.dialog('addToPlaylistFailed'.tr, "checkYourNetwork".tr, context);
+      }
+      return;
+    }else{
+      if(context.mounted){
+        dataGet.getPlayLists(context);
+      }
+      if(context.mounted){
+        PlayCheck().check(context);
+      }
+    }
+  }
+
   Future<void> addToList(String songId, String listId, BuildContext context) async {
     final rlt=await httpRequest("${u.url.value}/rest/updatePlaylist?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&playlistId=$listId&songIdToAdd=$songId");
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
