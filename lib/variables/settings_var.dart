@@ -55,6 +55,9 @@ class SettingsVar extends GetxController{
   RxBool darkMode=false.obs;
   RxBool autoDark=true.obs;
 
+  RxBool selectMode=false.obs;
+  RxList<String> selectList=RxList<String>([]);
+
   void initDark(bool? auto, bool? mode){
     autoDark.value=auto??true;
     darkMode.value=mode??false;

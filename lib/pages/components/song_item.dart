@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:netplayer_mobile/operations/download.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/operations/player_control.dart';
 import 'package:netplayer_mobile/pages/album_content.dart';
@@ -60,6 +61,7 @@ class _SongItemState extends State<SongItem> {
         ActionItem(name: "showAlbum".tr, key: "album", icon: Icons.album_rounded),
         ActionItem(name: "showArtist".tr, key: "artist", icon: Icons.mic_rounded),
         if(widget.from=="playlist") ActionItem(name: "removeFromPlaylist".tr, key: "delist", icon: Icons.playlist_remove_rounded, ),
+        ActionItem(name: "download".tr, key: "download", icon: Icons.download_rounded),
         ActionItem(name: "songInfo".tr, key: "info", icon: Icons.info_rounded),
       ]
     );
@@ -275,14 +277,29 @@ class _SongItemState extends State<SongItem> {
           )
         );
       }
+    }else if(req=='download'){
+      downloadSong(widget.item['id']);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => PlayerControl().playSong(context, widget.item['id'], widget.item['title'], widget.item['artist'], widget.from, widget.item['duration'], widget.listId, widget.index, widget.ls, widget.item['album']),
-      onLongPress: () => showSongMenu(context),
+      onTap: (){
+        if(s.selectMode.value){
+          if(s.selectList.contains(widget.item['id'])){
+            s.selectList.remove(widget.item['id']);
+          }else{
+            s.selectList.add(widget.item['id']);
+          }
+        }else{
+          PlayerControl().playSong(context, widget.item['id'], widget.item['title'], widget.item['artist'], widget.from, widget.item['duration'], widget.listId, widget.index, widget.ls, widget.item['album']);
+        }
+      },
+      onLongPress: (){
+        s.selectMode.value = true;
+        s.selectList.add(widget.item['id']);
+      },
       child: Padding(
         padding: const EdgeInsets.only(left: 10, right: 10),
         child: Container(
@@ -295,7 +312,16 @@ class _SongItemState extends State<SongItem> {
                 width: 30,
                 child: Center(
                   child: Obx(()=>
-                    playing() ? const Icon(
+                    s.selectMode.value ? Checkbox(
+                      value: s.selectList.contains(widget.item['id']), 
+                      onChanged: (val){
+                        if(val==true){
+                          s.selectList.add(widget.item['id']);
+                        }else{
+                          s.selectList.remove(widget.item['id']);
+                        }
+                      }
+                    ) : playing() ? const Icon(
                       Icons.play_arrow_rounded,
                       color: Colors.blue,
                     ) : Text((widget.index+1).toString())
