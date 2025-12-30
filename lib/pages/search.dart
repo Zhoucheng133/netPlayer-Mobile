@@ -31,6 +31,10 @@ class _SearchState extends State<Search> {
   void dispose(){
     controller.dispose();
     textController.dispose();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      s.selectList.clear();
+      s.selectMode.value=false;
+    });
     focus.dispose();
     super.dispose();
   }
@@ -69,8 +73,6 @@ class _SearchState extends State<Search> {
   void initState() {
     super.initState();
     focus.requestFocus();
-    s.selectList.clear();
-    s.selectMode.value=false;
     controller.addListener((){
       if(controller.offset>60){
         setState(() {

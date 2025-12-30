@@ -44,8 +44,6 @@ class _AlbumContentState extends State<AlbumContent> {
   @override
   void initState(){
     super.initState();
-    s.selectList.clear();
-    s.selectMode.value=false;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       getList(context);
     });
@@ -65,6 +63,10 @@ class _AlbumContentState extends State<AlbumContent> {
   @override
   void dispose(){
     controller.dispose();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      s.selectList.clear();
+      s.selectMode.value=false;
+    });
     super.dispose();
   }
 

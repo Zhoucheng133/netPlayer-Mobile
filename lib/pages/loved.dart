@@ -51,8 +51,6 @@ class _LovedState extends State<Loved> {
   @override
   void initState(){
     super.initState();
-    s.selectList.clear();
-    s.selectMode.value=false;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       getList(context);
     });
@@ -75,6 +73,10 @@ class _LovedState extends State<Loved> {
   @override
   void dispose(){
     controller.dispose();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      s.selectList.clear();
+      s.selectMode.value=false;
+    });
     super.dispose();
   }
 

@@ -30,6 +30,11 @@ class _SearchInState extends State<SearchIn> {
   @override
   void dispose(){
     controller.dispose();
+    focus.dispose();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      s.selectList.clear();
+      s.selectMode.value=false;
+    });
     super.dispose();
   }
 
