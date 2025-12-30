@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/pages/components/album_item.dart';
 import 'package:netplayer_mobile/pages/components/artist_item.dart';
+import 'package:netplayer_mobile/pages/components/multi_option.dart';
 import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/components/search_box.dart';
 import 'package:netplayer_mobile/pages/components/song_item.dart';
@@ -25,6 +26,14 @@ class _SearchState extends State<Search> {
   ScrollController controller=ScrollController();
   bool showAppbarTitle=false;
   final DialogVar d=Get.find();
+
+  @override
+  void dispose(){
+    controller.dispose();
+    textController.dispose();
+    focus.dispose();
+    super.dispose();
+  }
 
   Map ls={
     "songs": [],
@@ -60,6 +69,8 @@ class _SearchState extends State<Search> {
   void initState() {
     super.initState();
     focus.requestFocus();
+    s.selectList.clear();
+    s.selectMode.value=false;
     controller.addListener((){
       if(controller.offset>60){
         setState(() {
@@ -93,6 +104,21 @@ class _SearchState extends State<Search> {
             ),
           ),
           centerTitle: false,
+          actions: [
+            Obx(()=>
+              s.selectMode.value ? TextButton(
+                onPressed: (){
+                  s.selectMode.value=false;
+                  s.selectList.clear();
+                }, 
+                child: Text('unselect'.tr)
+              ) : Container()
+            ),
+            Obx(()=> 
+              s.selectMode.value ? MultiOption(fromPlaylist: false, listId: "",) : Container()
+            ),
+            const SizedBox(width: 10,)
+          ],
         ),
         body: Column(
           children: [
