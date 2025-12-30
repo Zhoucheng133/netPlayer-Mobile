@@ -213,4 +213,6 @@ const Map<String, String> zhCN={
 
   // 新添加的项
   'downloaded': '已下载',
+  'unselect': '取消选择',
+  'download': '下载',
 };

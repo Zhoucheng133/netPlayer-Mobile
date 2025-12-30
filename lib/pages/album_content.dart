@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
+import 'package:netplayer_mobile/pages/components/multi_option.dart';
 import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/components/song_item.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
@@ -59,6 +60,14 @@ class _AlbumContentState extends State<AlbumContent> {
     });
   }
 
+  @override
+  void dispose(){
+    s.selectList.clear();
+    s.selectMode.value=false;
+    controller.dispose();
+    super.dispose();
+  }
+
   SettingsVar s=Get.find();
 
   @override
@@ -78,6 +87,21 @@ class _AlbumContentState extends State<AlbumContent> {
             ),
           ),
           centerTitle: false,
+          actions: [
+            Obx(()=>
+              s.selectMode.value ? TextButton(
+                onPressed: (){
+                  s.selectMode.value=false;
+                  s.selectList.clear();
+                }, 
+                child: Text('unselect'.tr)
+              ) : Container()
+            ),
+            Obx(()=> 
+              s.selectMode.value ? MultiOption(fromPlaylist: false, listId: "",) : Container()
+            ),
+            const SizedBox(width: 10,)
+          ],
         ),
         body: Column(
           children: [

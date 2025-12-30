@@ -65,7 +65,6 @@ class _DownloadState extends State<Download> {
                       SliverList.builder(
                         itemCount: ls.length,
                         itemBuilder: (context ,index){
-                          // return ArtistItem(index: index, item: ls[index], );
                           // TODO 下载列表
                           return Text("test!");
                         }

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
+import 'package:netplayer_mobile/pages/components/multi_option.dart';
 import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/components/song_item.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
@@ -41,6 +42,14 @@ class _PlaylistState extends State<Playlist> {
         loading=false;
       });
     });
+  }
+
+  @override
+  void dispose(){
+    s.selectList.clear();
+    s.selectMode.value=false;
+    controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -84,7 +93,13 @@ class _PlaylistState extends State<Playlist> {
           centerTitle: false,
           actions: [
             Obx(()=>
-              IconButton(
+              s.selectMode.value ? TextButton(
+                onPressed: (){
+                  s.selectMode.value=false;
+                  s.selectList.clear();
+                }, 
+                child: Text('unselect'.tr)
+              ) : IconButton(
                 onPressed: pl.nowPlay['playFrom']=='playlist' && pl.nowPlay['fromId']==widget.id ? (){
                   controller.scrollToIndex(pl.nowPlay['index'], preferPosition: AutoScrollPosition.middle);
                 } : null, 
@@ -94,11 +109,13 @@ class _PlaylistState extends State<Playlist> {
                 )
               ),
             ),
-            IconButton(
-              onPressed: ls.isEmpty ? null : (){
-                Get.to(()=> SearchIn(ls: ls, from: 'playlist', mode: 'song', listId: widget.id,));
-              }, 
-              icon: const Icon(Icons.search_rounded, size: 22,)
+            Obx(
+              ()=> s.selectMode.value ? MultiOption(fromPlaylist: true, listId: widget.id,) : IconButton(
+                onPressed: ls.isEmpty ? null : (){
+                  Get.to(()=> SearchIn(ls: ls, from: 'playlist', mode: 'song', listId: widget.id,));
+                }, 
+                icon: const Icon(Icons.search_rounded, size: 22,)
+              ),
             ),
             const SizedBox(width: 10,)
           ],
