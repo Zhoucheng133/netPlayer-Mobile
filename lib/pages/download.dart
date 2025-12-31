@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/pages/components/playing_bar.dart';
-import 'package:netplayer_mobile/pages/components/song_item.dart';
+import 'package:netplayer_mobile/pages/components/song_item_download.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
 import 'package:netplayer_mobile/pages/search_in.dart';
 import 'package:netplayer_mobile/variables/download_var.dart';
@@ -81,7 +81,8 @@ class _DownloadState extends State<Download> {
                       SliverList.builder(
                         itemCount: ls.length,
                         itemBuilder: (context ,index){
-                          return SongItem(item: ls[index], index: index, ls: ls, from: "download", listId: "");
+                          // return SongItem(item: ls[index], index: index, ls: ls, from: "download", listId: "");
+                          return SongItemDownload(index: index, item: ls[index]);
                         }
                       )
                     ],
