@@ -9,7 +9,7 @@ class PlayerControl{
   final PlayerVar p = Get.find();
   final UserVar u = Get.find();
   // 播放歌曲
-  Future<void> playSong(BuildContext context, String id, String title, String artist, String playFrom, int duration, String listId, int index, List list, String album) async {
+  Future<void> playSong(BuildContext context, String id, String title, String artist, String playFrom, int duration, String listId, int index, List list, String album, {String? filePath=null}) async {
     Map<String, Object> data={
       'id': id,
       'title': title,
@@ -20,6 +20,7 @@ class PlayerControl{
       'album': album,
       'index': index,
       'list': list,
+      'filePath': filePath ?? "",
     };
     p.nowPlay.value=data;
     p.handler.play();
