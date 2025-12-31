@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/pages/components/playing_bar.dart';
+import 'package:netplayer_mobile/pages/components/song_item.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
 import 'package:netplayer_mobile/pages/search_in.dart';
+import 'package:netplayer_mobile/variables/download_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
@@ -17,9 +19,23 @@ class Download extends StatefulWidget {
 class _DownloadState extends State<Download> {
 
   SettingsVar s=Get.find();
-  final List<dynamic> ls=[];
+  List<dynamic> ls=[];
   bool showAppbarTitle=false;
   AutoScrollController controller=AutoScrollController();
+  final DownloadVar downloadVar=Get.find();
+
+  Future<void> init() async {
+    final data=await downloadVar.getDownloadList();
+    setState((){
+      ls=data;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    init();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +81,7 @@ class _DownloadState extends State<Download> {
                       SliverList.builder(
                         itemCount: ls.length,
                         itemBuilder: (context ,index){
-                          // TODO 下载列表
-                          return Text("test!");
+                          return SongItem(item: ls[index], index: index, ls: ls, from: "download", listId: "");
                         }
                       )
                     ],

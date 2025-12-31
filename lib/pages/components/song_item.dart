@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:netplayer_mobile/operations/download.dart';
+import 'package:netplayer_mobile/variables/download_var.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/operations/player_control.dart';
 import 'package:netplayer_mobile/pages/album_content.dart';
@@ -33,6 +33,7 @@ class _SongItemState extends State<SongItem> {
   SettingsVar s=Get.find();
   UserVar u=Get.find();
   final DialogVar d=Get.find();
+  final DownloadVar downloadVar=Get.find();
   final Operations operations=Operations();
 
   bool playing(){
@@ -278,7 +279,7 @@ class _SongItemState extends State<SongItem> {
         );
       }
     }else if(req=='download'){
-      downloadSong(widget.item['id']);
+      downloadVar.downloadSongFromUrl(widget.item['id']);
     }
   }
 

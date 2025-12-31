@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/variables/dialog_var.dart';
+import 'package:netplayer_mobile/variables/download_var.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 
@@ -21,6 +22,7 @@ class _MultiOptionState extends State<MultiOption> {
   DialogVar d=Get.find();
   LsVar l=Get.find();
   final SettingsVar s=Get.find();
+  DownloadVar downloadVar=Get.find();
 
   Future<void> showOption(BuildContext context) async {
     var req=await d.showActionSheet(
@@ -55,10 +57,8 @@ class _MultiOptionState extends State<MultiOption> {
           }
         }
       }
-    }else if(req=="delist"){
-      // TODO 从列表中移除
     }else if(req=="download"){
-      // TODO 下载
+      // TODO 下载选中
     }
   }
   
