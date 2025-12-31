@@ -9,6 +9,7 @@ import 'package:netplayer_mobile/operations/account.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/operations/play_check.dart';
+import 'package:netplayer_mobile/pages/download.dart';
 import 'package:netplayer_mobile/pages/index.dart';
 import 'package:netplayer_mobile/pages/login.dart';
 import 'package:netplayer_mobile/variables/dialog_var.dart';
@@ -112,13 +113,17 @@ class _MainViewState extends State<MainView> {
         u.password.value=password??"";
         return true;
       }else{
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          dialog.showOkDialog(
+        WidgetsBinding.instance.addPostFrameCallback((_) async {
+          final req=await dialog.showOkCancelDialog(
             context: context, 
             title: 'autoLoginFailed'.tr, 
             content: resp['data'],
-            okText: 'ok'.tr
+            okText: 'ok'.tr,
+            cancelText: "downloaded".tr
           );
+          if(!req){
+            Get.off(()=>Download());
+          }
         });
         return false;
       }
