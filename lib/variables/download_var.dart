@@ -35,7 +35,7 @@ class DownloadItem{
       'album': metadata.album,
       'artist': metadata.artist,
       'title': metadata.title,
-      'duration': metadata.duration,
+      'duration': metadata.duration?.inSeconds,
       'filePath': filePath,
     };
   }
