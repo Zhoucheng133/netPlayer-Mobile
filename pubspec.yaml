@@ -36,6 +36,7 @@ dependencies:
   skeletons_forked: ^0.0.4
   dio: ^5.9.0
   path: ^1.9.1
+  audio_metadata_reader: ^1.4.2
 
 dev_dependencies:
   flutter_test:
