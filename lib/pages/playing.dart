@@ -322,7 +322,7 @@ class _PlayingState extends State<Playing> {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(10),
                                     clipBehavior: Clip.antiAlias,
-                                    child: p.nowPlay['id'].isEmpty ? Image.asset(
+                                    child: p.nowPlay['id'].isEmpty || p.nowPlay['playFrom']=='download' ? Image.asset(
                                       "assets/blank.jpg",
                                       fit: BoxFit.contain,
                                     ) : Image.network(
@@ -594,7 +594,10 @@ class _PlayingState extends State<Playing> {
                                           children: [
                                             ClipRRect(
                                               borderRadius: BorderRadius.circular(10),
-                                              child: Image.network(
+                                              child: p.nowPlay['id'].isEmpty || p.nowPlay['playFrom']=='download' ? Image.asset(
+                                                "assets/blank.jpg",
+                                                fit: BoxFit.contain,
+                                              ) : Image.network(
                                                 "${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay['id']}",
                                                 width: 100,
                                               ),

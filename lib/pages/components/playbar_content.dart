@@ -75,7 +75,7 @@ class _PlaybarContentState extends State<PlaybarContent> {
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
                                   clipBehavior: Clip.antiAlias,
-                                  child: p.nowPlay['id'].isEmpty ? Image.asset(
+                                  child: p.nowPlay['id'].isEmpty || p.nowPlay['playFrom']=='download' ? Image.asset(
                                     "assets/blank.jpg",
                                     fit: BoxFit.contain,
                                   ) : Image.network(
@@ -90,7 +90,7 @@ class _PlaybarContentState extends State<PlaybarContent> {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
                                 clipBehavior: Clip.antiAlias,
-                                child: p.nowPlay['id'].isEmpty ? Image.asset(
+                                child: p.nowPlay['id'].isEmpty || p.nowPlay['playFrom']=='download' ? Image.asset(
                                   "assets/blank.jpg",
                                   fit: BoxFit.contain,
                                 ) : Image.network(
