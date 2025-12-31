@@ -10,6 +10,7 @@ import 'package:netplayer_mobile/lang/zh_cn.dart';
 import 'package:netplayer_mobile/lang/zh_tw.dart';
 import 'package:netplayer_mobile/main_view.dart';
 import 'package:netplayer_mobile/variables/dialog_var.dart';
+import 'package:netplayer_mobile/variables/download_var.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/page_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
@@ -38,6 +39,7 @@ Future<void> main() async {
   Get.put(LsVar());
   Get.put(PageVar());
   Get.put(UserVar());
+  Get.put(DownloadVar());
   s.initDark(autoDark, darkMode);
   await s.initLang();
   runApp(const MainApp());
