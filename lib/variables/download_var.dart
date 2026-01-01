@@ -115,6 +115,17 @@ class DownloadVar {
     return downloadList.any((item) => item.id == id);
   }
 
+  Future<void> delete(Map target) async {
+    final file = File(target['filePath']);
+    if (await file.exists()) {
+      await file.delete();
+    }else{
+      print("?!");
+    }
+    downloadList.removeWhere((item) => item.id == target['id']);
+    refreshDownloadList();
+  }
+
   Future<void> downloadSongFromId(String id) async {
     final url = "${u.url.value}/rest/stream?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${id}";
     final dir = await getDownloadDir();

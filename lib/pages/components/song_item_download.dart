@@ -28,13 +28,6 @@ class _SongItemDownloadState extends State<SongItemDownload> {
   final DialogVar d=Get.find();
   final DownloadVar downloadVar=Get.find();
   final Operations operations=Operations();
-  
-  @override
-  void initState(){
-    super.initState();
-
-    print(widget.item['duration']);
-  }
 
   bool playing(){
     if(p.nowPlay['playFrom']=="download" && p.nowPlay['index']==widget.index){
@@ -61,7 +54,7 @@ class _SongItemDownloadState extends State<SongItemDownload> {
       ]
     );
     if(req=="delete"){
-      // TODO 删除?
+      await downloadVar.delete(widget.item);
     }else if(req=="info"){
       if(context.mounted){
         d.showOkDialogRaw(
