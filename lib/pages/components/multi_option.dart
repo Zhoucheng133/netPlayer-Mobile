@@ -37,9 +37,7 @@ class _MultiOptionState extends State<MultiOption> {
     if(req=="add"){ 
       if(l.playList.isEmpty && context.mounted){
         d.showOkDialog(context: context, title: "cantAddToPlaylist".tr, content: "noPlaylist".tr);
-        return;
-      }
-      if(context.mounted){
+      }else if(s.selectList.isNotEmpty && context.mounted){
         var listId = await d.showActionSheet(
           context: context, 
           list: List.generate(l.playList.length, (index){
@@ -57,8 +55,12 @@ class _MultiOptionState extends State<MultiOption> {
           }
         }
       }
+      s.selectMode.value = false;
     }else if(req=="download"){
-      // TODO 下载选中
+      for (var element in s.selectList) {
+        downloadVar.downloadSongFromId(element);
+      }
+      s.selectMode.value = false;
     }
   }
   

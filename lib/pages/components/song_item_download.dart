@@ -196,7 +196,7 @@ class _SongItemDownloadState extends State<SongItemDownload> {
         );
       }
     }else if(req=='download'){
-      downloadVar.downloadSongFromUrl(widget.item['id']);
+      downloadVar.downloadSongFromId(widget.item['id']);
     }
   }
 
