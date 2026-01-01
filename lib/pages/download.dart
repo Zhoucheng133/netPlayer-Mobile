@@ -24,8 +24,25 @@ class _DownloadState extends State<Download> {
   final DownloadVar downloadVar=Get.find();
 
   @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
+    controller.addListener((){
+      if(controller.offset>60){
+        setState(() {
+          showAppbarTitle=true;
+        });
+      }else{
+        setState(() {
+          showAppbarTitle=false;
+        });
+      }
+    });
   }
 
   @override
@@ -41,7 +58,7 @@ class _DownloadState extends State<Download> {
               alignment: Alignment.centerLeft,
               child: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 200),
-                child: showAppbarTitle ? Text('albums'.tr, key: const Key("1"),) : null,
+                child: showAppbarTitle ? Text('downloaded'.tr, key: const Key("1"),) : null,
               ),
             ),
             actions: [
