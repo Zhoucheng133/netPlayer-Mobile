@@ -129,7 +129,6 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
     }
     if(p.nowPlay['playFrom']=='download'){
       final filePath=p.nowPlay['filePath'];
-      // await player.setFilePath(filePath);
       if(filePath!=playURL){
         try {
           await player.setFilePath(filePath);
@@ -233,6 +232,7 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
     tmpList['artist']=tmpList['list'][tmpList['index']]['artist'];
     tmpList['duration']=tmpList['list'][tmpList['index']]['duration'];
     tmpList['album']=tmpList['list'][tmpList['index']]['album'];
+    tmpList['filePath']=tmpList['list'][tmpList['index']]['filePath'] ?? '';
     p.nowPlay.value=tmpList;
     p.nowPlay.refresh();
     // skipHandler=true;
@@ -274,6 +274,7 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
     tmpList['artist']=tmpList['list'][tmpList['index']]['artist'];
     tmpList['duration']=tmpList['list'][tmpList['index']]['duration'];
     tmpList['album']=tmpList['list'][tmpList['index']]['album'];
+    tmpList['filePath']=tmpList['list'][tmpList['index']]['filePath'] ?? '';
     p.nowPlay.value=tmpList;
     p.nowPlay.refresh();
     // skipHandler=true;
