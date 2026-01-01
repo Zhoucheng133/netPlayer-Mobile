@@ -136,6 +136,7 @@ class _SettingsState extends State<Settings> {
                 Text(
                   'followSystem'.tr,
                   style: TextStyle(
+                    fontFamily: 'PuHui',
                     fontSize: 16,
                   ),
                 ),
@@ -157,6 +158,7 @@ class _SettingsState extends State<Settings> {
                   'darkMode'.tr,
                   style: TextStyle(
                     fontSize: 16,
+                    fontFamily: 'PuHui',
                   ),
                 ),
                 Expanded(child: Container()),
@@ -207,10 +209,20 @@ class _SettingsState extends State<Settings> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         FTileGroup(
-                          label: Text('appSettings'.tr, style: TextStyle(),),
+                          label: Text(
+                            'appSettings'.tr, 
+                            style: TextStyle(
+                              fontFamily: 'PuHui',
+                            ),
+                          ),
                           children: [
                             FTile(
-                              title: Text('autoLogin'.tr, style: TextStyle()),
+                              title: Text(
+                                'autoLogin'.tr, 
+                                style: TextStyle(
+                                  fontFamily: 'PuHui',
+                                )
+                              ),
                               details: Obx(()=>
                                 FSwitch(
                                   value: s.autoLogin.value,
@@ -223,7 +235,12 @@ class _SettingsState extends State<Settings> {
                               ),
                             ),
                             FTile(
-                              title: Text('savePlay'.tr, style: TextStyle()),
+                              title: Text(
+                                'savePlay'.tr, 
+                                style: TextStyle(
+                                  fontFamily: 'PuHui',
+                                )
+                              ),
                               details: Obx(()=>
                                 FSwitch(
                                   value: s.savePlay.value, 
@@ -236,7 +253,12 @@ class _SettingsState extends State<Settings> {
                               ),
                             ),
                             FTile(
-                              title: Text('showTranslations'.tr, style: TextStyle()),
+                              title: Text(
+                                'showTranslations'.tr, 
+                                style: TextStyle(
+                                  fontFamily: 'PuHui',
+                                )
+                              ),
                               details: Obx(()=>
                                 FSwitch(
                                   value: s.showTranslation.value, 
@@ -249,11 +271,17 @@ class _SettingsState extends State<Settings> {
                               ),
                               subtitle: Text('showTranslationsIfExist'.tr, style: TextStyle(
                                 fontSize: 12,
-                                color: Colors.grey[400]
+                                color: Colors.grey[400],
+                                fontFamily: 'PuHui'
                               )),
                             ),
                             FTile(
-                              title: Text('enableNavidromeAPI'.tr, style: TextStyle()),
+                              title: Text(
+                                'enableNavidromeAPI'.tr, 
+                                style: TextStyle(
+                                  fontFamily: 'PuHui'
+                                )
+                              ),
                               details: Obx(()=>
                                 FSwitch(
                                   value: p.useNavidrome.value, 
@@ -281,11 +309,14 @@ class _SettingsState extends State<Settings> {
                               ),
                               subtitle: Text('showAllSongsAndAlbums'.tr, style: TextStyle(
                                 fontSize: 12,
-                                color: Colors.grey[400]
+                                color: Colors.grey[400],
+                                fontFamily: 'PuHui'
                               )),
                             ),
                             FTile(
-                              title: Text('ignoreMissing'.tr, style: TextStyle()),
+                              title: Text('ignoreMissing'.tr, style: TextStyle(
+                                fontFamily: 'PuHui'
+                              )),
                               details: Obx(()=>
                                 FSwitch(
                                   value: p.removeMissing.value, 
@@ -301,7 +332,8 @@ class _SettingsState extends State<Settings> {
                               ),
                               subtitle: Text('avaliableForNavidromeApi'.tr, style: TextStyle(
                                 fontSize: 12,
-                                color: Colors.grey[400]
+                                color: Colors.grey[400],
+                                fontFamily: 'PuHui'
                               )),
                             ),
                             FTile(
@@ -309,7 +341,9 @@ class _SettingsState extends State<Settings> {
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Text('language'.tr, style: TextStyle()),
+                                  Text('language'.tr, style: TextStyle(
+                                    fontFamily: 'PuHui'
+                                  )),
                                   const SizedBox(width: 5,),
                                   const FaIcon(
                                     FontAwesomeIcons.globe,
@@ -321,7 +355,8 @@ class _SettingsState extends State<Settings> {
                                 s.lang.value.name, 
                                 style: TextStyle(
                                   fontSize: 12,
-                                  color: Colors.grey[400]
+                                  color: Colors.grey[400],
+                                  fontFamily: 'PuHui'
                                 ),
                               ),
                               onPress: () => s.showLanguageDialog(context),
@@ -330,13 +365,16 @@ class _SettingsState extends State<Settings> {
                               onPress: ()=>showQualityWarning(context),
                               title: Text(
                                 'playQuality'.tr,
-                                style: TextStyle(),
+                                style: TextStyle(
+                                  fontFamily: 'PuHui'
+                                ),
                               ),
                               subtitle: Obx(()=>
                                 Text(
                                   qualityText(),
                                   style: TextStyle(
                                     fontSize: 12,
+                                    fontFamily: 'PuHui',
                                     color: Colors.grey[400]
                                   ),
                                 ),
@@ -357,12 +395,13 @@ class _SettingsState extends State<Settings> {
                               title: Text(
                                 'clearCache'.tr,
                                 style: TextStyle(
-                                  // fontSize: 18
+                                  fontFamily: 'PuHui'
                                 ),
                               ),
                               subtitle: Text(
                                 sizeConvert(cacheSize),
                                 style: TextStyle(
+                                  fontFamily: 'PuHui',
                                   fontSize: 12,
                                   color: Colors.grey[400]
                                 ),
@@ -375,11 +414,14 @@ class _SettingsState extends State<Settings> {
                           children: [
                             FTile(
                               onPress: ()=>showDarkModeDialog(context),
-                              title: Text('darkMode'.tr,),
+                              title: Text('darkMode'.tr,style: TextStyle(
+                                fontFamily: 'PuHui'
+                              ),),
                               subtitle: Obx(()=>
                                 Text(
                                   s.autoDark.value ? 'auto'.tr : s.darkMode.value ? 'enable'.tr : 'disable'.tr,
                                   style: TextStyle(
+                                    fontFamily: 'PuHui',
                                     fontSize: 12,
                                     color: Colors.grey[400]
                                   ),
@@ -390,12 +432,15 @@ class _SettingsState extends State<Settings> {
                               onPress: ()=>showProgressDialog(context),
                               title: Text(
                                 'progressbarStyle'.tr,
-                                style: TextStyle(),
+                                style: TextStyle(
+                                  fontFamily: 'PuHui'
+                                ),
                               ),
                               subtitle: Obx(()=>
                                 Text(
                                   progresStyle(),
                                   style: TextStyle(
+                                    fontFamily: 'PuHui',
                                     fontSize: 12,
                                     color: Colors.grey[400]
                                   ),
@@ -405,8 +450,13 @@ class _SettingsState extends State<Settings> {
                           ]
                         ),
                         FTileGroup(
-                          label: Text('others'.tr, style: TextStyle(),),
+                          label: Text('others'.tr, style: TextStyle(
+                            fontFamily: 'PuHui'
+                          ),),
                           children: [
+                            // FTile(
+                            //   title: title
+                            // ),
                             FTile(
                               onPress: () async {
                                 setState(() {
@@ -417,10 +467,13 @@ class _SettingsState extends State<Settings> {
                                   loading=false;
                                 });
                               },
-                              title: Text('rescanLibrary'.tr, style: TextStyle(),),
+                              title: Text('rescanLibrary'.tr, style: TextStyle(
+                                fontFamily: 'PuHui'
+                              ),),
                               subtitle: Text(
                                 "rescanLibraryContent".tr, 
                                 style: TextStyle(
+                                  fontFamily: 'PuHui',
                                   fontSize: 12,
                                   color: Colors.grey[400]
                                 ),
@@ -431,7 +484,9 @@ class _SettingsState extends State<Settings> {
                               ) : null,
                             ),
                             FTile(
-                              title: Text('devTool'.tr, style: TextStyle(),),
+                              title: Text('devTool'.tr, style: TextStyle(
+                                fontFamily: 'PuHui'
+                              ),),
                               onPress: ()=>Get.to(()=>const Dev()),
                             ),
                           ]

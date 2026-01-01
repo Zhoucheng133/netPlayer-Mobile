@@ -40,6 +40,7 @@ class _MultiOptionState extends State<MultiOption> {
         context: context, 
         title: 'deleteTheseSongs'.tr, 
         content: 'deleteTheseSongsContent'.tr,
+        okText: 'delete'.tr
       );
       if(confirm){
         for(var element in widget.target) {
