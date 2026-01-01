@@ -8,6 +8,7 @@ import 'package:netplayer_mobile/pages/artist_content.dart';
 import 'package:netplayer_mobile/pages/components/play_queue.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
 import 'package:netplayer_mobile/variables/dialog_var.dart';
+import 'package:netplayer_mobile/variables/download_var.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
@@ -28,6 +29,7 @@ class _PlayingState extends State<Playing> {
   LsVar l=Get.find();
   final DialogVar d=Get.find();
   final Operations operations=Operations();
+  final DownloadVar downloadVar=Get.find();
 
   bool isLoved(){
     for (var val in l.loved) {
@@ -513,6 +515,7 @@ class _PlayingState extends State<Playing> {
                                       ActionItem(name: 'addTo...'.tr, key: 'add', icon: Icons.playlist_add_rounded),
                                       ActionItem(name: showlyric ? 'hideLyric'.tr : 'showLyric'.tr, key: 'lyric', icon: Icons.lyrics_rounded),
                                       ActionItem(name: 'lyricFontSize'.tr, key: 'font', icon: Icons.text_fields_rounded),
+                                      if(p.nowPlay['playFrom']!='download' && !downloadVar.isDownloaded(p.nowPlay['id'])) ActionItem(name: 'download'.tr, key: 'download', icon: Icons.download_rounded),
                                       ActionItem(name: 'songInfo'.tr, key: 'info', icon: Icons.info_rounded),
                                     ]
                                   );
@@ -736,6 +739,8 @@ class _PlayingState extends State<Playing> {
                                         context: context,
                                         builder: (BuildContext context)=>const PlayQueue()
                                       );
+                                    }else if(rlt=='download'){
+                                      downloadVar.downloadSongFromId(p.nowPlay['id']);
                                     }
                                   }
                                 }, 

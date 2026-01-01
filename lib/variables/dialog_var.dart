@@ -26,6 +26,7 @@ class DialogVar extends GetxController{
     String? selectKey;
     await showFSheet(
       context: context, 
+      mainAxisMaxRatio: 1.0,
       builder: (BuildContext context)=>Obx(()=>
         Container(
           decoration: BoxDecoration(

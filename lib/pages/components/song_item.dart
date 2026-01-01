@@ -68,7 +68,7 @@ class _SongItemState extends State<SongItem> {
         ActionItem(name: "showAlbum".tr, key: "album", icon: Icons.album_rounded),
         ActionItem(name: "showArtist".tr, key: "artist", icon: Icons.mic_rounded),
         if(widget.from=="playlist") ActionItem(name: "removeFromPlaylist".tr, key: "delist", icon: Icons.playlist_remove_rounded, ),
-        ActionItem(name: "download".tr, key: "download", icon: Icons.download_rounded),
+        if(!downloadVar.isDownloaded(widget.item['id'])) ActionItem(name: "download".tr, key: "download", icon: Icons.download_rounded),
         ActionItem(name: "songInfo".tr, key: "info", icon: Icons.info_rounded),
       ]
     );

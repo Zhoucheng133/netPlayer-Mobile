@@ -111,6 +111,10 @@ class DownloadVar {
     return downloadList.map((item)=>item.getInfo()).toList();
   }
 
+  bool isDownloaded(String id){
+    return downloadList.any((item) => item.id == id);
+  }
+
   Future<void> downloadSongFromId(String id) async {
     final url = "${u.url.value}/rest/stream?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${id}";
     final dir = await getDownloadDir();
