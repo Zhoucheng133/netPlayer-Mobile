@@ -114,7 +114,7 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
       id: p.nowPlay["id"],
       title: p.nowPlay["title"],
       artist: p.nowPlay["artist"],
-      artUri: Uri.parse("${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}"),
+      artUri: p.nowPlay['id'].isEmpty || p.nowPlay['playFrom']=='download' ? null : Uri.parse("${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}"),
       album: p.nowPlay["album"],
       duration: Duration(seconds: p.nowPlay['duration']),
     );
@@ -127,21 +127,39 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
     if(p.nowPlay["id"].isEmpty){
       return;
     }
-    var url=seekCheck.enableSeek() ? "${u.url.value}/rest/stream?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}"
-    : "${u.url.value}/rest/stream?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}&maxBitRate=${s.quality.value.quality}";
-    if(url!=playURL){
-      try {
-        await player.setUrl(url);
-      } catch (_) {
-        skipToNext();
+    if(p.nowPlay['playFrom']=='download'){
+      final filePath=p.nowPlay['filePath'];
+      // await player.setFilePath(filePath);
+      if(filePath!=playURL){
+        try {
+          await player.setFilePath(filePath);
+        } catch (_) {
+          skipToNext();
+        }
       }
+      player.play();
+      playURL=filePath;
+      if(bindMedia){
+        setMedia(true);
+      }
+      p.isPlay.value=true;
+    }else{
+      var url=seekCheck.enableSeek() ? "${u.url.value}/rest/stream?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}"
+      : "${u.url.value}/rest/stream?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}&maxBitRate=${s.quality.value.quality}";
+      if(url!=playURL){
+        try {
+          await player.setUrl(url);
+        } catch (_) {
+          skipToNext();
+        }
+      }
+      player.play();
+      playURL=url;
+      if(bindMedia){
+        setMedia(true);
+      }
+      p.isPlay.value=true;
     }
-    player.play();
-    playURL=url;
-    if(bindMedia){
-      setMedia(true);
-    }
-    p.isPlay.value=true;
   }
 
   // 暂停
