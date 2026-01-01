@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:netplayer_mobile/pages/components/multi_option.dart';
 import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/components/song_item_download.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
-import 'package:netplayer_mobile/pages/search_in.dart';
 import 'package:netplayer_mobile/variables/download_var.dart';
+import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
@@ -22,6 +23,7 @@ class _DownloadState extends State<Download> {
   bool showAppbarTitle=false;
   AutoScrollController controller=AutoScrollController();
   final DownloadVar downloadVar=Get.find();
+  final PlayerVar pl=Get.find();
 
   @override
   void dispose() {
@@ -62,11 +64,25 @@ class _DownloadState extends State<Download> {
               ),
             ),
             actions: [
-              IconButton(
-                onPressed: downloadVar.downloadList.isEmpty ? null : (){
-                  Get.to(()=> SearchIn(ls: downloadVar.downloadList.map((item)=>item.getInfo()).toList(), from: 'download', mode: 'song', listId: '',));
-                }, 
-                icon: const Icon(Icons.search_rounded, size: 22,)
+              Obx(()=>
+                s.selectMode.value ? TextButton(
+                  onPressed: (){
+                    s.selectMode.value=false;
+                    s.selectList.clear();
+                  }, 
+                  child: Text('unselect'.tr)
+                ) : IconButton(
+                  onPressed: pl.nowPlay['playFrom']=='download' ? (){
+                    controller.scrollToIndex(pl.nowPlay['index'], preferPosition: AutoScrollPosition.middle);
+                  } : null,
+                  icon: const Icon(
+                    Icons.my_location_rounded,
+                    size: 20,
+                  )
+                ),
+              ),
+              Obx(()=>
+                s.selectMode.value ? MultiOption(fromPlaylist: false, listId: "",) : Container()
               ),
               const SizedBox(width: 10,)
             ],
@@ -90,8 +106,12 @@ class _DownloadState extends State<Download> {
                         SliverList.builder(
                           itemCount: downloadVar.downloadList.length,
                           itemBuilder: (context ,index){
-                            // return SongItem(item: ls[index], index: index, ls: ls, from: "download", listId: "");
-                            return SongItemDownload(index: index, item: downloadVar.downloadList[index].getInfo(),);
+                            return AutoScrollTag(
+                              controller: controller,
+                              index: index,
+                              key: ValueKey(index),
+                              child: SongItemDownload(index: index, item: downloadVar.downloadList[index].getInfo(),)
+                            );
                           }
                         )
                       ],
