@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:audio_metadata_reader/audio_metadata_reader.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
@@ -41,9 +42,32 @@ class DownloadItem{
   }
 }
 
+// 1. 切换歌曲赋值filePath ✅
+// 2. 添加/删除下载歌曲时重新加载列表 ✅
+// 3. 从播放页面添加下载
+// 4. 下载选中
+
 class DownloadVar {
   final UserVar u = Get.find();
+  final PlayerVar p=Get.find();
   final dio = Dio();
+
+  void refreshDownloadList(){
+    if(p.nowPlay['id']==''){
+      return;
+    }else if(p.nowPlay['playFrom']!='download'){
+      return;
+    }
+
+    final index=downloadList.indexWhere((item)=>item.id==p.nowPlay['id']);
+    if(index==-1){
+      p.handler.stop();
+    }else{
+      p.nowPlay['index']=index;
+      p.nowPlay['list']=downloadList.map((item)=>item.getInfo()).toList();
+    }
+    p.nowPlay.refresh();
+  }
 
   RxList<DownloadItem> downloadList=RxList<DownloadItem>([]);
 
@@ -118,5 +142,6 @@ class DownloadVar {
 
     downloadList[downloadList.indexWhere((item)=>item.id==id)].percent=100;
     downloadList.refresh();
+    refreshDownloadList();
   }
 }
