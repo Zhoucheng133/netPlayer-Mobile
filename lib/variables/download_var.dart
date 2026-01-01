@@ -42,11 +42,6 @@ class DownloadItem{
   }
 }
 
-// 1. 切换歌曲赋值filePath ✅
-// 2. 添加/删除下载歌曲时重新加载列表 ✅
-// 3. 从播放页面添加下载
-// 4. 下载选中
-
 class DownloadVar {
   final UserVar u = Get.find();
   final PlayerVar p=Get.find();
