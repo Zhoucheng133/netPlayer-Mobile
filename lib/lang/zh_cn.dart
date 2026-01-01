@@ -215,4 +215,6 @@ const Map<String, String> zhCN={
   'downloaded': '已下载',
   'unselect': '取消选择',
   'download': '下载',
+  'deleteTheseSongs': '删除这些歌曲',
+  'deleteTheseSongsContent': '确定要删除这些歌曲吗？',
 };

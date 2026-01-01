@@ -13,8 +13,10 @@ class SongItemDownload extends StatefulWidget {
 
   final dynamic item;
   final int index;
+  final ValueChanged onSelected;
+  final bool selected;
 
-  const SongItemDownload({super.key, this.item, required this.index});
+  const SongItemDownload({super.key, this.item, required this.index, required this.onSelected, required this.selected});
 
   @override
   State<SongItemDownload> createState() => _SongItemDownloadState();
@@ -198,11 +200,7 @@ class _SongItemDownloadState extends State<SongItemDownload> {
     return InkWell(
       onTap: (){
         if(s.selectMode.value){
-          if(s.selectList.contains(widget.item['id'])){
-            s.selectList.remove(widget.item['id']);
-          }else{
-            s.selectList.add(widget.item['id']);
-          }
+          widget.onSelected(widget.item);
         }else{
           PlayerControl().playSong(
             context, 
@@ -221,7 +219,7 @@ class _SongItemDownloadState extends State<SongItemDownload> {
       },
       onLongPress: (){
         s.selectMode.value = true;
-        s.selectList.add(widget.item['id']);
+        widget.onSelected(widget.item);
       },
       child: Padding(
         padding: const EdgeInsets.only(left: 10, right: 10),
@@ -236,13 +234,9 @@ class _SongItemDownloadState extends State<SongItemDownload> {
                 child: Center(
                   child: Obx(()=>
                     s.selectMode.value ? Checkbox(
-                      value: s.selectList.contains(widget.item['id']), 
+                      value: widget.selected, 
                       onChanged: (val){
-                        if(val==true){
-                          s.selectList.add(widget.item['id']);
-                        }else{
-                          s.selectList.remove(widget.item['id']);
-                        }
+                        widget.onSelected(widget.item);
                       }
                     ) : playing() ? const Icon(
                       Icons.play_arrow_rounded,

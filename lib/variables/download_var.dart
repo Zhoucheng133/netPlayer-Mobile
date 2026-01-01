@@ -119,8 +119,6 @@ class DownloadVar {
     final file = File(target['filePath']);
     if (await file.exists()) {
       await file.delete();
-    }else{
-      print("?!");
     }
     downloadList.removeWhere((item) => item.id == target['id']);
     refreshDownloadList();

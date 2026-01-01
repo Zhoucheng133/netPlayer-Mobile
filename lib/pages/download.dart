@@ -25,9 +25,15 @@ class _DownloadState extends State<Download> {
   final DownloadVar downloadVar=Get.find();
   final PlayerVar pl=Get.find();
 
+  List selected=[];
+
   @override
   void dispose() {
     controller.dispose();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      s.selectList.clear();
+      s.selectMode.value=false;
+    });
     super.dispose();
   }
 
@@ -45,6 +51,23 @@ class _DownloadState extends State<Download> {
         });
       }
     });
+  }
+
+  void toggleSelect(Map target){
+    final index=selected.indexWhere((item)=>item['id']==target['id']);
+    if(index==-1){
+      setState(() {
+        selected.add(target);
+      });
+    }else{
+      setState(() {
+        selected.removeAt(index);
+      });
+    }
+  }
+
+  bool isSelected(Map target){
+    return selected.indexWhere((item)=>item['id']==target['id'])!=-1;
   }
 
   @override
@@ -69,6 +92,9 @@ class _DownloadState extends State<Download> {
                   onPressed: (){
                     s.selectMode.value=false;
                     s.selectList.clear();
+                    setState(() {
+                      selected.clear();
+                    });
                   }, 
                   child: Text('unselect'.tr)
                 ) : IconButton(
@@ -82,7 +108,7 @@ class _DownloadState extends State<Download> {
                 ),
               ),
               Obx(()=>
-                s.selectMode.value ? MultiOption(fromPlaylist: false, listId: "",) : Container()
+                s.selectMode.value ? MultiOption(fromPlaylist: false, listId: "", fromDownload: true, target: selected,) : Container()
               ),
               const SizedBox(width: 10,)
             ],
@@ -110,7 +136,12 @@ class _DownloadState extends State<Download> {
                               controller: controller,
                               index: index,
                               key: ValueKey(index),
-                              child: SongItemDownload(index: index, item: downloadVar.downloadList[index].getInfo(),)
+                              child: SongItemDownload(
+                                index: index, 
+                                item: downloadVar.downloadList[index].getInfo(), 
+                                onSelected: (value)=>toggleSelect(value), 
+                                selected: isSelected(downloadVar.downloadList[index].getInfo()),
+                              )
                             );
                           }
                         )

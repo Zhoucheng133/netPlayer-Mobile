@@ -10,8 +10,10 @@ class MultiOption extends StatefulWidget {
 
   final bool fromPlaylist;
   final String listId;
+  final bool fromDownload;
+  final List target;
 
-  const MultiOption({super.key, required this.fromPlaylist, required this.listId});
+  const MultiOption({super.key, required this.fromPlaylist, required this.listId, this.fromDownload=false, this.target=const []});
 
   @override
   State<MultiOption> createState() => _MultiOptionState();
@@ -23,6 +25,30 @@ class _MultiOptionState extends State<MultiOption> {
   LsVar l=Get.find();
   final SettingsVar s=Get.find();
   DownloadVar downloadVar=Get.find();
+
+  Future<void> showDownloadOption(BuildContext context) async {
+    var req=await d.showActionSheet(
+      context: context,
+      list: [
+        ActionItem(name: 'delete'.tr, key: "delete", icon: Icons.delete_rounded),
+      ]
+    );
+
+    if(req=="delete"){
+
+      final confirm=await d.showOkCancelDialog(
+        context: context, 
+        title: 'deleteTheseSongs'.tr, 
+        content: 'deleteTheseSongsContent'.tr,
+      );
+      if(confirm){
+        for(var element in widget.target) {
+          await downloadVar.delete(element);
+        }
+        s.selectMode.value=false;
+      }
+    }
+  }
 
   Future<void> showOption(BuildContext context) async {
     var req=await d.showActionSheet(
@@ -67,7 +93,7 @@ class _MultiOptionState extends State<MultiOption> {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: ()=>showOption(context), 
+      onPressed: ()=>widget.fromDownload ? showDownloadOption(context) : showOption(context), 
       icon: Icon(Icons.more_vert_rounded)
     );
   }
