@@ -39,7 +39,8 @@ Future<void> main() async {
   Get.put(LsVar());
   Get.put(PageVar());
   Get.put(UserVar());
-  Get.put(DownloadVar());
+  final DownloadVar downloadVar = Get.put(DownloadVar());
+  downloadVar.getDownloadList();
   s.initDark(autoDark, darkMode);
   await s.initLang();
   runApp(const MainApp());

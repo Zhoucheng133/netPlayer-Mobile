@@ -52,6 +52,12 @@ class _SongItemState extends State<SongItem> {
     return false;
   }
 
+  bool downloaded(){
+    return downloadVar.downloadList.any(
+      (item) => item.id == widget.item['id'],
+    );
+  }
+
   Future<void> showSongMenu(BuildContext context) async {
     var req=await d.showActionSheet(
       context: context,
@@ -346,12 +352,21 @@ class _SongItemState extends State<SongItem> {
                         ),
                       ),
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           isLoved() ? const Padding(
-                            padding: EdgeInsets.only(right: 10),
+                            padding: EdgeInsets.only(right: 5),
                             child: Icon(
                               Icons.favorite_rounded,
                               color: Colors.red,
+                              size: 15,
+                            ),
+                          ) : Container(),
+                          downloaded() ? const Padding(
+                            padding: EdgeInsets.only(right: 5),
+                            child: Icon(
+                              Icons.check_circle_rounded,
+                              color: Colors.green,
                               size: 15,
                             ),
                           ) : Container(),
