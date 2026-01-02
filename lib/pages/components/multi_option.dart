@@ -78,7 +78,7 @@ class _MultiOptionState extends State<MultiOption> {
         // print(listId);
         if(listId!=null){
           if(context.mounted){
-            Operations().multiAddToList(s.selectList, listId, context);
+            await Operations().multiAddToList(s.selectList, listId, context);
           }
         }
       }

@@ -130,7 +130,7 @@ class Operations{
     }
   }
 
-  void multiAddToList(List<String> songIds, String listId, BuildContext context) async { 
+  Future<void> multiAddToList(List<String> songIds, String listId, BuildContext context) async { 
     if (songIds.isEmpty) return;
     final songParams = songIds
       .map((id) => 'songIdToAdd=${Uri.encodeQueryComponent(id)}')
@@ -155,7 +155,7 @@ class Operations{
       return;
     }else{
       if(context.mounted){
-        dataGet.getPlayLists(context);
+        await dataGet.getPlayLists(context);
       }
       if(context.mounted){
         PlayCheck().check(context);
@@ -188,6 +188,7 @@ class Operations{
       }
       return false;
     }else{
+      await dataGet.getPlayLists(context);
       if(context.mounted){
         PlayCheck().check(context);
       }
