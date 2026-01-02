@@ -182,9 +182,9 @@ class _PlayListItemState extends State<PlayListItem> {
               );
             }
           ),
-          okHandler: (){
+          okHandler: () async {
             if(context.mounted){
-              Operations().renamePlayList(widget.id, controller.text, context);
+              await Operations().renamePlayList(widget.id, controller.text, context);
             }
           }
         );

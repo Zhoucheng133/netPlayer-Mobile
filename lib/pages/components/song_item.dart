@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:forui/forui.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/variables/download_var.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
@@ -95,22 +96,42 @@ class _SongItemState extends State<SongItem> {
         return;
       }
       if(context.mounted){
-        var listId = await d.showActionSheet(
-          context: context, 
-          list: List.generate(l.playList.length, (index){
-            return ActionItem(
-              icon: Icons.playlist_play_rounded,
-              key: l.playList[index]['id'],
-              name: l.playList[index]['name']
-            );
-          })
+        String selectedId = l.playList[0]['id'];
+        await d.showOkCancelDialogRaw(
+          context: context,
+          title: "addToPlaylist".tr,
+          okText: "add".tr,
+          child: StatefulBuilder(
+            builder: (context, setState) {
+              return FSelect<String>(
+                initialValue: selectedId,
+                autoHide: true,
+                format: (String id) {
+                  final item = l.playList.firstWhere(
+                    (e) => e['id'] == id,
+                  );
+                  return item['name'];
+                },
+                children: List.generate(l.playList.length, (index) {
+                  return FSelectItem<String>(
+                    l.playList[index]['name'],
+                    l.playList[index]['id'],
+                  );
+                }),
+                onChange: (val) {
+                  if(val!=null){
+                    setState(() {
+                      selectedId = val;
+                    });
+                  }
+                },
+              );
+            },
+          ),
+          okHandler: () async {
+            await Operations().addToList(widget.item["id"], selectedId, context);
+          },
         );
-        // print(listId);
-        if(listId!=null){
-          if(context.mounted){
-            Operations().addToList(widget.item["id"], listId, context);
-          }
-        }
       }
     }else if(req=="delist"){
       if(widget.from!="playlist" || widget.listId.isEmpty){

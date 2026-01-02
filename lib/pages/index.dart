@@ -248,9 +248,9 @@ class _IndexState extends State<Index> {
                                         );
                                       }
                                     ),
-                                    okHandler: (){
+                                    okHandler: () async {
                                       if(context.mounted){
-                                        Operations().newPlayList(controller.text, context);
+                                        await Operations().newPlayList(controller.text, context);
                                       }
                                     }
                                   );

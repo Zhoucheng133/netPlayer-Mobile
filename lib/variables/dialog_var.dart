@@ -170,7 +170,7 @@ class DialogVar extends GetxController{
     required Widget child,
     String? okText,
     String? cancelText,
-    required VoidCallback okHandler,
+    required Future<void> Function() okHandler,
     VoidCallback? cancelHandler,
   }) async {
     await showAdaptiveDialog(
@@ -187,10 +187,10 @@ class DialogVar extends GetxController{
         actions: [
           FButton.raw(
             onPress: (){
-              Navigator.pop(context);
               if(cancelHandler!=null){
                 cancelHandler();
               }
+              Navigator.pop(context);
             }, 
             style: FButtonStyle.outline,
             child: Padding(
@@ -207,9 +207,9 @@ class DialogVar extends GetxController{
             )
           ),
           FButton.raw(
-            onPress: (){
+            onPress: () async {
+              await okHandler();
               Navigator.pop(context);
-              okHandler();
             }, 
             style: FButtonStyle.primary,
             child: Padding(
