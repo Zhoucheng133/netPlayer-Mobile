@@ -210,4 +210,13 @@ const Map<String, String> zhTW = {
   'songCountOverflowContent': 'Subsonic API 支援的最大歌曲數量為 500 首。\n你可以在首頁→更多→隨機播放所有歌曲，此功能不受數量限制',
 
   'language': '語言',
+
+  'add': '新增',
+  'downloaded': '已下載',
+  'unselect': '取消選取',
+  'download': '下載',
+  'deleteTheseSongs': '刪除這些歌曲',
+  'deleteTheseSongsContent': '確定要刪除這些歌曲嗎？',
+  'deleteAllDownloadedSongs': '刪除所有已下載歌曲',
+  'deleteAllDownloadedSongsContent': '確定要刪除所有已下載的歌曲嗎？'
 };

@@ -210,4 +210,13 @@ const Map<String, String> enUS = {
   'songCountOverflowContent': 'Subsonic API supports up to 500 songs.\nYou can use Home → More → Shuffle All Songs, which is not limited by number.',
 
   'language': 'Language',
+
+  'add': 'Add',
+  'downloaded': 'Downloaded',
+  'unselect': 'Unselect',
+  'download': 'Download',
+  'deleteTheseSongs': 'Delete these songs',
+  'deleteTheseSongsContent': 'Are you sure you want to delete these songs?',
+  'deleteAllDownloadedSongs': 'Delete all downloaded songs',
+  'deleteAllDownloadedSongsContent': 'Are you sure you want to delete all downloaded songs?'
 };
