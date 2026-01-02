@@ -82,10 +82,14 @@ class DialogVar extends GetxController{
     await showAdaptiveDialog(
       context: context, 
       builder: (BuildContext context)=>FDialog(
-        title: Text(title, style: TextStyle(),),
+        title: Text(title, style: TextStyle(
+          fontFamily: 'PuHui'
+        ),),
         body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 5),
-          child: Text(content, style: TextStyle(),),
+          child: Text(content, style: TextStyle(
+            fontFamily: 'PuHui'
+          ),),
         ),
         direction: Axis.horizontal,
         actions: [
@@ -103,6 +107,7 @@ class DialogVar extends GetxController{
                 ()=>Text(
                   okText??'ok'.tr, 
                   style: TextStyle(
+                    fontFamily: 'PuHui',
                     color: settings.darkMode.value ? Colors.black : Colors.white,
                   )
                 ),
@@ -124,7 +129,9 @@ class DialogVar extends GetxController{
     await showAdaptiveDialog(
       context: context, 
       builder: (BuildContext context)=>FDialog(
-        title: Text(title, style: TextStyle(),),
+        title: Text(title, style: TextStyle(
+          fontFamily: 'PuHui',
+        ),),
         body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 5),
           child: child,
@@ -145,6 +152,7 @@ class DialogVar extends GetxController{
                 Text(
                   okText??'ok'.tr, 
                   style: TextStyle(
+                    fontFamily: 'PuHui',
                     color: settings.darkMode.value ? Colors.black : Colors.white,
                   )
                 )
@@ -168,7 +176,9 @@ class DialogVar extends GetxController{
     await showAdaptiveDialog(
       context: context, 
       builder: (BuildContext context)=>FDialog(
-        title: Text(title, style: TextStyle(),),
+        title: Text(title, style: TextStyle(
+          fontFamily: 'PuHui',
+        ),),
         body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 5),
           child: child,
@@ -189,6 +199,7 @@ class DialogVar extends GetxController{
                 Text(
                   cancelText??'cancel'.tr, 
                   style: TextStyle(
+                    fontFamily: 'PuHui',
                     color: settings.darkMode.value ? Colors.white : Colors.black,
                   )
                 )
@@ -207,6 +218,7 @@ class DialogVar extends GetxController{
                 Text(
                   okText??'continue'.tr, 
                   style: TextStyle(
+                    fontFamily: 'PuHui',
                     color: settings.darkMode.value ? Colors.black : Colors.white,
                   )
                 )
@@ -230,10 +242,14 @@ class DialogVar extends GetxController{
       context: context, 
       builder: (BuildContext context)=>FDialog(
         direction: Axis.horizontal,
-        title: Text(title, style: TextStyle(),),
+        title: Text(title, style: TextStyle(
+          fontFamily: 'PuHui',
+        ),),
         body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 5),
-          child: Text(content, style: TextStyle(),),
+          child: Text(content, style: TextStyle(
+            fontFamily: 'PuHui',
+          ),),
         ),
         actions: [
           FButton.raw(
@@ -248,6 +264,7 @@ class DialogVar extends GetxController{
                 Text(
                   cancelText??'cancel'.tr, 
                   style: TextStyle(
+                    fontFamily: 'PuHui',
                     color: settings.darkMode.value ? Colors.white : Colors.black,
                   )
                 )
@@ -266,6 +283,7 @@ class DialogVar extends GetxController{
                 Text(
                   okText??'continue'.tr, 
                   style: TextStyle(
+                    fontFamily: 'PuHui',
                     color: settings.darkMode.value ? Colors.black : Colors.white,
                   )
                 )

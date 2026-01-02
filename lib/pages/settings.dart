@@ -12,9 +12,11 @@ import 'package:netplayer_mobile/pages/components/quality_dialog.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
 import 'package:netplayer_mobile/pages/dev.dart';
 import 'package:netplayer_mobile/variables/dialog_var.dart';
+import 'package:netplayer_mobile/variables/download_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
+import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -27,8 +29,11 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
 
+  final DownloadVar downloadVar=Get.find();
+
   SettingsVar s=Get.find();
   int cacheSize=0;
+  int downloadSize=0;
   bool loading=false;
   UserVar u = Get.find();
   PlayerVar p=Get.find();
@@ -39,6 +44,7 @@ class _SettingsState extends State<Settings> {
   void initState(){
     super.initState();
     getCacheSize();
+    getDownloadSize();
   }
 
   String sizeConvert(int bytes) {
@@ -77,6 +83,20 @@ class _SettingsState extends State<Settings> {
     }
   }
 
+  Future<void> getDownloadSize() async {
+    try {
+      final Directory downloadDir = await getApplicationDocumentsDirectory();
+      var size = await getDirectorySize(Directory(path.join(downloadDir.path, 'downloads')));
+      setState(() {
+        downloadSize=size;
+      });
+    } catch (_) {
+      setState(() {
+        downloadSize=0;
+      });
+    }
+  }
+
   Future<void> clearController() async {
     final cacheDir = await getTemporaryDirectory();
     if (cacheDir.existsSync()) {
@@ -85,6 +105,18 @@ class _SettingsState extends State<Settings> {
       } catch (_) {}
     }
     getCacheSize();
+  }
+
+  void clearDownload() async {
+    Directory downloadDir = await getApplicationDocumentsDirectory();
+    downloadDir=Directory(path.join(downloadDir.path, 'downloads'));
+    if (downloadDir.existsSync()) {
+      try {
+        downloadDir.deleteSync(recursive: true);
+      } catch (_) {}
+    }
+    await getDownloadSize();
+    await downloadVar.getDownloadList();
   }
 
   String qualityText(){
@@ -454,9 +486,30 @@ class _SettingsState extends State<Settings> {
                             fontFamily: 'PuHui'
                           ),),
                           children: [
-                            // FTile(
-                            //   title: title
-                            // ),
+                            FTile(
+                              onPress: () async {
+                                final rlt=await d.showOkCancelDialog(
+                                  context: context, 
+                                  title: 'deleteAllDownloadedSongs'.tr, 
+                                  content: 'deleteAllDownloadedSongsContent'.tr, 
+                                  okText: 'delete'.tr,
+                                );
+                                if(rlt){
+                                  clearDownload();
+                                }
+                              },
+                              title: Text("deleteAllDownloadedSongs".tr, style: TextStyle(
+                                fontFamily: 'PuHui'
+                              ),),
+                              subtitle: Text(
+                                sizeConvert(downloadSize),
+                                style: TextStyle(
+                                  fontFamily: 'PuHui',
+                                  fontSize: 12,
+                                  color: Colors.grey[400]
+                                ),
+                              ),
+                            ),
                             FTile(
                               onPress: () async {
                                 setState(() {
