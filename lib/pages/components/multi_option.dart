@@ -56,7 +56,6 @@ class _MultiOptionState extends State<MultiOption> {
       context: context,
       list: [
         ActionItem(name: 'addToPlaylist'.tr, key: "add", icon: Icons.playlist_add_rounded),
-        if(widget.fromPlaylist) ActionItem(name: "removeFromPlaylist".tr, key: "delist", icon: Icons.playlist_remove_rounded, ),
         ActionItem(name: "download".tr, key: "download", icon: Icons.download_rounded),
       ]
     );
