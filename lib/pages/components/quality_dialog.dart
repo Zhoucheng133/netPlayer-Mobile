@@ -53,11 +53,6 @@ Future<void> showQualityDialog(BuildContext context) async {
                 cellularOnly=value==1;
               }
             },
-            // children: types.map((item)=>FSelectItem(
-            //   // value: item,
-            //   // title: Text(item, style: TextStyle(),),
-            //   item, item
-            // )).toList(),
             children: [
               FSelectItem("cellularAndWiFi".tr, 0),
               FSelectItem("cellularOnly".tr, 1)
@@ -65,13 +60,6 @@ Future<void> showQualityDialog(BuildContext context) async {
           ),
           const SizedBox(height: 15,),
           FSelect(
-            // groupController: controller2,
-            // title: ListenableBuilder(
-            //   listenable: controller2,
-            //   builder: (_, context) {
-            //     return Text(controller2.value.first, style: TextStyle(),);
-            //   }
-            // ),
             format: (int s)=>qualitiesAll[s],
             autoHide: true, 
             onChange: (value){
@@ -85,15 +73,6 @@ Future<void> showQualityDialog(BuildContext context) async {
                 }
               }
             },
-            // menu: qualitiesAll.map((item)=>FSelectTile(
-            //   title: Text(item, style: TextStyle(),), 
-            //   value: item
-            // )).toList(),
-            // children: qualitiesAll.map((item)=>FSelectItem(
-            //   // value: item,
-            //   // title: Text(item, style: TextStyle(),),
-            //   item, item
-            // )).toList(),
             initialValue: quality==0 ? 0 : quality==128 ? 1 : 2,
             children: [
               FSelectItem("original".tr, 0),
