@@ -86,6 +86,7 @@ class _SearchInputState extends State<SearchInput> {
                             child: TextField(
                               controller: widget.textController,
                               focusNode: widget.focus,
+                              autofocus: true,
                               decoration: const InputDecoration(
                                 border: InputBorder.none,
                                 isCollapsed: true,

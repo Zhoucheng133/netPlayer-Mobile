@@ -46,7 +46,6 @@ class _SearchInState extends State<SearchIn> {
   @override
   void initState() {
     super.initState();
-    focus.requestFocus();
     controller.addListener((){
       if(controller.offset>60){
         setState(() {
