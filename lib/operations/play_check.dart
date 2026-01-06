@@ -15,6 +15,8 @@ class PlayCheck{
       checkLovedSongPlay(context);
     }else if(p.nowPlay['playFrom']=='playlist'){
       checkPlayListPlay(context);
+    }else{
+      p.handler.stop();
     }
   }
 
