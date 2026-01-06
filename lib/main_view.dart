@@ -42,7 +42,8 @@ class _MainViewState extends State<MainView> {
   String? preId;
   final d=DataGet();
 
-  Future<void> savePlay(dynamic val) async {
+  Future<void> savePlay(Map val) async {
+    val.remove('list');
     prefs = await SharedPreferences.getInstance();
     try {
       if(s.savePlay.value){
@@ -141,7 +142,7 @@ class _MainViewState extends State<MainView> {
     if(nowPlay!=null){
       Map<String, dynamic> decodedMap = jsonDecode(nowPlay);
       Map<String, Object> tmpList=Map<String, Object>.from(decodedMap);
-      p.nowPlay.value=tmpList;
+      p.nowPlay.value={...tmpList, 'list': []} as Map<String, dynamic>;
       WidgetsBinding.instance.addPostFrameCallback((_) async {
         PlayCheck().check(context);
       });
