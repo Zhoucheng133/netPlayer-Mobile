@@ -69,7 +69,7 @@ class _MainViewState extends State<MainView> {
         });
       }
     });
-    nowPlayListener=ever(p.nowPlay, (val){
+    nowPlayListener=ever(p.nowPlay, (val) async {
       if(preId!=null && p.nowPlay['id']==preId){
         return;
       }
@@ -77,7 +77,7 @@ class _MainViewState extends State<MainView> {
         preId=p.nowPlay['id'];
       }
 
-      savePlay(val);
+      await savePlay({...val});
       p.lyric.value=[
         LyricItem('searchingForLyrics'.tr, "", 0)
       ];
