@@ -17,7 +17,7 @@ class PlayCheck{
       await checkLovedSongPlay(context);
     }else if(p.nowPlay['playFrom']=='playlist'){
       await checkPlayListPlay(context);
-    }else{
+    }else if(p.nowPlay['playFrom']!='fullRandom'){
       p.handler.stop();
     }
   }
