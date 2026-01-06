@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
+import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 
 class PlayCheck{
 
   PlayerVar p=Get.find();
   DataGet d=DataGet();
+  LsVar lsVar=Get.find();
 
-  void check(BuildContext context){
+  Future<void> check(BuildContext context) async {
     if(p.nowPlay['playFrom']=='all'){
-      checkAllSongPlay(context);
+      await checkAllSongPlay(context);
     }else if(p.nowPlay['playFrom']=='loved'){
-      checkLovedSongPlay(context);
+      await checkLovedSongPlay(context);
     }else if(p.nowPlay['playFrom']=='playlist'){
-      checkPlayListPlay(context);
+      await checkPlayListPlay(context);
     }else{
       p.handler.stop();
     }
@@ -64,6 +66,7 @@ class PlayCheck{
 
   Future<void> checkLovedSongPlay(BuildContext context) async {
     List ls=await d.getLoved(context);
+    lsVar.loved.value=ls;
     int index=ls.indexWhere((item) => item['id']==p.nowPlay['id']);
     if(index!=-1){
       Map<String, Object> tmp={
