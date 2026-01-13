@@ -52,6 +52,9 @@ class _SearchState extends State<Search> {
   }
 
   Future<void> searchHandler(BuildContext context) async {
+    if(textController.text.isEmpty){
+      return;
+    }
     Map data=await Operations().search(textController.text, context);
     if(data['songs'].isEmpty && data['albums'].isEmpty && data['artists'].isEmpty){
       if(context.mounted){
@@ -91,7 +94,7 @@ class _SearchState extends State<Search> {
   Widget build(BuildContext context) {
     return Obx(()=>
       Scaffold(
-        backgroundColor: s.darkMode.value ? s.bgColor2 : Colors.white,
+        backgroundColor: s.darkMode.value ? s.bgColor1 : Colors.grey[100],
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: s.darkMode.value ? s.bgColor1 : Colors.grey[100],
@@ -158,7 +161,13 @@ class _SearchState extends State<Search> {
                         itemBuilder: (context, index){
                           return ArtistItem(index: index, item: ls['artists'][index]);
                         }
-                      )
+                      ),
+                      SliverFillRemaining(
+                        hasScrollBody: false,
+                        child: Container(
+                          color: s.darkMode.value ? s.bgColor2 : Colors.white,
+                        ),
+                      ),
                     ],
                   ),
                 ),
