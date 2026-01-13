@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/requests.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:http/http.dart' as http;
+import 'package:netplayer_mobile/variables/settings_var.dart';
 
 class LyricGet{
 
@@ -23,6 +24,10 @@ class LyricGet{
   }
 
   Future<void> getLyric() async {
+
+    if(!enableLyric){
+      return;
+    }
 
     if(!(await netease())){
       if(!(await lrclib())){

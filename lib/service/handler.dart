@@ -65,22 +65,23 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
       if(!p.onSlide.value){
         p.playProgress.value=data;
       }
-      if(p.lyric.isNotEmpty && p.lyric.length!=1){
-        for (var i = 0; i < p.lyric.length; i++) {
-          if(i==p.lyric.length-1){
-            p.lyricLine.value=p.lyric.length;
-            break;
-          }else if(i==0 && data<p.lyric[i].time){
-            // updateLyricLine(0);
-            p.lyricLine.value=0;
-            break;
-          }else if(data>=p.lyric[i].time && data<p.lyric[i+1].time){
-            p.lyricLine.value=i+1;
-            break;
+      if(enableLyric){
+        if(p.lyric.isNotEmpty && p.lyric.length!=1){
+          for (var i = 0; i < p.lyric.length; i++) {
+            if(i==p.lyric.length-1){
+              p.lyricLine.value=p.lyric.length;
+              break;
+            }else if(i==0 && data<p.lyric[i].time){
+              p.lyricLine.value=0;
+              break;
+            }else if(data>=p.lyric[i].time && data<p.lyric[i+1].time){
+              p.lyricLine.value=i+1;
+              break;
+            }
           }
+        }else if(p.lyric.length==1){
+          p.lyricLine.value=0;
         }
-      }else if(p.lyric.length==1){
-        p.lyricLine.value=0;
       }
     });
     player.playerStateStream.listen((state) {

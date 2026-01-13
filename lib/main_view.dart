@@ -81,7 +81,9 @@ class _MainViewState extends State<MainView> {
       p.lyric.value=[
         LyricItem('searchingForLyrics'.tr, "", 0)
       ];
-      operations.getLyric();
+      if(enableLyric){
+        operations.getLyric();
+      }
     });
   }
 

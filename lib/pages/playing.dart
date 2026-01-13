@@ -110,6 +110,9 @@ class _PlayingState extends State<Playing> {
   }
 
   void scrollLyric(){
+    if(!enableLyric){
+      return;
+    }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!controller.hasClients || !showlyric || p.lyric.length==1) {
         return;
@@ -212,6 +215,9 @@ class _PlayingState extends State<Playing> {
                 Expanded(
                   child: GestureDetector(
                     onTap: (){
+                      if(!enableLyric){
+                        return;
+                      }
                       setState(() {
                         showlyric=!showlyric;
                         if(showlyric){
@@ -226,7 +232,7 @@ class _PlayingState extends State<Playing> {
                       ),
                       child: AnimatedSwitcher(
                         duration: const Duration(milliseconds: 200),
-                        child: showlyric ? Container(
+                        child: enableLyric && showlyric ? Container(
                           key: const Key("0"),
                           color: Colors.transparent,
                           child: Stack(

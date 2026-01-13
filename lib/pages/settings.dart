@@ -284,7 +284,7 @@ class _SettingsState extends State<Settings> {
                                 )
                               ),
                             ),
-                            FTile(
+                            if(enableLyric) FTile(
                               title: Text(
                                 'showTranslations'.tr, 
                                 style: TextStyle(
@@ -393,7 +393,7 @@ class _SettingsState extends State<Settings> {
                               ),
                               onPress: () => s.showLanguageDialog(context),
                             ),
-                            FTile(
+                            if(enableLyric) FTile(
                               onPress: ()=>showQualityWarning(context),
                               title: Text(
                                 'playQuality'.tr,

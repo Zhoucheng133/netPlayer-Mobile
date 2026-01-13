@@ -36,6 +36,7 @@ List<LanguageType> get supportedLocales => [
   LanguageType("繁體中文", const Locale("zh", "TW")),
 ];
 
+const bool enableLyric=false;
 
 class SettingsVar extends GetxController{
 
