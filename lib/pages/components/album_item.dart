@@ -5,6 +5,7 @@ import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/pages/album_content.dart';
 import 'package:netplayer_mobile/pages/artist_content.dart';
 import 'package:netplayer_mobile/variables/dialog_var.dart';
+import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
 
 class AlbumItem extends StatefulWidget {
@@ -24,6 +25,7 @@ class _AlbumItemState extends State<AlbumItem> {
   final DataGet dataGet=DataGet();
   final UserVar u=Get.find();
   final Operations operations=Operations();
+  final SettingsVar s=Get.find();
 
   Future<void> showAlbumMenu(BuildContext context) async {
     var req=await d.showActionSheet(
@@ -183,61 +185,63 @@ class _AlbumItemState extends State<AlbumItem> {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: (){
-        Get.to(() =>AlbumContent(album: widget.item['title'], id: widget.item['id'], songCount: widget.item['songCount'],));
-      },
-      onLongPress: ()=>showAlbumMenu(context),
-      child: Padding(
-        padding: const EdgeInsets.only(left: 10, right: 10),
-        child: Container(
-          color: Colors.transparent,
-          height: 60,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 30,
-                child: Center(
-                  child: Text((widget.index+1).toString())
+    return Material(
+      color: s.darkMode.value ? s.bgColor2 : Colors.white,
+      child: InkWell(
+        onTap: (){
+          Get.to(() =>AlbumContent(album: widget.item['title'], id: widget.item['id'], songCount: widget.item['songCount'],));
+        },
+        onLongPress: ()=>showAlbumMenu(context),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10),
+          child: SizedBox(
+            height: 60,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 30,
+                  child: Center(
+                    child: Text((widget.index+1).toString())
+                  ),
                 ),
-              ),
-              const SizedBox(width: 10,),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.item['title'],
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 16,
+                const SizedBox(width: 10,),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.item['title'],
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
                       ),
-                    ),
-                    Text(
-                      widget.item['artist'],
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color:Colors.grey[400]
-                      ),
-                    )
-                  ],
+                      Text(
+                        widget.item['artist'],
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 12,
+                          color:Colors.grey[400]
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(width: 10,),
-              IconButton(
-                onPressed: () => showAlbumMenu(context),
-                icon: const Icon(
-                  Icons.more_vert_rounded,
-                  size: 20,
+                const SizedBox(width: 10,),
+                IconButton(
+                  onPressed: () => showAlbumMenu(context),
+                  icon: const Icon(
+                    Icons.more_vert_rounded,
+                    size: 20,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      )
+        )
+      ),
     );
   }
 }
