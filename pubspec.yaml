@@ -1,7 +1,7 @@
 name: netplayer_mobile
 description: netPlayer mobile version.
 publish_to: 'none'
-version: 2.5.1
+version: 2.5.2
 
 environment:
   sdk: '>=3.4.0 <4.0.0'
