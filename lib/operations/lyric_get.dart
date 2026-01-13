@@ -52,10 +52,6 @@ class LyricGet{
       if(pos1==-1 || pos2==-1){
         return false;
       }
-      // lyricCovert.add({
-      //   'time': timeToMilliseconds(line.substring(pos1+1, pos2)),
-      //   'content': line.substring(pos2 + 1).trim(),
-      // });
       lyricCovert.add(LyricItem(line.substring(pos2 + 1).trim(), "", timeToMilliseconds(line.substring(pos1+1, pos2))));
     }
     p.lyric.value=lyricCovert;
@@ -136,10 +132,6 @@ class LyricGet{
       } catch (_) {
         continue;
       }
-      // lyricCovert.add({
-      //   'time': time,
-      //   'content': content,
-      // });
       lyricCovert.add(LyricItem(
         lyricItem,
         lyricTranslate,
