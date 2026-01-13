@@ -16,11 +16,11 @@ class _AlbumSkeletonState extends State<AlbumSkeleton> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 10, right: 10),
-      child: Container(
-        color: Colors.transparent,
-        height: 60,
+    return Container(
+      color: s.darkMode.value ? s.bgColor2 : Colors.white,
+      height: 60,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 10, right: 10),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [

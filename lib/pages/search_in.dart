@@ -115,7 +115,7 @@ class _SearchInState extends State<SearchIn> {
   Widget build(BuildContext context) {
     return Obx(()=>
       Scaffold(
-        backgroundColor: s.darkMode.value ? s.bgColor2 : Colors.white,
+        backgroundColor: s.darkMode.value ? s.bgColor1 : Colors.grey[100],
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: s.darkMode.value ? s.bgColor1 : Colors.grey[100],
@@ -189,7 +189,13 @@ class _SearchInState extends State<SearchIn> {
                         final data = filtered[index];
                         return ArtistItem(index: data['index'], item: data['item']);
                       }
-                    )
+                    ),
+                    SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: Container(
+                        color: s.darkMode.value ? s.bgColor2 : Colors.white,
+                      ),
+                    ),
                   ],
                 ),
               ),

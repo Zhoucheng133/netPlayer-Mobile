@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:skeletons_forked/skeletons_forked.dart';
 
 class ArtistSkeleton extends StatefulWidget {
@@ -9,13 +11,16 @@ class ArtistSkeleton extends StatefulWidget {
 }
 
 class _ArtistSkeletonState extends State<ArtistSkeleton> {
+
+  SettingsVar s=Get.find();
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 10, right: 10),
-      child: Container(
-        color: Colors.transparent,
-        height: 60,
+    return Container(
+      color: s.darkMode.value ? s.bgColor2 : Colors.white,
+      height: 60,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 10, right: 10),
         child: const Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [

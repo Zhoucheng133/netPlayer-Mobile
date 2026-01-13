@@ -80,7 +80,7 @@ class _PlaylistState extends State<Playlist> {
   Widget build(BuildContext context) {
     return Obx(()=>
       Scaffold(
-        backgroundColor: s.darkMode.value ? s.bgColor2 : Colors.white,
+        backgroundColor: s.darkMode.value ? s.bgColor1 : Colors.grey[100],
         appBar: AppBar(
           backgroundColor: s.darkMode.value ? s.bgColor1 : Colors.grey[100],
           scrolledUnderElevation:0.0,
@@ -154,7 +154,13 @@ class _PlaylistState extends State<Playlist> {
                           itemBuilder: (context, index){
                             return const SongSkeleton(showLoved: false);
                           }
-                        )
+                        ),
+                        SliverFillRemaining(
+                          hasScrollBody: false,
+                          child: Container(
+                            color: s.darkMode.value ? s.bgColor2 : Colors.white,
+                          ),
+                        ),
                       ],
                     ),
                   ),

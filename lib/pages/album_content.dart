@@ -76,7 +76,7 @@ class _AlbumContentState extends State<AlbumContent> {
   Widget build(BuildContext context) {
     return Obx(()=>
       Scaffold(
-        backgroundColor: s.darkMode.value ? s.bgColor2 : Colors.white,
+        backgroundColor: s.darkMode.value ? s.bgColor1 : Colors.grey[100],
         appBar: AppBar(
           backgroundColor: s.darkMode.value ? s.bgColor1 : Colors.grey[100],
           scrolledUnderElevation:0.0,
@@ -132,7 +132,13 @@ class _AlbumContentState extends State<AlbumContent> {
                           itemBuilder: (context, index) {
                             return const SongSkeleton();
                           },
-                        )
+                        ),
+                        SliverFillRemaining(
+                          hasScrollBody: false,
+                          child: Container(
+                            color: s.darkMode.value ? s.bgColor2 : Colors.white,
+                          ),
+                        ),
                       ],
                     ),
                   ),

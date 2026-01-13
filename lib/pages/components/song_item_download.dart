@@ -197,108 +197,110 @@ class _SongItemDownloadState extends State<SongItemDownload> {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: (){
-        if(s.selectMode.value){
+    return Material(
+      color: s.darkMode.value ? s.bgColor2 : Colors.white,
+      child: InkWell(
+        onTap: (){
+          if(s.selectMode.value){
+            widget.onSelected(widget.item);
+          }else{
+            PlayerControl().playSong(
+              context, 
+              widget.item['id'], 
+              widget.item['title'], 
+              widget.item['artist'], 
+              "download", 
+              widget.item['duration'], 
+              "", 
+              widget.index, 
+              downloadVar.downloadList.map((item)=>item.getInfo()).toList(), 
+              widget.item['album'], 
+              filePath: widget.item['filePath']
+            );
+          }
+        },
+        onLongPress: (){
+          s.selectMode.value = true;
           widget.onSelected(widget.item);
-        }else{
-          PlayerControl().playSong(
-            context, 
-            widget.item['id'], 
-            widget.item['title'], 
-            widget.item['artist'], 
-            "download", 
-            widget.item['duration'], 
-            "", 
-            widget.index, 
-            downloadVar.downloadList.map((item)=>item.getInfo()).toList(), 
-            widget.item['album'], 
-            filePath: widget.item['filePath']
-          );
-        }
-      },
-      onLongPress: (){
-        s.selectMode.value = true;
-        widget.onSelected(widget.item);
-      },
-      child: Padding(
-        padding: const EdgeInsets.only(left: 10, right: 10),
-        child: Container(
-          color: Colors.transparent,
-          height: 60,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 30,
-                child: Center(
-                  child: Obx(()=>
-                    s.selectMode.value ? Checkbox(
-                      value: widget.selected, 
-                      onChanged: (val){
-                        widget.onSelected(widget.item);
-                      }
-                    ) : playing() ? const Icon(
-                      Icons.play_arrow_rounded,
-                      color: Colors.blue,
-                    ) : Text((widget.index+1).toString())
-                  )
+        },
+        child: Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10),
+          child: SizedBox(
+            height: 60,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 30,
+                  child: Center(
+                    child: Obx(()=>
+                      s.selectMode.value ? Checkbox(
+                        value: widget.selected, 
+                        onChanged: (val){
+                          widget.onSelected(widget.item);
+                        }
+                      ) : playing() ? const Icon(
+                        Icons.play_arrow_rounded,
+                        color: Colors.blue,
+                      ) : Text((widget.index+1).toString())
+                    )
+                  ),
                 ),
-              ),
-              const SizedBox(width: 10,),
-              Expanded(
-                child: Obx(()=>
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.item['title'],
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: playing() ? FontWeight.bold : FontWeight.normal,
-                          color: playing() ? Colors.blue : s.darkMode.value ? Colors.white : Colors.black
+                const SizedBox(width: 10,),
+                Expanded(
+                  child: Obx(()=>
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.item['title'],
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: playing() ? FontWeight.bold : FontWeight.normal,
+                            color: playing() ? Colors.blue : s.darkMode.value ? Colors.white : Colors.black
+                          ),
                         ),
-                      ),
-                      Row(
-                        children: [
-                          isLoved() ? const Padding(
-                            padding: EdgeInsets.only(right: 10),
-                            child: Icon(
-                              Icons.favorite_rounded,
-                              color: Colors.red,
-                              size: 15,
-                            ),
-                          ) : Container(),
-                          Expanded(
-                            child: Text(
-                              widget.item['artist'],
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: playing() ? Colors.blue : Colors.grey[400]
+                        Row(
+                          children: [
+                            isLoved() ? const Padding(
+                              padding: EdgeInsets.only(right: 10),
+                              child: Icon(
+                                Icons.favorite_rounded,
+                                color: Colors.red,
+                                size: 15,
+                              ),
+                            ) : Container(),
+                            Expanded(
+                              child: Text(
+                                widget.item['artist'],
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: playing() ? Colors.blue : Colors.grey[400]
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      )
-                    ],
+                          ],
+                        )
+                      ],
+                    ),
+                  )
+                ),
+                const SizedBox(width: 10,),
+                IconButton(
+                  onPressed: () => showSongMenu(context),
+                  icon: Obx(()=>
+                    Icon(
+                      Icons.more_vert_rounded,
+                      color: s.darkMode.value ? playing() ? Colors.blue : Colors.white : playing() ? Colors.blue : Colors.black,
+                      size: 20,
+                    ),
                   ),
                 )
-              ),
-              const SizedBox(width: 10,),
-              IconButton(
-                onPressed: () => showSongMenu(context),
-                icon: Obx(()=>
-                  Icon(
-                    Icons.more_vert_rounded,
-                    color: s.darkMode.value ? playing() ? Colors.blue : Colors.white : playing() ? Colors.blue : Colors.black,
-                    size: 20,
-                  ),
-                ),
-              )
-            ],
+              ],
+            ),
           ),
         ),
       ),
