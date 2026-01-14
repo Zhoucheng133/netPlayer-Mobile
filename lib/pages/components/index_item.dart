@@ -398,7 +398,6 @@ class _PlayListItemState extends State<PlayListItem> {
                     children: [
                       Text(
                         widget.name,
-                        style: TextStyle(),
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(

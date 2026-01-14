@@ -24,28 +24,11 @@ Future<void> showProgressDialog(BuildContext context) async {
     child: StatefulBuilder(
       builder: (context, _) {
         return FSelect(
-          // groupController: controller,
-          // title: ListenableBuilder(
-          //   listenable: controller,
-          //   builder: (_, context) {
-          //     return Text(types[controller.value.first], style: TextStyle(),);
-          //   }
-          // ), 
           autoHide: true,
           initialValue: s.progressStyle.value.index,
-          // groupController: controller,
-          // title: ListenableBuilder(
-          //   listenable: controller,
-          //   builder: (_, context) {
-          //     return Text(types[controller.value.first], style: TextStyle(),);
-          //   }
-          // ), 
           format: (int s)=>types[s],
           children: List.generate(types.length, (int index) {
             return FSelectItem(
-              // value: index,
-              // title: Text(types[index], style: TextStyle()),
-              // index.toString(),
               types[index],
               index
             );
@@ -61,9 +44,6 @@ Future<void> showProgressDialog(BuildContext context) async {
     cancelText: "cancel".tr,
     okText: 'ok'.tr,
     okHandler: () async {
-      // s.progressStyle.value=ProgressStyle.values[controller.value.first];
-      // final SharedPreferences prefs = await SharedPreferences.getInstance();
-      // await prefs.setInt('progressStyle', controller.value.first);
       s.progressStyle.value=ProgressStyle.values[style];
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setInt('progressStyle', style);

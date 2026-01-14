@@ -38,13 +38,6 @@ Future<void> showQualityDialog(BuildContext context) async {
         mainAxisSize: MainAxisSize.min,
         children: [
           FSelect(
-            // groupController: controller1,
-            // title: ListenableBuilder(
-            //   listenable: controller1,
-            //   builder: (_, context) {
-            //     return Text(controller1.value.first, style: TextStyle(),);
-            //   }
-            // ),
             format: (int s)=>types[s],
             initialValue: cellularOnly ? 1 : 0,
             autoHide: true, 
