@@ -33,12 +33,13 @@ Future<void> main() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   final darkMode=prefs.getBool("darkMode");
   final autoDark=prefs.getBool("autoDark");
-  Get.put(PlayerVar());
+  final p=Get.put(PlayerVar());
   final SettingsVar s=Get.put(SettingsVar());
   Get.put(DialogVar());
   Get.put(LsVar());
   Get.put(PageVar());
   Get.put(UserVar());
+  await p.initPlayer();
   final DownloadVar downloadVar = Get.put(DownloadVar());
   downloadVar.getDownloadList();
   s.initDark(autoDark, darkMode);
