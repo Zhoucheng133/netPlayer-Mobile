@@ -522,8 +522,8 @@ class _PlayingState extends State<Playing> {
                                       ActionItem(name: 'addToLoved'.tr, key: 'love', icon: Icons.favorite_rounded),
                                       ActionItem(name: 'nowPlayList'.tr, key: 'queue', icon: Icons.playlist_play_rounded),
                                       ActionItem(name: 'addTo...'.tr, key: 'add', icon: Icons.playlist_add_rounded),
-                                      ActionItem(name: showlyric ? 'hideLyric'.tr : 'showLyric'.tr, key: 'lyric', icon: Icons.lyrics_rounded),
-                                      ActionItem(name: 'lyricFontSize'.tr, key: 'font', icon: Icons.text_fields_rounded),
+                                      if(enableLyric) ActionItem(name: showlyric ? 'hideLyric'.tr : 'showLyric'.tr, key: 'lyric', icon: Icons.lyrics_rounded),
+                                      if(enableLyric) ActionItem(name: 'lyricFontSize'.tr, key: 'font', icon: Icons.text_fields_rounded),
                                       if(p.nowPlay['playFrom']!='download' && !downloadVar.isDownloaded(p.nowPlay['id'])) ActionItem(name: 'download'.tr, key: 'download', icon: Icons.download_rounded),
                                       ActionItem(name: 'songInfo'.tr, key: 'info', icon: Icons.info_rounded),
                                     ]
