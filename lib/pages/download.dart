@@ -127,10 +127,10 @@ class _DownloadState extends State<Download> {
                       controller: controller,
                       slivers: [
                         SliverToBoxAdapter(
-                          child: TitleArea(title: 'downloaded'.tr, subtitle: '${downloadVar.downloadList.length} ${"songsEnd".tr}',),
+                          child: TitleArea(title: 'downloaded'.tr, subtitle: '${downloadVar.downloadFinishedList.length} ${"songsEnd".tr}',),
                         ),
                         SliverList.builder(
-                          itemCount: downloadVar.downloadList.length,
+                          itemCount: downloadVar.downloadFinishedList.length,
                           itemBuilder: (context ,index){
                             return AutoScrollTag(
                               controller: controller,
@@ -138,9 +138,9 @@ class _DownloadState extends State<Download> {
                               key: ValueKey(index),
                               child: SongItemDownload(
                                 index: index, 
-                                item: downloadVar.downloadList[index].getInfo(), 
+                                item: downloadVar.downloadFinishedList[index].getInfo(), 
                                 onSelected: (value)=>toggleSelect(value), 
-                                selected: isSelected(downloadVar.downloadList[index].getInfo()),
+                                selected: isSelected(downloadVar.downloadFinishedList[index].getInfo()),
                               )
                             );
                           }

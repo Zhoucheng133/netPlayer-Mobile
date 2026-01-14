@@ -67,6 +67,8 @@ class DownloadVar {
 
   RxList<DownloadItem> downloadList=RxList<DownloadItem>([]);
 
+  List<DownloadItem> get downloadFinishedList => downloadList.where((item) => item.percent == 100).toList();
+
   Future<Directory> getDownloadDir() async {
     final dir = await getApplicationDocumentsDirectory();
     final downloadDir = Directory('${dir.path}/downloads');
