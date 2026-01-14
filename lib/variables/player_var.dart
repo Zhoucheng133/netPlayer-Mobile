@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:audio_service/audio_service.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/service/handler.dart';
@@ -31,10 +33,6 @@ class PlayerVar extends GetxController{
         androidNotificationChannelName: 'Music playback',
       ),
     );
-  }
-  
-  PlayerVar(){
-    initPlayer();
   }
 
   Rx<LyricSource?> lyricSource=Rx<LyricSource?>(null);
@@ -73,4 +71,6 @@ class PlayerVar extends GetxController{
 
   RxBool useNavidrome=true.obs;
   RxBool removeMissing=true.obs;
+
+  Rx<Uint8List?> cover=Rx<Uint8List?>(null);
 }

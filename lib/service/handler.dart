@@ -1,7 +1,9 @@
 // ignore_for_file: invalid_use_of_protected_member
 
+import 'dart:io';
 import 'dart:math';
 
+import 'package:audio_metadata_reader/audio_metadata_reader.dart';
 import 'package:audio_service/audio_service.dart';
 import 'package:audio_session/audio_session.dart';
 import 'package:get/get.dart';
@@ -11,6 +13,7 @@ import 'package:netplayer_mobile/operations/seek_check.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
+import 'package:path_provider/path_provider.dart';
 
 class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
 
@@ -92,7 +95,7 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
     });
   }
   
-  void setMedia(bool isPlay, {Duration? progress}){
+  Future<void> setMedia(bool isPlay, {Duration? progress}) async {
     // print("set!");
     playbackState.add(
       PlaybackState(
@@ -115,11 +118,28 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
       id: p.nowPlay["id"],
       title: p.nowPlay["title"],
       artist: p.nowPlay["artist"],
-      artUri: p.nowPlay['id'].isEmpty || p.nowPlay['playFrom']=='download' ? null : Uri.parse("${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}"),
+      artUri: p.nowPlay['id'].isEmpty ? null :
+      p.nowPlay['playFrom']=='download' ? await getCoverFromFile() :
+       Uri.parse("${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}"),
       album: p.nowPlay["album"],
       duration: Duration(seconds: p.nowPlay['duration']),
     );
     mediaItem.add(item);
+  }
+
+  Future<Uri?> getCoverFromFile() async {
+    if(p.cover.value==null){
+      return null;
+    }
+    try {
+      final tempDir = await getTemporaryDirectory();
+      final file = File('${tempDir.path}/${p.nowPlay["id"]}.png');
+
+      await file.writeAsBytes(p.cover.value!);
+      return file.uri;
+    } catch (e) {
+      return null;
+    }
   }
 
   // 播放
@@ -130,6 +150,13 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
     }
     if(p.nowPlay['playFrom']=='download'){
       final filePath=p.nowPlay['filePath'];
+      if(filePath!=null){
+        final track = File(filePath);
+        final metadata = readMetadata(track, getImage: true);
+        if(metadata.pictures.length>0){
+          p.cover.value=metadata.pictures[0].bytes;
+        }
+      }
       if(filePath!=playURL){
         try {
           await player.setFilePath(filePath);
