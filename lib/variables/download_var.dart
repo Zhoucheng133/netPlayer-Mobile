@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
 import 'package:path/path.dart' as p;
+import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 
 class DownloadItem{
@@ -80,15 +81,35 @@ class DownloadVar {
     required String savePath,
     required void Function(int received, int total) onProgress,
   }) async {
-    await dio.download(
-      url,
-      savePath,
-      onReceiveProgress: onProgress,
-      options: Options(
-        responseType: ResponseType.stream,
-        followRedirects: true,
-      ),
-    );
+
+    final tempDir = await getTemporaryDirectory();
+    final fileName = path.basename(savePath);
+    final tempFilePath = path.join(tempDir.path, "$fileName.downloading");
+
+    try {
+      await dio.download(
+        url,
+        tempFilePath,
+        onReceiveProgress: onProgress,
+        options: Options(
+          responseType: ResponseType.stream,
+          followRedirects: true,
+        ),
+      );
+      final tempFile = File(tempFilePath);
+      
+      final targetFile = File(savePath);
+      if (!await targetFile.parent.exists()) {
+        await targetFile.parent.create(recursive: true);
+      }
+      await tempFile.rename(savePath);
+    } catch (e) {
+      final tempFile = File(tempFilePath);
+      if (await tempFile.exists()) {
+        await tempFile.delete();
+      }
+      rethrow;
+    }
   }
 
   Future<List> getDownloadList() async {
