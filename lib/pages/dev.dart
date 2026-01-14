@@ -3,6 +3,7 @@ import 'package:forui/forui.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/requests.dart';
 import 'package:netplayer_mobile/pages/components/dev_tool.dart';
+import 'package:netplayer_mobile/pages/dir_list.dart';
 import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
@@ -33,7 +34,7 @@ class _DevState extends State<Dev> {
         toolbarHeight: 70,
         title: Align(
           alignment: Alignment.centerLeft,
-          child: Text('devTool'.tr, style: TextStyle(),)
+          child: Text('devTool'.tr)
         ),
         centerTitle: false,
       ),
@@ -45,10 +46,19 @@ class _DevState extends State<Dev> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 FTileGroup(
-                  label: Text('status'.tr, style: TextStyle()),
+                  label: Text(
+                    'status'.tr, 
+                    style: TextStyle(
+                      fontFamily: 'PuHui',
+                    )
+                  ),
                   children: [
                     FTile(
-                      title: Text("playStatus".tr, style: TextStyle(),),
+                      title: Text(
+                        "playStatus".tr, style: TextStyle(
+                          fontFamily: 'PuHui',
+                        )
+                      ),
                       onPress: () async {
                         if(p.nowPlay['id']==''){
                           d.showOkDialog(
@@ -72,11 +82,17 @@ class _DevState extends State<Dev> {
                   ],
                 ),
                 FTileGroup(
-                  label: Text("storage".tr, style: TextStyle(),),
+                  label: Text("storage".tr, style: TextStyle(
+                    fontFamily: 'PuHui',
+                  ),),
                   children: [
                     FTile(
-                      title: Text("localStorage".tr, style: TextStyle(),),
-                      subtitle: Text("SharedPreference", style: TextStyle(),),
+                      title: Text("localStorage".tr, style: TextStyle(
+                        fontFamily: 'PuHui',
+                      ),),
+                      subtitle: Text("SharedPreference", style: TextStyle(
+                        fontFamily: 'PuHui',
+                      ),),
                       onPress: () async {
                         final prefs=await SharedPreferences.getInstance();
                         if(context.mounted){
@@ -109,8 +125,12 @@ ${"lyricFontSize".tr}: ${prefs.getInt("fontSize")}
                       },
                     ),
                     FTile(
-                      title: Text("usePreviousStorage".tr, style: TextStyle(),),
-                      subtitle: Text("clearPasswordAndUseNavidrome".tr),
+                      title: Text("usePreviousStorage".tr, style: TextStyle(
+                        fontFamily: 'PuHui',
+                      ),),
+                      subtitle: Text("clearPasswordAndUseNavidrome".tr, style: TextStyle(
+                        fontFamily: 'PuHui',
+                      )),
                       onPress: () async {
                         final prefs=await SharedPreferences.getInstance();
                         prefs.remove("useNavidrome");
@@ -125,8 +145,12 @@ ${"lyricFontSize".tr}: ${prefs.getInt("fontSize")}
                       },
                     ),
                     FTile(
-                      title: Text("clearAllStorage".tr, style: TextStyle(),),
-                      subtitle: Text("clearConfig".tr),
+                      title: Text("clearAllStorage".tr, style: TextStyle(
+                        fontFamily: 'PuHui',
+                      ),),
+                      subtitle: Text("clearConfig".tr, style: TextStyle(
+                        fontFamily: 'PuHui',
+                      )),
                       onPress: () async {
                         final prefs=await SharedPreferences.getInstance();
                         prefs.clear();
@@ -138,6 +162,24 @@ ${"lyricFontSize".tr}: ${prefs.getInt("fontSize")}
                           );
                         }
                       },
+                    ),
+                    FTile(
+                      title: Text("AppDocumentDir".tr, style: TextStyle(
+                        fontFamily: 'PuHui',
+                      ),),
+                      subtitle: Text("showAppDocumentDirectory".tr, style: TextStyle(
+                        fontFamily: 'PuHui',
+                      )),
+                      onPress: () => Get.to(()=>DirList(type: DirListType.document)),
+                    ),
+                    FTile(
+                      title: Text("TempDir".tr, style: TextStyle(
+                        fontFamily: 'PuHui',
+                      ),),
+                      subtitle: Text("showTempDirectory".tr, style: TextStyle(
+                        fontFamily: 'PuHui',
+                      )),
+                      onPress: () => Get.to(()=>DirList(type: DirListType.temp)),
                     )
                   ]
                 )
