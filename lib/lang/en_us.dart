@@ -218,5 +218,10 @@ const Map<String, String> enUS = {
   'deleteTheseSongs': 'Delete these songs',
   'deleteTheseSongsContent': 'Are you sure you want to delete these songs?',
   'deleteAllDownloadedSongs': 'Delete all downloaded songs',
-  'deleteAllDownloadedSongsContent': 'Are you sure you want to delete all downloaded songs?'
+  'deleteAllDownloadedSongsContent': 'Are you sure you want to delete all downloaded songs?',
+
+  'AppDocumentDir': 'App document directory',
+  'showAppDocumentDirectory': 'Show document directory',
+  'TempDir': 'Temporary directory',
+  'showTempDirectory': 'Show temporary directory',
 };

@@ -218,5 +218,10 @@ const Map<String, String> zhCN={
   'deleteTheseSongs': '删除这些歌曲',
   'deleteTheseSongsContent': '确定要删除这些歌曲吗？',
   'deleteAllDownloadedSongs': '删除所有已下载歌曲',
-  'deleteAllDownloadedSongsContent': '确定要删除所有已下载歌曲吗？'
+  'deleteAllDownloadedSongsContent': '确定要删除所有已下载歌曲吗？',
+
+  'AppDocumentDir': 'App文档目录',
+  'showAppDocumentDirectory': '显示App文档目录',
+  'TempDir': '临时目录',
+  'showTempDirectory': '显示临时目录',
 };

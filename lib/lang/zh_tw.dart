@@ -218,5 +218,10 @@ const Map<String, String> zhTW = {
   'deleteTheseSongs': '刪除這些歌曲',
   'deleteTheseSongsContent': '確定要刪除這些歌曲嗎？',
   'deleteAllDownloadedSongs': '刪除所有已下載歌曲',
-  'deleteAllDownloadedSongsContent': '確定要刪除所有已下載的歌曲嗎？'
+  'deleteAllDownloadedSongsContent': '確定要刪除所有已下載的歌曲嗎？',
+
+  'AppDocumentDir': 'App文檔目錄',
+  'showAppDocumentDirectory': '顯示App文檔目錄',
+  'TempDir': '臨時目錄',
+  'showTempDirectory': '顯示臨時目錄',
 };
