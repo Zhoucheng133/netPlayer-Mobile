@@ -36,6 +36,7 @@ List<LanguageType> get supportedLocales => [
   LanguageType("繁體中文", const Locale("zh", "TW")),
 ];
 
+// 发布到App Store的版本禁用歌词
 const bool enableLyric=true;
 
 class SettingsVar extends GetxController{
