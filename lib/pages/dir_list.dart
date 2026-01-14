@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:forui/widgets/tile.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:path/path.dart' as p;
@@ -76,14 +75,12 @@ class _DirListState extends State<DirList> {
       ),
       body: ListView.builder(
         itemCount: ls.length,
-        itemBuilder: (BuildContext context, int index)=>FTile(
-          title: Text(
-            p.basename(ls[index].path),
-            style: TextStyle(
-              fontFamily: 'PuHui',
-            ),
+        itemBuilder: (BuildContext context, int index)=>Text(
+          p.basename(ls[index].path),
+          style: TextStyle(
+            fontFamily: 'PuHui',
           ),
-        )
+        ),
       ),
     );
   }
