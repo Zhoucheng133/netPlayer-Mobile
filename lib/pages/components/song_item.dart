@@ -55,8 +55,24 @@ class _SongItemState extends State<SongItem> {
 
   bool downloaded(){
     return downloadVar.downloadList.any(
+      (item) => item.id == widget.item['id'] && item.percent==100,
+    );
+  }
+
+  bool downloading(){
+    return downloadVar.downloadList.any(
+      (item) => item.id == widget.item['id'] && item.percent!=100,
+    );
+  }
+
+  String percent(){
+    int index=downloadVar.downloadList.indexWhere(
       (item) => item.id == widget.item['id'],
     );
+    if(index==-1){
+      return "0 %";
+    }
+    return downloadVar.downloadList[index].percent.toString()+" %";
   }
 
   Future<void> showSongMenu(BuildContext context) async {
@@ -390,6 +406,30 @@ class _SongItemState extends State<SongItem> {
                                 Icons.check_circle_rounded,
                                 color: Colors.green,
                                 size: 15,
+                              ),
+                            ) : downloading() ? Padding(
+                              padding: EdgeInsets.only(right: 5),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    width: 10,
+                                    height: 10,
+                                    child: const CircularProgressIndicator(
+                                      strokeWidth: 1,
+                                      color: Colors.blue,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 5,),
+                                  Text(
+                                    percent(),
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.blue
+                                    ),
+                                  ),
+                                ],
                               ),
                             ) : Container(),
                             Expanded(
