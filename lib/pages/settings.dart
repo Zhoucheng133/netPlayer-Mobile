@@ -214,7 +214,7 @@ class _SettingsState extends State<Settings> {
         s.darkMode.value=tmpDarkMode;
         s.autoDark.value=tmpAutoDark;
       },
-      okText: '完成',
+      okText: 'ok'.tr,
     );
   }
 
