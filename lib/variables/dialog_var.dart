@@ -49,6 +49,7 @@ class DialogVar extends GetxController{
                     title: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 2),
                       child: Text(item.name, style: TextStyle(
+                        fontFamily: 'PuHui',
                         fontSize: 17
                       ),),
                     ),

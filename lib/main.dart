@@ -93,8 +93,20 @@ class _MainAppState extends State<MainApp> {
         supportedLocales: supportedLocales.map((item)=>item.locale).toList(),
         fallbackLocale: supportedLocales[0].locale,
         builder: (context, child)=>FTheme(
-          data: s.darkMode.value ? FThemes.zinc.dark : FThemes.zinc.light, 
-          child: child!
+          // data: s.darkMode.value ? FThemes.zinc.dark : FThemes.zinc.light, 
+          data: FThemeData(
+            colors: s.darkMode.value ? FThemes.zinc.dark.colors : FThemes.zinc.light.colors,
+            typography: FTypography(
+              defaultFontFamily: "PuHui"
+            ) 
+          ),
+          child: DefaultTextHeightBehavior(
+            textHeightBehavior: const TextHeightBehavior(
+              applyHeightToFirstAscent: false,
+              applyHeightToLastDescent: false,
+            ),
+            child: FToaster(child: child!)
+          ),
         ),
         theme: ThemeData(
           brightness: s.darkMode.value ? Brightness.dark : Brightness.light,

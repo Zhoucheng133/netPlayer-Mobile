@@ -77,9 +77,6 @@ class _DirListState extends State<DirList> {
         itemCount: ls.length,
         itemBuilder: (BuildContext context, int index)=>Text(
           p.basename(ls[index].path),
-          style: TextStyle(
-            fontFamily: 'PuHui',
-          ),
         ),
       ),
     );

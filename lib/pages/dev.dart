@@ -55,9 +55,7 @@ class _DevState extends State<Dev> {
                   children: [
                     FTile(
                       title: Text(
-                        "playStatus".tr, style: TextStyle(
-                          fontFamily: 'PuHui',
-                        )
+                        "playStatus".tr,
                       ),
                       onPress: () async {
                         if(p.nowPlay['id']==''){
@@ -87,12 +85,8 @@ class _DevState extends State<Dev> {
                   ),),
                   children: [
                     FTile(
-                      title: Text("localStorage".tr, style: TextStyle(
-                        fontFamily: 'PuHui',
-                      ),),
-                      subtitle: Text("SharedPreference", style: TextStyle(
-                        fontFamily: 'PuHui',
-                      ),),
+                      title: Text("localStorage".tr),
+                      subtitle: Text("SharedPreference"),
                       onPress: () async {
                         final prefs=await SharedPreferences.getInstance();
                         if(context.mounted){
@@ -125,12 +119,8 @@ ${"lyricFontSize".tr}: ${prefs.getInt("fontSize")}
                       },
                     ),
                     FTile(
-                      title: Text("usePreviousStorage".tr, style: TextStyle(
-                        fontFamily: 'PuHui',
-                      ),),
-                      subtitle: Text("clearPasswordAndUseNavidrome".tr, style: TextStyle(
-                        fontFamily: 'PuHui',
-                      )),
+                      title: Text("usePreviousStorage".tr),
+                      subtitle: Text("clearPasswordAndUseNavidrome".tr),
                       onPress: () async {
                         final prefs=await SharedPreferences.getInstance();
                         prefs.remove("useNavidrome");
@@ -145,12 +135,8 @@ ${"lyricFontSize".tr}: ${prefs.getInt("fontSize")}
                       },
                     ),
                     FTile(
-                      title: Text("clearAllStorage".tr, style: TextStyle(
-                        fontFamily: 'PuHui',
-                      ),),
-                      subtitle: Text("clearConfig".tr, style: TextStyle(
-                        fontFamily: 'PuHui',
-                      )),
+                      title: Text("clearAllStorage".tr),
+                      subtitle: Text("clearConfig".tr),
                       onPress: () async {
                         final prefs=await SharedPreferences.getInstance();
                         prefs.clear();
@@ -164,21 +150,13 @@ ${"lyricFontSize".tr}: ${prefs.getInt("fontSize")}
                       },
                     ),
                     FTile(
-                      title: Text("AppDocumentDir".tr, style: TextStyle(
-                        fontFamily: 'PuHui',
-                      ),),
-                      subtitle: Text("showAppDocumentDirectory".tr, style: TextStyle(
-                        fontFamily: 'PuHui',
-                      )),
+                      title: Text("AppDocumentDir".tr),
+                      subtitle: Text("showAppDocumentDirectory".tr),
                       onPress: () => Get.to(()=>DirList(type: DirListType.document)),
                     ),
                     FTile(
-                      title: Text("TempDir".tr, style: TextStyle(
-                        fontFamily: 'PuHui',
-                      ),),
-                      subtitle: Text("showTempDirectory".tr, style: TextStyle(
-                        fontFamily: 'PuHui',
-                      )),
+                      title: Text("TempDir".tr),
+                      subtitle: Text("showTempDirectory".tr),
                       onPress: () => Get.to(()=>DirList(type: DirListType.temp)),
                     )
                   ]
