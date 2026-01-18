@@ -503,7 +503,7 @@ class _SettingsState extends State<Settings> {
                                 child: const CircularProgressIndicator()
                               ) : null,
                             ),
-                            FTile(
+                            if(enableLyric) FTile(
                               title: Text('devTool'.tr),
                               onPress: ()=>Get.to(()=>const Dev()),
                             ),
