@@ -97,19 +97,17 @@ class SettingsVar extends GetxController{
     Get.find<DialogVar>().showOkDialogRaw(
       context: context, 
       title: 'language'.tr, 
-      child: FSelect(
-        format: (s)=>supportedLocales[s].name,
-        initialValue: supportedLocales.indexWhere((item)=>item.locale==lang.value.locale),
-        autoHide: true,
-        children: List.generate(supportedLocales.length, (int index)=> FSelectItem(
-          supportedLocales[index].name,
-          index,
-        )),
-        onChange: (value){
+      child: FSelect<int>.rich(
+        control: .managed(initial: supportedLocales.indexWhere((item)=>item.locale==lang.value.locale), onChange: (value){
           if(value!=null){
             changeLanguage(value);
           }
-        },
+        }), format: (s)=>supportedLocales[s].name,
+        autoHide: true,
+        children: List.generate(supportedLocales.length, (int index)=> FSelectItem(
+          title:  Text(supportedLocales[index].name),
+          value: index,
+        )),
       )
     );
   }

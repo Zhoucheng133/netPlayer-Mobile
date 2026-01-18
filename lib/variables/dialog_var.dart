@@ -42,7 +42,7 @@ class DialogVar extends GetxController{
               FTileGroup(
                 children: list.map((item)=>
                   FTile(
-                    prefixIcon: item.icon!=null ? Icon(
+                    prefix: item.icon!=null ? Icon(
                       item.icon,
                       size: 20,
                     ) : null,
@@ -101,7 +101,7 @@ class DialogVar extends GetxController{
                 okHandler();
               }
             }, 
-            style: FButtonStyle.primary,
+            style: FButtonStyle.primary(),
             child: Padding(
               padding: const EdgeInsets.only(top: 8, bottom: 8, left: 14, right: 14),
               child: Obx(
@@ -146,7 +146,7 @@ class DialogVar extends GetxController{
                 okHandler();
               }
             }, 
-            style: FButtonStyle.primary,
+            style: FButtonStyle.primary(),
             child: Padding(
               padding: const EdgeInsets.only(top: 8, bottom: 8, left: 14, right: 14),
               child: Obx(()=>
@@ -193,7 +193,7 @@ class DialogVar extends GetxController{
               }
               Navigator.pop(context);
             }, 
-            style: FButtonStyle.outline,
+            style: FButtonStyle.outline(),
             child: Padding(
               padding: const EdgeInsets.only(top: 8, bottom: 8, left: 14, right: 14),
               child: Obx(()=>
@@ -212,7 +212,7 @@ class DialogVar extends GetxController{
               await okHandler();
               Navigator.pop(context);
             }, 
-            style: FButtonStyle.primary,
+            style: FButtonStyle.primary(),
             child: Padding(
               padding: const EdgeInsets.only(top: 8, bottom: 8, left: 14, right: 14),
               child: Obx(()=>
@@ -258,7 +258,7 @@ class DialogVar extends GetxController{
               Navigator.pop(context);
               data=false;
             }, 
-            style: FButtonStyle.outline,
+            style: FButtonStyle.outline(),
             child: Padding(
               padding: const EdgeInsets.only(top: 8, bottom: 8, left: 14, right: 14),
               child: Obx(()=>
@@ -277,7 +277,7 @@ class DialogVar extends GetxController{
               Navigator.pop(context);
               data=true;
             }, 
-            style: FButtonStyle.primary,
+            style: FButtonStyle.primary(),
             child: Padding(
               padding: const EdgeInsets.only(top: 8, bottom: 8, left: 14, right: 14),
               child: Obx(()=>

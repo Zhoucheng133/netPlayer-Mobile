@@ -119,9 +119,14 @@ class _SongItemState extends State<SongItem> {
           okText: "add".tr,
           child: StatefulBuilder(
             builder: (context, setState) {
-              return FSelect<String>(
-                initialValue: selectedId,
-                autoHide: true,
+              return FSelect<String>.rich(
+                control: .managed(initial: selectedId, onChange: (val) {
+                  if(val!=null){
+                    setState(() {
+                      selectedId = val;
+                    });
+                  }
+                }), autoHide: true,
                 format: (String id) {
                   final item = l.playList.firstWhere(
                     (e) => e['id'] == id,
@@ -130,17 +135,10 @@ class _SongItemState extends State<SongItem> {
                 },
                 children: List.generate(l.playList.length, (index) {
                   return FSelectItem<String>(
-                    l.playList[index]['name'],
-                    l.playList[index]['id'],
+                    title:  Text(l.playList[index]['name']),
+                    value: l.playList[index]['id'],
                   );
                 }),
-                onChange: (val) {
-                  if(val!=null){
-                    setState(() {
-                      selectedId = val;
-                    });
-                  }
-                },
               );
             },
           ),

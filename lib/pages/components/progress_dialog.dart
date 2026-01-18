@@ -23,21 +23,19 @@ Future<void> showProgressDialog(BuildContext context) async {
     title: 'progressbarStyle'.tr, 
     child: StatefulBuilder(
       builder: (context, _) {
-        return FSelect(
-          autoHide: true,
-          initialValue: s.progressStyle.value.index,
-          format: (int s)=>types[s],
-          children: List.generate(types.length, (int index) {
-            return FSelectItem(
-              types[index],
-              index
-            );
-          }),
-          onChange: (value){
+        return FSelect<int>.rich(
+          control: .managed(initial: s.progressStyle.value.index, onChange: (value){
             if(value!=null){
               style=value;
             }
-          },
+          }), autoHide: true,
+          format: (int s)=>types[s],
+          children: List.generate(types.length, (int index) {
+            return FSelectItem<int>(
+              title: Text(types[index]),
+              value: index
+            );
+          }),
         );
       }
     ),

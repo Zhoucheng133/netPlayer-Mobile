@@ -37,25 +37,27 @@ Future<void> showQualityDialog(BuildContext context) async {
       builder: (BuildContext context, StateSetter setState)=>Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          FSelect(
-            format: (int s)=>types[s],
-            initialValue: cellularOnly ? 1 : 0,
-            autoHide: true, 
-            onChange: (int? value){
+          FSelect<int>.rich(
+            control: .managed(initial: cellularOnly ? 1 : 0, onChange: (int? value){
               if(value!=null){
                 cellularOnly=value==1;
               }
-            },
+            }), format: (int s)=>types[s],
+            autoHide: true,
             children: [
-              FSelectItem("cellularAndWiFi".tr, 0),
-              FSelectItem("cellularOnly".tr, 1)
+              FSelectItem(
+                title: Text("cellularAndWiFi".tr,) ,
+                value: 0
+              ),
+              FSelectItem(
+                title: Text("cellularOnly".tr,) ,
+                value: 1
+              ),
             ],
           ),
           const SizedBox(height: 15,),
-          FSelect(
-            format: (int s)=>qualitiesAll[s],
-            autoHide: true, 
-            onChange: (value){
+          FSelect<int>.rich(
+            control: .managed(initial: quality==0 ? 0 : quality==128 ? 1 : 2, onChange: (value){
               if(value!=null){
                 if(value==0){
                   quality=0;
@@ -65,12 +67,21 @@ Future<void> showQualityDialog(BuildContext context) async {
                   quality=320;
                 }
               }
-            },
-            initialValue: quality==0 ? 0 : quality==128 ? 1 : 2,
+            }), format: (int s)=>qualitiesAll[s],
+            autoHide: true,
             children: [
-              FSelectItem("original".tr, 0),
-              FSelectItem("128Kbps", 1),
-              FSelectItem("320Kbps", 2),
+              FSelectItem(
+                title: Text("original".tr,) ,
+                value: 0
+              ),
+              FSelectItem(
+                title: Text("128Kbps",) ,
+                value: 1
+              ),
+              FSelectItem(
+                title: Text("320Kbps",) ,
+                value: 2
+              ),
             ],
           ),
         ],

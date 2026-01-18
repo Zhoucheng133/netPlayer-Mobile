@@ -176,8 +176,7 @@ class _PlayListItemState extends State<PlayListItem> {
           child: StatefulBuilder(
             builder: (BuildContext context, StateSetter setState) {
               return FTextField(
-                autofocus: true,
-                controller: controller,
+                control: .managed(controller: controller), autofocus: true,
                 hint: widget.name,
               );
             }
