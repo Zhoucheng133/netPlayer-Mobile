@@ -1,5 +1,6 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
+import 'package:forui/forui.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
@@ -555,21 +556,40 @@ class _PlayingState extends State<Playing> {
                                       if(p.nowPlay["id"].isEmpty){
                                         return;
                                       }
-                                      var listId = await d.showActionSheet(
-                                        context: context, 
-                                        list: List.generate(l.playList.length, (index){
-                                          return ActionItem(
-                                            key: l.playList[index]['id'],
-                                            name: l.playList[index]['name'],
-                                            icon: null,
-                                          );
-                                        })
+                                      String selectedId = l.playList[0]['id'];
+                                      await d.showOkCancelDialogRaw(
+                                        context: context,
+                                        title: "addToPlaylist".tr,
+                                        okText: "add".tr,
+                                        child: StatefulBuilder(
+                                          builder: (context, setState) {
+                                            return FSelect<String>.rich(
+                                              control: .managed(initial: selectedId, onChange: (val) {
+                                                if(val!=null){
+                                                  setState(() {
+                                                    selectedId = val;
+                                                  });
+                                                }
+                                              }), autoHide: true,
+                                              format: (String id) {
+                                                final item = l.playList.firstWhere(
+                                                  (e) => e['id'] == id,
+                                                );
+                                                return item['name'];
+                                              },
+                                              children: List.generate(l.playList.length, (index) {
+                                                return FSelectItem<String>(
+                                                  title:  Text(l.playList[index]['name']),
+                                                  value: l.playList[index]['id'],
+                                                );
+                                              }),
+                                            );
+                                          },
+                                        ),
+                                        okHandler: () async {
+                                          await operations.addToList(p.nowPlay['id'], selectedId, context);
+                                        },
                                       );
-                                      if(listId!=null){
-                                        if(context.mounted){
-                                          operations.addToList(p.nowPlay['id'], listId, context);
-                                        }
-                                      }
                                     }else if(rlt=='album'){
                                       if(p.nowPlay["id"].isEmpty){
                                         return;
