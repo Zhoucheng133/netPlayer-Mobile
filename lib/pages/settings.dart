@@ -351,6 +351,26 @@ class _SettingsState extends State<Settings> {
                                 color: Colors.grey[400],
                               )),
                             ),
+                            FTile( 
+                              title: Text('showPlaylistCover'.tr),
+                              subtitle: Text(
+                                "showPlaylistCoverContent".tr, 
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey[400],
+                                ),
+                              ),
+                              details: Obx(()=>
+                                FSwitch(
+                                  value: s.showPlaylistCover.value, 
+                                  onChange: (val) async {
+                                    s.showPlaylistCover.value=val;
+                                    final prefs=await SharedPreferences.getInstance();
+                                    prefs.setBool("showPlaylistCover", val);
+                                  }
+                                )
+                              ),
+                            ),
                             FTile(
                               title: Row(
                                 mainAxisSize: MainAxisSize.min,

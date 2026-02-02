@@ -358,66 +358,71 @@ class _PlayListItemState extends State<PlayListItem> {
         height: 60,
         child: Padding(
           padding: const EdgeInsets.only(left: 20, right: 10),
-          child: Row(
-            children: [
-              Container(
-                height: 50,
-                width: 50,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(7),
-                ),
-                clipBehavior: Clip.hardEdge,
-                child: Stack(
-                  children: [
-                    const Center(child: SkeletonAvatar()),
-                    Image.network(
-                      '${u.url.value}/rest/getCoverArt.view?u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&v=1.16.1&c=netPlayer&f=json&id=${widget.coverArt}',
-                      fit: BoxFit.cover,
-                      loadingBuilder: (context, child, loadingProgress){
-                        if(loadingProgress==null){
-                          return Container(
-                            color: s.darkMode.value ? s.bgColor2 : Colors.white,
-                            child: child
-                          );
-                        }else{
-                          return const SizedBox();
-                        }
-                      },
-                    )
-                  ],
-                ),
-              ),
-              const SizedBox(width: 10,),
-              Expanded(
-                child: Container(
-                  color: Colors.transparent,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        widget.name,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      Text(
-                        "${widget.songCount} ${'songsEnd'.tr}",
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey
-                        ),
-                      )
-                    ],
+          child: Obx(
+            ()=> Row(
+              children: [
+                if(s.showPlaylistCover.value) Padding(
+                  padding: const EdgeInsets.only(right: 5),
+                  child: Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(7),
+                    ),
+                    clipBehavior: Clip.hardEdge,
+                    child: Stack(
+                      children: [
+                        const Center(child: SkeletonAvatar()),
+                        Image.network(
+                          '${u.url.value}/rest/getCoverArt.view?u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&v=1.16.1&c=netPlayer&f=json&id=${widget.coverArt}',
+                          fit: BoxFit.cover,
+                          loadingBuilder: (context, child, loadingProgress){
+                            if(loadingProgress==null){
+                              return Container(
+                                color: s.darkMode.value ? s.bgColor2 : Colors.white,
+                                child: child
+                              );
+                            }else{
+                              return const SizedBox();
+                            }
+                          },
+                        )
+                      ],
+                    ),
                   ),
+                ),
+                const SizedBox(width: 5,),
+                Expanded(
+                  child: Container(
+                    color: Colors.transparent,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          widget.name,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Text(
+                          "${widget.songCount} ${'songsEnd'.tr}",
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ),
+                IconButton(
+                  onPressed: ()=>showAction(context), 
+                  icon: const Icon(
+                    Icons.more_vert_rounded,
+                    size: 20,
+                  )
                 )
-              ),
-              IconButton(
-                onPressed: ()=>showAction(context), 
-                icon: const Icon(
-                  Icons.more_vert_rounded,
-                  size: 20,
-                )
-              )
-            ],
+              ],
+            ),
           ),
         ),
       ),

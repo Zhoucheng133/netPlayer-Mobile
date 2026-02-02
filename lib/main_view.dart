@@ -250,6 +250,7 @@ class _MainViewState extends State<MainView> {
         return;
       }
     }
+    s.showPlaylistCover.value=prefs.getBool('showPlaylistCover')??true;
     if(await loginCheck()){
       nowPlaySet();
       qualitySet();

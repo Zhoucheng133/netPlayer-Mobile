@@ -48,6 +48,8 @@ class SettingsVar extends GetxController{
   var progressStyle=ProgressStyle.ring.obs;
   RxBool showTranslation=true.obs;
 
+  RxBool showPlaylistCover=true.obs;
+
   Rx<LanguageType> lang=Rx(supportedLocales[0]);
 
   final bgColor1=const Color.fromARGB(255, 50, 50, 50);

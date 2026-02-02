@@ -224,4 +224,7 @@ const Map<String, String> zhTW = {
   'showAppDocumentDirectory': '顯示App文檔目錄',
   'TempDir': '臨時目錄',
   'showTempDirectory': '顯示臨時目錄',
+
+  'showPlaylistCover': '顯示歌單封面',
+  'showPlaylistCoverContent': '在首頁顯示歌單封面'
 };

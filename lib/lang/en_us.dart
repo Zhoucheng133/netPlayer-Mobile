@@ -224,4 +224,7 @@ const Map<String, String> enUS = {
   'showAppDocumentDirectory': 'Show document directory',
   'TempDir': 'Temporary directory',
   'showTempDirectory': 'Show temporary directory',
+
+  'showPlaylistCover': 'Show playlist cover',
+  'showPlaylistCoverContent': 'Display playlist covers on the homepage'
 };

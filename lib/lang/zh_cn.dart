@@ -224,4 +224,7 @@ const Map<String, String> zhCN={
   'showAppDocumentDirectory': '显示App文档目录',
   'TempDir': '临时目录',
   'showTempDirectory': '显示临时目录',
+
+  'showPlaylistCover': '显示歌单封面',
+  'showPlaylistCoverContent': '在主页显示歌单封面'
 };
