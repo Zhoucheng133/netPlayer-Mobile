@@ -12,7 +12,7 @@ class Account{
 
   // 登录
   Future<Map> login(String url, String username, String token, String salt) async {
-    var response=await httpRequest("$url/rest/ping.view?v=1.12.0&c=myapp&f=json&u=$username&t=$token&s=$salt");
+    var response=await httpRequest("$url/rest/ping.view?v=1.12.0&c=netPlayer&f=json&u=$username&t=$token&s=$salt");
     try {
       response=response["subsonic-response"];
     } catch (_) {
