@@ -28,6 +28,8 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
 
   bool playBeforeInterruption=false;
 
+  bool isSettingUrl = false;
+
   Future<void> initSession() async {
     final session = await AudioSession.instance;
     await session.configure(const AudioSessionConfiguration.music());
@@ -161,7 +163,7 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
         try {
           await player.setFilePath(filePath);
         } catch (_) {
-          skipToNext();
+          await skipToNext();
         }
       }
       player.play();
@@ -177,7 +179,7 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
         try {
           await player.setUrl(url);
         } catch (_) {
-          skipToNext();
+          await skipToNext();
         }
       }
       player.play();
@@ -195,7 +197,7 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
     if(p.nowPlay["id"].isEmpty){
       return;
     }
-    player.pause();
+    await player.pause();
     setMedia(false);
     p.isPlay.value=false;
   }
@@ -206,7 +208,7 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
     if(p.nowPlay["id"].isEmpty){
       return;
     }
-    player.stop();
+    await player.stop();
     p.isPlay.value=false;
     Map<String, Object> tmp={
       'id': '',
@@ -246,6 +248,10 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
   // 上一首
   @override
   Future<void> skipToPrevious() async {
+
+    if (isSettingUrl) return;
+    isSettingUrl = true;
+
     if(p.nowPlay["id"].isEmpty){
       return;
     }
@@ -264,7 +270,9 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
     p.nowPlay.value=tmpList;
     p.nowPlay.refresh();
     // skipHandler=true;
-    play();
+    await play();
+
+    isSettingUrl = false;
     // setMedia(true);
   }
 
@@ -288,6 +296,10 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
   // 下一首
   @override
   Future<void> skipToNext() async {
+
+    if (isSettingUrl) return;
+    isSettingUrl = true;
+
     if(p.nowPlay["id"].isEmpty){
       return;
     }
@@ -306,7 +318,9 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
     p.nowPlay.value=tmpList;
     p.nowPlay.refresh();
     // skipHandler=true;
-    play();
+    await play();
+
+    isSettingUrl = false;
     // setMedia(true);
   }
 
