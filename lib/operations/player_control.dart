@@ -30,7 +30,7 @@ class PlayerControl{
   Future<void> shufflePlay() async {
     final rlt=await httpRequest("${u.url.value}/rest/getRandomSongs?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&size=1");
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
-      p.handler.stop();
+      await p.handler.stop();
       return;
     }
     var tmp=rlt['subsonic-response']['randomSongs']['song'][0];
@@ -46,7 +46,7 @@ class PlayerControl{
       'list': [],
     };
     p.nowPlay.value=rdSong;
-    p.handler.play();
+    await p.handler.play();
     p.isPlay.value=true;
   }
 }

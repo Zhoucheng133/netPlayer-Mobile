@@ -256,7 +256,8 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
       return;
     }
     if(p.nowPlay['playFrom']=='fullRandom'){
-      PlayerControl().shufflePlay();
+      await PlayerControl().shufflePlay();
+      isSettingUrl = false;
       return;
     }
     var tmpList=p.nowPlay.value;
@@ -304,7 +305,8 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
       return;
     }
     if(p.nowPlay['playFrom']=='fullRandom'){
-      PlayerControl().shufflePlay();
+      await PlayerControl().shufflePlay();
+      isSettingUrl = false;
       return;
     }
     Map<String, dynamic> tmpList=p.nowPlay.value;
