@@ -251,6 +251,7 @@ class _MainViewState extends State<MainView> {
       }
     }
     s.showPlaylistCover.value=prefs.getBool('showPlaylistCover')??true;
+    s.resizeCoverImg.value=prefs.getBool('resizeCoverImg')??false;
     if(await loginCheck()){
       nowPlaySet();
       qualitySet();

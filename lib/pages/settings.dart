@@ -372,6 +372,26 @@ class _SettingsState extends State<Settings> {
                               ),
                             ),
                             FTile(
+                              title: Text("resizeCoverImg".tr),
+                              subtitle: Text(
+                                "resizeCoverImgContent".tr, 
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey[400],
+                                ),
+                              ),
+                              details: Obx(()=>
+                                FSwitch(
+                                  value: s.resizeCoverImg.value, 
+                                  onChange: (val) async {
+                                    s.resizeCoverImg.value=val;
+                                    final prefs=await SharedPreferences.getInstance();
+                                    prefs.setBool("resizeCoverImg", val);
+                                  }
+                                )
+                              ),
+                            ),
+                            FTile(
                               title: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.center,
