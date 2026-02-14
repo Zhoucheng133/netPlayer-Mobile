@@ -226,5 +226,8 @@ const Map<String, String> zhTW = {
   'showTempDirectory': '顯示臨時目錄',
 
   'showPlaylistCover': '顯示歌單封面',
-  'showPlaylistCoverContent': '在首頁顯示歌單封面'
+  'showPlaylistCoverContent': '在首頁顯示歌單封面',
+
+  'resizeCoverImg': "縮放封面圖片",
+  'resizeCoverImgContent': "請求小尺寸的音樂/歌單封面",
 };

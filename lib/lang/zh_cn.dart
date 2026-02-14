@@ -226,5 +226,8 @@ const Map<String, String> zhCN={
   'showTempDirectory': '显示临时目录',
 
   'showPlaylistCover': '显示歌单封面',
-  'showPlaylistCoverContent': '在主页显示歌单封面'
+  'showPlaylistCoverContent': '在主页显示歌单封面',
+
+  'resizeCoverImg': "缩放封面图片",
+  'resizeCoverImgContent': "请求小尺寸的歌曲/歌单封面",
 };

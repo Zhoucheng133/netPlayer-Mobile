@@ -226,5 +226,8 @@ const Map<String, String> enUS = {
   'showTempDirectory': 'Show temporary directory',
 
   'showPlaylistCover': 'Show playlist cover',
-  'showPlaylistCoverContent': 'Display playlist covers on the homepage'
+  'showPlaylistCoverContent': 'Display playlist covers on the homepage',
+
+  'resizeCoverImg': "Resize cover image",
+  'resizeCoverImgContent': "Request small-sized music/playlist covers",
 };
