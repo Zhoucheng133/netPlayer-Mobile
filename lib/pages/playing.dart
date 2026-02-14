@@ -338,7 +338,8 @@ class _PlayingState extends State<Playing> {
                                       p.cover.value!,
                                       fit: BoxFit.contain,
                                     ) : Image.network(
-                                      "${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}",
+                                      // "${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}",
+                                      operations.coverLink(p.nowPlay["id"]),
                                       fit: BoxFit.contain,
                                     ),
                                   ),
@@ -633,7 +634,8 @@ class _PlayingState extends State<Playing> {
                                                 p.cover.value!,
                                                 fit: BoxFit.contain,
                                               ) : Image.network(
-                                                "${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}",
+                                                // "${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}",
+                                                operations.coverLink(p.nowPlay["id"]),
                                                 fit: BoxFit.contain,
                                               ),
                                             ),

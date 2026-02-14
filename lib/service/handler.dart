@@ -8,6 +8,7 @@ import 'package:audio_service/audio_service.dart';
 import 'package:audio_session/audio_session.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/operations/player_control.dart';
 import 'package:netplayer_mobile/operations/seek_check.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
@@ -22,6 +23,7 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
   final SettingsVar s=Get.find();
   var playURL="";
   late MediaItem item;
+  final Operations operations=Operations();
 
   PlayerVar p=Get.find();
   final UserVar u = Get.find();
@@ -122,7 +124,8 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
       artist: p.nowPlay["artist"],
       artUri: p.nowPlay['id'].isEmpty ? null :
       p.nowPlay['playFrom']=='download' ? await getCoverFromFile() :
-       Uri.parse("${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}"),
+      //  Uri.parse("${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}"),
+      Uri.parse(operations.coverLink(p.nowPlay["id"])),
       album: p.nowPlay["album"],
       duration: Duration(seconds: p.nowPlay['duration']),
     );

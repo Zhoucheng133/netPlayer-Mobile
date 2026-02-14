@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/pages/playing.dart';
 import 'package:netplayer_mobile/variables/page_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
@@ -18,6 +19,7 @@ class _PlaybarContentState extends State<PlaybarContent> {
   PlayerVar p=Get.find();
   final UserVar u = Get.find();
   SettingsVar s=Get.find();
+  Operations operations=Operations();
 
   void toPlaying(){
     p.switchHero.value=true;
@@ -82,7 +84,8 @@ class _PlaybarContentState extends State<PlaybarContent> {
                                     p.cover.value!,
                                     fit: BoxFit.contain,
                                   ) : Image.network(
-                                    "${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}",
+                                    // "${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}",
+                                    operations.coverLink(p.nowPlay["id"]),
                                     fit: BoxFit.contain,
                                   ),
                                 )
@@ -100,7 +103,8 @@ class _PlaybarContentState extends State<PlaybarContent> {
                                   p.cover.value!,
                                   fit: BoxFit.contain,
                                 ) : Image.network(
-                                  "${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}",
+                                  // "${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}",
+                                  operations.coverLink(p.nowPlay["id"]),
                                   fit: BoxFit.contain,
                                 ),
                               )

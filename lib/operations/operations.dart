@@ -8,6 +8,7 @@ import 'package:netplayer_mobile/operations/play_check.dart';
 import 'package:netplayer_mobile/operations/requests.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
+import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,6 +19,7 @@ class Operations{
   LsVar l=Get.find();
   PlayerVar p=Get.find();
   LyricGet lyricGet=LyricGet();
+  SettingsVar s=Get.find();
 
   Future<void> renamePlayList(String id, String newname, BuildContext context) async {
     if(newname.isEmpty){
@@ -310,5 +312,12 @@ class Operations{
         },
       );
     }
+  }
+
+  String coverLink(String id){
+    if(s.resizeCoverImg.value){
+      return "${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${id}&size=400";
+    }
+    return "${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${id}";
   }
 }

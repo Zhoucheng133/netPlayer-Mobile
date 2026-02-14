@@ -49,6 +49,7 @@ class SettingsVar extends GetxController{
   RxBool showTranslation=true.obs;
 
   RxBool showPlaylistCover=true.obs;
+  RxBool resizeCoverImg=false.obs;
 
   Rx<LanguageType> lang=Rx(supportedLocales[0]);
 

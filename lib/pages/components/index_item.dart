@@ -214,7 +214,8 @@ class _PlayListItemState extends State<PlayListItem> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Image.network(
-                  "${u.url.value}/rest/getCoverArt.view?u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&v=1.16.1&c=netPlayer&f=json&id=${widget.coverArt}",
+                  // "${u.url.value}/rest/getCoverArt.view?u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&v=1.16.1&c=netPlayer&f=json&id=${widget.coverArt}",
+                  operations.coverLink(widget.coverArt),
                   width: 100,
                 ),
               ),
@@ -374,7 +375,8 @@ class _PlayListItemState extends State<PlayListItem> {
                       children: [
                         const Center(child: SkeletonAvatar()),
                         Image.network(
-                          '${u.url.value}/rest/getCoverArt.view?u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&v=1.16.1&c=netPlayer&f=json&id=${widget.coverArt}',
+                          // '${u.url.value}/rest/getCoverArt.view?u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&v=1.16.1&c=netPlayer&f=json&id=${widget.coverArt}',
+                          operations.coverLink(widget.coverArt),
                           fit: BoxFit.cover,
                           loadingBuilder: (context, child, loadingProgress){
                             if(loadingProgress==null){
