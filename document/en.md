@@ -83,7 +83,7 @@ The following screenshots were taken on emulators. The actual appearance may var
 
 - Install **Flutter** — see the official guide:  
   [Flutter - Quick Start](https://docs.flutter.cn/get-started/quick)  
-  This project uses **Flutter 3.38**
+  This project uses **Flutter 3.41**
 - For Android development or debugging: install **Android Studio**
   - Gradle version required: `8.4` (Download automatically)
   - My development environment: Android SDK `35.0.1`
