@@ -16,6 +16,7 @@ import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 class Playing extends StatefulWidget {
   const Playing({super.key});
@@ -170,6 +171,16 @@ class _PlayingState extends State<Playing> {
 
   SettingsVar s=Get.find();
 
+  void wakeLockHandler(){
+    if(s.wakeLockLyric.value){
+      if(showlyric){
+        WakelockPlus.enable();
+      }else{
+        WakelockPlus.disable();
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Obx(()=>
@@ -224,6 +235,7 @@ class _PlayingState extends State<Playing> {
                         if(showlyric){
                           scrollLyric();
                         }
+                        wakeLockHandler();
                       });
                     },
                     child: Container(
@@ -547,8 +559,11 @@ class _PlayingState extends State<Playing> {
                                       }
                                       setState(() {
                                         showlyric=!showlyric;
-                                        scrollLyric();
                                       });
+                                      if(showlyric){
+                                        scrollLyric();
+                                      }
+                                      wakeLockHandler();
                                     }else if(rlt=='add'){
                                       if(l.playList.isEmpty && context.mounted){
                                         d.showOkDialog(context: context, title: "cantAddToPlaylist".tr, content: "noPlaylist".tr);
