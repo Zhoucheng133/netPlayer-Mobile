@@ -230,4 +230,7 @@ const Map<String, String> enUS = {
 
   'resizeCoverImg': "Resize cover image",
   'resizeCoverImgContent': "Request small-sized music/playlist covers",
+
+  'keepScreenOnInLyric': "Keep screen on in lyrics",
+  'keepScreenOnInLyricContent': "The screen will not lock automatically",
 };

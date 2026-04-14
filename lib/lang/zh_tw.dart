@@ -230,4 +230,7 @@ const Map<String, String> zhTW = {
 
   'resizeCoverImg': "縮放封面圖片",
   'resizeCoverImgContent': "請求小尺寸的音樂/歌單封面",
+
+  'keepScreenOnInLyric': '歌詞頁保持螢幕常亮',
+  'keepScreenOnInLyricContent': '在顯示歌詞時不會自動鎖定螢幕',
 };

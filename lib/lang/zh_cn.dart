@@ -230,4 +230,7 @@ const Map<String, String> zhCN={
 
   'resizeCoverImg': "缩放封面图片",
   'resizeCoverImgContent': "请求小尺寸的歌曲/歌单封面",
+
+  'keepScreenOnInLyric': '歌词页保持屏幕常亮',
+  'keepScreenOnInLyricContent': '在显示歌词时不会自动锁定屏幕',
 };
