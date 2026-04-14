@@ -250,6 +250,7 @@ class _MainViewState extends State<MainView> {
         return;
       }
     }
+    s.wakeLockLyric.value=prefs.getBool('wakeLockLyric')??true;
     s.showPlaylistCover.value=prefs.getBool('showPlaylistCover')??true;
     s.resizeCoverImg.value=prefs.getBool('resizeCoverImg')??false;
     if(await loginCheck()){

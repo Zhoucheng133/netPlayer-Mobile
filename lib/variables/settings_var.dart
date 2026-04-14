@@ -50,6 +50,7 @@ class SettingsVar extends GetxController{
 
   RxBool showPlaylistCover=true.obs;
   RxBool resizeCoverImg=false.obs;
+  RxBool wakeLockLyric=true.obs;
 
   Rx<LanguageType> lang=Rx(supportedLocales[0]);
 

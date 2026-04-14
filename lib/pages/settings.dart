@@ -351,6 +351,26 @@ class _SettingsState extends State<Settings> {
                                 color: Colors.grey[400],
                               )),
                             ),
+                            FTile(
+                              title: Text('keepScreenOnInLyric'.tr),
+                              subtitle: Text(
+                                "keepScreenOnInLyricContent".tr, 
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey[400],
+                                ),
+                              ),
+                              details: Obx(()=>
+                                FSwitch(
+                                  value: s.wakeLockLyric.value,
+                                  onChange: (val) async {
+                                    s.wakeLockLyric.value=val;
+                                    final prefs=await SharedPreferences.getInstance();
+                                    prefs.setBool("wakeLockLyric", val);
+                                  },
+                                )
+                              )
+                            ),
                             FTile( 
                               title: Text('showPlaylistCover'.tr),
                               subtitle: Text(
