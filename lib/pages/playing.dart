@@ -104,6 +104,7 @@ class _PlayingState extends State<Playing> {
 
   @override
   void dispose(){
+    WakelockPlus.disable();
     Future.microtask(() {
       p.switchHero.value = false;
     });
