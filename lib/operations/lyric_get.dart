@@ -17,7 +17,7 @@ class LyricGet{
     int minutes = int.parse(parts[0]);
     List<String> secondsParts = parts[1].split('.');
     int seconds = int.parse(secondsParts[0]);
-    int milliseconds = int.parse(secondsParts[1]);
+    int milliseconds = int.parse(secondsParts.length>1 ? secondsParts[1] : "0");
 
     // 将分钟、秒和毫秒转换为总毫秒数
     return (minutes * 60 * 1000) + (seconds * 1000) + milliseconds;
