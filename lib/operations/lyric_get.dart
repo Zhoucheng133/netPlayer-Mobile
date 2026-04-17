@@ -116,7 +116,7 @@ class LyricGet{
       if (match != null) {
         String timeStr = match.group(1)!;
         String content = line.replaceAll(timeRegex, "").trim();
-        translateMap[timeStr.split('.')[0]] = content;
+        translateMap[timeStr] = content;
       }
     }
 
@@ -135,8 +135,8 @@ class LyricGet{
         String timeInString = m.group(1)!;
         try {
           int timeMs = timeToMilliseconds(timeInString);
-          String pureTimeKey = timeInString.split('.')[0];
-          String lyricTranslate = translateMap[pureTimeKey] ?? "";
+          // String pureTimeKey = timeInString.split('.')[0];
+          String lyricTranslate = translateMap[timeInString] ?? "";
 
           lyricCovert.add(LyricItem(content, lyricTranslate, timeMs));
         } catch (_) {
