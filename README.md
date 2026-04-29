@@ -18,11 +18,7 @@ Support multi-language now! You can view the English version of the README [HERE
 经过测试的平台：小米5X & iPhone13  
 若有任何bug欢迎提交至Issues
 
-（`apk`安装包见`Release`，iOS设备请自行下载源码安装）
-
-> [!TIP]
-> 受限于Subsonic API，“所有歌曲”和“专辑”只能显示500首/张（随机的500首歌曲排序展示）  
-> 从`v2.3.0`版本开始支持显示Navidrome服务的“所有歌曲”和“专辑”（默认开启，优先检查是否支持Navidrome API）
+如果有帮助到了你，欢迎[给我投喂](https://blog.z-server.top/sponsor/)谢谢 🙏  
 
 ## 目录
 - [简介](#简介)
@@ -35,6 +31,10 @@ Support multi-language now! You can view the English version of the README [HERE
 
 
 ## 一些使用技巧
+
+> [!TIP]
+> 受限于Subsonic API，“所有歌曲”和“专辑”只能显示500首/张（随机的500首歌曲排序展示）  
+> 从`v2.3.0`版本开始支持显示Navidrome服务的“所有歌曲”和“专辑”（默认开启，优先检查是否支持Navidrome API）
 
 > [!TIP]
 > 在主页-更多(位于右上角三个点)中可以选择随机播放所有歌曲，这种方式随机播放的歌曲**不受**API中500首歌曲的限制

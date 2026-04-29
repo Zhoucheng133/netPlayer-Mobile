@@ -16,11 +16,7 @@ If you are looking for the desktop version, please visit the [**netPlayer Next**
 Tested on: Xiaomi 5X & iPhone 13  
 If you encounter any bugs, feel free to report them in the Issues section.
 
-(`apk` installers can be found in **Releases**. For iOS devices, please download and build from source.)
-
-> [!TIP]
-> Due to limitations of the Subsonic API, “All Songs” and “Albums” can only display 500 items  (a random selection of 500 songs).  
-> Starting from `v2.3.0`, Navidrome's “All Songs” and “Albums” are supported  (enabled by default, and the app will first check whether the Navidrome API is available).
+If this project was helpful, consider [buying me a coffee](https://blog.z-server.top/sponsor/). Cheers! ☕
 
 ## Contents
 - [Intro](#intro)
@@ -32,6 +28,10 @@ If you encounter any bugs, feel free to report them in the Issues section.
 - [APIs](#apis)
 
 ## Tips & Tricks
+
+> [!TIP]
+> Due to limitations of the Subsonic API, “All Songs” and “Albums” can only display 500 items  (a random selection of 500 songs).  
+> Starting from `v2.3.0`, Navidrome's “All Songs” and “Albums” are supported  (enabled by default, and the app will first check whether the Navidrome API is available).
 
 > [!TIP]
 > On the Home page → More (top-right three dots), you can shuffle **all** songs.  
