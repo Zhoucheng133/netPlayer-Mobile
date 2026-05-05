@@ -26,6 +26,7 @@ Support multi-language now! You can view the English version of the README [HERE
 - [截图](#截图)
 - [支持的语言](#支持的语言)
 - [常见问题](#常见问题)
+- [其它链接](#其它链接)
 - [在你的设备上配置](#在你的设备上配置)
 - [一些API](#一些api)
 
@@ -74,6 +75,9 @@ Support multi-language now! You can view the English version of the README [HERE
 
 > 歌曲的封面来自你上传的音频文件，如果音频文件没有内嵌封面则会显示默认封面  
 > 另外经过测试部分编码的音频文件内嵌封面加载存在异常（或加载时间过长），可能会导致崩溃，因此也会显示默认封面
+
+## 其它链接
+【[MusicDL-GUI](https://github.com/Zhoucheng133/MusicDL-GUI)】下载歌曲的工具
 
 ## 在你的设备上配置
 

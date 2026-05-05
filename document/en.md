@@ -24,6 +24,7 @@ If this project was helpful, consider [buying me a coffee](https://blog.z-server
 - [Screenshots](#screenshots)
 - [Supported Languages](#supported-languages)
 - [FAQ](#faq)
+- [Other links](#other-links)
 - [Build on Your Device](#build-on-your-device)
 - [APIs](#apis)
 
@@ -78,6 +79,9 @@ The following screenshots were taken on emulators. The actual appearance may var
 >  
 > Some audio encodings have issues loading embedded images (slow loading or failures),  
 > which may cause crashes, so the app will fall back to showing the default cover.
+
+## Other links
+【[MusicDL-GUI](https://github.com/Zhoucheng133/MusicDL-GUI)】下载歌曲的工具
 
 ## Build on Your Device
 
