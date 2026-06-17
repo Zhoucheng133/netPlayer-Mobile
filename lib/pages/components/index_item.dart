@@ -374,8 +374,7 @@ class _PlayListItemState extends State<PlayListItem> {
                     child: Stack(
                       children: [
                         const Center(child: SkeletonAvatar()),
-                        Image.network(
-                          // '${u.url.value}/rest/getCoverArt.view?u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&v=1.16.1&c=netPlayer&f=json&id=${widget.coverArt}',
+                        if(u.url.value.isNotEmpty) Image.network(
                           operations.coverLink(widget.coverArt),
                           fit: BoxFit.cover,
                           loadingBuilder: (context, child, loadingProgress){
