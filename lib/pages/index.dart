@@ -75,7 +75,7 @@ class _IndexState extends State<Index> {
     final rlt=await d.showOkCancelDialog (
       context: context,
       title: "logout".tr,
-      content: "确定要注销吗？这会返回到登录界面",
+      content: "logoutContent".tr,
       okText: "logout".tr,
     );
     if(rlt){
