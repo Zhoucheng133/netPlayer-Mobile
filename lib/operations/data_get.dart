@@ -137,7 +137,7 @@ class DataGet{
       }
       ls=ls.map((item){
         if (item['duration'] is num) {
-          item['duration'] = (item['duration'] as num).toInt();
+          item['duration'] = (item['duration'] as num?)?.toInt() ?? 0;
         }
         if (item.containsKey('createdAt')) {
           item['created'] = item['createdAt'];
@@ -169,7 +169,7 @@ class DataGet{
       }
       ls=ls.map((item){
         if (item['duration'] is num) {
-          item['duration'] = (item['duration'] as num).toInt();
+          item['duration'] = (item['duration'] as num?)?.toInt() ?? 0;
         }
         if (item.containsKey('createdAt')) {
           item['created'] = item['createdAt'];
