@@ -338,7 +338,7 @@ class _SongItemState extends State<SongItem> {
               s.selectList.add(widget.item['id']);
             }
           }else{
-            PlayerControl().playSong(context, widget.item['id'], widget.item['title'], widget.item['artist'], widget.from, widget.item['duration'], widget.listId, widget.index, widget.ls, widget.item['album']);
+            PlayerControl().playSong(context, widget.item['id'], widget.item['title'], widget.item['artist'], widget.from, widget.item['duration']??0, widget.listId, widget.index, widget.ls, widget.item['album']);
           }
         },
         onLongPress: (){

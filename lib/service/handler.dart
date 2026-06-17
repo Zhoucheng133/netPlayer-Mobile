@@ -91,6 +91,11 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
         }
       }
     });
+    player.durationStream.listen((duration) {
+      if(p.nowPlay["duration"]==0){
+        p.nowPlay["duration"]=duration?.inSeconds ?? 0;
+      }
+    });
     player.playerStateStream.listen((state) {
       if(state.processingState == ProcessingState.completed) {
         // print("complete");

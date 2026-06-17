@@ -398,7 +398,7 @@ class _PlayingState extends State<Playing> {
                                 ),
                                 child: Slider(
                                   value: p.nowPlay['duration']==0 ? 0.0 : p.playProgress.value/1000/p.nowPlay["duration"]>1 ? 1.0 : p.playProgress.value/1000/p.nowPlay["duration"]<0 ? 0 : p.playProgress.value/1000/p.nowPlay["duration"], 
-                                  onChanged: (value){
+                                  onChanged: p.nowPlay['duration']==0 ? null : (value){
                                     seekChange(value);
                                   },
                                   onChangeEnd: (value){
