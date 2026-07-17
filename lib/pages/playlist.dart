@@ -125,52 +125,43 @@ class _PlaylistState extends State<Playlist> {
             const SizedBox(width: 10,)
           ],
         ),
-        body: Column(
-          children: [
-            Expanded(
-              child: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 200),
-                child: RefreshIndicator(
-                  onRefresh: () => getList(context),
-                  child: CupertinoScrollbar(
-                    controller: controller,
-                    child: CustomScrollView(
-                      physics: const AlwaysScrollableScrollPhysics(),
-                      key: const Key('1'),
+        body: RefreshIndicator(
+          onRefresh: () => getList(context),
+          child: CupertinoScrollbar(
+            controller: controller,
+            child: CustomScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              key: const Key('1'),
+              controller: controller,
+              slivers: [
+                SliverToBoxAdapter(
+                  child: TitleArea(title: widget.name, subtitle: '${ loading ? widget.songCount.toString() : ls.length} ${"songsEnd".tr}',),
+                ),
+                !loading ? SliverList.builder(
+                  itemCount: ls.length,
+                  itemBuilder: (context, index){
+                    return AutoScrollTag(
+                      key: ValueKey(index),
+                      index: index,
                       controller: controller,
-                      slivers: [
-                        SliverToBoxAdapter(
-                          child: TitleArea(title: widget.name, subtitle: '${ loading ? widget.songCount.toString() : ls.length} ${"songsEnd".tr}',),
-                        ),
-                        !loading ? SliverList.builder(
-                          itemCount: ls.length,
-                          itemBuilder: (context, index){
-                            return AutoScrollTag(
-                              key: ValueKey(index),
-                              index: index,
-                              controller: controller,
-                              child: SongItem(item: ls[index], index: index, ls: ls, from: 'playlist', listId: widget.id, refresh: () => getList(context),),
-                            );
-                          }
-                        ) : SliverList.builder(
-                          itemCount: widget.songCount,
-                          itemBuilder: (context, index){
-                            return const SongSkeleton(showLoved: false);
-                          }
-                        ),
-                        SliverFillRemaining(
-                          hasScrollBody: false,
-                          child: Container(
-                            color: s.darkMode.value ? s.bgColor2 : Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
+                      child: SongItem(item: ls[index], index: index, ls: ls, from: 'playlist', listId: widget.id, refresh: () => getList(context),),
+                    );
+                  }
+                ) : SliverList.builder(
+                  itemCount: widget.songCount,
+                  itemBuilder: (context, index){
+                    return const SongSkeleton(showLoved: false);
+                  }
+                ),
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Container(
+                    color: s.darkMode.value ? s.bgColor2 : Colors.white,
                   ),
-                )
-              ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

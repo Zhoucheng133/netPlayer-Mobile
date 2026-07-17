@@ -87,47 +87,38 @@ class _ArtistsState extends State<Artists> {
           ],
           centerTitle: false,
         ),
-        body: Column(
-          children: [
-            Expanded(
-              child: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 200),
-                child: RefreshIndicator(
-                  onRefresh: () => getList(context),
-                  child: CupertinoScrollbar(
-                    controller: controller,
-                    child: CustomScrollView(
-                      physics: const AlwaysScrollableScrollPhysics(),
-                      key: const Key("1"),
-                      controller: controller,
-                      slivers: [
-                        SliverToBoxAdapter(
-                          child: TitleArea(title: 'artists'.tr, subtitle: '${ls.length} ${"artistEnd".tr}',),
-                        ),
-                        !loading ? SliverList.builder(
-                          itemCount: ls.length,
-                          itemBuilder: (context ,index){
-                            return ArtistItem(index: index, item: ls[index], );
-                          }
-                        ) : SliverList.builder(
-                          itemCount: 20,
-                          itemBuilder: (context, index) {
-                            return const ArtistSkeleton();
-                          },
-                        ),
-                        SliverFillRemaining(
-                          hasScrollBody: false,
-                          child: Container(
-                            color: s.darkMode.value ? s.bgColor2 : Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
+        body: RefreshIndicator(
+          onRefresh: () => getList(context),
+          child: CupertinoScrollbar(
+            controller: controller,
+            child: CustomScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              key: const Key("1"),
+              controller: controller,
+              slivers: [
+                SliverToBoxAdapter(
+                  child: TitleArea(title: 'artists'.tr, subtitle: '${ls.length} ${"artistEnd".tr}',),
+                ),
+                !loading ? SliverList.builder(
+                  itemCount: ls.length,
+                  itemBuilder: (context ,index){
+                    return ArtistItem(index: index, item: ls[index], );
+                  }
+                ) : SliverList.builder(
+                  itemCount: 20,
+                  itemBuilder: (context, index) {
+                    return const ArtistSkeleton();
+                  },
+                ),
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Container(
+                    color: s.darkMode.value ? s.bgColor2 : Colors.white,
                   ),
-                )
-              ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

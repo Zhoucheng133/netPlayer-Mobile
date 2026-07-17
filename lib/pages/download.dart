@@ -113,49 +113,40 @@ class _DownloadState extends State<Download> {
             ],
             centerTitle: false,
           ),
-          body: Column(
-            children: [
-              Expanded(
-                child: AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 200),
-                  child: CupertinoScrollbar(
-                    controller: controller,
-                    child: CustomScrollView(
-                      physics: const AlwaysScrollableScrollPhysics(),
-                      key: const Key("1"),
-                      controller: controller,
-                      slivers: [
-                        SliverToBoxAdapter(
-                          child: TitleArea(title: 'downloaded'.tr, subtitle: '${downloadVar.downloadFinishedList.length} ${"songsEnd".tr}',),
-                        ),
-                        SliverList.builder(
-                          itemCount: downloadVar.downloadFinishedList.length,
-                          itemBuilder: (context ,index){
-                            return AutoScrollTag(
-                              controller: controller,
-                              index: index,
-                              key: ValueKey(index),
-                              child: SongItemDownload(
-                                index: index, 
-                                item: downloadVar.downloadFinishedList[index].getInfo(), 
-                                onSelected: (value)=>toggleSelect(value), 
-                                selected: isSelected(downloadVar.downloadFinishedList[index].getInfo()),
-                              )
-                            );
-                          }
-                        ),
-                        SliverFillRemaining(
-                          hasScrollBody: false,
-                          child: Container(
-                            color: s.darkMode.value ? s.bgColor2 : Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
+          body: CupertinoScrollbar(
+            controller: controller,
+            child: CustomScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              key: const Key("1"),
+              controller: controller,
+              slivers: [
+                SliverToBoxAdapter(
+                  child: TitleArea(title: 'downloaded'.tr, subtitle: '${downloadVar.downloadFinishedList.length} ${"songsEnd".tr}',),
                 ),
-              ),
-            ],
+                SliverList.builder(
+                  itemCount: downloadVar.downloadFinishedList.length,
+                  itemBuilder: (context ,index){
+                    return AutoScrollTag(
+                      controller: controller,
+                      index: index,
+                      key: ValueKey(index),
+                      child: SongItemDownload(
+                        index: index, 
+                        item: downloadVar.downloadFinishedList[index].getInfo(), 
+                        onSelected: (value)=>toggleSelect(value), 
+                        selected: isSelected(downloadVar.downloadFinishedList[index].getInfo()),
+                      )
+                    );
+                  }
+                ),
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Container(
+                    color: s.darkMode.value ? s.bgColor2 : Colors.white,
+                  ),
+                ),
+              ],
+            ),
           )
       ),
     );

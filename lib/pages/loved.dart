@@ -118,45 +118,40 @@ class _LovedState extends State<Loved> {
             const SizedBox(width: 10,)
           ],
         ),
-        body: Expanded(
-          child: AnimatedSwitcher(
-            duration: const Duration(milliseconds: 200),
-            child: AbsorbPointer(
-              absorbing: loading,
-              child: RefreshIndicator(
-                onRefresh: () => getList(context),
-                child: CupertinoScrollbar(
-                  controller: controller,
-                  child: CustomScrollView(
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    key: const Key('1'),
-                    controller: controller,
-                    slivers: [
-                      SliverToBoxAdapter(
-                        child: TitleArea(title: 'loved'.tr, subtitle: '${lsVar.loved.length} ${"songsEnd".tr}', ),
-                      ),
-                      SliverList.builder(
-                        itemCount: lsVar.loved.length,
-                        itemBuilder: (context, index){
-                          return AutoScrollTag(
-                            key: ValueKey(index),
-                            index: index,
-                            controller: controller,
-                            child: SongItem(item: lsVar.loved[index], index: index, ls: lsVar.loved, from: 'loved', listId: '',),
-                          );
-                        }
-                      ),
-                      SliverFillRemaining(
-                        hasScrollBody: false,
-                        child: Container(
-                          color: s.darkMode.value ? s.bgColor2 : Colors.white,
-                        ),
-                      ),
-                    ],
+        body: AbsorbPointer(
+          absorbing: loading,
+          child: RefreshIndicator(
+            onRefresh: () => getList(context),
+            child: CupertinoScrollbar(
+              controller: controller,
+              child: CustomScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                key: const Key('1'),
+                controller: controller,
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: TitleArea(title: 'loved'.tr, subtitle: '${lsVar.loved.length} ${"songsEnd".tr}', ),
                   ),
-                ),
+                  SliverList.builder(
+                    itemCount: lsVar.loved.length,
+                    itemBuilder: (context, index){
+                      return AutoScrollTag(
+                        key: ValueKey(index),
+                        index: index,
+                        controller: controller,
+                        child: SongItem(item: lsVar.loved[index], index: index, ls: lsVar.loved, from: 'loved', listId: '',),
+                      );
+                    }
+                  ),
+                  SliverFillRemaining(
+                    hasScrollBody: false,
+                    child: Container(
+                      color: s.darkMode.value ? s.bgColor2 : Colors.white,
+                    ),
+                  ),
+                ],
               ),
-            )
+            ),
           ),
         ),
       ),
