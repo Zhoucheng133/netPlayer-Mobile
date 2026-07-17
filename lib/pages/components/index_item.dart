@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
-import 'package:netplayer_mobile/pages/playlist.dart';
 import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
@@ -352,7 +351,11 @@ class _PlayListItemState extends State<PlayListItem> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        Get.to(()=>Playlist(id: widget.id, name: widget.name, songCount: widget.songCount));
+        Get.toNamed('/playlist', id: 1, arguments: {
+          'id': widget.id,
+          'name': widget.name,
+          'songCount': widget.songCount,
+        });
       },
       onLongPress: ()=>showAction(context),
       child: SizedBox(

@@ -63,7 +63,6 @@ class PlayerVar extends GetxController{
   RxInt lyricLine=0.obs;
   // 正在播放
   RxBool isPlay=false.obs;
-  RxBool switchHero=false.obs;
 
   // 歌词字体大小
   RxInt fontSize=18.obs;

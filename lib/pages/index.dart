@@ -1,26 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:forui/forui.dart';
 import 'package:get/get.dart';
-import 'package:netplayer_mobile/operations/account.dart';
-import 'package:netplayer_mobile/operations/data_get.dart';
-import 'package:netplayer_mobile/operations/operations.dart';
-import 'package:netplayer_mobile/operations/player_control.dart';
-import 'package:netplayer_mobile/pages/about.dart';
-import 'package:netplayer_mobile/pages/albums.dart';
 import 'package:netplayer_mobile/pages/all.dart';
+import 'package:netplayer_mobile/pages/album_content.dart';
+import 'package:netplayer_mobile/pages/albums.dart';
+import 'package:netplayer_mobile/pages/artist_content.dart';
 import 'package:netplayer_mobile/pages/artists.dart';
-import 'package:netplayer_mobile/pages/components/index_item.dart';
+import 'package:netplayer_mobile/pages/components/index_content.dart';
 import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/download.dart';
 import 'package:netplayer_mobile/pages/loved.dart';
-import 'package:netplayer_mobile/pages/remote.dart';
+import 'package:netplayer_mobile/pages/playlist.dart';
 import 'package:netplayer_mobile/pages/search.dart';
-import 'package:netplayer_mobile/pages/settings.dart';
-import 'package:netplayer_mobile/variables/dialog_var.dart';
-import 'package:netplayer_mobile/variables/ls_var.dart';
-import 'package:netplayer_mobile/variables/page_var.dart';
-import 'package:netplayer_mobile/variables/player_var.dart';
-import 'package:netplayer_mobile/variables/settings_var.dart';
+import 'package:netplayer_mobile/pages/search_in.dart';
 
 class Index extends StatefulWidget {
   const Index({super.key});
@@ -31,265 +22,71 @@ class Index extends StatefulWidget {
 
 class _IndexState extends State<Index> {
 
-  Account account=Account();
-  int pageIndex=0;
-  DataGet dataGet=DataGet();
-  PageVar p=Get.find();
-  LsVar l=Get.find();
-  PlayerVar pl=Get.find();
-  SettingsVar s=Get.find();
-  final DialogVar d=Get.find();
-
-  Future<void> initGet(BuildContext context) async {
-    if(context.mounted){
-      await dataGet.getPlayLists(context);
-    }
-    if(context.mounted){
-      l.loved.value=await dataGet.getLoved(context);
-    }
-  }
-  
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      initGet(context);
-    });
-    controller.addListener((){
-      if(controller.offset>200){
-        p.index.value=1;
-      }else{
-        p.index.value=0;
-      }
-    });
-  }
-
-  @override
-  void dispose(){
-    super.dispose();
-  }
-
-  
-
-  Future<void> logout(BuildContext context) async {
-    final rlt=await d.showOkCancelDialog (
-      context: context,
-      title: "logout".tr,
-      content: "logoutContent".tr,
-      okText: "logout".tr,
-    );
-    if(rlt){
-      account.logout();
-    }
-  }
-
-  ScrollController controller=ScrollController();
-  LsVar ls=Get.find();
-
-  void jumpIndex(int index){
-    controller.animateTo(index*230, duration: const Duration(milliseconds: 200), curve: Curves.easeInOut);
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Obx(()=>
-      Scaffold(
-        backgroundColor: s.darkMode.value ? s.bgColor2 : Colors.white,
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          backgroundColor: s.darkMode.value ? s.bgColor1 : Colors.grey[100],
-          scrolledUnderElevation:0.0,
-          toolbarHeight: 70,
-          leading: Row(
-            children: [
-              Expanded(child: Container()),
-              IconButton(
-                onPressed: (){
-                  Get.to(()=>const Search());
-                }, 
-                icon: const Icon(
-                  Icons.search_rounded
-                ),
-              ),
-            ],
-          ),
-          actions: [
-            IconButton(
-              onPressed: () async {
-                final rlt=await d.showActionSheet(
-                  context: context,
-                  list: [
-                    ActionItem(name: 'shuffleAllSongs'.tr, icon: Icons.shuffle_rounded, key: 'shuffle'),
-                    ActionItem(name: 'settings'.tr, icon: Icons.settings_rounded, key: 'settings'),
-                    ActionItem(name: 'remote'.tr, icon: Icons.settings_remote, key: 'remote'),
-                    ActionItem(name: 'about'.tr, icon: Icons.info_rounded, key: 'about'),
-                    ActionItem(name: 'logout'.tr, icon: Icons.logout_rounded, key: 'logout'),
-                  ]
-                );
-                if(rlt!=null){
-                  if(rlt=='shuffle'){
-                    PlayerControl().shufflePlay();
-                  }else if(rlt=='settings'){
-                    Get.to(()=>const Settings());
-                  }else if(rlt=='about'){
-                    Get.to(()=>const About());
-                  }else if(rlt=='logout'){
-                    if(context.mounted){
-                      logout(context);
-                    }
-                  }else if(rlt=='remote'){
-                    Get.to(()=>const Remote());
-                  }
+    return Column(
+      children: [
+        Expanded(
+          child: Navigator(
+            key: Get.nestedKey(1),
+            initialRoute: '/index',
+            onGenerateRoute: (settings) {
+              switch (settings.name) {
+                case "/index":
+                  return GetPageRoute(page: () => IndexContent());
+                case "/all":
+                  return GetPageRoute(page: () => All());
+                case "/loved":
+                  return GetPageRoute(page: () => Loved());
+                case "/download":
+                  return GetPageRoute(page: () => const Download());
+                case "/artists":
+                  return GetPageRoute(page: () => const Artists());
+                case "/albums":
+                  return GetPageRoute(page: () => const Albums());
+                case "/search":
+                  return GetPageRoute(page: () => const Search());
+                case "/search-in": {
+                  final args = settings.arguments as Map<String, dynamic>;
+                  return GetPageRoute(page: () => SearchIn(
+                    ls: args['ls'] as List,
+                    from: args['from'] as String,
+                    mode: args['mode'] as String,
+                    listId: args['listId'] as String,
+                  ));
                 }
-              }, 
-              icon: const Icon(
-                Icons.more_vert_rounded,
-              )
-            ),
-            const SizedBox(width: 10,)
-          ],
+                case "/playlist": {
+                  final args = settings.arguments as Map<String, dynamic>;
+                  return GetPageRoute(page: () => Playlist(
+                    id: args['id'] as String,
+                    name: args['name'] as String,
+                    songCount: args['songCount'] as int,
+                  ));
+                }
+                case "/artist": {
+                  final args = settings.arguments as Map<String, dynamic>;
+                  return GetPageRoute(page: () => ArtistContent(
+                    id: args['id'] as String,
+                    artist: args['artist'] as String,
+                    albumCount: args['albumCount'] as int? ?? 0,
+                  ));
+                }
+                case "/album": {
+                  final args = settings.arguments as Map<String, dynamic>;
+                  return GetPageRoute(page: () => AlbumContent(
+                    album: args['album'] as String,
+                    id: args['id'] as String,
+                    songCount: args['songCount'] as int? ?? 0,
+                  ));
+                }
+                default:
+              }
+              return null;
+            },
+          )
         ),
-        body: Column(
-          children: [
-            Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: s.darkMode.value ? s.bgColor1 : Colors.grey[100]
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 30, bottom: 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'home'.tr,
-                      style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
-                    const SizedBox(height: 20,),
-                    Obx(()=>
-                      Row(
-                        children: [
-                          MenuItem(isSet: p.index.value==0, name: 'fixed'.tr, func: ()=>jumpIndex(0),),
-                          const SizedBox(width: 30,),
-                          MenuItem(isSet: p.index.value==1, name: 'playlists'.tr, func: ()=>jumpIndex(1),)
-                        ],
-                      )
-                    )
-                  ],
-                ),
-              ),
-            ),
-            Expanded(
-              child: RefreshIndicator(
-                onRefresh: ()=>initGet(context),
-                child: Obx(()=>
-                  CustomScrollView(
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    controller: controller,
-                    slivers: [
-                      const SliverToBoxAdapter(
-                        child: SizedBox(height: 15,),
-                      ),
-                      SliverToBoxAdapter(
-                        child: SizedBox(
-                          height: 200,
-                          child: ListView(
-                            scrollDirection: Axis.horizontal,
-                            children: [
-                              const SizedBox(width: 20,),
-                              IndexPinItem(icon: Icons.queue_music_rounded, label: 'allSongs'.tr, bgColor: s.darkMode.value ? s.bgColor1 : Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>const All()),),
-                              const SizedBox(width: 10,),
-                              IndexPinItem(icon: Icons.favorite_rounded, label: 'loved'.tr, bgColor: s.darkMode.value ? s.bgColor1 : Colors.red[50]!, contentColor: Colors.red, func: ()=>Get.to(()=>const Loved()),),
-                              const SizedBox(width: 10,),
-                              IndexPinItem(icon: Icons.download_rounded, label: 'downloaded'.tr, bgColor: s.darkMode.value ? s.bgColor1 : Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>const Download()),),
-                              const SizedBox(width: 10,),
-                              IndexPinItem(icon: Icons.mic_rounded, label: 'artists'.tr, bgColor: s.darkMode.value ? s.bgColor1 : Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>const Artists()),),
-                              const SizedBox(width: 10,),
-                              IndexPinItem(icon: Icons.album_rounded, label: 'albums'.tr, bgColor: s.darkMode.value ? s.bgColor1 : Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.to(()=>const Albums()),),
-                              const SizedBox(width: 20,),
-                            ],
-                          ),
-                        )
-                      ),
-                      const SliverToBoxAdapter(
-                        child: SizedBox(height: 20,),
-                      ),
-                      SliverToBoxAdapter(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 20, right: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                'playlists'.tr,
-                                style: TextStyle(
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.w300
-                                ),
-                              ),
-                              const SizedBox(width: 10,),
-                              IconButton(
-                                onPressed: () async {
-                                  final controller=TextEditingController();
-                                  await d.showOkCancelDialogRaw(
-                                    context: context, 
-                                    title: "createPlaylist".tr,
-                                    okText: "create".tr,
-                                    cancelText: "cancel".tr,
-                                    child: StatefulBuilder(
-                                      builder: (BuildContext context, StateSetter setState) {
-                                        return FTextField(
-                                          control: .managed(controller: controller), 
-                                          autofocus: true,
-                                          hint: 'playlistName'.tr,
-                                        );
-                                      }
-                                    ),
-                                    okHandler: () async {
-                                      if(context.mounted){
-                                        await Operations().newPlayList(controller.text, context);
-                                      }
-                                    }
-                                  );
-                                }, 
-                                icon: const Icon(Icons.add_rounded)
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      const SliverToBoxAdapter(
-                        child: SizedBox(height: 10,),
-                      ),
-                      SliverList.builder(
-                        itemCount: ls.playList.length,
-                        itemBuilder: (context, index){
-                          return PlayListItem(
-                            name: ls.playList[index]['name'], 
-                            id: ls.playList[index]['id'], 
-                            songCount: ls.playList[index]['songCount'], 
-                            coverArt: ls.playList[index]['coverArt'], 
-                            len: ls.playList[index]['duration'], 
-                            created: ls.playList[index]['created'], 
-                            changed: ls.playList[index]['changed'],
-                          );
-                        }
-                      ),
-                      const SliverToBoxAdapter(
-                        child: SizedBox(height: 10,),
-                      ),
-                    ],
-                  )
-                )
-              ),
-            ),
-            const PlayingBar()
-          ],
-        ),
-      ),
+        const PlayingBar()
+      ],
     );
   }
 }

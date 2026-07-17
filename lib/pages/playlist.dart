@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/pages/components/multi_option.dart';
-import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/components/song_item.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
-import 'package:netplayer_mobile/pages/search_in.dart';
 import 'package:netplayer_mobile/pages/skeletons/song_skeleton.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
@@ -114,7 +112,12 @@ class _PlaylistState extends State<Playlist> {
             Obx(
               ()=> s.selectMode.value ? MultiOption(fromPlaylist: true, listId: widget.id,) : IconButton(
                 onPressed: ls.isEmpty ? null : (){
-                  Get.to(()=> SearchIn(ls: ls, from: 'playlist', mode: 'song', listId: widget.id,));
+                  Get.toNamed('/search-in', id: 1, arguments: {
+                    'ls': ls,
+                    'from': 'playlist',
+                    'mode': 'song',
+                    'listId': widget.id,
+                  });
                 }, 
                 icon: const Icon(Icons.search_rounded, size: 22,)
               ),
@@ -167,7 +170,6 @@ class _PlaylistState extends State<Playlist> {
                 )
               ),
             ),
-            const PlayingBar()
           ],
         ),
       ),

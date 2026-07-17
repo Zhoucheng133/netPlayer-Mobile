@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:netplayer_mobile/pages/artist_content.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 
 class ArtistItem extends StatefulWidget {
@@ -23,7 +22,11 @@ class _ArtistItemState extends State<ArtistItem> {
       color: s.darkMode.value ? s.bgColor2 : Colors.white,
       child: InkWell(
         onTap: (){
-          Get.to(()=>ArtistContent(id: widget.item['id'], artist: widget.item['name'], albumCount: widget.item['albumCount'] ?? 0));
+          Get.toNamed('/artist', id: 1, arguments: {
+            'id': widget.item['id'],
+            'artist': widget.item['name'],
+            'albumCount': widget.item['albumCount'] ?? 0,
+          });
         },
         child: Padding(
           padding: const EdgeInsets.only(left: 10, right: 10),

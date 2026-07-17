@@ -4,8 +4,6 @@ import 'package:get/get.dart';
 import 'package:netplayer_mobile/variables/download_var.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/operations/player_control.dart';
-import 'package:netplayer_mobile/pages/album_content.dart';
-import 'package:netplayer_mobile/pages/artist_content.dart';
 import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
@@ -91,12 +89,18 @@ class _SongItemState extends State<SongItem> {
     );
     if(req=="album"){
       if(widget.item['album']!=null && widget.item['albumId']!=null){
-        Get.to(()=>AlbumContent(album: widget.item['album'], id: widget.item['albumId']));
+        Get.toNamed('/album', id: 1, arguments: {
+          'album': widget.item['album'],
+          'id': widget.item['albumId'],
+        });
       }
       
     }else if(req=='artist'){
       if(widget.item['artistId']!=null && widget.item['artist']!=null){
-        Get.to(()=>ArtistContent(id: widget.item['artistId'], artist: widget.item['artist']));
+        Get.toNamed('/artist', id: 1, arguments: {
+          'id': widget.item['artistId'],
+          'artist': widget.item['artist'],
+        });
       }
     }else if(req=='love'){
       if(context.mounted){

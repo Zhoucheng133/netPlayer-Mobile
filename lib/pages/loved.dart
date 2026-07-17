@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/play_check.dart';
 import 'package:netplayer_mobile/pages/components/multi_option.dart';
-import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/components/song_item.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
-import 'package:netplayer_mobile/pages/search_in.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
@@ -107,7 +105,12 @@ class _LovedState extends State<Loved> {
             Obx(
               ()=> s.selectMode.value ? MultiOption(fromPlaylist: false, listId: "",) : IconButton(
                 onPressed: lsVar.loved.isEmpty ? null : (){
-                  Get.to(()=> SearchIn(ls: lsVar.loved, from: 'loved', mode: 'song', listId: '',));
+                  Get.toNamed('/search-in', id: 1, arguments: {
+                    'ls': lsVar.loved,
+                    'from': 'loved',
+                    'mode': 'song',
+                    'listId': '',
+                  });
                 }, 
                 icon: const Icon(Icons.search_rounded, size: 22,)
               ),
@@ -115,53 +118,46 @@ class _LovedState extends State<Loved> {
             const SizedBox(width: 10,)
           ],
         ),
-        body: Column(
-          children: [
-            Obx(
-              ()=> Expanded(
-                child: AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 200),
-                  child: AbsorbPointer(
-                    absorbing: loading,
-                    child: RefreshIndicator(
-                      onRefresh: () => getList(context),
-                      child: CupertinoScrollbar(
-                        controller: controller,
-                        child: CustomScrollView(
-                          physics: const AlwaysScrollableScrollPhysics(),
-                          key: const Key('1'),
-                          controller: controller,
-                          slivers: [
-                            SliverToBoxAdapter(
-                              child: TitleArea(title: 'loved'.tr, subtitle: '${lsVar.loved.length} ${"songsEnd".tr}', ),
-                            ),
-                            SliverList.builder(
-                              itemCount: lsVar.loved.length,
-                              itemBuilder: (context, index){
-                                return AutoScrollTag(
-                                  key: ValueKey(index),
-                                  index: index,
-                                  controller: controller,
-                                  child: SongItem(item: lsVar.loved[index], index: index, ls: lsVar.loved, from: 'loved', listId: '',),
-                                );
-                              }
-                            ),
-                            SliverFillRemaining(
-                              hasScrollBody: false,
-                              child: Container(
-                                color: s.darkMode.value ? s.bgColor2 : Colors.white,
-                              ),
-                            ),
-                          ],
+        body: Expanded(
+          child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 200),
+            child: AbsorbPointer(
+              absorbing: loading,
+              child: RefreshIndicator(
+                onRefresh: () => getList(context),
+                child: CupertinoScrollbar(
+                  controller: controller,
+                  child: CustomScrollView(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    key: const Key('1'),
+                    controller: controller,
+                    slivers: [
+                      SliverToBoxAdapter(
+                        child: TitleArea(title: 'loved'.tr, subtitle: '${lsVar.loved.length} ${"songsEnd".tr}', ),
+                      ),
+                      SliverList.builder(
+                        itemCount: lsVar.loved.length,
+                        itemBuilder: (context, index){
+                          return AutoScrollTag(
+                            key: ValueKey(index),
+                            index: index,
+                            controller: controller,
+                            child: SongItem(item: lsVar.loved[index], index: index, ls: lsVar.loved, from: 'loved', listId: '',),
+                          );
+                        }
+                      ),
+                      SliverFillRemaining(
+                        hasScrollBody: false,
+                        child: Container(
+                          color: s.darkMode.value ? s.bgColor2 : Colors.white,
                         ),
                       ),
-                    ),
-                  )
+                    ],
+                  ),
                 ),
               ),
-            ),
-            const PlayingBar()
-          ],
+            )
+          ),
         ),
       ),
     );

@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/pages/components/multi_option.dart';
-import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/components/song_item_download.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
 import 'package:netplayer_mobile/variables/download_var.dart';
@@ -156,7 +155,6 @@ class _DownloadState extends State<Download> {
                   )
                 ),
               ),
-              const PlayingBar()
             ],
           )
       ),

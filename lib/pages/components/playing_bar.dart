@@ -16,11 +16,6 @@ class _PlayingBarState extends State<PlayingBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(()=>
-      p.switchHero.value ? const PlaybarContent() : const Hero(
-        tag: 'playingbar',
-        child: PlaybarContent()
-      )
-    );
+      return PlaybarContent();
   }
 }

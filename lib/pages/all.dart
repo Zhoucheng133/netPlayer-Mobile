@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/pages/components/multi_option.dart';
-import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/components/song_item.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
-import 'package:netplayer_mobile/pages/search_in.dart';
 import 'package:netplayer_mobile/pages/skeletons/song_skeleton.dart';
 import 'package:netplayer_mobile/variables/page_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
@@ -113,7 +111,12 @@ class _AllState extends State<All> {
             Obx(()=>
               s.selectMode.value ? MultiOption(fromPlaylist: false, listId: "",) : IconButton(
                 onPressed: ls.isEmpty ? null : (){
-                  Get.to(()=> SearchIn(ls: ls, from: 'all', mode: 'song', listId: '',));
+                  Get.toNamed('/search-in', id: 1, arguments: {
+                    'ls': ls,
+                    'from': 'all',
+                    'mode': 'song',
+                    'listId': '',
+                  });
                 }, 
                 icon: const Icon(Icons.search_rounded, size: 22,)
               ),
@@ -121,56 +124,46 @@ class _AllState extends State<All> {
             const SizedBox(width: 10,)
           ],
         ),
-        body: Column(
-          children: [
-            Expanded(
-              child: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 200),
-                child: AbsorbPointer(
-                  absorbing: loading,
-                  child: RefreshIndicator(
-                    onRefresh: () => getList(context),
-                    child: CupertinoScrollbar(
-                      controller: controller,
-                      child: CustomScrollView(
-                        physics: const AlwaysScrollableScrollPhysics(),
-                        key: const Key("1"),
+        body: AbsorbPointer(
+          absorbing: loading,
+          child: RefreshIndicator(
+            onRefresh: () => getList(context),
+            child: CupertinoScrollbar(
+              controller: controller,
+              child: CustomScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                key: const Key("1"),
+                controller: controller,
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: TitleArea(title: 'allSongs'.tr, subtitle: '${ u.authorization.value.isEmpty && ls.length >= 500 ? "> ${ls.length}" : ls.length} ${'songsEnd'.tr}', showWarning: u.authorization.value.isEmpty && ls.length >= 500,),
+                  ),
+                  !loading ? SliverList.builder(
+                    itemCount: ls.length,
+                    itemBuilder: (context, index){
+                      return AutoScrollTag(
                         controller: controller,
-                        slivers: [
-                          SliverToBoxAdapter(
-                            child: TitleArea(title: 'allSongs'.tr, subtitle: '${ u.authorization.value.isEmpty && ls.length >= 500 ? "> ${ls.length}" : ls.length} ${'songsEnd'.tr}', showWarning: u.authorization.value.isEmpty && ls.length >= 500,),
-                          ),
-                          !loading ? SliverList.builder(
-                            itemCount: ls.length,
-                            itemBuilder: (context, index){
-                              return AutoScrollTag(
-                                controller: controller,
-                                index: index,
-                                key: ValueKey(index),
-                                child: SongItem(item: ls[index], index: index, ls: ls, from: 'all', listId: '', ),
-                              );
-                            },
-                          ) : SliverList.builder(
-                            itemCount: 20,
-                            itemBuilder: (context, _){
-                              return const SongSkeleton();
-                            }
-                          ),
-                          SliverFillRemaining(
-                            hasScrollBody: false,
-                            child: Container(
-                              color: s.darkMode.value ? s.bgColor2 : Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
+                        index: index,
+                        key: ValueKey(index),
+                        child: SongItem(item: ls[index], index: index, ls: ls, from: 'all', listId: '', ),
+                      );
+                    },
+                  ) : SliverList.builder(
+                    itemCount: 20,
+                    itemBuilder: (context, _){
+                      return const SongSkeleton();
+                    }
+                  ),
+                  SliverFillRemaining(
+                    hasScrollBody: false,
+                    child: Container(
+                      color: s.darkMode.value ? s.bgColor2 : Colors.white,
                     ),
                   ),
-                )
+                ],
               ),
             ),
-            const PlayingBar()
-          ],
+          ),
         ),
       ),
     );

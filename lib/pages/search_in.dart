@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:netplayer_mobile/pages/components/album_item.dart';
 import 'package:netplayer_mobile/pages/components/artist_item.dart';
 import 'package:netplayer_mobile/pages/components/multi_option.dart';
-import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/components/search_box.dart';
 import 'package:netplayer_mobile/pages/components/song_item.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
@@ -200,7 +199,6 @@ class _SearchInState extends State<SearchIn> {
                 ),
               ),
             ),
-            const PlayingBar()
           ],
         ),
       ),

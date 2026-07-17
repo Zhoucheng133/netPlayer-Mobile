@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/pages/components/multi_option.dart';
-import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/components/song_item.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
 import 'package:netplayer_mobile/pages/skeletons/song_skeleton.dart';
@@ -145,7 +144,6 @@ class _AlbumContentState extends State<AlbumContent> {
                 ),
               )
             ),
-            const PlayingBar()
           ],
         ),
       ),

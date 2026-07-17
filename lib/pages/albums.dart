@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/pages/components/album_item.dart';
-import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
-import 'package:netplayer_mobile/pages/search_in.dart';
 import 'package:netplayer_mobile/pages/skeletons/album_skeleton.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
@@ -77,7 +75,12 @@ class _AlbumsState extends State<Albums> {
           actions: [
             IconButton(
               onPressed: ls.isEmpty ? null : (){
-                Get.to(()=> SearchIn(ls: ls, from: 'albums', mode: 'album', listId: '',));
+                Get.toNamed('/search-in', id: 1, arguments: {
+                  'ls': ls,
+                  'from': 'albums',
+                  'mode': 'album',
+                  'listId': '',
+                });
               }, 
               icon: const Icon(Icons.search_rounded, size: 22,)
             ),
@@ -125,7 +128,6 @@ class _AlbumsState extends State<Albums> {
                 )
               ),
             ),
-            const PlayingBar()
           ],
         ),
       ),
