@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/pages/components/multi_option.dart';
+import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/components/song_item.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
 import 'package:netplayer_mobile/pages/skeletons/song_skeleton.dart';
@@ -14,8 +15,9 @@ class AlbumContent extends StatefulWidget {
   final String album;
   final String id;
   final int songCount;
+  final bool showPlayingBar;
 
-  const AlbumContent({super.key, required this.album, required this.id, this.songCount=0});
+  const AlbumContent({super.key, required this.album, required this.id, this.songCount=0, this.showPlayingBar=false});
 
   @override
   State<AlbumContent> createState() => _AlbumContentState();
@@ -142,8 +144,9 @@ class _AlbumContentState extends State<AlbumContent> {
                     ),
                   ),
                 ),
-              )
+              ),
             ),
+            if(widget.showPlayingBar) const PlayingBar(),
           ],
         ),
       ),

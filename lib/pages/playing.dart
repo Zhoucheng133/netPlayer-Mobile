@@ -139,7 +139,7 @@ class _PlayingState extends State<Playing> {
       if(rlt=='album'){
         final data=await DataGet().getSong(p.nowPlay['id'], context);
         if(data['album']!=null && data['albumId']!=null){
-          Get.off(()=>AlbumContent(album: data['album'], id: data['albumId']));
+          Get.to(()=>AlbumContent(album: data['album'], id: data['albumId'], showPlayingBar: true));
         }
       }else if(rlt=='copy'){
         FlutterClipboard.copy(p.nowPlay['title']);
@@ -159,7 +159,7 @@ class _PlayingState extends State<Playing> {
       if(rlt=='artist' && context.mounted){
         final data=await DataGet().getSong(p.nowPlay['id'], context);
         if(data['artistId']!=null && data['artist']!=null){
-          Get.off(()=>ArtistContent(id: data['artistId'], artist: data['artist']));
+          Get.to(()=>ArtistContent(id: data['artistId'], artist: data['artist'], showPlayingBar: true));
         }
       }else if(rlt=='copy'){
         FlutterClipboard.copy(p.nowPlay['artist']);
@@ -609,7 +609,7 @@ class _PlayingState extends State<Playing> {
                                       }
                                       final data=await DataGet().getSong(p.nowPlay['id'], context);
                                       if(data['album']!=null && data['albumId']!=null){
-                                        Get.off(()=>AlbumContent(album: data['album'], id: data['albumId']));
+                                        Get.to(()=>AlbumContent(album: data['album'], id: data['albumId'], showPlayingBar: true));
                                       }
                                     }else if(rlt=='artist'){
                                       if(p.nowPlay["id"].isEmpty){
@@ -617,7 +617,7 @@ class _PlayingState extends State<Playing> {
                                       }
                                       final data=await DataGet().getSong(p.nowPlay['id'], context);
                                       if(data['artistId']!=null && data['artist']!=null){
-                                        Get.off(()=>ArtistContent(id: data['artistId'], artist: data['artist']));
+                                        Get.to(()=>ArtistContent(id: data['artistId'], artist: data['artist'], showPlayingBar: true));
                                       }
                                     }else if(rlt=='font'){
                                       if(!showlyric){
