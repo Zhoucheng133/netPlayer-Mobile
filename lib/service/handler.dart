@@ -154,7 +154,7 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
 
   // 播放
   @override
-  Future<void> play({bool bindMedia=true}) async {
+  Future<void> play({bool bindMedia=true, bool fromSkip=false}) async {
     if(p.nowPlay["id"].isEmpty){
       return;
     }
@@ -173,6 +173,8 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
         } catch (_) {
           await skipToNext();
         }
+      } else if(fromSkip) {
+        await player.seek(Duration.zero);
       }
       player.play();
       playURL=filePath;
@@ -189,6 +191,8 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
         } catch (_) {
           await skipToNext();
         }
+      }else if(fromSkip) {
+        await player.seek(Duration.zero);
       }
       player.play();
       playURL=url;
@@ -279,7 +283,7 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
     p.nowPlay.value=tmpList;
     p.nowPlay.refresh();
     // skipHandler=true;
-    await play();
+    await play(fromSkip: true);
 
     isSettingUrl = false;
     // setMedia(true);
@@ -328,7 +332,7 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
     p.nowPlay.value=tmpList;
     p.nowPlay.refresh();
     // skipHandler=true;
-    await play();
+    await play(fromSkip: true);
 
     isSettingUrl = false;
     // setMedia(true);
