@@ -6,6 +6,7 @@ import 'dart:math';
 import 'package:audio_metadata_reader/audio_metadata_reader.dart';
 import 'package:audio_service/audio_service.dart';
 import 'package:audio_session/audio_session.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
@@ -163,7 +164,8 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
       if(filePath!=null){
         final track = File(filePath);
         final metadata = readMetadata(track, getImage: true);
-        if(metadata.pictures.length>0){
+        if(metadata.pictures.length>0 && !listEquals(metadata.pictures[0].bytes, p.cover.value)){
+          print("?!");
           p.cover.value=metadata.pictures[0].bytes;
         }
       }
