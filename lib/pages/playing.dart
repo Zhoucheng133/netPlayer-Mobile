@@ -25,7 +25,7 @@ class Playing extends StatefulWidget {
   State<Playing> createState() => _PlayingState();
 }
 
-class _PlayingState extends State<Playing> {
+class _PlayingState extends State<Playing> with SingleTickerProviderStateMixin {
   PlayerVar p=Get.find();
   final UserVar u = Get.find();
   LsVar l=Get.find();
@@ -89,7 +89,6 @@ class _PlayingState extends State<Playing> {
 
   late Size lyricSize;
 
-
   @override
   void initState() {
     super.initState();
@@ -99,7 +98,6 @@ class _PlayingState extends State<Playing> {
         scrollLyric();
       });
     });
-    
   }
 
   @override
@@ -484,30 +482,34 @@ class _PlayingState extends State<Playing> {
                                 ),
                               ),
                               const SizedBox(width: 15,),
-                              GestureDetector(
-                                onTap: (){
-                                  if(p.nowPlay["id"].isNotEmpty){
-                                    if(p.isPlay.value){
-                                      p.handler.pause();
-                                    }else{
-                                      p.handler.play();
-                                    }
-                                  }
-                                },
-                                child: AnimatedContainer(
-                                  height: 60,
-                                  width: 60,
-                                  duration: const Duration(milliseconds: 200),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30),
-                                    color: s.darkMode.value ? s.bgColor3 : Colors.white,
-                                    border: Border.all(
+                              SizedBox(
+                                height: 60,
+                                width: 60,
+                                child: Material(
+                                  clipBehavior: Clip.antiAlias,
+                                  shape: CircleBorder(
+                                    side: BorderSide(
                                       color: s.darkMode.value ? Colors.white : Colors.black,
                                       width: 3
                                     )
                                   ),
-                                  child: Icon(
-                                    p.isPlay.value ? Icons.pause_rounded : Icons.play_arrow_rounded
+                                  color: s.darkMode.value ? s.bgColor3 : Colors.white,
+                                  child: InkWell(
+                                    onTap: (){
+                                      if(p.nowPlay["id"].isNotEmpty){
+                                        if(p.isPlay.value){
+                                          p.handler.pause();
+                                        }else{
+                                          p.handler.play();
+                                        }
+                                      }
+                                    },
+                                    child: Center(
+                                    child: AnimatedIcon(
+                                        icon: AnimatedIcons.play_pause,
+                                        progress: p.playbtnController,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),

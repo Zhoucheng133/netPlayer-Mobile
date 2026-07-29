@@ -121,39 +121,44 @@ class _PlaybarContentState extends State<PlaybarContent> {
                               ),
                             ),
                             const SizedBox(width: 15,),
-                            GestureDetector(
-                              onTap: (){
-                                if(p.nowPlay["id"].isNotEmpty){
-                                  if(p.isPlay.value){
-                                    p.handler.pause();
-                                  }else{
-                                    p.handler.play();
-                                  }
-                                }
-                              },
-                              child: Stack(
-                                children: [
-                                  Center(
-                                    child: Container(
-                                      height: 42,
-                                      width: 42,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(25),
-                                        color: s.darkMode.value ? s.bgColor3 : Colors.white,
-                                        border: s.progressStyle.value!=ProgressStyle.ring ? Border.all(
+                            Stack(
+                              children: [
+                                Center(
+                                  child: SizedBox(
+                                    height: 42,
+                                    width: 42,
+                                    child: Material(
+                                      clipBehavior: Clip.antiAlias,
+                                      shape: CircleBorder(
+                                        side: s.progressStyle.value!=ProgressStyle.ring ? BorderSide(
                                           color: s.darkMode.value ? Colors.white : Colors.black,
                                           width: 2
-                                        ) : null
+                                        ) : BorderSide.none
                                       ),
-                                      child: Center(
-                                        child: Icon(
-                                          p.isPlay.value ? Icons.pause_rounded : Icons.play_arrow_rounded,
-                                          size: 18,
+                                      color: s.darkMode.value ? s.bgColor3 : Colors.white,
+                                      child: InkWell(
+                                        onTap: (){
+                                          if(p.nowPlay["id"].isNotEmpty){
+                                            if(p.isPlay.value){
+                                              p.handler.pause();
+                                            }else{
+                                              p.handler.play();
+                                            }
+                                          }
+                                        },
+                                        child: Center(
+                                        child: AnimatedIcon(
+                                            icon: AnimatedIcons.play_pause,
+                                            progress: p.playbtnController,
+                                            size: 18,
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                  s.progressStyle.value==ProgressStyle.ring ?Center(
+                                ),
+                                IgnorePointer(
+                                  child: s.progressStyle.value==ProgressStyle.ring ? Center(
                                     child: SizedBox(
                                       width: 42,
                                       height: 42,
@@ -163,9 +168,9 @@ class _PlaybarContentState extends State<PlaybarContent> {
                                         strokeWidth: 3,
                                       ),
                                     ),
-                                  ) : Container()
-                                ],
-                              ),
+                                  ) : Container(),
+                                )
+                              ],
                             ),
                             const SizedBox(width: 5,),
                             IconButton(

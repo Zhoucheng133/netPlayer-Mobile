@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:audio_service/audio_service.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/service/handler.dart';
 
@@ -22,9 +23,15 @@ enum LyricSource{
   lrclib
 }
 
-class PlayerVar extends GetxController{
+class PlayerVar extends GetxController with GetTickerProviderStateMixin{
+
+  late AnimationController playbtnController;
 
   Future<void> initPlayer() async {
+    playbtnController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
     handler=await AudioService.init(
       builder: () => Handler(),
       config: const AudioServiceConfig(
@@ -72,4 +79,13 @@ class PlayerVar extends GetxController{
   RxBool removeMissing=true.obs;
 
   Rx<Uint8List?> cover=Rx<Uint8List?>(null);
+
+  isPlaySetter(bool val){
+    isPlay.value=val;
+    if(val){
+      playbtnController.forward();
+    }else{
+      playbtnController.reverse();
+    }
+  }
 }

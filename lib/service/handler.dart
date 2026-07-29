@@ -183,7 +183,8 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
       if(bindMedia){
         setMedia(true);
       }
-      p.isPlay.value=true;
+      // p.isPlay.value=true;
+      p.isPlaySetter(true);
     }else{
       var url=seekCheck.enableSeek() ? "${u.url.value}/rest/stream?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}"
       : "${u.url.value}/rest/stream?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}&maxBitRate=${s.quality.value.quality}";
@@ -201,7 +202,8 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
       if(bindMedia){
         setMedia(true);
       }
-      p.isPlay.value=true;
+      // p.isPlay.value=true;
+      p.isPlaySetter(true);
     }
   }
 
@@ -213,7 +215,8 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
     }
     await player.pause();
     setMedia(false);
-    p.isPlay.value=false;
+    // p.isPlay.value=false;
+    p.isPlaySetter(false);
   }
 
   // 停止播放
@@ -223,7 +226,8 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
       return;
     }
     await player.stop();
-    p.isPlay.value=false;
+    // p.isPlay.value=false;
+    p.isPlaySetter(false);
     Map<String, Object> tmp={
       'id': '',
       'title': '',
