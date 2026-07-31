@@ -99,14 +99,14 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
     });
     player.playerStateStream.listen((state) {
       if(state.processingState == ProcessingState.completed) {
-        // print("complete");
         skipToNext();
+      }else if(state.processingState == ProcessingState.ready){
+        p.buffering.value=false;
       }
     });
   }
   
   Future<void> setMedia(bool isPlay, {Duration? progress}) async {
-    // print("set!");
     playbackState.add(
       PlaybackState(
         playing: isPlay,
@@ -165,7 +165,6 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
         final track = File(filePath);
         final metadata = readMetadata(track, getImage: true);
         if(metadata.pictures.length>0 && !listEquals(metadata.pictures[0].bytes, p.cover.value)){
-          print("?!");
           p.cover.value=metadata.pictures[0].bytes;
         }
       }
@@ -186,6 +185,7 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
       // p.isPlay.value=true;
       p.isPlaySetter(true);
     }else{
+      p.buffering.value=true;
       var url=seekCheck.enableSeek() ? "${u.url.value}/rest/stream?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}"
       : "${u.url.value}/rest/stream?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}&maxBitRate=${s.quality.value.quality}";
       if(url!=playURL){

@@ -158,12 +158,12 @@ class _PlaybarContentState extends State<PlaybarContent> {
                                   ),
                                 ),
                                 IgnorePointer(
-                                  child: s.progressStyle.value==ProgressStyle.ring ? Center(
+                                  child: s.progressStyle.value==ProgressStyle.ring || p.buffering.value ? Center(
                                     child: SizedBox(
                                       width: 42,
                                       height: 42,
                                       child: CircularProgressIndicator(
-                                        value: (p.nowPlay['duration']==0 ? 0.0 : p.playProgress.value/1000/p.nowPlay["duration"]>1 ? 1.0 : p.playProgress.value/1000/p.nowPlay["duration"]<0 ? 0 : p.playProgress.value/1000/p.nowPlay["duration"]),
+                                        value: p.buffering.value ? null : (p.nowPlay['duration']==0 ? 0.0 : p.playProgress.value/1000/p.nowPlay["duration"]>1 ? 1.0 : p.playProgress.value/1000/p.nowPlay["duration"]<0 ? 0 : p.playProgress.value/1000/p.nowPlay["duration"]),
                                         color: s.darkMode.value ? Colors.white : Colors.black,
                                         strokeWidth: 3,
                                       ),

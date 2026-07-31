@@ -78,6 +78,9 @@ class PlayerVar extends GetxController with GetTickerProviderStateMixin{
   RxBool useNavidrome=true.obs;
   RxBool removeMissing=true.obs;
 
+  // 在缓冲中
+  RxBool buffering=false.obs;
+
   Rx<Uint8List?> cover=Rx<Uint8List?>(null);
 
   isPlaySetter(bool val){

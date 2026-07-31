@@ -482,36 +482,54 @@ class _PlayingState extends State<Playing> with SingleTickerProviderStateMixin {
                                 ),
                               ),
                               const SizedBox(width: 15,),
-                              SizedBox(
-                                height: 60,
-                                width: 60,
-                                child: Material(
-                                  clipBehavior: Clip.antiAlias,
-                                  shape: CircleBorder(
-                                    side: BorderSide(
-                                      color: s.darkMode.value ? Colors.white : Colors.black,
-                                      width: 3
-                                    )
-                                  ),
-                                  color: s.darkMode.value ? s.bgColor3 : Colors.white,
-                                  child: InkWell(
-                                    onTap: (){
-                                      if(p.nowPlay["id"].isNotEmpty){
-                                        if(p.isPlay.value){
-                                          p.handler.pause();
-                                        }else{
-                                          p.handler.play();
-                                        }
-                                      }
-                                    },
-                                    child: Center(
-                                    child: AnimatedIcon(
-                                        icon: AnimatedIcons.play_pause,
-                                        progress: p.playbtnController,
+                              Stack(
+                                children: [
+                                  Center(
+                                    child: SizedBox(
+                                      height: 60,
+                                      width: 60,
+                                      child: Material(
+                                        clipBehavior: Clip.antiAlias,
+                                        shape: CircleBorder(
+                                          side: p.buffering.value ? BorderSide.none : BorderSide(
+                                            color: s.darkMode.value ? Colors.white : Colors.black,
+                                            width: 3
+                                          )
+                                        ),
+                                        color: s.darkMode.value ? s.bgColor3 : Colors.white,
+                                        child: InkWell(
+                                          onTap: (){
+                                            if(p.nowPlay["id"].isNotEmpty){
+                                              if(p.isPlay.value){
+                                                p.handler.pause();
+                                              }else{
+                                                p.handler.play();
+                                              }
+                                            }
+                                          },
+                                          child: Center(
+                                          child: AnimatedIcon(
+                                              icon: AnimatedIcons.play_pause,
+                                              progress: p.playbtnController,
+                                            ),
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
+                                  if(p.buffering.value) IgnorePointer(
+                                    child: Center(
+                                      child: SizedBox(
+                                        height: 60,
+                                        width: 60,
+                                        child: CircularProgressIndicator(
+                                          strokeWidth: 3,
+                                          color: s.darkMode.value ? Colors.white : Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
                               ),
                               const SizedBox(width: 15,),
                               IconButton(
