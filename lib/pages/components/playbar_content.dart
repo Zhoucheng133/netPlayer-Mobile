@@ -6,6 +6,7 @@ import 'package:netplayer_mobile/variables/page_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
+import 'package:skeletons_forked/skeletons_forked.dart';
 
 class PlaybarContent extends StatefulWidget {
   const PlaybarContent({super.key});
@@ -83,9 +84,22 @@ class _PlaybarContentState extends State<PlaybarContent> {
                                     p.cover.value!,
                                     fit: BoxFit.contain,
                                   ) : Image.network(
-                                    // "${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}",
                                     operations.coverLink(p.nowPlay["id"]),
                                     fit: BoxFit.contain,
+                                    frameBuilder:(context, child, frame, wasSynchronouslyLoaded){
+                                      if (wasSynchronouslyLoaded) {
+                                        return child;
+                                      }
+                                      return AnimatedSwitcher(
+                                        duration: const Duration(milliseconds: 200),
+                                        child: frame != null ? child : SkeletonAvatar(
+                                          style: SkeletonAvatarStyle(
+                                            width: 50,
+                                            height: 50,
+                                          ),
+                                        ),
+                                      );
+                                    },
                                   ),
                                 )
                               ),

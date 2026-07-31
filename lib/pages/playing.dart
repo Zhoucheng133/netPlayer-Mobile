@@ -16,6 +16,7 @@ import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:skeletons_forked/skeletons_forked.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 class Playing extends StatefulWidget {
@@ -336,6 +337,7 @@ class _PlayingState extends State<Playing> with SingleTickerProviderStateMixin {
                                 tag: 'cover',
                                 child: SizedBox(
                                   width: MediaQuery.of(context).size.width-150,
+                                  height: MediaQuery.of(context).size.width-150,
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(10),
                                     clipBehavior: Clip.antiAlias,
@@ -348,6 +350,20 @@ class _PlayingState extends State<Playing> with SingleTickerProviderStateMixin {
                                     ) : Image.network(
                                       operations.coverLink(p.nowPlay["id"]),
                                       fit: BoxFit.contain,
+                                      frameBuilder:(context, child, frame, wasSynchronouslyLoaded){
+                                        if (wasSynchronouslyLoaded) {
+                                          return child;
+                                        }
+                                        return AnimatedSwitcher(
+                                          duration: const Duration(milliseconds: 200),
+                                          child: frame != null ? child : SkeletonAvatar(
+                                            style: SkeletonAvatarStyle(
+                                              width: MediaQuery.of(context).size.width - 150,
+                                              height: MediaQuery.of(context).size.width - 150,
+                                            ),
+                                          ),
+                                        );
+                                      },
                                     ),
                                   ),
                                 ),
@@ -657,18 +673,39 @@ class _PlayingState extends State<Playing> with SingleTickerProviderStateMixin {
                                         child: Column(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
-                                            ClipRRect(
-                                              borderRadius: BorderRadius.circular(10),
-                                              child: p.nowPlay['id'].isEmpty ? Image.asset(
-                                                "assets/blank.jpg",
-                                                fit: BoxFit.contain,
-                                              ) : p.nowPlay['playFrom']=='download' && p.cover.value!=null ? Image.memory(
-                                                p.cover.value!,
-                                                fit: BoxFit.contain,
-                                              ) : Image.network(
-                                                // "${u.url.value}/rest/getCoverArt?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=${p.nowPlay["id"]}",
-                                                operations.coverLink(p.nowPlay["id"]),
-                                                fit: BoxFit.contain,
+                                            SizedBox(
+                                              width: 150,
+                                              height: 150,
+                                              child: ClipRRect(
+                                                borderRadius: BorderRadius.circular(10),
+                                                child: p.nowPlay['id'].isEmpty ? Image.asset(
+                                                  "assets/blank.jpg",
+                                                  fit: BoxFit.contain,
+                                                  width: 150,
+                                                  height: 150,
+                                                ) : p.nowPlay['playFrom']=='download' && p.cover.value!=null ? Image.memory(
+                                                  p.cover.value!,
+                                                  fit: BoxFit.contain,
+                                                  width: 150,
+                                                  height: 150,
+                                                ) : Image.network(
+                                                  operations.coverLink(p.nowPlay["id"]),
+                                                  fit: BoxFit.contain,
+                                                  frameBuilder:(context, child, frame, wasSynchronouslyLoaded){
+                                                    if (wasSynchronouslyLoaded) {
+                                                      return child;
+                                                    }
+                                                    return AnimatedSwitcher(
+                                                      duration: const Duration(milliseconds: 200),
+                                                      child: frame != null ? child : SkeletonAvatar(
+                                                        style: SkeletonAvatarStyle(
+                                                          width: 150,
+                                                          height: 150,
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
                                               ),
                                             ),
                                             const SizedBox(height: 10,),

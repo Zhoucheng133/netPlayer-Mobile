@@ -9,6 +9,7 @@ import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
+import 'package:skeletons_forked/skeletons_forked.dart';
 
 class SongItem extends StatefulWidget {
 
@@ -170,12 +171,30 @@ class _SongItemState extends State<SongItem> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Image.network(
-                  operations.coverLink(widget.ls[widget.index]['id']),
-                  height: 100,
-                  width: 100,
+              SizedBox(
+                height: 150,
+                width: 150,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.network(
+                    operations.coverLink(widget.ls[widget.index]['id']),
+                    height: 150,
+                    width: 150,
+                    frameBuilder:(context, child, frame, wasSynchronouslyLoaded){
+                      if (wasSynchronouslyLoaded) {
+                        return child;
+                      }
+                      return AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 200),
+                        child: frame != null ? child : SkeletonAvatar(
+                          style: SkeletonAvatarStyle(
+                            width: 150,
+                            height: 150,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
               const SizedBox(height: 10,),

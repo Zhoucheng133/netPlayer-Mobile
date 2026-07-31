@@ -9,6 +9,7 @@ import 'package:netplayer_mobile/variables/remote_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:skeletons_forked/skeletons_forked.dart';
 
 class RemoteContent extends StatefulWidget {
   const RemoteContent({super.key});
@@ -117,7 +118,25 @@ class _RemoteContentState extends State<RemoteContent> {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: r.wsData.value.cover.startsWith("http") ? Image.network(r.wsData.value.cover, width: 70, height: 70,) : Image.asset('assets/blank.jpg', width: 70, height: 70,)
+                  child: r.wsData.value.cover.startsWith("http") ? Image.network(
+                    r.wsData.value.cover, 
+                    width: 70, 
+                    height: 70,
+                    frameBuilder:(context, child, frame, wasSynchronouslyLoaded){
+                      if (wasSynchronouslyLoaded) {
+                        return child;
+                      }
+                      return AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 200),
+                        child: frame != null ? child : SkeletonAvatar(
+                          style: SkeletonAvatarStyle(
+                            width: 70,
+                            height: 70,
+                          ),
+                        ),
+                      );
+                    },
+                  ) : Image.asset('assets/blank.jpg', width: 70, height: 70,)
                 ),
                 const SizedBox(width: 10,),
                 Expanded(

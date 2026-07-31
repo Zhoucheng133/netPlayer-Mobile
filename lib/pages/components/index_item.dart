@@ -210,12 +210,30 @@ class _PlayListItemState extends State<PlayListItem> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Image.network(
-                  // "${u.url.value}/rest/getCoverArt.view?u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&v=1.16.1&c=netPlayer&f=json&id=${widget.coverArt}",
-                  operations.coverLink(widget.coverArt),
-                  width: 100,
+              SizedBox(
+                width: 150,
+                height: 150,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.network(
+                    operations.coverLink(widget.coverArt),
+                    width: 150,
+                    height: 150,
+                    frameBuilder:(context, child, frame, wasSynchronouslyLoaded){
+                      if (wasSynchronouslyLoaded) {
+                        return child;
+                      }
+                      return AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 200),
+                        child: frame != null ? child : SkeletonAvatar(
+                          style: SkeletonAvatarStyle(
+                            width: 150,
+                            height: 150,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
               const SizedBox(height: 10,),
