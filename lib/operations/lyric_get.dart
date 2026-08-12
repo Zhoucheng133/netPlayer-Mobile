@@ -25,7 +25,7 @@ class LyricGet{
 
   Future<void> getLyric() async {
 
-    if(!enableLyric){
+    if(store){
       return;
     }
 

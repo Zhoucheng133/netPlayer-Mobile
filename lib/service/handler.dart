@@ -73,7 +73,7 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
       if(!p.onSlide.value){
         p.playProgress.value=data;
       }
-      if(enableLyric){
+      if(!store){
         if(p.lyric.isNotEmpty && p.lyric.length!=1){
           for (var i = 0; i < p.lyric.length; i++) {
             if(i==p.lyric.length-1){

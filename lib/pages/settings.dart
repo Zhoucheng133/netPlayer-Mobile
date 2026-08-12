@@ -276,7 +276,7 @@ class _SettingsState extends State<Settings> {
                                 )
                               ),
                             ),
-                            if(enableLyric) FTile(
+                            if(!store) FTile(
                               title: Text(
                                 'showTranslations'.tr, 
                               ),
@@ -433,7 +433,7 @@ class _SettingsState extends State<Settings> {
                               ),
                               onPress: () => s.showLanguageDialog(context),
                             ),
-                            if(enableLyric) FTile(
+                            if(!store) FTile(
                               onPress: ()=>showQualityWarning(context),
                               title: Text(
                                 'playQuality'.tr,
@@ -563,7 +563,7 @@ class _SettingsState extends State<Settings> {
                                 child: const CircularProgressIndicator()
                               ) : null,
                             ),
-                            if(enableLyric) FTile(
+                            if(!store) FTile(
                               title: Text('devTool'.tr),
                               onPress: ()=>Get.to(()=>const Dev()),
                             ),

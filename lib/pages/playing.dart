@@ -109,7 +109,7 @@ class _PlayingState extends State<Playing> with SingleTickerProviderStateMixin {
   }
 
   void scrollLyric(){
-    if(!enableLyric){
+    if(store){
       return;
     }
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -224,7 +224,7 @@ class _PlayingState extends State<Playing> with SingleTickerProviderStateMixin {
                 Expanded(
                   child: GestureDetector(
                     onTap: (){
-                      if(!enableLyric){
+                      if(store){
                         return;
                       }
                       setState(() {
@@ -242,7 +242,7 @@ class _PlayingState extends State<Playing> with SingleTickerProviderStateMixin {
                       ),
                       child: AnimatedSwitcher(
                         duration: const Duration(milliseconds: 200),
-                        child: enableLyric && showlyric ? Container(
+                        child: !store && showlyric ? Container(
                           key: const Key("0"),
                           color: Colors.transparent,
                           child: Stack(
@@ -569,8 +569,8 @@ class _PlayingState extends State<Playing> with SingleTickerProviderStateMixin {
                                       ActionItem(name: 'addToLoved'.tr, key: 'love', icon: Icons.favorite_rounded),
                                       ActionItem(name: 'nowPlayList'.tr, key: 'queue', icon: Icons.playlist_play_rounded),
                                       ActionItem(name: 'addTo...'.tr, key: 'add', icon: Icons.playlist_add_rounded),
-                                      if(enableLyric) ActionItem(name: showlyric ? 'hideLyric'.tr : 'showLyric'.tr, key: 'lyric', icon: Icons.lyrics_rounded),
-                                      if(enableLyric) ActionItem(name: 'lyricFontSize'.tr, key: 'font', icon: Icons.text_fields_rounded),
+                                      if(!store) ActionItem(name: showlyric ? 'hideLyric'.tr : 'showLyric'.tr, key: 'lyric', icon: Icons.lyrics_rounded),
+                                      if(!store) ActionItem(name: 'lyricFontSize'.tr, key: 'font', icon: Icons.text_fields_rounded),
                                       if(p.nowPlay['playFrom']!='download' && !downloadVar.isDownloaded(p.nowPlay['id'])) ActionItem(name: 'download'.tr, key: 'download', icon: Icons.download_rounded),
                                       ActionItem(name: 'songInfo'.tr, key: 'info', icon: Icons.info_rounded),
                                     ]

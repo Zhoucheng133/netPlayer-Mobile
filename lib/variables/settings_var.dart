@@ -37,7 +37,7 @@ List<LanguageType> get supportedLocales => [
 ];
 
 // 发布到App Store的版本禁用歌词
-const bool enableLyric=true;
+const bool store=false;
 
 class SettingsVar extends GetxController{
 
