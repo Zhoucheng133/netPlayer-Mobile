@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:netplayer_mobile/operations/requests.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
 import 'package:http/http.dart' as http;
 import 'package:netplayer_mobile/variables/settings_var.dart';
@@ -24,17 +23,21 @@ class LyricGet{
   }
 
   Future<void> getLyric() async {
-
     if(store){
-      return;
-    }
-
-    if(!(await netease())){
       if(!(await lrclib())){
         p.lyricSource.value=null;
         p.lyric.value=[
           LyricItem('noLyric'.tr, "", 0)
         ];
+      }
+    }else{
+      if(!(await netease())){
+        if(!(await lrclib())){
+          p.lyricSource.value=null;
+          p.lyric.value=[
+            LyricItem('noLyric'.tr, "", 0)
+          ];
+        }
       }
     }
   }
@@ -44,7 +47,28 @@ class LyricGet{
     final album=p.nowPlay['album'];
     final artist=p.nowPlay['artist'];
     final duration=p.nowPlay['duration'];
-    final rlt= await httpRequest('https://lrclib.net/api/get?artist_name=$artist&track_name=$title&album_name=$album&duration=$duration');
+
+    final uri = Uri.parse('https://lrclib.net/api/get').replace(queryParameters: {
+      'artist_name': artist,
+      'track_name': title,
+      'album_name': album,
+      'duration': duration.toString(),
+    });
+
+    final res = await http.get(
+      uri,
+      headers: {
+        'User-Agent': 'netPlayer / (https://github.com/Zhoucheng133/netPlayer-Mobile)',
+        'X-Lrclib-Client': 'netPlayer',
+      },
+    );
+
+    if (res.statusCode != 200) {
+      return false;
+    }
+
+    String responseBody = utf8.decode(res.bodyBytes);
+    final rlt = jsonDecode(responseBody);
     var response=rlt['syncedLyrics']??"";
     if(response==''){
       return false;
