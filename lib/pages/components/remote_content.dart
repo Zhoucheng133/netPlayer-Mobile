@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:netplayer_mobile/pages/components/empty_cover.dart';
 import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/remote_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
@@ -116,27 +117,30 @@ class _RemoteContentState extends State<RemoteContent> {
             padding: const EdgeInsets.only(left: 20, right: 20),
             child: Row(
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: r.wsData.value.cover.startsWith("http") ? Image.network(
-                    r.wsData.value.cover, 
-                    width: 70, 
-                    height: 70,
-                    frameBuilder:(context, child, frame, wasSynchronouslyLoaded){
-                      if (wasSynchronouslyLoaded) {
-                        return child;
-                      }
-                      return AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 200),
-                        child: frame != null ? child : SkeletonAvatar(
-                          style: SkeletonAvatarStyle(
-                            width: 70,
-                            height: 70,
+                SizedBox(
+                  width: 70,
+                  height: 70,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    clipBehavior: Clip.antiAlias,
+                    child: r.wsData.value.cover.startsWith("http") ? Image.network(
+                      r.wsData.value.cover, 
+                      frameBuilder:(context, child, frame, wasSynchronouslyLoaded){
+                        if (wasSynchronouslyLoaded) {
+                          return child;
+                        }
+                        return AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 200),
+                          child: frame != null ? child : SkeletonAvatar(
+                            style: SkeletonAvatarStyle(
+                              width: 70,
+                              height: 70,
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                  ) : Image.asset('assets/blank.jpg', width: 70, height: 70,)
+                        );
+                      },
+                    ) : EmptyCover()
+                  ),
                 ),
                 const SizedBox(width: 10,),
                 Expanded(
