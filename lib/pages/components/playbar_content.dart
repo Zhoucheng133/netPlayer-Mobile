@@ -42,7 +42,7 @@ class _PlaybarContentState extends State<PlaybarContent> {
               s.progressStyle.value==ProgressStyle.background ? Positioned(
                 child: Container(
                   height: PageStatic().playbarHeight.toDouble()+MediaQuery.of(context).padding.bottom,
-                  width: MediaQuery.of(context).size.width*(p.nowPlay['duration']==0 ? 0.0 : p.playProgress.value/1000/p.nowPlay["duration"]>1 ? 1.0 : p.playProgress.value/1000/p.nowPlay["duration"]<0 ? 0 : p.playProgress.value/1000/p.nowPlay["duration"]),
+                  width: MediaQuery.of(context).size.width*(p.nowPlay['duration']==0 ? 0.0 : (p.nowPlay['duration']==0 ? 0.0 : (p.playProgress.value / 1000 / p.nowPlay["duration"]).clamp(0.0, 1.0))),
                   color: s.darkMode.value ? s.bgColor3 : Colors.blue[50]!.withAlpha(170),
                 )
               ) : Container(),
@@ -177,7 +177,7 @@ class _PlaybarContentState extends State<PlaybarContent> {
                                       width: 42,
                                       height: 42,
                                       child: CircularProgressIndicator(
-                                        value: p.buffering.value ? null : (p.nowPlay['duration']==0 ? 0.0 : p.playProgress.value/1000/p.nowPlay["duration"]>1 ? 1.0 : p.playProgress.value/1000/p.nowPlay["duration"]<0 ? 0 : p.playProgress.value/1000/p.nowPlay["duration"]),
+                                        value: p.buffering.value ? null : (p.nowPlay['duration']==0 ? 0.0 : (p.playProgress.value / 1000 / p.nowPlay["duration"]).clamp(0.0, 1.0)),
                                         color: s.darkMode.value ? Colors.white : Colors.black,
                                         strokeWidth: 3,
                                       ),

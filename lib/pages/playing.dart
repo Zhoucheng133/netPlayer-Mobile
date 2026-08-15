@@ -401,7 +401,7 @@ class _PlayingState extends State<Playing> with SingleTickerProviderStateMixin {
                                   thumbColor: s.darkMode.value ? Colors.white : Colors.black
                                 ),
                                 child: Slider(
-                                  value: p.nowPlay['duration']==0 ? 0.0 : p.playProgress.value/1000/p.nowPlay["duration"]>1 ? 1.0 : p.playProgress.value/1000/p.nowPlay["duration"]<0 ? 0 : p.playProgress.value/1000/p.nowPlay["duration"], 
+                                  value: p.nowPlay['duration']==0 ? 0.0 : (p.nowPlay['duration']==0 ? 0.0 : (p.playProgress.value / 1000 / p.nowPlay["duration"]).clamp(0.0, 1.0)), 
                                   onChanged: p.nowPlay['duration']==0 ? null : (value){
                                     seekChange(value);
                                   },
