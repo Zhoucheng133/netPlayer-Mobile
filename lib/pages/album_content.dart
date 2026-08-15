@@ -126,7 +126,7 @@ class _AlbumContentState extends State<AlbumContent> {
                         !loading ? SliverList.builder(
                           itemCount: ls.length,
                           itemBuilder: (context, index){
-                            return SongItem(item: ls[index], index: index, ls: ls, from: 'album', listId: widget.id,);
+                            return SongItem(item: ls[index], index: index, ls: ls, from: 'album', listId: widget.id, useRootNavigator: widget.showPlayingBar);
                           }
                         ) : SliverList.builder(
                           itemCount: widget.songCount > 0 ? widget.songCount : 20,

@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:netplayer_mobile/variables/download_var.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/operations/player_control.dart';
+import 'package:netplayer_mobile/pages/album_content.dart';
+import 'package:netplayer_mobile/pages/artist_content.dart';
 import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/player_var.dart';
@@ -19,8 +21,9 @@ class SongItem extends StatefulWidget {
   final String from;
   final String listId;
   final dynamic refresh;
+  final bool useRootNavigator;
 
-  const SongItem({super.key, required this.item, required this.index, required this.ls, required this.from, required this.listId, this.refresh});
+  const SongItem({super.key, required this.item, required this.index, required this.ls, required this.from, required this.listId, this.refresh, this.useRootNavigator=false});
 
   @override
   State<SongItem> createState() => _SongItemState();
@@ -90,18 +93,26 @@ class _SongItemState extends State<SongItem> {
     );
     if(req=="album"){
       if(widget.item['album']!=null && widget.item['albumId']!=null){
-        Get.toNamed('/album', id: 1, arguments: {
-          'album': widget.item['album'],
-          'id': widget.item['albumId'],
-        });
+        if(widget.useRootNavigator){
+          Get.to(()=>AlbumContent(album: widget.item['album'], id: widget.item['albumId'], showPlayingBar: true));
+        }else{
+          Get.toNamed('/album', id: 1, arguments: {
+            'album': widget.item['album'],
+            'id': widget.item['albumId'],
+          });
+        }
       }
       
     }else if(req=='artist'){
       if(widget.item['artistId']!=null && widget.item['artist']!=null){
-        Get.toNamed('/artist', id: 1, arguments: {
-          'id': widget.item['artistId'],
-          'artist': widget.item['artist'],
-        });
+        if(widget.useRootNavigator){
+          Get.to(()=>ArtistContent(id: widget.item['artistId'], artist: widget.item['artist'], showPlayingBar: true));
+        }else{
+          Get.toNamed('/artist', id: 1, arguments: {
+            'id': widget.item['artistId'],
+            'artist': widget.item['artist'],
+          });
+        }
       }
     }else if(req=='love'){
       if(context.mounted){
