@@ -156,7 +156,7 @@ class _PlayingState extends State<Playing> with SingleTickerProviderStateMixin {
       if(rlt=='artist' && context.mounted){
         final data=await DataGet().getSong(p.nowPlay['id'], context);
         if(data['artistId']!=null && data['artist']!=null){
-          Get.to(()=>ArtistContent(id: data['artistId'], artist: data['artist'], showPlayingBar: true, useNavigator: true,));
+          Get.to(()=>ArtistContent(id: data['artistId'], artist: data['artist'], showPlayingBar: true));
         }
       }else if(rlt=='copy'){
         FlutterClipboard.copy(p.nowPlay['artist']);
@@ -645,7 +645,7 @@ class _PlayingState extends State<Playing> with SingleTickerProviderStateMixin {
                                       }
                                       final data=await DataGet().getSong(p.nowPlay['id'], context);
                                       if(data['artistId']!=null && data['artist']!=null){
-                                        Get.to(()=>ArtistContent(id: data['artistId'], artist: data['artist'], showPlayingBar: true, useNavigator: true,));
+                                        Get.to(()=>ArtistContent(id: data['artistId'], artist: data['artist'], showPlayingBar: true));
                                       }
                                     }else if(rlt=='font'){
                                       if(!showlyric){

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
-import 'package:netplayer_mobile/pages/artist_content.dart';
 import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
@@ -12,9 +11,8 @@ class AlbumItem extends StatefulWidget {
 
   final int index;
   final dynamic item;
-  final bool useNavigator;
 
-  const AlbumItem({super.key, required this.index, required this.item, this.useNavigator=false});
+  const AlbumItem({super.key, required this.index, required this.item});
 
   @override
   State<AlbumItem> createState() => _AlbumItemState();
@@ -37,14 +35,10 @@ class _AlbumItemState extends State<AlbumItem> {
       ]
     );
     if(req=='artist'){
-      if(widget.useNavigator){
-        Get.to(ArtistContent(id: widget.item['artistId'], artist: widget.item['artist'],));
-      }else{
-        Get.toNamed('/artist', id: 1, arguments: {
-          'id': widget.item['artistId'],
-          'artist': widget.item['artist'],
-        });
-      }
+      Get.toNamed('/artist', id: 1, arguments: {
+        'id': widget.item['artistId'],
+        'artist': widget.item['artist'],
+      });
     }else if(req=="info"){
       Map albumInfo={};
       if(context.mounted) albumInfo=await dataGet.getAlbumInfo(widget.item['id'], context);
@@ -215,14 +209,11 @@ class _AlbumItemState extends State<AlbumItem> {
       color: s.darkMode.value ? s.bgColor2 : Colors.white,
       child: InkWell(
         onTap: (){
-          if(widget.useNavigator){
-            Get.to(ArtistContent(id: widget.item['artistId'], artist: widget.item['artist'],));
-          }else{
-            Get.toNamed('/artist', id: 1, arguments: {
-              'id': widget.item['artistId'],
-              'artist': widget.item['artist'],
-            });
-          }
+          Get.toNamed('/album', id: 1, arguments: {
+            'album': widget.item['title'],
+            'id': widget.item['id'],
+            'songCount': widget.item['songCount'],
+          });
         },
         onLongPress: ()=>showAlbumMenu(context),
         child: Padding(

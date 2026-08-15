@@ -15,9 +15,8 @@ class ArtistContent extends StatefulWidget {
   final String artist;
   final int albumCount;
   final bool showPlayingBar;
-  final bool useNavigator;
 
-  const ArtistContent({super.key, required this.id, required this.artist, this.albumCount=0, this.showPlayingBar=false, this.useNavigator=false});
+  const ArtistContent({super.key, required this.id, required this.artist, this.albumCount=0, this.showPlayingBar=false});
 
   @override
   State<ArtistContent> createState() => _ArtistContentState();
@@ -100,7 +99,7 @@ class _ArtistContentState extends State<ArtistContent> {
                         !loading ? SliverList.builder(
                           itemCount: ls.length,
                           itemBuilder: (context, index){
-                            return AlbumItem(index: index, item: ls[index], useNavigator: widget.useNavigator,);
+                            return AlbumItem(index: index, item: ls[index],);
                           }
                         ) : SliverList.builder(
                           itemCount: widget.albumCount > 0 ? widget.albumCount : 20,
