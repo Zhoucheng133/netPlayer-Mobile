@@ -168,6 +168,7 @@ const Map<String, String> zhCN={
   'createPlaylistFailed': '创建歌单失败',
   'playlistNameEmpty': '歌单名称不能为空',
   'renamePlaylistFailed': '重命名歌单失败',
+  'loveFailed': '喜欢歌曲失败',
   'deloveFailed': '取消喜欢歌曲失败',
   'addToPlaylistFailed': '添加歌曲到歌单失败',
   'removeFromPlaylistFailed': '从歌单中移除歌曲失败',

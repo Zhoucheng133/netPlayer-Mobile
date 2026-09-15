@@ -102,7 +102,7 @@ class Operations{
     final rlt=await httpRequest("${u.url.value}/rest/star?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}&id=$id");
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
       if(context.mounted){
-        dataGet.dialog('喜欢歌曲失败', "checkYourNetwork".tr, context);
+        dataGet.dialog('loveFailed'.tr, "checkYourNetwork".tr, context);
       }
       return;
     }else{

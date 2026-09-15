@@ -168,6 +168,7 @@ const Map<String, String> enUS = {
   'createPlaylistFailed': 'Failed to create playlist',
   'playlistNameEmpty': 'Playlist name cannot be empty',
   'renamePlaylistFailed': 'Failed to rename playlist',
+  'loveFailed': 'Failed to love song',
   'deloveFailed': 'Failed to remove from Loved',
   'addToPlaylistFailed': 'Failed to add song to playlist',
   'removeFromPlaylistFailed': 'Failed to remove song from playlist',

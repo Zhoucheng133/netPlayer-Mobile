@@ -168,6 +168,7 @@ const Map<String, String> zhTW = {
   'createPlaylistFailed': '建立播放清單失敗',
   'playlistNameEmpty': '播放清單名稱不能為空',
   'renamePlaylistFailed': '重新命名播放清單失敗',
+  'loveFailed': '喜歡歌曲失敗',
   'deloveFailed': '取消喜歡歌曲失敗',
   'addToPlaylistFailed': '加入歌曲到播放清單失敗',
   'removeFromPlaylistFailed': '自播放清單移除歌曲失敗',
