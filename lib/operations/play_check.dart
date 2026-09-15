@@ -65,7 +65,9 @@ class PlayCheck{
   }
 
   Future<void> checkLovedSongPlay(BuildContext context) async {
-    List ls=await d.getLoved(context);
+    // List ls=await d.getLoved(context);
+    await d.getLoved(context);
+    List ls=lsVar.lovedSongs;
     lsVar.lovedSongs.value=ls;
     int index=ls.indexWhere((item) => item['id']==p.nowPlay['id']);
     if(index!=-1){

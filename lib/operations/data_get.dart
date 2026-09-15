@@ -199,26 +199,21 @@ class DataGet{
     }
   }
 
-  Future<List> getLoved(BuildContext context) async {
+  Future<void> getLoved(BuildContext context) async {
     final rlt=await httpRequest("${u.url.value}/rest/getStarred?v=1.12.0&c=netPlayer&f=json&u=${u.username.value}&t=${u.token.value}&s=${u.salt.value}");
     if(rlt.isEmpty || rlt['subsonic-response']['status']!='ok'){
       if(context.mounted){
         dialog("getLovedSongsFailed".tr, "checkYourNetwork".tr, context);
       }
-      return [];
     }else{
       try {
-        if(rlt['subsonic-response']['starred']['song']==null){
-          // 没有喜欢的歌曲
-          return [];
-        }else{
-          return rlt['subsonic-response']['starred']['song'];
-        }
+        ls.lovedSongs.value=rlt['subsonic-response']['starred']['song']??[];
+        ls.lovedAlbums.value=rlt['subsonic-response']['starred']['album']??[];
+        ls.lovedArtists.value=rlt['subsonic-response']['starred']['artist']??[];
       } catch (_) {
         if(context.mounted){
           dialog("getLovedSongsFailed".tr, "checkYourNetwork".tr, context);
         }
-        return [];
       }
     }
   }

@@ -107,7 +107,7 @@ class Operations{
       return;
     }else{
       if(context.mounted){
-        l.lovedSongs.value=await dataGet.getLoved(context);
+        await dataGet.getLoved(context);
       }
       if(context.mounted){
         PlayCheck().check(context);
@@ -124,7 +124,7 @@ class Operations{
       return;
     }else{
       if(context.mounted){
-        l.lovedSongs.value=await dataGet.getLoved(context);
+        await dataGet.getLoved(context);
       }
       if(context.mounted){
         PlayCheck().check(context);
