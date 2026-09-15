@@ -60,7 +60,7 @@ const Map<String, String> zhCN={
   'fixed': '固定项',
   'playlist': '歌单',
   'playlists': '歌单',
-  'loved': '喜欢的歌曲',
+  'loved': '收藏',
 
   'createPlaylist': '创建歌单',
   'create': '创建',

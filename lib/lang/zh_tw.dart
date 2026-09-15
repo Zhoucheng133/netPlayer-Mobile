@@ -60,7 +60,7 @@ const Map<String, String> zhTW = {
   'fixed': '固定項目',
   'playlist': '播放清單',
   'playlists': '播放清單',
-  'loved': '喜歡的歌曲',
+  'loved': '收藏',
 
   'createPlaylist': '建立播放清單',
   'create': '建立',
