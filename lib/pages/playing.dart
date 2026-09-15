@@ -36,7 +36,7 @@ class _PlayingState extends State<Playing> with SingleTickerProviderStateMixin {
   final DownloadVar downloadVar=Get.find();
 
   bool isLoved(){
-    for (var val in l.loved) {
+    for (var val in l.lovedSongs) {
       if(val["id"]==p.nowPlay['id']){
         return true;
       }

@@ -104,9 +104,9 @@ class _LovedState extends State<Loved> {
             ),
             Obx(
               ()=> s.selectMode.value ? MultiOption(fromPlaylist: false, listId: "",) : IconButton(
-                onPressed: lsVar.loved.isEmpty ? null : (){
+                onPressed: lsVar.lovedSongs.isEmpty ? null : (){
                   Get.toNamed('/search-in', id: 1, arguments: {
-                    'ls': lsVar.loved,
+                    'ls': lsVar.lovedSongs,
                     'from': 'loved',
                     'mode': 'song',
                     'listId': '',
@@ -130,16 +130,16 @@ class _LovedState extends State<Loved> {
                 controller: controller,
                 slivers: [
                   SliverToBoxAdapter(
-                    child: TitleArea(title: 'loved'.tr, subtitle: '${lsVar.loved.length} ${"songsEnd".tr}', ),
+                    child: TitleArea(title: 'loved'.tr, subtitle: '${lsVar.lovedSongs.length} ${"songsEnd".tr}', ),
                   ),
                   SliverList.builder(
-                    itemCount: lsVar.loved.length,
+                    itemCount: lsVar.lovedSongs.length,
                     itemBuilder: (context, index){
                       return AutoScrollTag(
                         key: ValueKey(index),
                         index: index,
                         controller: controller,
-                        child: SongItem(item: lsVar.loved[index], index: index, ls: lsVar.loved, from: 'loved', listId: '',),
+                        child: SongItem(item: lsVar.lovedSongs[index], index: index, ls: lsVar.lovedSongs, from: 'loved', listId: '',),
                       );
                     }
                   ),

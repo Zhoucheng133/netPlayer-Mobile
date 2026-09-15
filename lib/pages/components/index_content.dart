@@ -38,7 +38,7 @@ class _IndexContentState extends State<IndexContent> {
       await dataGet.getPlayLists(context);
     }
     if(context.mounted){
-      l.loved.value=await dataGet.getLoved(context);
+      l.lovedSongs.value=await dataGet.getLoved(context);
     }
   }
   

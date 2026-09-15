@@ -39,7 +39,7 @@ class _SongItemDownloadState extends State<SongItemDownload> {
   }
 
   bool isLoved(){
-    for (var val in l.loved) {
+    for (var val in l.lovedSongs) {
       if(val["id"]==widget.item['id']){
         return true;
       }
