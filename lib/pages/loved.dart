@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/play_check.dart';
+import 'package:netplayer_mobile/pages/components/album_item.dart';
+import 'package:netplayer_mobile/pages/components/artist_item.dart';
 import 'package:netplayer_mobile/pages/components/multi_option.dart';
 import 'package:netplayer_mobile/pages/components/song_item.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
@@ -23,6 +25,13 @@ class _LovedState extends State<Loved> {
   final LsVar lsVar=Get.find();
 
   bool loading=false;
+  String mode="song";
+
+  void changeMode(String val){
+    setState(() {
+      mode=val;
+    });
+  }
 
   Future<void> getList(BuildContext context) async {
     setState(() {
@@ -65,6 +74,17 @@ class _LovedState extends State<Loved> {
       s.selectMode.value=false;
     });
     super.dispose();
+  }
+
+  String subtitle(){
+    if(mode=="song"){
+      return '${lsVar.lovedSongs.length} ${"songsEnd".tr}';
+    }else if(mode=="artist"){
+      return '${lsVar.lovedArtists.length} ${"artistEnd".tr}';
+    }else if(mode=="album"){
+      return '${lsVar.lovedAlbums.length} ${"albumEnd".tr}';
+    }
+    return "";
   }
 
   @override
@@ -130,9 +150,9 @@ class _LovedState extends State<Loved> {
                 controller: controller,
                 slivers: [
                   SliverToBoxAdapter(
-                    child: TitleArea(title: 'loved'.tr, subtitle: '${lsVar.lovedSongs.length} ${"songsEnd".tr}', ),
+                    child: LovedTitleArea(subtitle: subtitle(), changeMode: (value)=>changeMode(value), mode: mode),
                   ),
-                  SliverList.builder(
+                  mode=="song" ? SliverList.builder(
                     itemCount: lsVar.lovedSongs.length,
                     itemBuilder: (context, index){
                       return AutoScrollTag(
@@ -140,6 +160,26 @@ class _LovedState extends State<Loved> {
                         index: index,
                         controller: controller,
                         child: SongItem(item: lsVar.lovedSongs[index], index: index, ls: lsVar.lovedSongs, from: 'loved', listId: '',),
+                      );
+                    }
+                  ) : mode=="artist" ? SliverList.builder(
+                    itemCount: lsVar.lovedArtists.length,
+                    itemBuilder: (context, index){
+                      return AutoScrollTag(
+                        key: ValueKey(index),
+                        index: index,
+                        controller: controller,
+                        child: ArtistItem(item: lsVar.lovedArtists[index], index: index,),
+                      );
+                    }
+                  ) : SliverList.builder(
+                    itemCount: lsVar.lovedAlbums.length,
+                    itemBuilder: (context, index){
+                      return AutoScrollTag(
+                        key: ValueKey(index),
+                        index: index,
+                        controller: controller,
+                        child: AlbumItem(item: lsVar.lovedAlbums[index], index: index),
                       );
                     }
                   ),

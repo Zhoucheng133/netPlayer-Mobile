@@ -193,3 +193,112 @@ class _SearchTitleAreaState extends State<SearchTitleArea> {
     );
   }
 }
+
+class LovedTitleArea extends StatefulWidget {
+
+  final String subtitle;
+  final ValueChanged changeMode;
+  final String mode;
+
+  const LovedTitleArea({super.key, required this.subtitle, required this.changeMode, required this.mode});
+
+  @override
+  State<LovedTitleArea> createState() => _LovedTitleAreaState();
+}
+
+class _LovedTitleAreaState extends State<LovedTitleArea> {
+
+  SettingsVar s=Get.find();
+  final DialogVar d=Get.find();
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(()=>
+      Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: s.darkMode.value ? s.bgColor1 : Colors.grey[100],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 30, bottom: 0, right: 30),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 50,
+                child: Row(
+                  children: [
+                    Text(
+                      'loved'.tr,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w300,
+                        fontSize: 35
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(width: 10,),
+                    IconButton(
+                      onPressed: (){
+                        if(widget.mode=='song'){
+                          return;
+                        }
+                        widget.changeMode('song');
+                      },
+                      icon: Icon(
+                        Icons.music_note_rounded,
+                        color: widget.mode=='song' ? s.darkMode.value ? Colors.white : Colors.black : s.darkMode.value ? Colors.grey[500] : Colors.grey[300],
+                        size: 30,
+                      )
+                    ),
+                    IconButton(
+                      onPressed: (){
+                        if(widget.mode=='album'){
+                          return;
+                        }
+                        widget.changeMode('album');
+                      },
+                      icon: Icon(
+                        Icons.album_rounded,
+                        color: widget.mode=='album' ? s.darkMode.value ? Colors.white : Colors.black : s.darkMode.value ? Colors.grey[500] : Colors.grey[300],
+                        size: 30,
+                      )
+                    ),
+                    IconButton(
+                      onPressed: (){
+                        if(widget.mode=='artist'){
+                          return;
+                        }
+                        widget.changeMode('artist');
+                      },
+                      icon: Icon(
+                        Icons.mic_rounded,
+                        color: widget.mode=='artist' ? s.darkMode.value ? Colors.white : Colors.black : s.darkMode.value ? Colors.grey[500] : Colors.grey[300],
+                        size: 30,
+                      )
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    widget.subtitle,
+                    style: TextStyle(
+                      fontSize: 14,
+                    ),
+                    overflow: TextOverflow.fade,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10,),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
