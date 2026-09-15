@@ -5,6 +5,7 @@ import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/pages/album_content.dart';
 import 'package:netplayer_mobile/pages/artist_content.dart';
 import 'package:netplayer_mobile/variables/dialog_var.dart';
+import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 import 'package:netplayer_mobile/variables/user_var.dart';
 import 'package:skeletons_forked/skeletons_forked.dart';
@@ -28,6 +29,17 @@ class _AlbumItemState extends State<AlbumItem> {
   final UserVar u=Get.find();
   final Operations operations=Operations();
   final SettingsVar s=Get.find();
+
+  LsVar ls=Get.find();
+
+  bool isLoved(){
+    for (var val in ls.lovedAlbums) {
+      if(val["id"]==widget.item['id']){
+        return true;
+      }
+    }
+    return false;
+  }
 
   Future<void> showAlbumMenu(BuildContext context) async {
     var req=await d.showActionSheet(
@@ -253,13 +265,29 @@ class _AlbumItemState extends State<AlbumItem> {
                           fontSize: 16,
                         ),
                       ),
-                      Text(
-                        widget.item['artist'],
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 12,
-                          color:Colors.grey[400]
-                        ),
+                      Row(
+                        mainAxisAlignment: .start,
+                        crossAxisAlignment: .center,
+                        children: [
+                          isLoved() ? const Padding(
+                            padding: EdgeInsets.only(right: 5),
+                            child: Icon(
+                              Icons.favorite_rounded,
+                              color: Colors.red,
+                              size: 15,
+                            ),
+                          ) : Container(),
+                          Expanded(
+                            child: Text(
+                              widget.item['artist'],
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 12,
+                                color:Colors.grey[400]
+                              ),
+                            ),
+                          ),
+                        ],
                       )
                     ],
                   ),

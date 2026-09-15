@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
 
 class ArtistItem extends StatefulWidget {
@@ -15,6 +16,16 @@ class ArtistItem extends StatefulWidget {
 class _ArtistItemState extends State<ArtistItem> {
 
   SettingsVar s=Get.find();
+  LsVar ls=Get.find();
+
+  bool isLoved(){
+    for (var val in ls.lovedArtists) {
+      if(val["id"]==widget.item['id']){
+        return true;
+      }
+    }
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,20 +58,48 @@ class _ArtistItemState extends State<ArtistItem> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        widget.item['name'],
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 16,
-                        ),
+                      Row(
+                        children: [
+                          isLoved() && widget.item['albumCount']==null ? const Padding(
+                            padding: EdgeInsets.only(right: 5),
+                            child: Icon(
+                              Icons.favorite_rounded,
+                              color: Colors.red,
+                              size: 15,
+                            ),
+                          ) : Container(),
+                          Expanded(
+                            child: Text(
+                              widget.item['name'],
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      if(widget.item['albumCount']!=null) Text(
-                        "${widget.item['albumCount']} ${"albumEnd".tr}",
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 12,
-                          color:Colors.grey[400]
-                        ),
+                      if(widget.item['albumCount']!=null) Row(
+                        children: [
+                          isLoved() ? const Padding(
+                            padding: EdgeInsets.only(right: 5),
+                            child: Icon(
+                              Icons.favorite_rounded,
+                              color: Colors.red,
+                              size: 15,
+                            ),
+                          ) : Container(),
+                          Expanded(
+                            child: Text(
+                              "${widget.item['albumCount']} ${"albumEnd".tr}",
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 12,
+                                color:Colors.grey[400]
+                              ),
+                            ),
+                          ),
+                        ],
                       )
                     ],
                   ),
