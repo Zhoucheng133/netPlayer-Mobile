@@ -47,6 +47,8 @@ class _AlbumItemState extends State<AlbumItem> {
       list: [
         ActionItem(name: 'showArtist'.tr, key: "artist", icon: Icons.mic_rounded),
         ActionItem(name: 'albumInfo'.tr, key: "info", icon: Icons.info_rounded),
+        isLoved() ? ActionItem(name: 'removeFromLoved'.tr, key: "delove", icon: Icons.heart_broken_rounded) : 
+        ActionItem(name: 'addToLoved'.tr, key: "love", icon: Icons.favorite_rounded)
       ]
     );
     if(req=='artist'){
@@ -219,6 +221,14 @@ class _AlbumItemState extends State<AlbumItem> {
           )
         );
       }
+    }else if(req=="love"){
+      if(context.mounted){
+        operations.love(widget.item["id"], context);
+      }
+    }else if(req=="delove"){
+      if(context.mounted){
+        operations.delove(widget.item["id"], context);
+      }
     }
   }
 
@@ -265,29 +275,31 @@ class _AlbumItemState extends State<AlbumItem> {
                           fontSize: 16,
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: .start,
-                        crossAxisAlignment: .center,
-                        children: [
-                          isLoved() ? const Padding(
-                            padding: EdgeInsets.only(right: 5),
-                            child: Icon(
-                              Icons.favorite_rounded,
-                              color: Colors.red,
-                              size: 15,
-                            ),
-                          ) : Container(),
-                          Expanded(
-                            child: Text(
-                              widget.item['artist'],
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: 12,
-                                color:Colors.grey[400]
+                      Obx(
+                        ()=> Row(
+                          mainAxisAlignment: .start,
+                          crossAxisAlignment: .center,
+                          children: [
+                            isLoved() ? const Padding(
+                              padding: EdgeInsets.only(right: 5),
+                              child: Icon(
+                                Icons.favorite_rounded,
+                                color: Colors.red,
+                                size: 15,
+                              ),
+                            ) : Container(),
+                            Expanded(
+                              child: Text(
+                                widget.item['artist'],
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color:Colors.grey[400]
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       )
                     ],
                   ),

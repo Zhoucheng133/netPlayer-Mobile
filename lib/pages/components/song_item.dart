@@ -116,11 +116,11 @@ class _SongItemState extends State<SongItem> {
       }
     }else if(req=='love'){
       if(context.mounted){
-        Operations().love(widget.item["id"], context);
+        operations.love(widget.item["id"], context);
       }
     }else if(req=='delove'){
       if(context.mounted){
-        Operations().delove(widget.item["id"], context);
+        operations.delove(widget.item["id"], context);
       }
     }else if(req=='add'){
       if(l.playList.isEmpty && context.mounted){
@@ -159,7 +159,7 @@ class _SongItemState extends State<SongItem> {
             },
           ),
           okHandler: () async {
-            await Operations().addToList(widget.item["id"], selectedId, context);
+            await operations.addToList(widget.item["id"], selectedId, context);
           },
         );
       }
@@ -168,7 +168,7 @@ class _SongItemState extends State<SongItem> {
         return;
       }
       if(context.mounted){
-        if(await Operations().deList(widget.index, widget.listId, context)){
+        if(await operations.deList(widget.index, widget.listId, context)){
           try {
             widget.refresh();
           } catch (_) {}
