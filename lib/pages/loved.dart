@@ -113,7 +113,7 @@ class _LovedState extends State<Loved> {
                 }, 
                 child: Text('unselect'.tr)
               ) : IconButton(
-                onPressed: pl.nowPlay['playFrom']=='loved'? (){
+                onPressed: pl.nowPlay['playFrom']=='loved' && mode=="song" ? (){
                   controller.scrollToIndex(pl.nowPlay['index'], preferPosition: AutoScrollPosition.middle);
                 } : null, 
                 icon: const Icon(
