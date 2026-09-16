@@ -126,9 +126,9 @@ class _LovedState extends State<Loved> {
               ()=> s.selectMode.value ? MultiOption(fromPlaylist: false, listId: "",) : IconButton(
                 onPressed: lsVar.lovedSongs.isEmpty ? null : (){
                   Get.toNamed('/search-in', id: 1, arguments: {
-                    'ls': lsVar.lovedSongs,
+                    'ls': mode=='song' ? lsVar.lovedSongs : mode=='artist' ? lsVar.lovedArtists : lsVar.lovedAlbums, 
                     'from': 'loved',
-                    'mode': 'song',
+                    'mode': mode,
                     'listId': '',
                   });
                 }, 
