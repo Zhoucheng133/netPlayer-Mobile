@@ -234,4 +234,7 @@ const Map<String, String> zhTW = {
 
   'keepScreenOnInLyric': '歌詞頁保持螢幕常亮',
   'keepScreenOnInLyricContent': '在顯示歌詞時不會自動鎖定螢幕',
+
+  'empty': '沒有內容',
+  'noplaylist': '無播放歌單'
 };

@@ -6,6 +6,7 @@ import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/operations/player_control.dart';
 import 'package:netplayer_mobile/pages/about.dart';
+import 'package:netplayer_mobile/pages/components/empty.dart';
 import 'package:netplayer_mobile/pages/components/index_item.dart';
 import 'package:netplayer_mobile/pages/remote.dart';
 import 'package:netplayer_mobile/pages/settings.dart';
@@ -250,7 +251,7 @@ class _IndexContentState extends State<IndexContent> {
                       const SliverToBoxAdapter(
                         child: SizedBox(height: 10,),
                       ),
-                      SliverList.builder(
+                      ls.playList.isNotEmpty ? SliverList.builder(
                         itemCount: ls.playList.length,
                         itemBuilder: (context, index){
                           return PlayListItem(
@@ -263,6 +264,9 @@ class _IndexContentState extends State<IndexContent> {
                             changed: ls.playList[index]['changed'],
                           );
                         }
+                      ) : SliverFillRemaining(
+                        hasScrollBody: false,
+                        child: NoPlaylist()
                       ),
                       const SliverToBoxAdapter(
                         child: SizedBox(height: 10,),

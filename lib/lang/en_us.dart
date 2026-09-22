@@ -234,4 +234,7 @@ const Map<String, String> enUS = {
 
   'keepScreenOnInLyric': "Keep screen on in lyrics",
   'keepScreenOnInLyricContent': "The screen will not lock automatically",
+
+  'empty': 'No Content',
+  'noplaylist': 'No Playlist'
 };

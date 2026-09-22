@@ -234,4 +234,7 @@ const Map<String, String> zhCN={
 
   'keepScreenOnInLyric': '歌词页保持屏幕常亮',
   'keepScreenOnInLyricContent': '在显示歌词时不会自动锁定屏幕',
+
+  'empty': '没有内容',
+  'noplaylist': '没有歌单'
 };
