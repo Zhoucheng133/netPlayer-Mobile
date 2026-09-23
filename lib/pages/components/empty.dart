@@ -17,8 +17,9 @@ class _EmptyState extends State<Empty> {
         mainAxisSize: .min,
         mainAxisAlignment: .center,
         crossAxisAlignment: .center,
+        spacing: 10,
         children: [
-          FaIcon(FontAwesomeIcons.temperatureEmpty),
+          FaIcon(FontAwesomeIcons.boxOpen),
           Text('empty'.tr),
         ],
       ),
