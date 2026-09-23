@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/pages/components/album_item.dart';
+import 'package:netplayer_mobile/pages/components/empty.dart';
 import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
 import 'package:netplayer_mobile/pages/skeletons/album_skeleton.dart';
@@ -96,16 +97,22 @@ class _ArtistContentState extends State<ArtistContent> {
                         SliverToBoxAdapter(
                           child: TitleArea(title: '${"artist".tr}: ${widget.artist}', subtitle: '${ls.length} ${"albumEnd".tr}',),
                         ),
-                        !loading ? SliverList.builder(
-                          itemCount: ls.length,
-                          itemBuilder: (context, index){
-                            return AlbumItem(index: index, item: ls[index], useRootNavigator: widget.showPlayingBar);
-                          }
-                        ) : SliverList.builder(
+                        loading ? SliverList.builder(
                           itemCount: widget.albumCount > 0 ? widget.albumCount : 20,
                           itemBuilder: (context, index) {
                             return const AlbumSkeleton();
                           },
+                        ) : ls.isEmpty ? SliverFillRemaining(
+                          hasScrollBody: false,
+                          child: Container(
+                            color: s.darkMode.value ? s.bgColor2 : Colors.white,
+                            child: Empty()
+                          )
+                        ) : SliverList.builder(
+                          itemCount: ls.length,
+                          itemBuilder: (context, index){
+                            return AlbumItem(index: index, item: ls[index], useRootNavigator: widget.showPlayingBar);
+                          }
                         ),
                         SliverFillRemaining(
                           hasScrollBody: false,

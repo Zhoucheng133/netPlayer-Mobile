@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/operations.dart';
 import 'package:netplayer_mobile/pages/components/album_item.dart';
 import 'package:netplayer_mobile/pages/components/artist_item.dart';
+import 'package:netplayer_mobile/pages/components/empty.dart';
 import 'package:netplayer_mobile/pages/components/multi_option.dart';
 import 'package:netplayer_mobile/pages/components/search_box.dart';
 import 'package:netplayer_mobile/pages/components/song_item.dart';
@@ -145,7 +146,13 @@ class _SearchState extends State<Search> {
                           ),
                         ),
                       ),
-                      mode=='song' ? SliverList.builder(
+                      (mode=='song' ? ls['songs'] : mode=='album' ? ls['albums'] : ls['artists']).isEmpty && textController.text.isNotEmpty ? SliverFillRemaining(
+                        hasScrollBody: false,
+                        child: Container(
+                          color: s.darkMode.value ? s.bgColor2 : Colors.white,
+                          child: Empty()
+                        )
+                      ) : mode=='song' ? SliverList.builder(
                         itemCount: ls['songs'].length,
                         itemBuilder: (context, index){
                           return SongItem(item: ls['songs'][index], index: index, ls: ls['songs'], from: 'search', listId: textController.text, );

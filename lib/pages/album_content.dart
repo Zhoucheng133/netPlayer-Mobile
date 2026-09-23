@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
+import 'package:netplayer_mobile/pages/components/empty.dart';
 import 'package:netplayer_mobile/pages/components/multi_option.dart';
 import 'package:netplayer_mobile/pages/components/playing_bar.dart';
 import 'package:netplayer_mobile/pages/components/song_item.dart';
@@ -123,16 +124,22 @@ class _AlbumContentState extends State<AlbumContent> {
                         SliverToBoxAdapter(
                           child: TitleArea(title: "${'album'.tr}: ${widget.album}", subtitle: '${ls.length} ${"songsEnd".tr}',),
                         ),
-                        !loading ? SliverList.builder(
-                          itemCount: ls.length,
-                          itemBuilder: (context, index){
-                            return SongItem(item: ls[index], index: index, ls: ls, from: 'album', listId: widget.id, useRootNavigator: widget.showPlayingBar);
-                          }
-                        ) : SliverList.builder(
+                        loading ? SliverList.builder(
                           itemCount: widget.songCount > 0 ? widget.songCount : 20,
                           itemBuilder: (context, index) {
                             return const SongSkeleton();
                           },
+                        ) : ls.isEmpty ? SliverFillRemaining(
+                          hasScrollBody: false,
+                          child: Container(
+                            color: s.darkMode.value ? s.bgColor2 : Colors.white,
+                            child: Empty()
+                          )
+                        ) : SliverList.builder(
+                          itemCount: ls.length,
+                          itemBuilder: (context, index){
+                            return SongItem(item: ls[index], index: index, ls: ls, from: 'album', listId: widget.id, useRootNavigator: widget.showPlayingBar);
+                          }
                         ),
                         SliverFillRemaining(
                           hasScrollBody: false,

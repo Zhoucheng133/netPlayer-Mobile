@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
 import 'package:netplayer_mobile/pages/components/artist_item.dart';
+import 'package:netplayer_mobile/pages/components/empty.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
 import 'package:netplayer_mobile/pages/skeletons/artist_skeleton.dart';
 import 'package:netplayer_mobile/variables/settings_var.dart';
@@ -99,16 +100,22 @@ class _ArtistsState extends State<Artists> {
                 SliverToBoxAdapter(
                   child: TitleArea(title: 'artists'.tr, subtitle: '${ls.length} ${"artistEnd".tr}',),
                 ),
-                !loading ? SliverList.builder(
-                  itemCount: ls.length,
-                  itemBuilder: (context ,index){
-                    return ArtistItem(index: index, item: ls[index], );
-                  }
-                ) : SliverList.builder(
+                loading ? SliverList.builder(
                   itemCount: 20,
                   itemBuilder: (context, index) {
                     return const ArtistSkeleton();
                   },
+                ) : ls.isEmpty ? SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Container(
+                    color: s.darkMode.value ? s.bgColor2 : Colors.white,
+                    child: Empty()
+                  )
+                ) : SliverList.builder(
+                  itemCount: ls.length,
+                  itemBuilder: (context ,index){
+                    return ArtistItem(index: index, item: ls[index], );
+                  }
                 ),
                 SliverFillRemaining(
                   hasScrollBody: false,

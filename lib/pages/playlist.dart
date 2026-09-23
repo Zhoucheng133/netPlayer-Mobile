@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
+import 'package:netplayer_mobile/pages/components/empty.dart';
 import 'package:netplayer_mobile/pages/components/multi_option.dart';
 import 'package:netplayer_mobile/pages/components/song_item.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
@@ -137,7 +138,18 @@ class _PlaylistState extends State<Playlist> {
                 SliverToBoxAdapter(
                   child: TitleArea(title: widget.name, subtitle: '${ loading ? widget.songCount.toString() : ls.length} ${"songsEnd".tr}',),
                 ),
-                !loading ? SliverList.builder(
+                loading ? SliverList.builder(
+                  itemCount: widget.songCount,
+                  itemBuilder: (context, index){
+                    return const SongSkeleton(showLoved: false);
+                  }
+                ) : ls.isEmpty ? SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Container(
+                    color: s.darkMode.value ? s.bgColor2 : Colors.white,
+                    child: Empty()
+                  )
+                ) : SliverList.builder(
                   itemCount: ls.length,
                   itemBuilder: (context, index){
                     return AutoScrollTag(
@@ -146,11 +158,6 @@ class _PlaylistState extends State<Playlist> {
                       controller: controller,
                       child: SongItem(item: ls[index], index: index, ls: ls, from: 'playlist', listId: widget.id, refresh: () => getList(context),),
                     );
-                  }
-                ) : SliverList.builder(
-                  itemCount: widget.songCount,
-                  itemBuilder: (context, index){
-                    return const SongSkeleton(showLoved: false);
                   }
                 ),
                 SliverFillRemaining(

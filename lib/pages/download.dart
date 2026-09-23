@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:netplayer_mobile/pages/components/empty.dart';
 import 'package:netplayer_mobile/pages/components/multi_option.dart';
 import 'package:netplayer_mobile/pages/components/song_item_download.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
@@ -123,7 +124,13 @@ class _DownloadState extends State<Download> {
                 SliverToBoxAdapter(
                   child: TitleArea(title: 'downloaded'.tr, subtitle: '${downloadVar.downloadFinishedList.length} ${"songsEnd".tr}',),
                 ),
-                SliverList.builder(
+                downloadVar.downloadFinishedList.isEmpty ? SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Container(
+                    color: s.darkMode.value ? s.bgColor2 : Colors.white,
+                    child: Empty()
+                  )
+                ) : SliverList.builder(
                   itemCount: downloadVar.downloadFinishedList.length,
                   itemBuilder: (context ,index){
                     return AutoScrollTag(

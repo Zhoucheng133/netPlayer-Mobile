@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/play_check.dart';
 import 'package:netplayer_mobile/pages/components/album_item.dart';
 import 'package:netplayer_mobile/pages/components/artist_item.dart';
+import 'package:netplayer_mobile/pages/components/empty.dart';
 import 'package:netplayer_mobile/pages/components/multi_option.dart';
 import 'package:netplayer_mobile/pages/components/song_item.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
@@ -152,7 +153,13 @@ class _LovedState extends State<Loved> {
                   SliverToBoxAdapter(
                     child: LovedTitleArea(subtitle: subtitle(), changeMode: (value)=>changeMode(value), mode: mode),
                   ),
-                  mode=="song" ? SliverList.builder(
+                  (mode=="song" ? lsVar.lovedSongs : mode=="artist" ? lsVar.lovedArtists : lsVar.lovedAlbums).isEmpty ? SliverFillRemaining(
+                    hasScrollBody: false,
+                    child: Container(
+                      color: s.darkMode.value ? s.bgColor2 : Colors.white,
+                      child: Empty()
+                    )
+                  ) : mode=="song" ? SliverList.builder(
                     itemCount: lsVar.lovedSongs.length,
                     itemBuilder: (context, index){
                       return AutoScrollTag(

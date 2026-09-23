@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/operations/data_get.dart';
+import 'package:netplayer_mobile/pages/components/empty.dart';
 import 'package:netplayer_mobile/pages/components/multi_option.dart';
 import 'package:netplayer_mobile/pages/components/song_item.dart';
 import 'package:netplayer_mobile/pages/components/title_area.dart';
@@ -138,7 +139,18 @@ class _AllState extends State<All> {
                   SliverToBoxAdapter(
                     child: TitleArea(title: 'allSongs'.tr, subtitle: '${ u.authorization.value.isEmpty && ls.length >= 500 ? "> ${ls.length}" : ls.length} ${'songsEnd'.tr}', showWarning: u.authorization.value.isEmpty && ls.length >= 500,),
                   ),
-                  !loading ? SliverList.builder(
+                  loading ? SliverList.builder(
+                    itemCount: 20,
+                    itemBuilder: (context, _){
+                      return const SongSkeleton();
+                    }
+                  ) : ls.isEmpty ? SliverFillRemaining(
+                    hasScrollBody: false,
+                    child: Container(
+                      color: s.darkMode.value ? s.bgColor2 : Colors.white,
+                      child: Empty()
+                    )
+                  ) : SliverList.builder(
                     itemCount: ls.length,
                     itemBuilder: (context, index){
                       return AutoScrollTag(
@@ -148,13 +160,8 @@ class _AllState extends State<All> {
                         child: SongItem(item: ls[index], index: index, ls: ls, from: 'all', listId: '', ),
                       );
                     },
-                  ) : SliverList.builder(
-                    itemCount: 20,
-                    itemBuilder: (context, _){
-                      return const SongSkeleton();
-                    }
                   ),
-                  SliverFillRemaining(
+                  if(ls.isEmpty) SliverFillRemaining(
                     hasScrollBody: false,
                     child: Container(
                       color: s.darkMode.value ? s.bgColor2 : Colors.white,

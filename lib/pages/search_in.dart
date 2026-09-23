@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netplayer_mobile/pages/components/album_item.dart';
 import 'package:netplayer_mobile/pages/components/artist_item.dart';
+import 'package:netplayer_mobile/pages/components/empty.dart';
 import 'package:netplayer_mobile/pages/components/multi_option.dart';
 import 'package:netplayer_mobile/pages/components/search_box.dart';
 import 'package:netplayer_mobile/pages/components/song_item.dart';
@@ -161,7 +162,13 @@ class _SearchInState extends State<SearchIn> {
                   ),
                 ),
               ),
-              widget.mode=='song' ? SliverList.builder(
+              (filtered.isEmpty && textController.text.isNotEmpty) ? SliverFillRemaining(
+                hasScrollBody: false,
+                child: Container(
+                  color: s.darkMode.value ? s.bgColor2 : Colors.white,
+                  child: Empty()
+                )
+              ) : widget.mode=='song' ? SliverList.builder(
                 itemCount: filtered.length,
                 itemBuilder: (context, index){
                   final data = filtered[index];
