@@ -10,6 +10,7 @@ import 'package:netplayer_mobile/pages/components/empty.dart';
 import 'package:netplayer_mobile/pages/components/index_item.dart';
 import 'package:netplayer_mobile/pages/remote.dart';
 import 'package:netplayer_mobile/pages/settings.dart';
+import 'package:netplayer_mobile/pages/skeletons/playlist_skeleton.dart';
 import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/ls_var.dart';
 import 'package:netplayer_mobile/variables/page_var.dart';
@@ -34,9 +35,14 @@ class _IndexContentState extends State<IndexContent> {
   SettingsVar s=Get.find();
   final DialogVar d=Get.find();
 
+  bool loading=true;
+
   Future<void> initGet(BuildContext context) async {
     if(context.mounted){
       await dataGet.getPlayLists(context);
+      setState(() {
+        loading=false;
+      });
     }
     if(context.mounted){
       await dataGet.getLoved(context);
@@ -136,147 +142,155 @@ class _IndexContentState extends State<IndexContent> {
             const SizedBox(width: 10,)
           ],
         ),
-        body: Column(
-          children: [
-            Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: s.darkMode.value ? s.bgColor1 : Colors.grey[100]
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 30, bottom: 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'home'.tr,
-                      style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
-                    const SizedBox(height: 20,),
-                    Obx(()=>
-                      Row(
-                        children: [
-                          MenuItem(isSet: p.index.value==0, name: 'fixed'.tr, func: ()=>jumpIndex(0),),
-                          const SizedBox(width: 30,),
-                          MenuItem(isSet: p.index.value==1, name: 'playlists'.tr, func: ()=>jumpIndex(1),)
-                        ],
-                      )
-                    )
-                  ],
+        body: AbsorbPointer(
+          absorbing: loading,
+          child: Column(
+            children: [
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: s.darkMode.value ? s.bgColor1 : Colors.grey[100]
                 ),
-              ),
-            ),
-            Expanded(
-              child: RefreshIndicator(
-                onRefresh: ()=>initGet(context),
-                child: Obx(()=>
-                  CustomScrollView(
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    controller: controller,
-                    slivers: [
-                      const SliverToBoxAdapter(
-                        child: SizedBox(height: 15,),
-                      ),
-                      SliverToBoxAdapter(
-                        child: SizedBox(
-                          height: 200,
-                          child: ListView(
-                            scrollDirection: Axis.horizontal,
-                            children: [
-                              const SizedBox(width: 20,),
-                              IndexPinItem(icon: Icons.queue_music_rounded, label: 'allSongs'.tr, bgColor: s.darkMode.value ? s.bgColor1 : Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.toNamed("/all", id: 1),),
-                              const SizedBox(width: 10,),
-                              IndexPinItem(icon: Icons.favorite_rounded, label: 'loved'.tr, bgColor: s.darkMode.value ? s.bgColor1 : Colors.red[50]!, contentColor: Colors.red, func: ()=>Get.toNamed("/loved", id: 1),),
-                              const SizedBox(width: 10,),
-                              IndexPinItem(icon: Icons.download_rounded, label: 'downloaded'.tr, bgColor: s.darkMode.value ? s.bgColor1 : Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.toNamed('/download', id: 1),),
-                              const SizedBox(width: 10,),
-                              IndexPinItem(icon: Icons.mic_rounded, label: 'artists'.tr, bgColor: s.darkMode.value ? s.bgColor1 : Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.toNamed('/artists', id: 1),),
-                              const SizedBox(width: 10,),
-                              IndexPinItem(icon: Icons.album_rounded, label: 'albums'.tr, bgColor: s.darkMode.value ? s.bgColor1 : Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.toNamed('/albums', id: 1),),
-                              const SizedBox(width: 20,),
-                            ],
-                          ),
-                        )
-                      ),
-                      const SliverToBoxAdapter(
-                        child: SizedBox(height: 20,),
-                      ),
-                      SliverToBoxAdapter(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 20, right: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                'playlists'.tr,
-                                style: TextStyle(
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.w300
-                                ),
-                              ),
-                              const SizedBox(width: 10,),
-                              IconButton(
-                                onPressed: () async {
-                                  final controller=TextEditingController();
-                                  await d.showOkCancelDialogRaw(
-                                    context: context, 
-                                    title: "createPlaylist".tr,
-                                    okText: "create".tr,
-                                    cancelText: "cancel".tr,
-                                    child: StatefulBuilder(
-                                      builder: (BuildContext context, StateSetter setState) {
-                                        return FTextField(
-                                          control: .managed(controller: controller), 
-                                          autofocus: true,
-                                          hint: 'playlistName'.tr,
-                                        );
-                                      }
-                                    ),
-                                    okHandler: () async {
-                                      if(context.mounted){
-                                        await Operations().newPlayList(controller.text, context);
-                                      }
-                                    }
-                                  );
-                                }, 
-                                icon: const Icon(Icons.add_rounded)
-                              )
-                            ],
-                          ),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 30, bottom: 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'home'.tr,
+                        style: TextStyle(
+                          fontSize: 35,
+                          fontWeight: FontWeight.w300,
                         ),
                       ),
-                      const SliverToBoxAdapter(
-                        child: SizedBox(height: 10,),
-                      ),
-                      ls.playList.isNotEmpty ? SliverList.builder(
-                        itemCount: ls.playList.length,
-                        itemBuilder: (context, index){
-                          return PlayListItem(
-                            name: ls.playList[index]['name'], 
-                            id: ls.playList[index]['id'], 
-                            songCount: ls.playList[index]['songCount'], 
-                            coverArt: ls.playList[index]['coverArt'], 
-                            len: ls.playList[index]['duration'], 
-                            created: ls.playList[index]['created'], 
-                            changed: ls.playList[index]['changed'],
-                          );
-                        }
-                      ) : SliverFillRemaining(
-                        hasScrollBody: false,
-                        child: NoPlaylist()
-                      ),
-                      const SliverToBoxAdapter(
-                        child: SizedBox(height: 10,),
-                      ),
+                      const SizedBox(height: 20,),
+                      Obx(()=>
+                        Row(
+                          children: [
+                            MenuItem(isSet: p.index.value==0, name: 'fixed'.tr, func: ()=>jumpIndex(0),),
+                            const SizedBox(width: 30,),
+                            MenuItem(isSet: p.index.value==1, name: 'playlists'.tr, func: ()=>jumpIndex(1),)
+                          ],
+                        )
+                      )
                     ],
-                  )
-                )
+                  ),
+                ),
               ),
-            ),
-          ],
+              Expanded(
+                child: RefreshIndicator(
+                  onRefresh: ()=>initGet(context),
+                  child: Obx(()=>
+                    CustomScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      controller: controller,
+                      slivers: [
+                        const SliverToBoxAdapter(
+                          child: SizedBox(height: 15,),
+                        ),
+                        SliverToBoxAdapter(
+                          child: SizedBox(
+                            height: 200,
+                            child: ListView(
+                              scrollDirection: Axis.horizontal,
+                              children: [
+                                const SizedBox(width: 20,),
+                                IndexPinItem(icon: Icons.queue_music_rounded, label: 'allSongs'.tr, bgColor: s.darkMode.value ? s.bgColor1 : Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.toNamed("/all", id: 1),),
+                                const SizedBox(width: 10,),
+                                IndexPinItem(icon: Icons.favorite_rounded, label: 'loved'.tr, bgColor: s.darkMode.value ? s.bgColor1 : Colors.red[50]!, contentColor: Colors.red, func: ()=>Get.toNamed("/loved", id: 1),),
+                                const SizedBox(width: 10,),
+                                IndexPinItem(icon: Icons.download_rounded, label: 'downloaded'.tr, bgColor: s.darkMode.value ? s.bgColor1 : Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.toNamed('/download', id: 1),),
+                                const SizedBox(width: 10,),
+                                IndexPinItem(icon: Icons.mic_rounded, label: 'artists'.tr, bgColor: s.darkMode.value ? s.bgColor1 : Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.toNamed('/artists', id: 1),),
+                                const SizedBox(width: 10,),
+                                IndexPinItem(icon: Icons.album_rounded, label: 'albums'.tr, bgColor: s.darkMode.value ? s.bgColor1 : Colors.blue[50]!, contentColor: Colors.blue, func: ()=>Get.toNamed('/albums', id: 1),),
+                                const SizedBox(width: 20,),
+                              ],
+                            ),
+                          )
+                        ),
+                        const SliverToBoxAdapter(
+                          child: SizedBox(height: 20,),
+                        ),
+                        SliverToBoxAdapter(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 20, right: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'playlists'.tr,
+                                  style: TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.w300
+                                  ),
+                                ),
+                                const SizedBox(width: 10,),
+                                IconButton(
+                                  onPressed: () async {
+                                    final controller=TextEditingController();
+                                    await d.showOkCancelDialogRaw(
+                                      context: context, 
+                                      title: "createPlaylist".tr,
+                                      okText: "create".tr,
+                                      cancelText: "cancel".tr,
+                                      child: StatefulBuilder(
+                                        builder: (BuildContext context, StateSetter setState) {
+                                          return FTextField(
+                                            control: .managed(controller: controller), 
+                                            autofocus: true,
+                                            hint: 'playlistName'.tr,
+                                          );
+                                        }
+                                      ),
+                                      okHandler: () async {
+                                        if(context.mounted){
+                                          await Operations().newPlayList(controller.text, context);
+                                        }
+                                      }
+                                    );
+                                  }, 
+                                  icon: const Icon(Icons.add_rounded)
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SliverToBoxAdapter(
+                          child: SizedBox(height: 10,),
+                        ),
+                        loading ? SliverList.builder(
+                          itemCount: 20,
+                          itemBuilder: (context, index){
+                            return PlaylistSkeleton();
+                          }
+                        ) : ls.playList.isNotEmpty ? SliverList.builder(
+                          itemCount: ls.playList.length,
+                          itemBuilder: (context, index){
+                            return PlayListItem(
+                              name: ls.playList[index]['name'], 
+                              id: ls.playList[index]['id'], 
+                              songCount: ls.playList[index]['songCount'], 
+                              coverArt: ls.playList[index]['coverArt'], 
+                              len: ls.playList[index]['duration'], 
+                              created: ls.playList[index]['created'], 
+                              changed: ls.playList[index]['changed'],
+                            );
+                          }
+                        ) : SliverFillRemaining(
+                          hasScrollBody: false,
+                          child: NoPlaylist()
+                        ),
+                        const SliverToBoxAdapter(
+                          child: SizedBox(height: 10,),
+                        ),
+                      ],
+                    )
+                  )
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
