@@ -218,7 +218,13 @@ class _PlayingState extends State<Playing> with SingleTickerProviderStateMixin {
                     ),
                   ),
                 ),
-                Obx(()=>TitleArea(title: "${p.nowPlay['title']}", subtitle: "${p.nowPlay['artist']}", titleOnTap: ()=>titleTapHandler(context), subtitleOnTap: ()=>subtitleTapHandler(context),),),
+                Obx(()=>TitleArea(
+                  title: "${p.nowPlay['title']}", 
+                  subtitle: "${p.nowPlay['artist']}", 
+                  titleOnTap: ()=>titleTapHandler(context), 
+                  subtitleOnTap: ()=>subtitleTapHandler(context),
+                  showLoved: isLoved(),
+                )),
                 Expanded(
                   child: GestureDetector(
                     onTap: (){

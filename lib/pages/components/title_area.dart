@@ -13,8 +13,9 @@ class TitleArea extends StatefulWidget {
   final bool? showWarning;
   final VoidCallback? titleOnTap;
   final VoidCallback? subtitleOnTap;
+  final bool showLoved;
 
-  const TitleArea({super.key, required this.title, required this.subtitle, this.showWarning, this.titleOnTap, this.subtitleOnTap});
+  const TitleArea({super.key, required this.title, required this.subtitle, this.showWarning, this.titleOnTap, this.subtitleOnTap, this.showLoved=false});
 
   @override
   State<TitleArea> createState() => _TitleAreaState();
@@ -57,20 +58,28 @@ class _TitleAreaState extends State<TitleArea> {
               ),
               const SizedBox(height: 20,),
               Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: .start,
+                crossAxisAlignment: .center,
+                spacing: 10,
                 children: [
-                  GestureDetector(
-                    onTap: widget.subtitleOnTap,
-                    child: Text(
-                      widget.subtitle,
-                      style: TextStyle(
-                        fontSize: 14,
+                  if(widget.showLoved) Icon(
+                    Icons.favorite_rounded,
+                    color: Colors.red,
+                    size: 20,
+                  ),
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: widget.subtitleOnTap,
+                      child: Text(
+                        widget.subtitle,
+                        style: TextStyle(
+                          fontSize: 14,
+                        ),
+                        overflow: TextOverflow.fade,
                       ),
-                      overflow: TextOverflow.fade,
                     ),
                   ),
-                  widget.showWarning==true ? Padding(
+                  if(widget.showWarning==true)Padding(
                     padding: const EdgeInsets.only(left: 10),
                     child: GestureDetector(
                       onTap: (){
@@ -86,7 +95,7 @@ class _TitleAreaState extends State<TitleArea> {
                         size: 20,
                       ),
                     )
-                  ) : Container()
+                  ),
                 ],
               ),
               const SizedBox(height: 10,),
