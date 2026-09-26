@@ -8,6 +8,13 @@ import 'package:get/get.dart';
 import 'package:netplayer_mobile/lang/en_us.dart';
 import 'package:netplayer_mobile/lang/zh_cn.dart';
 import 'package:netplayer_mobile/lang/zh_tw.dart';
+import 'package:netplayer_mobile/lang/ja_jp.dart';
+import 'package:netplayer_mobile/lang/ko_kr.dart';
+import 'package:netplayer_mobile/lang/de_de.dart';
+import 'package:netplayer_mobile/lang/ru_ru.dart';
+import 'package:netplayer_mobile/lang/es_es.dart';
+import 'package:netplayer_mobile/lang/pt_pt.dart';
+import 'package:netplayer_mobile/lang/fr_fr.dart';
 import 'package:netplayer_mobile/main_view.dart';
 import 'package:netplayer_mobile/variables/dialog_var.dart';
 import 'package:netplayer_mobile/variables/download_var.dart';
@@ -60,6 +67,13 @@ class MainTranslations extends Translations {
     'en_US': enUS,
     'zh_CN': zhCN,
     'zh_TW': zhTW,
+    'ja_JP': jaJP,
+    'ko_KR': koKR,
+    'de_DE': deDE,
+    'ru_RU': ruRU,
+    'es_ES': esES,
+    'pt_PT': ptPT,
+    'fr_FR': frFR,
   };
 }
 
