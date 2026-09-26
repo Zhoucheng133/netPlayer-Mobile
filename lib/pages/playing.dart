@@ -228,13 +228,15 @@ class _PlayingState extends State<Playing> with SingleTickerProviderStateMixin {
                 Expanded(
                   child: GestureDetector(
                     onTap: (){
-                      setState(() {
-                        showlyric=!showlyric;
-                        if(showlyric){
-                          scrollLyric();
-                        }
-                        wakeLockHandler();
-                      });
+                      if((s.enableLyric.value && store) || !store){
+                        setState(() {
+                          showlyric=!showlyric;
+                          if(showlyric){
+                            scrollLyric();
+                          }
+                          wakeLockHandler();
+                        });
+                      }
                     },
                     child: Container(
                       width: double.infinity,
@@ -567,7 +569,7 @@ class _PlayingState extends State<Playing> with SingleTickerProviderStateMixin {
                                       ActionItem(name: 'addToLoved'.tr, key: 'love', icon: Icons.favorite_rounded),
                                       ActionItem(name: 'nowPlayList'.tr, key: 'queue', icon: Icons.playlist_play_rounded),
                                       ActionItem(name: 'addTo...'.tr, key: 'add', icon: Icons.playlist_add_rounded),
-                                      ActionItem(name: showlyric ? 'hideLyric'.tr : 'showLyric'.tr, key: 'lyric', icon: Icons.lyrics_rounded),
+                                      if((s.enableLyric.value && store) || !store) ActionItem(name: showlyric ? 'hideLyric'.tr : 'showLyric'.tr, key: 'lyric', icon: Icons.lyrics_rounded),
                                       ActionItem(name: 'lyricFontSize'.tr, key: 'font', icon: Icons.text_fields_rounded),
                                       if(p.nowPlay['playFrom']!='download' && !downloadVar.isDownloaded(p.nowPlay['id'])) ActionItem(name: 'download'.tr, key: 'download', icon: Icons.download_rounded),
                                       ActionItem(name: 'songInfo'.tr, key: 'info', icon: Icons.info_rounded),

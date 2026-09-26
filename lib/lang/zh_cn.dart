@@ -236,5 +236,7 @@ const Map<String, String> zhCN={
   'keepScreenOnInLyricContent': '在显示歌词时不会自动锁定屏幕',
 
   'empty': '没有内容',
-  'noplaylist': '没有歌单'
+  'noplaylist': '没有歌单',
+  'enableLyric': '启用歌词',
+  'lyricLicense': "本软件歌词由第三方服务 LRCLIB 提供，仅用于歌词展示。歌词内容及相关权利归原权利人所有，本软件不对歌词内容的准确性、完整性或版权问题负责。"
 };

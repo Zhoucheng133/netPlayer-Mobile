@@ -30,6 +30,8 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
 
   final DownloadVar downloadVar=Get.find();
+  final Operations operations=Operations();
+  late SharedPreferences prefs;
 
   SettingsVar s=Get.find();
   int cacheSize=0;
@@ -40,11 +42,16 @@ class _SettingsState extends State<Settings> {
   DialogVar d=Get.find();
   Account account=Account();
 
+  Future<void> init() async {
+    prefs=await SharedPreferences.getInstance();
+  }
+
   @override
   void initState(){
     super.initState();
     getCacheSize();
     getDownloadSize();
+    init();
   }
 
   String sizeConvert(int bytes) {
@@ -204,7 +211,6 @@ class _SettingsState extends State<Settings> {
         )
       ), 
       okHandler: () async {
-        final prefs=await SharedPreferences.getInstance();
         prefs.setBool('autoDark', s.autoDark.value);
         prefs.setBool('darkMode', s.darkMode.value);
       },
@@ -255,7 +261,6 @@ class _SettingsState extends State<Settings> {
                                   value: s.autoLogin.value,
                                   onChange: (val) async {
                                     s.autoLogin.value=val;
-                                    final SharedPreferences prefs = await SharedPreferences.getInstance();
                                     prefs.setBool('autoLogin', val);
                                   }
                                 ),
@@ -270,8 +275,27 @@ class _SettingsState extends State<Settings> {
                                   value: s.savePlay.value, 
                                   onChange: (val) async {
                                     s.savePlay.value=val;
-                                    final SharedPreferences prefs = await SharedPreferences.getInstance();
                                     prefs.setBool('savePlay', val);
+                                  }
+                                )
+                              ),
+                            ),
+                            if(store) FTile(
+                              title: Text('enableLyric'.tr),
+                              details: Obx(()=>
+                                FSwitch(
+                                  value: s.enableLyric.value, 
+                                  onChange: (val) async {
+                                    if(val){
+                                      if(await d.showLyricDialog(context)){
+                                        s.enableLyric.value=val;
+                                        prefs.setBool('enableLyric', val);
+                                        operations.getLyric();
+                                      }
+                                    }else{
+                                      s.enableLyric.value=val;
+                                      prefs.setBool('enableLyric', val);
+                                    }
                                   }
                                 )
                               ),
@@ -285,7 +309,6 @@ class _SettingsState extends State<Settings> {
                                   value: s.showTranslation.value, 
                                   onChange: (val) async {
                                     s.showTranslation.value=val;
-                                    final SharedPreferences prefs = await SharedPreferences.getInstance();
                                     prefs.setBool('showTranslation', val);
                                   }
                                 )
@@ -321,7 +344,6 @@ class _SettingsState extends State<Settings> {
                                       }
                                     }
                                     p.useNavidrome.value=val;
-                                    final prefs=await SharedPreferences.getInstance();
                                     prefs.setBool("useNavidrome", val);
                                   }
                                 )
@@ -338,7 +360,6 @@ class _SettingsState extends State<Settings> {
                                   value: p.removeMissing.value, 
                                   onChange: p.useNavidrome.value ? (val) async {
                                     p.removeMissing.value=val;
-                                    final prefs=await SharedPreferences.getInstance();
                                     prefs.setBool("removeMissing", val);
                                     if(p.nowPlay['playFrom']=="all" && context.mounted){
                                       PlayCheck().check(context);
@@ -365,7 +386,6 @@ class _SettingsState extends State<Settings> {
                                   value: s.wakeLockLyric.value,
                                   onChange: (val) async {
                                     s.wakeLockLyric.value=val;
-                                    final prefs=await SharedPreferences.getInstance();
                                     prefs.setBool("wakeLockLyric", val);
                                   },
                                 )
@@ -385,7 +405,6 @@ class _SettingsState extends State<Settings> {
                                   value: s.showPlaylistCover.value, 
                                   onChange: (val) async {
                                     s.showPlaylistCover.value=val;
-                                    final prefs=await SharedPreferences.getInstance();
                                     prefs.setBool("showPlaylistCover", val);
                                   }
                                 )
@@ -405,7 +424,6 @@ class _SettingsState extends State<Settings> {
                                   value: s.resizeCoverImg.value, 
                                   onChange: (val) async {
                                     s.resizeCoverImg.value=val;
-                                    final prefs=await SharedPreferences.getInstance();
                                     prefs.setBool("resizeCoverImg", val);
                                   }
                                 )

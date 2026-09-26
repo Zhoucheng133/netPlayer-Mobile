@@ -36,8 +36,8 @@ List<LanguageType> get supportedLocales => [
   LanguageType("繁體中文", const Locale("zh", "TW")),
 ];
 
-// 发布到App Store的版本禁用歌词
-const bool store=false;
+// 发布到App Store的版本
+const bool store=true;
 
 class SettingsVar extends GetxController{
 
@@ -47,6 +47,7 @@ class SettingsVar extends GetxController{
   var quality=CustomQuality().obs;
   var progressStyle=ProgressStyle.ring.obs;
   RxBool showTranslation=true.obs;
+  RxBool enableLyric=false.obs;
 
   RxBool showPlaylistCover=true.obs;
   RxBool resizeCoverImg=false.obs;

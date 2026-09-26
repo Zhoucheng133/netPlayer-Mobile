@@ -236,5 +236,7 @@ const Map<String, String> zhTW = {
   'keepScreenOnInLyricContent': '在顯示歌詞時不會自動鎖定螢幕',
 
   'empty': '沒有內容',
-  'noplaylist': '無播放歌單'
+  'noplaylist': '無播放歌單',
+  'enableLyric': '啟用歌詞',
+  'lyricLicense': "本軟體歌詞由第三方服務 LRCLIB 提供，僅用於歌詞展示。歌詞內容及相關權利歸原權利人所有，本軟體不對歌詞內容的準確性、完整性或版權問題負責。"
 };

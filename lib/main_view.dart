@@ -81,7 +81,9 @@ class _MainViewState extends State<MainView> {
       p.lyric.value=[
         LyricItem('searchingForLyrics'.tr, "", 0)
       ];
-      operations.getLyric();
+      if((s.enableLyric.value && store) || !store){
+        operations.getLyric();
+      }
     });
   }
 
@@ -251,6 +253,7 @@ class _MainViewState extends State<MainView> {
     s.wakeLockLyric.value=prefs.getBool('wakeLockLyric')??true;
     s.showPlaylistCover.value=prefs.getBool('showPlaylistCover')??true;
     s.resizeCoverImg.value=prefs.getBool('resizeCoverImg')??false;
+    s.enableLyric.value=prefs.getBool("enableLyric")??false;
     if(await loginCheck()){
       nowPlaySet();
       qualitySet();

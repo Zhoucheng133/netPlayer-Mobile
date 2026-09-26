@@ -236,5 +236,7 @@ const Map<String, String> enUS = {
   'keepScreenOnInLyricContent': "The screen will not lock automatically",
 
   'empty': 'No Content',
-  'noplaylist': 'No Playlist'
+  'noplaylist': 'No Playlist',
+  'enableLyric': 'Enable Lyric',
+  'lyricLicense': "The lyrics displayed in this software are provided by the third-party service LRCLIB and are intended for display purposes only. The lyrics and all related rights belong to their respective rights holders. This software does not take responsibility for the accuracy, completeness, or copyright of the lyrics."
 };

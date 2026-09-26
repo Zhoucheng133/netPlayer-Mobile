@@ -210,6 +210,9 @@ class Operations{
   }
 
   Future<void> getLyric() async {
+    if(p.nowPlay['id']==""){
+      return;
+    }
     lyricGet.getLyric();
   }
 

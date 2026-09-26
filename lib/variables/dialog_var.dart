@@ -297,4 +297,12 @@ class DialogVar extends GetxController{
     );
     return data;
   }
+
+  Future<bool> showLyricDialog(BuildContext context) async {
+    return await showOkCancelDialog(
+      context: context, 
+      title: "enableLyric".tr, 
+      content: "lyricLicense".tr
+    );
+  }
 }
