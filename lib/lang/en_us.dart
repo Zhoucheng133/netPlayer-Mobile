@@ -45,7 +45,7 @@ const Map<String, String> enUS = {
   'playMode': 'Play Mode',
   'lyricFontSize': 'Lyric Font Size',
   'usePreviousStorage': 'Use previous version storage',
-  'clearPasswordAndUseNavidrome': 'Clear password and useNavidrome',
+  'clearPasswordAndUseNavidrome': 'Clear password and Navidrome setting',
   'clearFinished': 'Clear Completed',
   'clearAllStorage': 'Clear All Storage',
   'clearConfig': 'Clear Configurations',
@@ -74,7 +74,7 @@ const Map<String, String> enUS = {
   'noPassword': 'Password is required',
   'urlInvalid': 'Invalid URL address',
 
-  'connectToYourMusicServer': 'Connect to your music',
+  'connectToYourMusicServer': 'Connect to your music server',
   'inputYourMusicServerInfo': 'Enter your music server information',
   'serverURL': 'Server URL',
 

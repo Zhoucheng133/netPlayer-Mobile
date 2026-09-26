@@ -196,7 +196,7 @@ const Map<String, String> deDE = {
   'allDuration': 'Gesamtdauer',
 
   'closeConnect': 'Verbindung trennen',
-  'backToConnectPage': 'Dadurch wird zur Verbundungsseite zurückgekehrt',
+  'backToConnectPage': 'Dadurch wird zur Verbindungsseite zurückgekehrt',
   'connectFailed': 'Verbindung fehlgeschlagen',
   'wsEmpty': 'WebSocket-Adresse darf nicht leer sein',
   'wsInvalid': 'Ungültige WebSocket-Adresse',

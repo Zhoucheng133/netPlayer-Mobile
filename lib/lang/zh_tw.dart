@@ -45,7 +45,7 @@ const Map<String, String> zhTW = {
   'playMode': '播放模式',
   'lyricFontSize': '歌詞大小',
   'usePreviousStorage': '使用前一版本的儲存',
-  'clearPasswordAndUseNavidrome': '清除 password 和 useNavidrome',
+  'clearPasswordAndUseNavidrome': '清除密碼和 Navidrome 設定',
   'clearFinished': '清除完成',
   'clearAllStorage': '清除所有儲存',
   'clearConfig': '清除設定',
