@@ -302,7 +302,9 @@ class DialogVar extends GetxController{
     return await showOkCancelDialog(
       context: context, 
       title: "enableLyric".tr, 
-      content: "lyricLicense".tr
+      content: "lyricLicense".tr,
+      okText: "agreeAndEnable".tr,
+      cancelText: "keepDisabled".tr
     );
   }
 }

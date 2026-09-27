@@ -238,5 +238,7 @@ const Map<String, String> frFR = {
   'empty': 'Aucun contenu',
   'noplaylist': 'Aucune liste de lecture',
   'enableLyric': 'Activer les paroles',
-  'lyricLicense': "Les paroles affichées dans ce logiciel sont fournies par le service tiers LRCLIB et sont destinées uniquement à des fins d'affichage. Les paroles et tous les droits associés appartiennent à leurs détenteurs respectifs. Ce logiciel n'assume aucune responsabilité quant à l'exactitude, l'exhaustivité ou les droits d'auteur des paroles."
+  'lyricLicense': "Les paroles affichées dans ce logiciel sont fournies par le service tiers LRCLIB et sont destinées uniquement à des fins d'affichage. Les paroles et tous les droits associés appartiennent à leurs détenteurs respectifs. Ce logiciel n'assume aucune responsabilité quant à l'exactitude, l'exhaustivité ou les droits d'auteur des paroles.",
+  'agreeAndEnable': 'Accepter et activer',
+  'keepDisabled': 'Garder désactivé'
 };

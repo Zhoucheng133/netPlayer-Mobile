@@ -238,5 +238,7 @@ const Map<String, String> esES = {
   'empty': 'Sin contenido',
   'noplaylist': 'Sin lista de reproducción',
   'enableLyric': 'Habilitar letra',
-  'lyricLicense': "Las letras mostradas en este software son proporcionadas por el servicio de terceros LRCLIB y son solo para fines de visualización. Las letras y todos los derechos relacionados pertenecen a sus respectivos propietarios. Este software no se hace responsable de la precisión, integridad o derechos de autor de las letras."
+  'lyricLicense': "Las letras mostradas en este software son proporcionadas por el servicio de terceros LRCLIB y son solo para fines de visualización. Las letras y todos los derechos relacionados pertenecen a sus respectivos propietarios. Este software no se hace responsable de la precisión, integridad o derechos de autor de las letras.",
+  'agreeAndEnable': 'Aceptar y habilitar',
+  'keepDisabled': 'Mantener deshabilitado'
 };

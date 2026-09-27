@@ -238,5 +238,7 @@ const Map<String, String> ptPT = {
   'empty': 'Sem Conteúdo',
   'noplaylist': 'Sem Lista de Reprodução',
   'enableLyric': 'Ativar Letra',
-  'lyricLicense': "As letras apresentadas neste software são fornecidas pelo serviço de terceiros LRCLIB e destinam-se apenas a fins de visualização. As letras e todos os direitos relacionados pertencem aos respetivos titulares de direitos. Este software não assume responsabilidade pela precisão, integridade ou direitos de autor das letras."
+  'lyricLicense': "As letras apresentadas neste software são fornecidas pelo serviço de terceiros LRCLIB e destinam-se apenas a fins de visualização. As letras e todos os direitos relacionados pertencem aos respetivos titulares de direitos. Este software não assume responsabilidade pela precisão, integridade ou direitos de autor das letras.",
+  'agreeAndEnable': 'Aceitar e ativar',
+  'keepDisabled': 'Manter desativado'
 };
