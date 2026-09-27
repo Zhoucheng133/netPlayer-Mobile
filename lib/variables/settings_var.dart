@@ -44,7 +44,7 @@ List<LanguageType> get supportedLocales => [
 ];
 
 // 发布到App Store的版本
-const bool store=false;
+const bool store=true;
 
 class SettingsVar extends GetxController{
 
@@ -103,6 +103,17 @@ class SettingsVar extends GetxController{
     }else{
       lang.value=supportedLocales[langIndex];
     }
+  }
+
+  Future<void> initLyric(BuildContext context) async {
+    final value=prefs.getBool("enableLyric");
+    if(store && value==null){
+      final enable=await Get.find<DialogVar>().showLyricDialog(context);
+      enableLyric.value=enable;
+      await prefs.setBool("enableLyric", enable);
+      return;
+    }
+    enableLyric.value=value??false;
   }
 
   void showLanguageDialog(BuildContext context){

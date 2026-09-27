@@ -249,11 +249,11 @@ class _MainViewState extends State<MainView> {
         });
         return;
       }
+      await s.initLyric(context);
     }
     s.wakeLockLyric.value=prefs.getBool('wakeLockLyric')??true;
     s.showPlaylistCover.value=prefs.getBool('showPlaylistCover')??true;
     s.resizeCoverImg.value=prefs.getBool('resizeCoverImg')??false;
-    s.enableLyric.value=prefs.getBool("enableLyric")??false;
     if(await loginCheck()){
       nowPlaySet();
       qualitySet();
