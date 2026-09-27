@@ -237,13 +237,14 @@ class DialogVar extends GetxController{
     required String title,
     required String content,
     String? okText,
-    String? cancelText
+    String? cancelText,
+    bool horizontal=true
   }) async {
     bool data=false;
     await showAdaptiveDialog(
       context: context, 
       builder: (BuildContext context)=>FDialog(
-        direction: Axis.horizontal,
+        direction: horizontal ? Axis.horizontal : Axis.vertical,
         title: Text(title, style: TextStyle(
           fontFamily: 'PuHui',
         ),),
@@ -300,6 +301,7 @@ class DialogVar extends GetxController{
 
   Future<bool> showLyricDialog(BuildContext context) async {
     return await showOkCancelDialog(
+      horizontal: false,
       context: context, 
       title: "enableLyric".tr, 
       content: "lyricLicense".tr,
