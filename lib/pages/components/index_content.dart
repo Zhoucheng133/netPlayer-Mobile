@@ -114,7 +114,7 @@ class _IndexContentState extends State<IndexContent> {
                   list: [
                     ActionItem(name: 'shuffleAllSongs'.tr, icon: Icons.shuffle_rounded, key: 'shuffle'),
                     ActionItem(name: 'settings'.tr, icon: Icons.settings_rounded, key: 'settings'),
-                    ActionItem(name: 'remote'.tr, icon: Icons.settings_remote, key: 'remote'),
+                    if(!store) ActionItem(name: 'remote'.tr, icon: Icons.settings_remote, key: 'remote'),
                     ActionItem(name: 'about'.tr, icon: Icons.info_rounded, key: 'about'),
                     ActionItem(name: 'logout'.tr, icon: Icons.logout_rounded, key: 'logout'),
                   ]

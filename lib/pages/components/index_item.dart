@@ -138,7 +138,7 @@ class PlayListItem extends StatefulWidget {
   final String name;
   final String id;
   final int songCount;
-  final String coverArt;
+  final String? coverArt;
   final int len;
   final String created;
   final String changed;
@@ -216,7 +216,7 @@ class _PlayListItemState extends State<PlayListItem> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Image.network(
-                    operations.coverLink(widget.coverArt),
+                    operations.coverLink(widget.coverArt??""),
                     width: 150,
                     height: 150,
                     frameBuilder:(context, child, frame, wasSynchronouslyLoaded){
@@ -396,7 +396,7 @@ class _PlayListItemState extends State<PlayListItem> {
                       children: [
                         const Center(child: SkeletonAvatar()),
                         if(u.url.value.isNotEmpty) Image.network(
-                          operations.coverLink(widget.coverArt),
+                          operations.coverLink(widget.coverArt??""),
                           fit: BoxFit.cover,
                           loadingBuilder: (context, child, loadingProgress){
                             if(loadingProgress==null){
