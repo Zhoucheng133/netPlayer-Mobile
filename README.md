@@ -18,7 +18,7 @@ Support multi-language now! You can view the English version of the README [HERE
 经过测试的平台：小米5X & iPhone13  
 若有任何bug欢迎提交至Issues
 
-如果有帮助到了你，欢迎[给我投喂](https://blog.z-server.top/sponsor/)谢谢 🙏  
+我的Apple Developer账号无法注册，正在尝试使用借用的我哥账户发布到App Store
 
 ## 目录
 - [简介](#简介)
