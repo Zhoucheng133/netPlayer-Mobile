@@ -31,6 +31,10 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Used to connect to a Subsonic or Navidrome music server on your local network.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app does not record sound; it is only used for system compatibility with audio playback-related functions.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
