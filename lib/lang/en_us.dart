@@ -74,7 +74,7 @@ const Map<String, String> enUS = {
   'noPassword': 'Password is required',
   'urlInvalid': 'Invalid URL address',
 
-  'connectToYourMusicServer': 'Connect to your music server',
+  'connectToYourMusicServer': 'Connect to your music',
   'inputYourMusicServerInfo': 'Enter your music server information',
   'serverURL': 'Server URL',
 
