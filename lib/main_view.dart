@@ -78,9 +78,11 @@ class _MainViewState extends State<MainView> {
       }
 
       await savePlay({...val});
-      p.lyric.value=[
-        LyricItem('searchingForLyrics'.tr, "", 0)
-      ];
+      if(p.nowPlay["id"]==null || p.nowPlay["id"]==""){
+        p.lyric.value=[
+          LyricItem('searchingForLyrics'.tr, "", 0)
+        ];
+      }
       if((s.enableLyric.value && store) || !store){
         operations.getLyric();
       }
@@ -125,6 +127,7 @@ class _MainViewState extends State<MainView> {
             cancelText: "downloaded".tr
           );
           if(!req){
+            s.enableLyric.value=false;
             Get.off(()=>Download(showPlayingBar: true,));
           }
         });
@@ -144,6 +147,9 @@ class _MainViewState extends State<MainView> {
     if(nowPlay!=null){
       Map<String, dynamic> decodedMap = jsonDecode(nowPlay);
       Map<String, Object> tmpList=Map<String, Object>.from(decodedMap);
+      if(tmpList['playFrom']=="download"){
+        return;
+      }
       p.nowPlay.value={...tmpList, 'list': []} as Map<String, dynamic>;
       WidgetsBinding.instance.addPostFrameCallback((_) async {
         PlayCheck().check(context);
