@@ -344,7 +344,7 @@ class _PlayingState extends State<Playing> with SingleTickerProviderStateMixin {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(10),
                                     clipBehavior: Clip.antiAlias,
-                                    child: p.nowPlay['id'].isEmpty || u.url.value.isEmpty ? EmptyCover() : p.nowPlay['playFrom']=='download' && p.cover.value!=null ? Image.memory(
+                                    child: p.nowPlay['id'].isEmpty ? EmptyCover() : p.nowPlay['playFrom']=='download' && p.cover.value!=null ? Image.memory(
                                       p.cover.value!,
                                       fit: BoxFit.contain,
                                     ) : Image.network(
