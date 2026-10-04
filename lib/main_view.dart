@@ -125,7 +125,7 @@ class _MainViewState extends State<MainView> {
             cancelText: "downloaded".tr
           );
           if(!req){
-            Get.off(()=>Download());
+            Get.off(()=>Download(showPlayingBar: true,));
           }
         });
         return false;
