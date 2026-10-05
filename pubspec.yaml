@@ -1,6 +1,7 @@
 name: netplayer_mobile
 description: netPlayer mobile version.
 publish_to: 'none'
+# Android版本发布build号为+5
 version: 2.6.3
 
 environment:
