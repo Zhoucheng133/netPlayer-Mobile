@@ -18,8 +18,6 @@ If you are looking for the desktop version, please visit the [**netPlayer Next**
 Tested on: Xiaomi 5X & iPhone 13  
 If you encounter any bugs, feel free to report them in the Issues section.
 
-I'm unable to register with my Apple Developer account, so I'm trying to publish to the App Store using my brother's borrowed account.
-
 ## Contents
 - [Intro](#intro)
 - [Tips & Tricks](#tips--tricks)

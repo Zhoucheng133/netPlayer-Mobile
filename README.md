@@ -1,6 +1,5 @@
 # netPlayer Mobile
 
-
 Support multi-language now! You can view the English version of the README [HERE](./document/en.md)
 
 ## 简介
@@ -19,8 +18,6 @@ Support multi-language now! You can view the English version of the README [HERE
 
 经过测试的平台：小米5X & iPhone13  
 若有任何bug欢迎提交至Issues
-
-我的Apple Developer账号无法注册，正在尝试使用借用的我哥账户发布到App Store
 
 ## 目录
 - [简介](#简介)
