@@ -78,7 +78,7 @@ class _MainViewState extends State<MainView> {
       }
 
       await savePlay({...val});
-      if(p.nowPlay["id"]==null || p.nowPlay["id"]==""){
+      if(p.nowPlay["id"]!=null && p.nowPlay["id"]!=""){
         p.lyric.value=[
           LyricItem('searchingForLyrics'.tr, "", 0)
         ];
