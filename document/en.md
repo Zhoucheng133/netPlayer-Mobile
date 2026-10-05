@@ -8,6 +8,8 @@
 
 **A mobile music player based on the Subsonic API**
 
+<a href="https://apps.apple.com/us/app/netplayer/id6817419441"><img src="../demo/appstore.svg" height="50" alt="Download on the App Store"/></a>
+
 [**netPlayer Next**](https://github.com/Zhoucheng133/netPlayer-Next) | **★ netPlayer Mobile**
 
 **Supports both Android and iOS devices.**  

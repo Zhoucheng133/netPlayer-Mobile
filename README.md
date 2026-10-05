@@ -11,6 +11,8 @@ Support multi-language now! You can view the English version of the README [HERE
 
 **基于Subsonic API的移动端播放器**
 
+<a href="https://apps.apple.com/us/app/netplayer/id6817419441"><img src="./demo/appstore.svg" height="50" alt="Download on the App Store"/></a>
+
 [**netPlayer Next**](https://github.com/Zhoucheng133/netPlayer-Next) | **★ netPlayer Mobile**
 
 **支持Android设备和iOS设备**，如果你要查找桌面版本，应该访问[**netPlayer Next**](https://github.com/Zhoucheng133/netPlayer-Next)仓库
