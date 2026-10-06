@@ -176,6 +176,13 @@ class _PlayingState extends State<Playing> with SingleTickerProviderStateMixin {
     }
   }
 
+  double coverSize(BuildContext){
+    if(MediaQuery.of(context).size.width<MediaQuery.of(context).size.height){
+      return MediaQuery.of(context).size.width - 150;
+    }
+    return MediaQuery.of(context).size.height - 500;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Obx(()=>
@@ -339,8 +346,8 @@ class _PlayingState extends State<Playing> with SingleTickerProviderStateMixin {
                               Hero(
                                 tag: 'cover',
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.width-150,
-                                  height: MediaQuery.of(context).size.width-150,
+                                  width: coverSize(context),
+                                  height: coverSize(context),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(10),
                                     clipBehavior: Clip.antiAlias,
@@ -358,8 +365,8 @@ class _PlayingState extends State<Playing> with SingleTickerProviderStateMixin {
                                           duration: const Duration(milliseconds: 200),
                                           child: frame != null ? child : SkeletonAvatar(
                                             style: SkeletonAvatarStyle(
-                                              width: MediaQuery.of(context).size.width - 150,
-                                              height: MediaQuery.of(context).size.width - 150,
+                                              width: coverSize(context),
+                                              height: coverSize(context),
                                             ),
                                           ),
                                         );
