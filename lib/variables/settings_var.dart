@@ -44,7 +44,7 @@ List<LanguageType> get supportedLocales => [
 ];
 
 // 发布到App Store的版本
-const bool store=false;
+bool store=false;
 
 class SettingsVar extends GetxController{
 
