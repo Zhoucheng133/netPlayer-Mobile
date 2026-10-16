@@ -80,7 +80,7 @@ class _MainAppState extends State<MainApp> {
 
   final SettingsVar s=Get.find();
   
-  bool? _isPhoneLike;
+  bool? phoneLike;
 
   @override
   void didChangeDependencies() {
@@ -91,25 +91,27 @@ class _MainAppState extends State<MainApp> {
 
     final isPhoneLike = shortestSide < 600;
 
-    if (_isPhoneLike != isPhoneLike) {
-      _isPhoneLike = isPhoneLike;
-      _applyOrientation(isPhoneLike);
+    if (phoneLike != isPhoneLike) {
+      phoneLike = isPhoneLike;
+      applyOrientation(isPhoneLike);
     }
   }
 
-  Future<void> _applyOrientation(bool isPhoneLike) async {
+  Future<void> applyOrientation(bool isPhoneLike) async {
     try{
-      await SystemChrome.setPreferredOrientations(
-        isPhoneLike ? [
+      if(phoneLike==true){
+        await SystemChrome.setPreferredOrientations([
           DeviceOrientation.portraitUp,
           DeviceOrientation.portraitDown,
-        ] : [
+        ]);
+      }else if(Platform.isAndroid){
+        await SystemChrome.setPreferredOrientations([
           DeviceOrientation.portraitUp,
           DeviceOrientation.portraitDown,
           DeviceOrientation.landscapeLeft,
-          DeviceOrientation.landscapeRight,
-        ],
-      );
+          DeviceOrientation.landscapeRight
+        ]);
+      }
     }catch(_){}
   }
 
