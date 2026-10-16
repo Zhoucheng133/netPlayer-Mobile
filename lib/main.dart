@@ -31,10 +31,6 @@ Future<void> main() async {
     store=true;
   }
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown
-  ]);
   if(Platform.isAndroid){
     if (await Permission.notification.isDenied) {
       await Permission.notification.request();
@@ -83,6 +79,39 @@ class MainTranslations extends Translations {
 class _MainAppState extends State<MainApp> {
 
   final SettingsVar s=Get.find();
+  
+  bool? _isPhoneLike;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    final size = MediaQuery.sizeOf(context);
+    final shortestSide = size.shortestSide;
+
+    final isPhoneLike = shortestSide < 600;
+
+    if (_isPhoneLike != isPhoneLike) {
+      _isPhoneLike = isPhoneLike;
+      _applyOrientation(isPhoneLike);
+    }
+  }
+
+  Future<void> _applyOrientation(bool isPhoneLike) async {
+    try{
+      await SystemChrome.setPreferredOrientations(
+        isPhoneLike ? [
+          DeviceOrientation.portraitUp,
+          DeviceOrientation.portraitDown,
+        ] : [
+          DeviceOrientation.portraitUp,
+          DeviceOrientation.portraitDown,
+          DeviceOrientation.landscapeLeft,
+          DeviceOrientation.landscapeRight,
+        ],
+      );
+    }catch(_){}
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +139,6 @@ class _MainAppState extends State<MainApp> {
         supportedLocales: supportedLocales.map((item)=>item.locale).toList(),
         fallbackLocale: supportedLocales[0].locale,
         builder: (context, child)=>FTheme(
-          // data: s.darkMode.value ? FThemes.zinc.dark : FThemes.zinc.light, 
           data: FThemeData(
             colors: s.darkMode.value ? FThemes.zinc.dark.colors : FThemes.zinc.light.colors,
             typography: FTypography(
