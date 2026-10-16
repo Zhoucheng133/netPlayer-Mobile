@@ -276,18 +276,19 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
       isSettingUrl = false;
       return;
     }
-    var tmpList=p.nowPlay.value;
-    tmpList['index']=preHandler(p.nowPlay.value['index'], p.nowPlay.value['list'].length);
-    tmpList['id']=tmpList['list'][tmpList['index']]['id'];
-    tmpList['title']=tmpList['list'][tmpList['index']]['title'];
-    tmpList['artist']=tmpList['list'][tmpList['index']]['artist'];
-    tmpList['duration']=tmpList['list'][tmpList['index']]['duration'];
-    tmpList['album']=tmpList['list'][tmpList['index']]['album'];
-    tmpList['filePath']=tmpList['list'][tmpList['index']]['filePath'] ?? '';
-    p.nowPlay.value=tmpList;
-    p.nowPlay.refresh();
-    // skipHandler=true;
-    await play(fromSkip: true);
+    try {
+      var tmpList=p.nowPlay.value;
+      tmpList['index']=preHandler(p.nowPlay.value['index'], p.nowPlay.value['list'].length);
+      tmpList['id']=tmpList['list'][tmpList['index']]['id'];
+      tmpList['title']=tmpList['list'][tmpList['index']]['title'];
+      tmpList['artist']=tmpList['list'][tmpList['index']]['artist'];
+      tmpList['duration']=tmpList['list'][tmpList['index']]['duration'];
+      tmpList['album']=tmpList['list'][tmpList['index']]['album'];
+      tmpList['filePath']=tmpList['list'][tmpList['index']]['filePath'] ?? '';
+      p.nowPlay.value=tmpList;
+      p.nowPlay.refresh();
+      await play(fromSkip: true);
+    } catch (_) {}
 
     isSettingUrl = false;
     // setMedia(true);
@@ -325,18 +326,19 @@ class Handler extends BaseAudioHandler with QueueHandler, SeekHandler {
       isSettingUrl = false;
       return;
     }
-    Map<String, dynamic> tmpList=p.nowPlay.value;
-    tmpList['index']=nextHandler(p.nowPlay.value['index'], p.nowPlay.value['list'].length);
-    tmpList['id']=tmpList['list'][tmpList['index']]['id'];
-    tmpList['title']=tmpList['list'][tmpList['index']]['title'];
-    tmpList['artist']=tmpList['list'][tmpList['index']]['artist'];
-    tmpList['duration']=tmpList['list'][tmpList['index']]['duration'];
-    tmpList['album']=tmpList['list'][tmpList['index']]['album'];
-    tmpList['filePath']=tmpList['list'][tmpList['index']]['filePath'] ?? '';
-    p.nowPlay.value=tmpList;
-    p.nowPlay.refresh();
-    // skipHandler=true;
-    await play(fromSkip: true);
+    try {
+      Map<String, dynamic> tmpList=p.nowPlay.value;
+      tmpList['index']=nextHandler(p.nowPlay.value['index'], p.nowPlay.value['list'].length);
+      tmpList['id']=tmpList['list'][tmpList['index']]['id'];
+      tmpList['title']=tmpList['list'][tmpList['index']]['title'];
+      tmpList['artist']=tmpList['list'][tmpList['index']]['artist'];
+      tmpList['duration']=tmpList['list'][tmpList['index']]['duration'];
+      tmpList['album']=tmpList['list'][tmpList['index']]['album'];
+      tmpList['filePath']=tmpList['list'][tmpList['index']]['filePath'] ?? '';
+      p.nowPlay.value=tmpList;
+      p.nowPlay.refresh();
+      await play(fromSkip: true);
+    } catch (_) {}
 
     isSettingUrl = false;
     // setMedia(true);
